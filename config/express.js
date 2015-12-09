@@ -59,13 +59,6 @@ module.exports = function(db) {
 	// Showing stack errors
 	app.set('showStackError', true);
 
-	// Set swig as the template engine
-	app.engine('server.view.html', consolidate[config.templateEngine]);
-
-	// Set views path and view engine
-	app.set('view engine', 'server.view.html');
-	app.set('views', './src/views');
-
 	// Enable logger (morgan)
 	app.use(morgan(logger.getLogFormat(), logger.getLogOptions()));
 
@@ -126,7 +119,7 @@ module.exports = function(db) {
 	app.disable('x-powered-by');
 
 	// Setting the app router and static folder
-	app.use(express.static(path.resolve('./public')));
+	app.use(express.static(path.resolve('./src/public')));
 
 	// Globbing routing files
 	config.getGlobbedFiles('./src/js/routes/**/*.js').forEach(function(routePath) {
@@ -142,17 +135,12 @@ module.exports = function(db) {
 		console.error(err.stack);
 
 		// Error page
-		res.status(500).render('500', {
-			error: err.stack
-		});
+		res.status(500).render('500.html');
 	});
 
 	// Assume 404 since no middleware responded
 	app.use(function(req, res) {
-		res.status(404).render('404', {
-			url: req.originalUrl,
-			error: 'Not Found'
-		});
+		res.status(404).render('404.html');
 	});
 
 	if (config.ssl && config.ssl.enabled) {
