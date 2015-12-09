@@ -1,0 +1,15 @@
+web:
+  build: .
+  links:
+   - mongo
+  ports:
+   - "3000:3000"
+   - "35729:35729"
+  volumes:
+   - .:/srv/node/app
+  environment:
+   NODE_ENV: development
+mongo:
+  image: mongo
+  ports:
+   - "27017:27017"
