@@ -35,5 +35,6 @@
   if (process.env.NODE_ENV === 'secure') {
     console.log(chalk.green('HTTPs:\t\t\t\ton'));
   }
+  console.log(chalk.green('Listening for connections'));
   console.log('--');
 })();

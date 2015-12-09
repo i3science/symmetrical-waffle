@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-if [[ "$1" != "grunt" ]]
+if [[ "$1" != "gulp" ]]
 then
   echo "Running $@"
   exec "$@"

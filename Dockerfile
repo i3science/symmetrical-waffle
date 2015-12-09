@@ -18,7 +18,7 @@ RUN apt-get update \
         python2.7 \
   && rm -rf /var/lib/apt/lists/* \
   && ln -s /usr/bin/python2.7 /usr/bin/python \
-  && npm install -g bower grunt grunt-cli
+  && npm install -g bower gulp
 
 COPY entrypoint.sh /sbin/entrypoint.sh
 RUN chmod 755 /sbin/entrypoint.sh
@@ -26,4 +26,4 @@ RUN chmod 755 /sbin/entrypoint.sh
 VOLUME ["${APP_DIR}"]
 EXPOSE 3000 35729
 ENTRYPOINT ["/sbin/entrypoint.sh"]
-CMD ["grunt"]
+CMD ["gulp"]
