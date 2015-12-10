@@ -105,9 +105,9 @@ gulp.task('lint', ['jslint','csslint']);
 
 // Pack javascript
 gulp.task('js', function(){
-  return gulp.src('src/js/main.js')
-      .pipe(webpack())
-      .pipe(gulp.dest('dist/main.js'))
+  return gulp.src('./src/js/main.jsx')
+      .pipe(webpack(require('./webpack.config.js')))
+      .pipe(gulp.dest('./dist'))
       .pipe(connect.reload());
 });
 
