@@ -11,6 +11,6 @@
   },
   "rules": {
     "semi": [1, "always"],
-    "quotes": [1, "double"]
+    "quotes": [1, "single"]
   }
 }

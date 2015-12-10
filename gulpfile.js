@@ -3,7 +3,7 @@
 var gulp = require('gulp'),
     connect = require('gulp-connect'),
     open = require('gulp-open'),
-    webpack = require('gulp-webpack'),
+    webpack = require('webpack-stream'),
     source = require('vinyl-source-stream'),
     concat = require('gulp-concat'),
     csslint = require('gulp-csslint'),
