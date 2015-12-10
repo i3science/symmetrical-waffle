@@ -53,7 +53,8 @@ gulp.task('start', function () {
         livereload.reload();
       }
       process.stdout.write(chunk);
-    })
+    });
+    this.stderr.pipe(process.stderr);
   });
 });
 
@@ -73,6 +74,7 @@ gulp.task('debug', ['inspect'], function(){
       }
       process.stdout.write(chunk);
     })
+    this.stderr.pipe(process.stderr);
   });
 });
 
@@ -125,7 +127,7 @@ gulp.task('html', function(){
 })
 
 // Build tasks
-gulp.task('build', ['lint','pack']);
+gulp.task('build', ['lint','js','css']);
 
 // Watch files for changes
 gulp.task('watch', function(){
