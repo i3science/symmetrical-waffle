@@ -12,5 +12,8 @@
   "rules": {
     "semi": [1, "always"],
     "quotes": [1, "single"]
+  },
+  "plugins": [
+      "react"
+    ]
   }
-}
