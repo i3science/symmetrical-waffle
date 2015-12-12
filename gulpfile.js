@@ -73,7 +73,7 @@ gulp.task('debug', ['inspect'], function(){
         livereload.reload();
       }
       process.stdout.write(chunk);
-    })
+    });
     this.stderr.pipe(process.stderr);
   });
 });
@@ -124,7 +124,7 @@ gulp.task('css', function(){
 gulp.task('html', function(){
   return gulp.src(config.watch.html)
       .pipe(connect.reload());
-})
+});
 
 // Build tasks
 gulp.task('build', ['lint','js','css']);

@@ -1,0 +1,21 @@
+h6 {
+    font-size: 1.2rem;
+}
+.container {
+    max-width: 1400px;
+}
+.card-panel {
+    position: relative;
+    margin-bottom: 30px;
+}
+.card-panel.z-depth-4 {
+    z-index: 1;
+}
+.material-icons {
+    vertical-align: middle;
+}
+@media only screen and (min-width: 993px) {
+    .container {
+        width: 90%;
+    }
+}
