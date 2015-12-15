@@ -19,7 +19,7 @@
   });
 
   // Globbing model files
-  config.getGlobbedFiles('./src/js/models/**/*.js').forEach(function(modelPath) {
+  config.getGlobbedFiles('./src/js/server/models/**/*.js').forEach(function(modelPath) {
     require(path.resolve(modelPath));
   });
 })();

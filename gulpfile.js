@@ -27,7 +27,7 @@ var config = {
       './src/public/images/*'
     ],
     dist: './dist',
-    main: './src/js/main.js'
+    main: './src/js/server/main.js'
   }
 };
 
@@ -107,7 +107,7 @@ gulp.task('lint', ['jslint','csslint']);
 
 // Pack javascript
 gulp.task('js', function(){
-  return gulp.src('./src/js/main.jsx')
+  return gulp.src('./src/js/client/main.jsx')
       .pipe(webpack(require('./webpack.config.js')))
       .pipe(gulp.dest('./dist'))
       .pipe(connect.reload());

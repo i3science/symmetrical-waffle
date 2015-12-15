@@ -1,5 +1,5 @@
 module.exports = {
-  entry: './src/js/main.jsx',
+  entry: './src/js/client/main.jsx',
   output: {
     filename: 'bundle.js',
     publicPath: '/'
@@ -8,7 +8,7 @@ module.exports = {
     loaders: [{
       test: /\.jsx?$/,
       exclude: /(node_modules|bower_components)/,
-      loader: 'babel',
+      loader: 'babel-loader',
 
       query: {
         presets: ['es2015','react']

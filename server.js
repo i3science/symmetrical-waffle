@@ -1,5 +1,8 @@
 (function(){
   'use strict';
+
+  // Set up ES6/JSX support server-side
+  require('babel-register');
   /**
    * Module dependencies.
    */

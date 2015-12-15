@@ -1,3 +1,11 @@
+import React from 'react';
+import { renderToString } from 'react-dom/server';
+import { createRoutes, match, RoutingContext } from 'react-router';
+import Routes from '../src/js/client/components/routes.jsx';
+import a from '../src/js/client/components/app';
+import createLocation from 'history/lib/createLocation';
+
+
 'use strict';
 
 /**
@@ -26,11 +34,6 @@ var fs = require('fs'),
 module.exports = function(db) {
 	// Initialize express app
 	var app = express();
-
-	// Globbing model files
-	config.getGlobbedFiles('./app/models/**/*.js').forEach(function(modelPath) {
-		require(path.resolve(modelPath));
-	});
 
 	// Setting application local variables
 	app.locals.title = config.app.title;
@@ -121,8 +124,31 @@ module.exports = function(db) {
 	// Setting the app router and static folder
 	app.use(express.static(path.resolve('./src/public')));
 
+	// Set up React-Router
+	app.use(function(req, res, next){
+		let r = createRoutes(Routes());
+		let location = createLocation(req.url);
+
+		match({ routes: r, location: location }, function(error, redirectLocation, renderProps){
+			console.log(renderProps);
+			if (error) {
+				return res.status(500).send(error.message);
+			} else if (redirectLocation) {
+				return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
+			} else if (renderProps) {
+				// let html = renderToString(<RoutingContext {...renderProps} />);
+				var fs = require('fs');
+				var contents = fs.readFileSync('./src/public/index.html').toString();
+				// contents = contents.replace('<div id="main"></div>', '<div id="main">'+html+'</div>');
+				return res.status(200).send(contents);
+			} else {
+				return res.status(404).send('Not found');
+			}
+		});
+	});
+
 	// Globbing routing files
-	config.getGlobbedFiles('./src/js/routes/**/*.js').forEach(function(routePath) {
+	config.getGlobbedFiles('./src/js/server/routes/**/*.js').forEach(function(routePath) {
 		require(path.resolve(routePath))(app);
 	});
 
