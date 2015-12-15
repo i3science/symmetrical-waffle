@@ -8,7 +8,8 @@ export default {
         dispatch({
             actionType: AppConstants.INITIALIZE,
             initialData: {
-                influencers: InfluencerApi.getAllInfluencers()
+                influencers: InfluencerApi.getAllInfluencers(),
+                influencerList: []
             }
         });
     },
@@ -21,5 +22,10 @@ export default {
         dispatch({
             actionType: AppConstants.UPDATE_USER, user
         });
+    },
+    addInfluencerToList(influencer) {
+        dispatch({
+            actionType: AppConstants.ADD_INFLUENCER_TO_LIST, influencer
+        })
     }
 };
