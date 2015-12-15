@@ -6,6 +6,7 @@ import {EventEmitter} from 'events';
 const CHANGE_EVENT = 'change';
 
 var _influencers = [];
+var _influencerList = [];
 
 const AppStore = Object.assign(EventEmitter.prototype, {
     emitChange() {
@@ -20,6 +21,9 @@ const AppStore = Object.assign(EventEmitter.prototype, {
     getAllInfluencers() {
         return _influencers;
     },
+    getSelectedInfluencers() {
+        return _influencerList;
+    },
     getInfluencerById(id) {
         return _.find(_influencers, {id:id});
     },
@@ -27,6 +31,10 @@ const AppStore = Object.assign(EventEmitter.prototype, {
         switch(action.actionType) {
             case AppConstants.INITIALIZE:
                 _influencers = action.initialData.influencers;
+                _influencerList = action.initialData.influencerList;
+                break;
+            case AppConstants.ADD_INFLUENCER_TO_LIST:
+                _influencerList.push(action.influencer);
                 break;
         }
         AppStore.emitChange();
