@@ -9,7 +9,7 @@ class SelectedInfluencers extends React.Component {
             )
         });
         return (
-            <div>
+            <div className="row">
                 {selectedInfluencers}
             </div>
         );
