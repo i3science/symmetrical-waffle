@@ -1,5 +1,4 @@
 import React from 'react';
-import { Router, Link } from 'react-router';
 // <Link to="/profile">Profile</Link>  <Link to="/search">Search</Link>
 class Header extends React.Component {
     render() {

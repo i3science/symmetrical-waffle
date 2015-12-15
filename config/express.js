@@ -130,17 +130,12 @@ module.exports = function(db) {
 		let location = createLocation(req.url);
 
 		match({ routes: r, location: location }, function(error, redirectLocation, renderProps){
-			console.log(renderProps);
 			if (error) {
 				return res.status(500).send(error.message);
 			} else if (redirectLocation) {
 				return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
 			} else if (renderProps) {
-				// let html = renderToString(<RoutingContext {...renderProps} />);
-				var fs = require('fs');
-				var contents = fs.readFileSync('./src/public/index.html').toString();
-				// contents = contents.replace('<div id="main"></div>', '<div id="main">'+html+'</div>');
-				return res.status(200).send(contents);
+				return res.status(200).send(fs.readFileSync('./src/public/index.html').toString());
 			} else {
 				return res.status(404).send('Not found');
 			}

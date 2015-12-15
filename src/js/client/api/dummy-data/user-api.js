@@ -20,8 +20,6 @@ var InfluencerApi = {
     },
 
     saveInfluencer: function(influencer) {
-        console.log('Imagine saving influencer via AJAX call...');
-
         if (influencer.id) {
             var existingInfluencerIndex = _.indexOf(influencers, _.find(influencers, {id: influencer.id}));
             influencers.splice(existingInfluencerIndex, 1, influencer);
@@ -33,7 +31,6 @@ var InfluencerApi = {
     },
 
     deleteInfluencer: function(id) {
-        console.log('Imagine deleting influencer with id of ' + id + ' via AJAX call...');
         _.remove(influencers, { id: id});
     }
 };

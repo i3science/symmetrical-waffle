@@ -2,8 +2,6 @@ import React from 'react';
 
 class Profile extends React.Component {
     render() {
-        console.log(this.props.influencer.reach);
-
         let reach = this.props.influencer.reach.map(item => {
             let icon;
             switch (item.medium) {
@@ -43,7 +41,7 @@ class Profile extends React.Component {
                         {item.value}
                     </h6>
                 </div>
-            )
+            );
         });
         return (
             <div >
