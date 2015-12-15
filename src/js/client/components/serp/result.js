@@ -3,12 +3,10 @@ import { Link } from 'react-router';
 
 class Result extends React.Component {
     render() {
-        console.log(this.props.influencers);
-
         let influencers = this.props.influencers.map(item => {
             return (
                 <div key={item.id}>
-                    <Link to={"/profile/"+item.id}>
+                    <Link to={'/profile/'+item.id}>
                         <div className="card-panel">
                             <div className="row">
                                 <div className="col s7">

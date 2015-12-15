@@ -16,7 +16,6 @@ class ProfilePage extends React.Component {
         }
     }
     render() {
-        console.log(this.state);
         return (
             <Profile
                 influencer={this.state.influencer}
