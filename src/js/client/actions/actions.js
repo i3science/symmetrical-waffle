@@ -26,6 +26,6 @@ export default {
     addInfluencerToList(influencer) {
         dispatch({
             actionType: AppConstants.ADD_INFLUENCER_TO_LIST, influencer
-        })
+        });
     }
 };

@@ -8,7 +8,7 @@ class MediaKit extends React.Component {
                     <tr key={item.name}>
                         <td>{item.name}</td><td className="right-align">{item.price}</td>
                     </tr>
-                )
+                );
             }
         });
         return (
