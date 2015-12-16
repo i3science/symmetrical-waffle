@@ -78,11 +78,20 @@ module.exports = {
                     price: ''
                 }
             ],
-            verticals: {
-                beauty: true,
-                fashion: true,
-                parenting: true
-            },
+            verticals: [
+                {
+                    name: 'beauty',
+                    vertical: true
+                },
+                {
+                    name: 'fashion',
+                    vertical: true
+                },
+                {
+                    name: 'parenting',
+                    vertical: true
+                }
+            ],
             audience: {
                 sex: 'Female',
                 language: 'English',
@@ -105,7 +114,7 @@ module.exports = {
                 age: '20 - 35',
                 married: 'Yes',
                 kids: 3,
-                kidsAges: [8, 10, 13],
+                kidsAges: '8, 10, 13',
                 country: 'Canada',
                 provinceState: 'Ontario',
                 city: 'Toronto',
@@ -118,7 +127,7 @@ module.exports = {
         },
         {
             id: 'derek-bois',
-            amplifier: true,
+            amplifier: false,
             score: 80,
             name:
             {
@@ -190,12 +199,24 @@ module.exports = {
                     price: 500
                 }
             ],
-            verticals: {
-                beauty: true,
-                fashion: false,
-                parenting: true,
-                mechanics: true
-            },
+            verticals: [
+                {
+                    name: 'beauty',
+                    vertical: true
+                },
+                {
+                    name: 'fashion',
+                    vertical: true
+                },
+                {
+                    name: 'parenting',
+                    vertical: false
+                },
+                {
+                    name: 'mechanics',
+                    vertical: true
+                }
+            ],
             audience: {
                 sex: 'Male',
                 language: 'English',
