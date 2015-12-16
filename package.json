@@ -14,8 +14,8 @@
   "dependencies": {
     "babel": "~6.3.13",
     "body-parser": "~1.14.1",
-    "browserify": "~12.0.1",
     "bower": "~1.7.0",
+    "browserify": "~12.0.1",
     "chalk": "~1.1.1",
     "compression": "~1.6.0",
     "connect-flash": "~0.1.1",
@@ -38,6 +38,7 @@
     "morgan": "~1.6.1",
     "passport": "~0.3.2",
     "passport-local": "~1.0.0",
+    "progressbar.js": "^0.9.0",
     "q": "~1.4.1",
     "react": "~0.14.3",
     "react-dom": "~0.14.3",
