@@ -9,7 +9,7 @@ import Verticals from '../profile/verticals';
 
 class Result extends React.Component {
     render() {
-        let influencers = this.props.influencers.map(item => {
+        let influencers = this.props.influencers.map((item,index) => {
             var active = {
                 color: 'yellow darken-2',
                 btn: 'add',
@@ -67,10 +67,19 @@ class Result extends React.Component {
                                     </div>
                                 </div>
                                 <div className="col s3">
-                                    <a onClick={active.onClick}
-                                       className="btn-floating btn-large waves-effect waves-light teal right calendar">
+                                    <a href={'#modal'+index}
+                                       className="btn-floating btn-large waves-effect waves-light teal right calendar modal-trigger">
                                         <i className="material-icons">perm_contact_calendar</i>
                                     </a>
+                                    <div id={'modal'+index} className="modal">
+                                        <div className="modal-content">
+                                            <h4>Modal Header</h4>
+                                            <p>A bunch of text</p>
+                                        </div>
+                                        <div className="modal-footer">
+                                            <a href="#!" className=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+                                        </div>
+                                    </div>
                                     <br />
                                     <MediaKit
                                         mediakit={item.mediaKit}
