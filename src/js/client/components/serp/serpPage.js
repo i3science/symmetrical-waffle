@@ -18,16 +18,13 @@ class Serp extends React.Component {
 
     componentWillMount() {
         AppStore.addChangeListener(this._onChange);
-        console.log('will-mount')
     }
 
     componentWillUnmount() {
         AppStore.removeChangeListener(this._onChange);
-        console.log('un-mount')
     }
 
     _onChange() {
-        console.log(this.state);
         this.setState({ selectedInfluencers: AppStore.getSelectedInfluencers()});
     }
 

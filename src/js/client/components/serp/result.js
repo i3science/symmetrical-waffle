@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router';
-import Actions from '../../actions/actions';
 import Score from '../profile/score';
 import MediaKit from '../profile/mediakit';
 import Audience from '../profile/audience';
@@ -29,7 +28,7 @@ class Result extends React.Component {
                             <div className="row" style={{marginBottom:'0'}}>
                                 <div className="col s9">
                                     <div className="row">
-                                        <Link to={"/profile/"+item.id}>
+                                        <Link to={'/profile/'+item.id}>
                                             <div className="col s3">
                                                 <img className="circle responsive-img" src={'images/' + item.id +'-profile.jpg'} />
                                             </div>
