@@ -42,7 +42,6 @@ const Person = (props) => {
             <br />
         </div>
     );
-
 };
 
 class SelectedInfluencers extends React.Component {
