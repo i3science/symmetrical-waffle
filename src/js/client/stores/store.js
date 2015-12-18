@@ -45,13 +45,13 @@ const AppStore = Object.assign(EventEmitter.prototype, {
                 _influencerList.push(action.influencer);
                 break;
             case AppConstants.ADD_FILTER:
-                _filters.push(action.filt);
+                _filters.push(action.id);
+                console.log(_filters);
                 break;
             case AppConstants.REMOVE_FILTER:
-                _.remove(_filters, function(filter) {
-                    return action.filt.id === filter.id;
-
-                });
+                console.log(action.id);
+                _.pull(_filters, action.id);
+                console.log(_filters);
                 break;
         }
         AppStore.emitChange();

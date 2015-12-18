@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 
 const CheckBox = (props) => {
     return (
@@ -9,8 +10,109 @@ const CheckBox = (props) => {
     );
 };
 
+const Verticals = (props) => {
+    return (
+        <div className="row">
+            <div className="col s3">
+                <h6 className="teal-text">Design</h6>
+                <CheckBox
+                    id="design1"
+                    label="Art & Culture"
+                    onChange={props.onChange}
+                    filters={props.filters}
+                />
+                <CheckBox
+                    id="design2"
+                    label="Fashion"
+                    onChange={props.onChange}
+                    filters={props.filters}
+                />
+                <CheckBox
+                    id="design3"
+                    label="Home Decor"
+                    onChange={props.onChange}
+                    filters={props.filters}
+                />
+            </div>
+            <div className="col s3">
+                <h6 className="teal-text">Technology</h6>
+                <CheckBox
+                    id="tech1"
+                    label="Gadgets"
+                    onChange={props.onChange}
+                    filters={props.filters}
+                />
+                <CheckBox
+                    id="tech2"
+                    label="Gaming"
+                    onChange={props.onChange}
+                    filters={props.filters}
+                />
+                <CheckBox
+                    id="tech3"
+                    label="Cars"
+                    onChange={props.onChange}
+                    filters={props.filters}
+                />
+            </div>
+            <div className="col s3">
+                <h6 className="teal-text">Life & Love</h6>
+                <CheckBox
+                    id="life1"
+                    label="Parenting"
+                    onChange={props.onChange}
+                    filters={props.filters}
+                />
+                <CheckBox
+                    id="life2"
+                    label="Travel"
+                    onChange={props.onChange}
+                    filters={props.filters}
+                />
+                <CheckBox
+                    id="life3"
+                    label="Sex & Relationships"
+                    onChange={props.onChange}
+                />
+                <CheckBox
+                    id="life4"
+                    label="Lifestyle"
+                    onChange={props.onChange}
+                />
+            </div>
+            <div className="col s3">
+                <h6 className="teal-text">Body</h6>
+                <CheckBox
+                    id="body1"
+                    label="Health"
+                    onChange={props.onChange}
+                />
+                <CheckBox
+                    id="body2"
+                    label="Beauty"
+                    onChange={props.onChange}
+                />
+                <CheckBox
+                    id="body3"
+                    label="Fitness"
+                    onChange={props.onChange}
+                />
+                <CheckBox
+                    id="body4"
+                    label="Food"
+                    onChange={props.onChange}
+                />
+            </div>
+        </div>
+    );
+};
+
 class Filters extends React.Component {
+    shouldComponentUpdate() {
+        return false;
+    }
     render() {
+        console.log('re-render');
         return (
             <div className="card-panel">
                 <h4>Search Criteria</h4>
@@ -19,93 +121,10 @@ class Filters extends React.Component {
                 <h5 className="teal-text">Personal</h5>
                 <hr />
                 <h5 className="teal-text">Verticals</h5>
-                <div className="row">
-                    <form action="#">
-                        <div className="col s3">
-                            <h6 className="teal-text">Design</h6>
-                            <CheckBox
-                                id="design1"
-                                label="Art & Culture"
-                                onChange={this.props.onChange}
-                            />
-                            <CheckBox
-                                id="design2"
-                                label="Fashion"
-                                onChange={this.props.onChange}
-                            />
-                            <CheckBox
-                                id="design3"
-                                label="Home Decor"
-                                onChange={this.props.onChange}
-                            />
-                        </div>
-                        <div className="col s3">
-                            <h6 className="teal-text">Technology</h6>
-                            <CheckBox
-                                id="tech1"
-                                label="Gadgets"
-                                onChange={this.props.onChange}
-                            />
-                            <CheckBox
-                                id="tech2"
-                                label="Gaming"
-                                onChange={this.props.onChange}
-                            />
-                            <CheckBox
-                                id="tech3"
-                                label="Cars"
-                                onChange={this.props.onChange}
-                            />
-                        </div>
-                        <div className="col s3">
-                            <h6 className="teal-text">Life & Love</h6>
-                            <CheckBox
-                                id="life1"
-                                label="Parenting"
-                                onChange={this.props.onChange}
-                            />
-                            <CheckBox
-                                id="life2"
-                                label="Travel"
-                                onChange={this.props.onChange}
-                            />
-                            <CheckBox
-                                id="life3"
-                                label="Sex & Relationships"
-                                onChange={this.props.onChange}
-                            />
-                            <CheckBox
-                                id="life4"
-                                label="Lifestyle"
-                                onChange={this.props.onChange}
-                            />
-                        </div>
-                        <div className="col s3">
-                            <h6 className="teal-text">Body</h6>
-                            <CheckBox
-                                id="body1"
-                                label="Health"
-                                onChange={this.props.onChange}
-                            />
-                            <CheckBox
-                                id="body2"
-                                label="Beauty"
-                                onChange={this.props.onChange}
-                            />
-                            <CheckBox
-                                id="body3"
-                                label="Fitness"
-                                onChange={this.props.onChange}
-                            />
-                            <CheckBox
-                                id="body4"
-                                label="Food"
-                                onChange={this.props.onChange}
-                            />
-                        </div>
-                    </form>
-                </div>
-
+                <Verticals
+                    onChange={this.props.onChange}
+                    filters={this.props.filters}
+                />
                 <button className="btn">Add</button>
             </div>
         );
