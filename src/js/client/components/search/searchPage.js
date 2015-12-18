@@ -22,25 +22,18 @@ class SearchPage extends React.Component {
     }
 
     _onChange() {
-        //console.log('store change');
         this.setState({ filters: AppStore.getAllFilters()});
     }
     addFilter(id, obj) {
         if (obj.target.type) {
-            var filt = {
-                id: id,
-                status: obj.target.checked
-            };
             if (obj.target.checked) {
-                Actions.addFilter(filt);
+                Actions.addFilter(id);
             } else {
-                Actions.removeFilter(filt);
+                Actions.removeFilter(id);
             }
         }
     }
-
     render() {
-        console.log(this.state);
         return (
             <div>
                 <Filters

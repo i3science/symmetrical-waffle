@@ -28,14 +28,14 @@ export default {
             actionType: AppConstants.ADD_INFLUENCER_TO_LIST, influencer
         });
     },
-    addFilter(filt) {
+    addFilter(id) {
         dispatch({
-            actionType: AppConstants.ADD_FILTER, filt
+            actionType: AppConstants.ADD_FILTER, id
         });
     },
-    removeFilter(filt) {
+    removeFilter(id) {
         dispatch({
-            actionType: AppConstants.REMOVE_FILTER, filt
+            actionType: AppConstants.REMOVE_FILTER, id
         });
     }
 };
