@@ -24,11 +24,11 @@ class Result extends React.Component {
             return (
                 <div key={item.id} className="row" style={{position:'relative'}}>
                     <div className="col s11">
-                        <div className="card-panel">
+                        <div className={!index ? 'card-panel z-depth-4' : 'card-panel'}>
                             <div className="row" style={{marginBottom:'0'}}>
                                 <div className="col s9">
                                     <div className="row">
-                                        <Link to={'/profile/'+item.id}>
+                                        <Link to={'/results/profile/'+item.id}>
                                             <div className="col s3">
                                                 <img className="circle responsive-img" src={'images/' + item.id +'-profile.jpg'} />
                                             </div>
@@ -57,7 +57,7 @@ class Result extends React.Component {
                                             />
                                         </div>
                                     </div>
-                                    <div className="row" style={{marginBottom:'0'}}>
+                                    <div className="row" style={{marginBottom:'0',marginTop:'20px'}}>
                                         <div className="col s12">
                                             <Reach
                                                 reach={item.reach}

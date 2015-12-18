@@ -1,12 +1,14 @@
 import _ from 'lodash';
 import AppConstants from '../constants/constants';
-import {register} from '../dispatcher/dispatcher';
-import {EventEmitter} from 'events';
+import { register } from '../dispatcher/dispatcher';
+import { EventEmitter } from 'events';
 
 const CHANGE_EVENT = 'change';
 
-var _influencers = [];
-var _influencerList = [];
+var _influencers = [],
+    _influencerList = [],
+    _filters = [],
+    _colors = ['#e65100', '#ef6c00', '#f57c00', '#fb8c00', '#ff9800', '#ffa726', '#ffb74d', '#ffcc80', '#ffe0b2', '#fff3e0'];
 
 const AppStore = Object.assign(EventEmitter.prototype, {
     emitChange() {
@@ -27,6 +29,12 @@ const AppStore = Object.assign(EventEmitter.prototype, {
     getInfluencerById(id) {
         return _.find(_influencers, {id:id});
     },
+    getColors() {
+        return _colors;
+    },
+    getAllFilters() {
+        return _filters;
+    },
     dispatcherIndex: register(function(action) {
         switch(action.actionType) {
             case AppConstants.INITIALIZE:
@@ -35,6 +43,15 @@ const AppStore = Object.assign(EventEmitter.prototype, {
                 break;
             case AppConstants.ADD_INFLUENCER_TO_LIST:
                 _influencerList.push(action.influencer);
+                break;
+            case AppConstants.ADD_FILTER:
+                _filters.push(action.filt);
+                break;
+            case AppConstants.REMOVE_FILTER:
+                _.remove(_filters, function(filter) {
+                    return action.filt.id === filter.id;
+
+                });
                 break;
         }
         AppStore.emitChange();

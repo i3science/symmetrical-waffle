@@ -1,5 +1,6 @@
 import React from 'react';
-// <Link to="/profile">Profile</Link>  <Link to="/search">Search</Link>
+import { Link } from 'react-router';
+
 class Header extends React.Component {
     render() {
         return (
@@ -11,13 +12,29 @@ class Header extends React.Component {
                         </p>
                     </div>
                 </div>
-                <div className="teal">
-                    <br/>
-                    <br/>
-                    <br/>
+                <nav className="teal">
+                    <div className="nav-wrapper container">
+                        <div className="col s12">
+                            <a href="#!" className="breadcrumb">First</a>
+                            <a href="#!" className="breadcrumb">Second</a>
+                            <a href="#!" className="breadcrumb">Third</a>
+                        </div>
+                    </div>
+                </nav>
+                <div className="white">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col s2">&nbsp;</div>
+                            <div className="col s8">
+                                <ul className="tabs">
+                                    <li className="tab col s3"><Link to="/search">SEARCH</Link></li>
+                                    <li className="tab col s3"><Link to="/projects">PROJECTS</Link></li>
+                                    <li className="tab col s3"><Link to="/search">LISTS</Link></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <br/>
-                <br/>
             </header>
         );
     }

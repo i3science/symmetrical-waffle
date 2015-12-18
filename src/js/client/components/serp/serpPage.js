@@ -4,14 +4,14 @@ import Actions from '../../actions/actions';
 import Results from './result';
 import SelectedInfluencers from './selectedInfluencers';
 
-
-
 class Serp extends React.Component {
     constructor() {
         super();
         this.state = {
             influencers: AppStore.getAllInfluencers(),
-            selectedInfluencers: AppStore.getSelectedInfluencers()
+            selectedInfluencers: AppStore.getSelectedInfluencers(),
+            exposures: 150000000,
+            colors: AppStore.getColors()
         };
         this._onChange = this._onChange.bind(this);
     }
@@ -36,14 +36,17 @@ class Serp extends React.Component {
     render() {
         return (
             <div>
+                <SelectedInfluencers
+                    selectedInfluencers={this.state.selectedInfluencers}
+                    addInfluencer={this.addInfluencerToList}
+                    colors={this.state.colors}
+                    exposures={this.state.exposures}
+                    resultNum={this.state.influencers.length}
+                />
                 <Results
                     influencers={this.state.influencers}
                     addToList={this.addToList}
                     selectedInfluencers={this.state.selectedInfluencers}
-                />
-                <SelectedInfluencers
-                    selectedInfluencers={this.state.selectedInfluencers}
-                    addInfluencer={this.addInfluencerToList}
                 />
             </div>
         );

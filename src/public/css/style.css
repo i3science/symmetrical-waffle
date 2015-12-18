@@ -7,6 +7,12 @@ td, th {
 table {
     border: 1px solid #d0d0d0;
 }
+table.search-stats {
+    border: 0;
+}
+table.search-stats td {
+    padding: 0;
+}
 .container {
     max-width: 1200px;
 }
@@ -39,6 +45,37 @@ table {
     -webkit-transform: translate(0%, -50%);
     -moz-transform: translate(0%, -50%);
     -o-transform: translate(0%, -50%);
+}
+.selected-influencers .collection {
+    border: 0;
+    text-align: right;
+}
+.selected-influencers .collection .collection-item {
+    border: 0;
+    padding: 2px 10px;
+}
+.selected-influencers .collection i.small {
+    font-size: 1.5rem;
+    margin-left: 10px;
+}
+.exposures .bar {
+    height: 50px;
+}
+.exposures.pinned {
+    position: fixed !important;
+    background: #fff;
+    z-index: 999;
+    width: 400px;
+    max-width: 95%;
+    padding: 0 20px;
+    border: 1px solid rgba(0,0,0,0.1);
+}
+.exposures.pinned h6 {
+    font-size: 1rem;
+}
+.exposures.pinned .bar {
+    height: 20px;
+    transition: .2s all ease;
 }
 
 @media only screen and (min-width: 993px) {
