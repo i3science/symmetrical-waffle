@@ -27,5 +27,15 @@ export default {
         dispatch({
             actionType: AppConstants.ADD_INFLUENCER_TO_LIST, influencer
         });
+    },
+    addFilter(filt) {
+        dispatch({
+            actionType: AppConstants.ADD_FILTER, filt
+        });
+    },
+    removeFilter(filt) {
+        dispatch({
+            actionType: AppConstants.REMOVE_FILTER, filt
+        });
     }
 };
