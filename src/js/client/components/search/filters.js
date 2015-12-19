@@ -111,7 +111,6 @@ class Filters extends React.Component {
         return false;
     }
     render() {
-        console.log('re-render');
         return (
             <div className="card-panel">
                 <h4>Search Criteria</h4>

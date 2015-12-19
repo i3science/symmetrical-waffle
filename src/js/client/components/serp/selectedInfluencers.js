@@ -47,7 +47,6 @@ const Person = (props) => {
 class SelectedInfluencers extends React.Component {
     render() {
         var pieces = [];
-        var reach = 0;
         var selectedInfluencers = this.props.selectedInfluencers.map((item,index) => {
             var numIndex = String(index);
 
@@ -55,7 +54,7 @@ class SelectedInfluencers extends React.Component {
                 numIndex = Number(numIndex.substr(numIndex.length - 1));
             }
             let val = Number();
-            reach = item.reach.map(i => {
+            item.reach.map(i => {
                 val += i.value;
             });
             pieces.push({
