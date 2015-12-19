@@ -10,7 +10,7 @@ class ProfilePage extends React.Component {
         };
     }
     componentWillMount() {
-        var influencerId = this.props.params.id ? this.props.params.id : null;
+        var influencerId = this.props.params._id ? this.props.params.id : null;
         if (influencerId) {
             this.setState({influencer: AppStore.getInfluencerById(influencerId)});
         }

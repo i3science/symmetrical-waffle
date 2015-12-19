@@ -9,6 +9,8 @@ import Verticals from '../profile/verticals';
 class Result extends React.Component {
     render() {
         let influencers = this.props.influencers.map((item,index) => {
+            item = item.data();
+            item.score = Math.floor(Math.random() * (100 - 50 + 1)) + 50;
             var active = {
                 color: 'yellow darken-2',
                 btn: 'add',
@@ -22,7 +24,7 @@ class Result extends React.Component {
                 };
             }
             return (
-                <div key={item.id} className="row" style={{position:'relative'}}>
+                <div key={item._id} className="row" style={{position:'relative'}}>
                     <div className="col s11">
                         <div className={!index ? 'card-panel z-depth-4' : 'card-panel'}>
                             <div className="row" style={{marginBottom:'0'}}>
@@ -30,7 +32,7 @@ class Result extends React.Component {
                                     <div className="row">
                                         <Link to={'/results/profile/'+item.id}>
                                             <div className="col s3">
-                                                <img className="circle responsive-img" src={'images/' + item.id +'-profile.jpg'} />
+                                                <img className="circle responsive-img" src={'images/' + item._id +'.jpg'} />
                                             </div>
                                             <div className="col s6" style={{marginTop:'5%'}}>
                                                 <h4 className="teal-text" style={{margin: 0}}>{item.name.first} {item.name.last}</h4>
@@ -41,7 +43,7 @@ class Result extends React.Component {
                                             </div>
                                             <div className="col s3">
                                                 <Score
-                                                    id={item.id}
+                                                    id={item._id}
                                                     score={item.score}
                                                     size="150"
                                                 />

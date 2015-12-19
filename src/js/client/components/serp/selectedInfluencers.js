@@ -35,7 +35,7 @@ const Graph = (props) => {
 
 const Person = (props) => {
     return (
-        <div key={props.influencer.id} className="collection-item">
+        <div key={props.influencer._id} className="collection-item">
             <Link to={'/profile/'+props.influencer.id} className="grey-text text-darken-2">{props.influencer.name.first}
                 <i className="secondary-content small material-icons" style={{color:props.color}}>account_circle</i>
             </Link>
@@ -47,7 +47,6 @@ const Person = (props) => {
 class SelectedInfluencers extends React.Component {
     render() {
         var pieces = [];
-        var reach = 0;
         var selectedInfluencers = this.props.selectedInfluencers.map((item,index) => {
             var numIndex = String(index);
 
@@ -55,7 +54,7 @@ class SelectedInfluencers extends React.Component {
                 numIndex = Number(numIndex.substr(numIndex.length - 1));
             }
             let val = Number();
-            reach = item.reach.map(i => {
+            item.reach.map(i => {
                 val += i.value;
             });
             pieces.push({

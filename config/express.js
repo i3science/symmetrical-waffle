@@ -124,6 +124,11 @@ module.exports = function(db) {
 	// Setting the app router and static folder
 	app.use(express.static(path.resolve('./src/public')));
 
+	// Globbing routing files
+	config.getGlobbedFiles('./src/js/server/routes/**/*.js').forEach(function(routePath) {
+		require(path.resolve(routePath))(app);
+	});
+
 	// Set up React-Router
 	app.use(function(req, res, next){
 		let r = createRoutes(Routes());
@@ -135,16 +140,9 @@ module.exports = function(db) {
 			} else if (redirectLocation) {
 				return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
 			} else if (renderProps) {
-				return res.status(200).send(fs.readFileSync('./src/public/index.html').toString());
-			} else {
-				return res.status(404).send('Not found');
+				return res.status(200).sendFile('index.html');
 			}
 		});
-	});
-
-	// Globbing routing files
-	config.getGlobbedFiles('./src/js/server/routes/**/*.js').forEach(function(routePath) {
-		require(path.resolve(routePath))(app);
 	});
 
 	// Assume 'not found' in the error msgs is a 404. this is somewhat silly, but valid, you can do whatever you like, set properties, use instanceof etc.
@@ -156,12 +154,12 @@ module.exports = function(db) {
 		console.error(err.stack);
 
 		// Error page
-		res.status(500).render('500.html');
+		res.status(500).sendFile('500.html');
 	});
 
 	// Assume 404 since no middleware responded
 	app.use(function(req, res) {
-		res.status(404).render('404.html');
+		res.status(404).sendFile('404.html');
 	});
 
 	if (config.ssl && config.ssl.enabled) {
