@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router';
-import Actions from '../../actions/actions';
 import Score from '../profile/score';
 import MediaKit from '../profile/mediakit';
 import Audience from '../profile/audience';
@@ -9,7 +8,9 @@ import Verticals from '../profile/verticals';
 
 class Result extends React.Component {
     render() {
-        let influencers = this.props.influencers.map(item => {
+        let influencers = this.props.influencers.map((item,index) => {
+            item = item.data();
+            item.score = Math.floor(Math.random() * (100 - 50 + 1)) + 50;
             var active = {
                 color: 'yellow darken-2',
                 btn: 'add',
@@ -23,15 +24,15 @@ class Result extends React.Component {
                 };
             }
             return (
-                <div key={item.id} className="row" style={{position:'relative'}}>
+                <div key={item._id} className="row" style={{position:'relative'}}>
                     <div className="col s11">
-                        <div className="card-panel">
+                        <div className={!index ? 'card-panel z-depth-4' : 'card-panel'}>
                             <div className="row" style={{marginBottom:'0'}}>
                                 <div className="col s9">
                                     <div className="row">
-                                        <Link to={"/profile/"+item.id}>
+                                        <Link to={'/results/profile/'+item.id}>
                                             <div className="col s3">
-                                                <img className="circle responsive-img" src={'images/' + item.id +'-profile.jpg'} />
+                                                <img className="circle responsive-img" src={'images/' + item._id +'.jpg'} />
                                             </div>
                                             <div className="col s6" style={{marginTop:'5%'}}>
                                                 <h4 className="teal-text" style={{margin: 0}}>{item.name.first} {item.name.last}</h4>
@@ -42,7 +43,7 @@ class Result extends React.Component {
                                             </div>
                                             <div className="col s3">
                                                 <Score
-                                                    id={item.id}
+                                                    id={item._id}
                                                     score={item.score}
                                                     size="150"
                                                 />
@@ -58,7 +59,7 @@ class Result extends React.Component {
                                             />
                                         </div>
                                     </div>
-                                    <div className="row" style={{marginBottom:'0'}}>
+                                    <div className="row" style={{marginBottom:'0',marginTop:'20px'}}>
                                         <div className="col s12">
                                             <Reach
                                                 reach={item.reach}
@@ -67,10 +68,19 @@ class Result extends React.Component {
                                     </div>
                                 </div>
                                 <div className="col s3">
-                                    <a onClick={active.onClick}
-                                       className="btn-floating btn-large waves-effect waves-light teal right calendar">
+                                    <a href={'#modal'+index}
+                                       className="btn-floating btn-large waves-effect waves-light teal right calendar modal-trigger">
                                         <i className="material-icons">perm_contact_calendar</i>
                                     </a>
+                                    <div id={'modal'+index} className="modal">
+                                        <div className="modal-content">
+                                            <h4>Modal Header</h4>
+                                            <p>A bunch of text</p>
+                                        </div>
+                                        <div className="modal-footer">
+                                            <a href="#!" className=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+                                        </div>
+                                    </div>
                                     <br />
                                     <MediaKit
                                         mediakit={item.mediaKit}
