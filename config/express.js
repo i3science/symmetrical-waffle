@@ -124,6 +124,11 @@ module.exports = function(db) {
 	// Setting the app router and static folder
 	app.use(express.static(path.resolve('./src/public')));
 
+	// Globbing routing files
+	config.getGlobbedFiles('./src/js/server/routes/**/*.js').forEach(function(routePath) {
+		require(path.resolve(routePath))(app);
+	});
+
 	// Set up React-Router
 	app.use(function(req, res, next){
 		let r = createRoutes(Routes());
@@ -138,11 +143,6 @@ module.exports = function(db) {
 				return res.status(200).sendFile('index.html');
 			}
 		});
-	});
-
-	// Globbing routing files
-	config.getGlobbedFiles('./src/js/server/routes/**/*.js').forEach(function(routePath) {
-		require(path.resolve(routePath))(app);
 	});
 
 	// Assume 'not found' in the error msgs is a 404. this is somewhat silly, but valid, you can do whatever you like, set properties, use instanceof etc.

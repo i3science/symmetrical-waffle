@@ -10,7 +10,7 @@ class Score extends React.Component {
         this.animate();
     }
     animate() {
-        var circle = new ProgressBar.Circle('.score.'+this.props.id, {
+        var circle = new ProgressBar.Circle('.score.a'+this.props.id, {
             color: '#b2dfdb',
             strokeWidth: 5,
             trailWidth: 5,
@@ -27,7 +27,7 @@ class Score extends React.Component {
     }
     render() {
         return (
-            <div className={'score '+this.props.id} style={{width:this.props.size+'px',height:this.props.size+'px',margin:'0 auto'}}></div>
+            <div className={'score a'+this.props.id} style={{width:this.props.size+'px',height:this.props.size+'px',margin:'0 auto'}}></div>
         );
     }
 }

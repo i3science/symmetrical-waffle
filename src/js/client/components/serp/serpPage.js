@@ -25,6 +25,7 @@ class Serp extends React.Component {
     }
 
     _onChange() {
+        this.setState({ influencers: AppStore.getAllInfluencers()});
         this.setState({ selectedInfluencers: AppStore.getSelectedInfluencers()});
     }
 

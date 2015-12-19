@@ -1,17 +1,20 @@
 import AppConstants from '../constants/constants';
 import { dispatch } from '../dispatcher/dispatcher';
-import InfluencerApi from '../api/dummy-data/user-api';
+import InfluencerService from '../services/InfluencerService';
 
-InfluencerApi.getAllInfluencers();
 export default {
     initData() {
-        dispatch({
-            actionType: AppConstants.INITIALIZE,
-            initialData: {
-                influencers: InfluencerApi.getAllInfluencers(),
-                influencerList: []
-            }
-        });
+        InfluencerService
+            .list()
+            .then(function(results){
+                dispatch({
+                    actionType: AppConstants.INITIALIZE,
+                    initialData: {
+                        influencers: results,
+                        influencerList: []
+                    }
+                });
+            });
     },
     addUser(user) {
         dispatch({

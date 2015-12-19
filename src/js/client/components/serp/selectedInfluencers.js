@@ -35,7 +35,7 @@ const Graph = (props) => {
 
 const Person = (props) => {
     return (
-        <div key={props.influencer.id} className="collection-item">
+        <div key={props.influencer._id} className="collection-item">
             <Link to={'/profile/'+props.influencer.id} className="grey-text text-darken-2">{props.influencer.name.first}
                 <i className="secondary-content small material-icons" style={{color:props.color}}>account_circle</i>
             </Link>
