@@ -140,7 +140,7 @@ module.exports = function(db) {
 			} else if (redirectLocation) {
 				return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
 			} else if (renderProps) {
-				return res.status(200).sendFile('index.html');
+				return res.status(200).sendFile(path.resolve(__dirname, '../src/public/index.html'));
 			}
 		});
 	});
@@ -154,12 +154,12 @@ module.exports = function(db) {
 		console.error(err.stack);
 
 		// Error page
-		res.status(500).sendFile('500.html');
+		res.status(500).sendFile(path.resolve(__dirname, '../src/public/500.html'));
 	});
 
 	// Assume 404 since no middleware responded
 	app.use(function(req, res) {
-		res.status(404).sendFile('404.html');
+		res.status(404).sendFile(path.resolve(__dirname, '../src/public/404.html'));
 	});
 
 	if (config.ssl && config.ssl.enabled) {
