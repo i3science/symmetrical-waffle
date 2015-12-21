@@ -111,6 +111,8 @@ class Filters extends React.Component {
         return false;
     }
     render() {
+
+        // change this.props.filters to this.props.filters.verticals
         return (
             <div className="card-panel">
                 <h4>Search Criteria</h4>

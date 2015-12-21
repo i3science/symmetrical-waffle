@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import AppStore from '../../stores/store';
 import Actions from '../../actions/actions';
 import Results from './result';
@@ -25,8 +26,10 @@ class Serp extends React.Component {
     }
 
     _onChange() {
-        this.setState({ influencers: AppStore.getAllInfluencers()});
-        this.setState({ selectedInfluencers: AppStore.getSelectedInfluencers()});
+        this.setState({
+            influencers: AppStore.getAllInfluencers(),
+            selectedInfluencers: AppStore.getSelectedInfluencers()
+        });
     }
 
     addToList(pass, event) {
@@ -35,8 +38,10 @@ class Serp extends React.Component {
     }
 
     render() {
+        console.log(this.state);
         return (
             <div>
+                <Link to="/search" className="btn">Results</Link>
                 <SelectedInfluencers
                     selectedInfluencers={this.state.selectedInfluencers}
                     addInfluencer={this.addInfluencerToList}

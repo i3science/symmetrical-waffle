@@ -2,6 +2,7 @@ import _ from 'lodash';
 import AppConstants from '../constants/constants';
 import { register } from '../dispatcher/dispatcher';
 import { EventEmitter } from 'events';
+import InfluencerService from '../services/InfluencerService';
 
 const CHANGE_EVENT = 'change';
 
@@ -46,6 +47,7 @@ const AppStore = Object.assign(EventEmitter.prototype, {
                 break;
             case AppConstants.ADD_FILTER:
                 _filters.push(action.id);
+                // filter state with updated filters
                 break;
             case AppConstants.REMOVE_FILTER:
                 _.pull(_filters, action.id);

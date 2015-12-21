@@ -7,7 +7,7 @@ const Graph = (props) => {
         selectedExposures += item.value;
         let gwidth = item.value/props.exposures*100;
         return (
-            <div key={index} style={{width:gwidth+'%',background:item.color,height:'100%',display:'inline-block'}}>
+            <div key={'bar'+index} style={{width:gwidth+'%',background:item.color,height:'100%',display:'inline-block'}}>
             </div>
         );
     });
@@ -35,7 +35,7 @@ const Graph = (props) => {
 
 const Person = (props) => {
     return (
-        <div key={props.influencer._id} className="collection-item">
+        <div className="collection-item">
             <Link to={'/profile/'+props.influencer.id} className="grey-text text-darken-2">{props.influencer.name.first}
                 <i className="secondary-content small material-icons" style={{color:props.color}}>account_circle</i>
             </Link>
@@ -62,11 +62,13 @@ class SelectedInfluencers extends React.Component {
                 value: val
             });
             return (
-                <Person
-                    key={item.id}
-                    influencer={item}
-                    color={this.props.colors[numIndex]}
-                />
+                <div key={'person'+index}>
+                    <Person
+                        influencer={item}
+                        color={this.props.colors[numIndex]}
+                    />
+                </div>
+
             );
         });
         return (

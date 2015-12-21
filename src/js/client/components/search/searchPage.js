@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import AppStore from '../../stores/store';
 import Actions from '../../actions/actions';
 import Filters from './filters';
@@ -22,7 +23,11 @@ class SearchPage extends React.Component {
     }
 
     _onChange() {
-        this.setState({ filters: AppStore.getAllFilters()});
+        console.log('change');
+        this.setState({
+            filters: AppStore.getAllFilters(),
+            influencers: AppStore.getAllInfluencers()
+        });
     }
     addFilter(id, obj) {
         if (obj.target.type) {
@@ -34,8 +39,10 @@ class SearchPage extends React.Component {
         }
     }
     render() {
+        console.log(this.state);
         return (
             <div>
+                <Link to="/results" className="btn">Results</Link>
                 <Filters
                     filters={this.state.filters}
                     influencers={this.state.influencers}
