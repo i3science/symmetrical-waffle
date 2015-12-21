@@ -4,17 +4,15 @@ import InfluencerService from '../services/InfluencerService';
 
 export default {
     initData() {
-        InfluencerService
-            .list()
-            .then(function(results){
-                dispatch({
-                    actionType: AppConstants.INITIALIZE,
-                    initialData: {
-                        influencers: results,
-                        influencerList: []
-                    }
-                });
+        InfluencerService.list().then(results => {
+            dispatch({
+                actionType: AppConstants.INITIALIZE,
+                initialData: {
+                    influencers: results,
+                    influencerList: []
+                }
             });
+        });
     },
     addUser(user) {
         dispatch({
