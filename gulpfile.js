@@ -30,6 +30,8 @@ var config = {
     main: './src/js/server/main.js'
   }
 };
+var spawn = require('child_process').spawn,
+  node;
 
 // Open the project in the default browser
 gulp.task('open', ['start'], function(){
@@ -38,16 +40,17 @@ gulp.task('open', ['start'], function(){
 });
 
 // Start local dev server
-gulp.task('start', function () {
-  nodemon({
-    exec: 'node',
-    script: 'server.js',
-    ext: 'js html',
-    ignore: ['.git/*', 'node_modules/*'],
-    env: { 'NODE_ENV': 'development' },
-    livereload: true,
-    stdout: false
-  }).on('readable', function() {
+gulp.task('start', ['build'], function () {
+  if (node) {
+    node.kill();
+  }
+  node = spawn('node', ['server.js'], {stdio: 'inherit'});
+  node.on('close', function(code){
+    if (code === 8) {
+      gulp.log('Error detected, waiting for changes...');
+    }
+  });
+  node.on('readable', function() {
     this.stdout.on('data', function(chunk) {
       if (/^Listening/.test(chunk)) {
         livereload.reload();
@@ -127,13 +130,13 @@ gulp.task('html', function(){
 });
 
 // Build tasks
-gulp.task('build', ['lint','js','css']);
+gulp.task('build', ['lint','js','css', 'html']);
 
 // Watch files for changes
 gulp.task('watch', function(){
   livereload.listen();
-  gulp.watch(config.watch.html, ['html']);
-  gulp.watch(config.watch.js, ['js', 'lint']);
+  gulp.watch(config.watch.html, ['start']);
+  gulp.watch(config.watch.js, ['start']);
 });
 
 // Default task
