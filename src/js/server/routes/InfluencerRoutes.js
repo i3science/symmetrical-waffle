@@ -1,13 +1,13 @@
 import influencerController  from '../controllers/InfluencerController';
-import userController from '../controllers/UserController';
+import authenticationController from '../controllers/AuthenticationController';
 
 module.exports = function(app) {
     app.route('/api/influencers')
-        .get(userController.requiresLogin, influencerController.list)
-        .post(userController.requiresLogin, influencerController.create);
+        .get(authenticationController.hasRole(['organizer','client']), influencerController.list)
+        .post(authenticationController.hasRole(['organizer','client']), influencerController.create);
     app.route('/api/influencer/:influencerId')
-        .get(userController.requiresLogin, influencerController.find)
-        .put(userController.requiresLogin, influencerController.update)
-        .delete(userController.requiresLogin, influencerController.delete);
+        .get(authenticationController.hasRole(['organizer','client']), influencerController.find)
+        .put(authenticationController.hasRole(['organizer']), influencerController.update)
+        .delete(authenticationController.hasRole(['organizer']), influencerController.delete);
     app.param('influencerId', influencerController.find);
 };

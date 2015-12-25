@@ -9,7 +9,6 @@ import Verticals from '../profile/verticals';
 class Result extends React.Component {
     render() {
         let influencers = this.props.influencers.map((item,index) => {
-            item = item.data();
             item.score = Math.floor(Math.random() * (100 - 50 + 1)) + 50;
             var active = {
                 color: 'yellow darken-2',

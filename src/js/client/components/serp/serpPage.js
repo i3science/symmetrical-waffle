@@ -38,7 +38,6 @@ class Serp extends React.Component {
     }
 
     render() {
-        console.log(this.state);
         return (
             <div>
                 <Link to="/search" className="btn">Results</Link>

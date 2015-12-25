@@ -23,7 +23,6 @@ class SearchPage extends React.Component {
     }
 
     _onChange() {
-        console.log('change');
         this.setState({
             filters: AppStore.getAllFilters(),
             influencers: AppStore.getAllInfluencers()
@@ -39,7 +38,6 @@ class SearchPage extends React.Component {
         }
     }
     render() {
-        console.log(this.state);
         return (
             <div>
                 <Link to="/results" className="btn">Results</Link>

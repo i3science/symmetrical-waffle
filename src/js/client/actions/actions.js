@@ -1,10 +1,10 @@
 import AppConstants from '../constants/constants';
 import { dispatch } from '../dispatcher/dispatcher';
-import InfluencerService from '../services/InfluencerService';
+import influencerService from '../services/InfluencerService';
 
 export default {
     initData() {
-        InfluencerService.list().then(results => {
+        influencerService.list().then(results => {
             dispatch({
                 actionType: AppConstants.INITIALIZE,
                 initialData: {
