@@ -1,3 +1,5 @@
+import userService from '../services/UserService';
+
 class UserController {
 
     list() {
@@ -5,6 +7,18 @@ class UserController {
     }
     find() {
 
+    }
+    userById(req, res, next, id) {
+        return userService
+            .findOne({_id:id})
+            .then(function(user){
+                return res.jsonp(user);
+            })
+            .fail(function(){
+                return res.status(400).send({
+                    message: 'An error occurred'
+                });
+            });
     }
     create() {
 

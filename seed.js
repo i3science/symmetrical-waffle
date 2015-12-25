@@ -8,6 +8,7 @@ var init = require('./config/init')(),
     db = require('./config/mongoose'),
     mongoose = require('mongoose'),
     influencerService = require('./src/js/server/services/InfluencerService.js').default,
+    userService = require('./src/js/server/services/UserService.js').default,
     async = require('async'),
     chalk = require('chalk'),
     Q = require('q'),
@@ -42,6 +43,9 @@ dropCollections(function(){
 	require('./seed/influencers.js').forEach(function(influencer){
 		waiting.push(influencerService.create(influencer));
 	});
+    require('./seed/users.js').forEach(function(user){
+        waiting.push(userService.create(user));
+    });
 
 	Q
 		.all(waiting)

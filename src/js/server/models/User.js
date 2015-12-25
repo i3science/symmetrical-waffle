@@ -25,33 +25,15 @@ var validateLocalStrategyPassword = function (password) {
  * User Schema
  */
 var UserSchema = new Schema({
-  _id: {
-    type: String,
-    index: true
-  },
-  firstName: {
-    type: String,
-    trim: true,
-    default: '',
-    validate: [validateLocalStrategyProperty, 'Please fill in first name']
-  },
-  lastName: {
-    type: String,
-    trim: true,
-    default: '',
-    validate: [validateLocalStrategyProperty, 'Please fill in last name']
-  },
-  active: {
-    type: Boolean,
-    default: true
-  },
-  displayName: {
-    type: String,
-    trim: true
-  },
-  idle: {
-    type: Boolean,
-    default: false
+  name: {
+    first: {
+      type: String,
+      validate: [validateLocalStrategyProperty, 'Please fill in first name']
+    },
+    last: {
+      type: String,
+      validate: [validateLocalStrategyProperty, 'Please fill in last name']
+    }
   },
   email: {
     type: String,
@@ -60,44 +42,53 @@ var UserSchema = new Schema({
     trim: true,
     required: [/.+\@.+\..+/, 'Please fill a valid email address']
   },
-  username: {
-    type: String,
-    sparse: true,
-    unique: true,
-    trim: true
+  salt: {
+    type: String
   },
   password: {
     type: String,
     default: '',
     validate: [validateLocalStrategyPassword, 'Password should be longer']
   },
-  salt: {
-    type: String
+  // provider: {
+  //   type: String,
+  //   required: 'Provider is required'
+  // },
+  // providerData: {},
+  // additionalProvidersData: {},
+
+  passwordResetToken: {
+    id: String,
+    expires: Date
   },
-  provider: {
+  roles: [String],
+  active: {
+    type: Boolean,
+    default: true
+  },
+
+  language: {
     type: String,
-    required: 'Provider is required'
+    default: 'en_CA'
   },
-  providerData: {},
-  additionalProvidersData: {},
-  updated: {
-    type: Date,
-    default: Date.now
-  },
+  settings: {},
+
+  // Immediately available auditing information
   created: {
     type: Date,
     default: Date.now
   },
-  /* For reset password */
-  resetPasswordToken: {
-    type: String
-  },
-  resetPasswordExpires: {
-    type: Date
-  },
-  language: {
+  createdBy: {
     type: String,
-    default: 'en_CA'
+    ref: 'User'
+  },
+  updated: {
+    type: Date,
+    default: Date.now
+  },
+  updatedBy: {
+    type: String,
+    ref: 'User'
   }
 },
 { collection : 'users', discriminatorKey : '_type' });

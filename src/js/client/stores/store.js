@@ -2,7 +2,6 @@ import _ from 'lodash';
 import AppConstants from '../constants/constants';
 import { register } from '../dispatcher/dispatcher';
 import { EventEmitter } from 'events';
-import InfluencerService from '../services/InfluencerService';
 
 const CHANGE_EVENT = 'change';
 
