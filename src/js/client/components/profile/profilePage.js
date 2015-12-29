@@ -1,5 +1,5 @@
 import React from 'react';
-import AppStore from '../../stores/store';
+import AppStore from '../../stores/UiStore';
 import Profile from './profile';
 
 class ProfilePage extends React.Component {

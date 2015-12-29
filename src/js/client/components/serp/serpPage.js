@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
-import AppStore from '../../stores/store';
-import Actions from '../../actions/actions';
+import AppStore from '../../stores/UiStore';
+import Actions from '../../actions/UiActions';
 import Results from './result';
 import SelectedInfluencers from './selectedInfluencers';
 
