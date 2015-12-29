@@ -1,5 +1,7 @@
 import React from 'react';
+import AppStore from '../stores/uistore'
 import { Link } from 'react-router';
+import Breadcrumbs from './breadcrumbs';
 
 class Header extends React.Component {
     render() {
@@ -15,9 +17,9 @@ class Header extends React.Component {
                 <nav className="teal">
                     <div className="nav-wrapper container">
                         <div className="col s12">
-                            <a href="#!" className="breadcrumb">First</a>
-                            <a href="#!" className="breadcrumb">Second</a>
-                            <a href="#!" className="breadcrumb">Third</a>
+                            <Breadcrumbs
+                                path={this.props.path}
+                            />
                         </div>
                     </div>
                 </nav>

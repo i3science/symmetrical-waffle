@@ -7,10 +7,11 @@ class Login extends React.Component {
     onSubmit(ev) {
         ev.preventDefault();
 
-        let form = new FormData(document.getElementById('login_form'));
+        //let form = new FormData(document.getElementById('login_form'));
         authenticationService.signin(
-            form.get('email'),
-            form.get('password'))
+            //form.get('email'),
+            //form.get('password'))
+            'admin@smt.com', 'admin123')
             .then(function(jwt){
                 // We trigger the LoginAction with that JWT.
                 authenticationActions.userAuthenticated(jwt);

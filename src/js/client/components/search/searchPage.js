@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
-import AppStore from '../../stores/store';
-import Actions from '../../actions/actions';
+import AppStore from '../../stores/UiStore';
+import Actions from '../../actions/UiActions';
 import Filters from './filters';
 
 class SearchPage extends React.Component {
@@ -40,7 +40,7 @@ class SearchPage extends React.Component {
     render() {
         return (
             <div>
-                <Link to="/results" className="btn">Results</Link>
+                <Link to="/search/results" className="btn">Results</Link>
                 <Filters
                     filters={this.state.filters}
                     influencers={this.state.influencers}
