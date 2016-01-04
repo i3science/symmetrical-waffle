@@ -1,7 +1,7 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 import { Route, IndexRoute } from 'react-router';
 import Template from './template';
-import Full from './fullscreen';
+import Full from './FullScreen';
 import SearchPage from './search/searchPage';
 import Serp from './serp/serpPage';
 import Profile from './profile/profilePage';

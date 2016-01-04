@@ -6,7 +6,7 @@ window.fetch = function() {
         .then(function(response){
             if (response.status == 401) {
                 authenticationActions.requireAuthentication();
-                return null;
+                throw new Error('Unauthorized');
             }
             return response;
         });
