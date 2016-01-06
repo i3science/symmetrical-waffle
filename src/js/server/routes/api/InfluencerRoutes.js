@@ -1,5 +1,5 @@
-import influencerController  from '../controllers/InfluencerController';
-import authenticationController from '../controllers/AuthenticationController';
+import influencerController  from '../../controllers/InfluencerController';
+import authenticationController from '../../controllers/AuthenticationController';
 
 module.exports = function(app) {
     app.route('/api/influencers')
