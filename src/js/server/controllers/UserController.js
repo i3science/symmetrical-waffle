@@ -8,6 +8,9 @@ class UserController {
     find() {
 
     }
+    getCurrentUser(req, res) {
+        return res.json(req.user);
+    }
     userById(req, res, next, id) {
         return userService
             .findOne({_id:id})

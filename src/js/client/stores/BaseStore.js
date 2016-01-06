@@ -5,10 +5,10 @@ class BaseStore extends EventEmitter {
 
     constructor() {
         super();
-    }
-
-    subscribe(actionSubscribe) {
-        this._dispatchToken = register(actionSubscribe);
+        if (this._listener) {
+            this._listener = this._listener.bind(this);
+            this._dispatchToken = register(this._listener);
+        }
     }
 
     get dispatchToken() {

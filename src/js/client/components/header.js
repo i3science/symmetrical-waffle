@@ -1,16 +1,36 @@
 import React from 'react';
-import AppStore from '../stores/UiStore'
 import { Link } from 'react-router';
 import Breadcrumbs from './breadcrumbs';
+import authenticationStore from '../stores/AuthenticationStore';
 
 class Header extends React.Component {
+    constructor() {
+        super();
+        this.state = {};
+        this._onChange = this._onChange.bind(this);
+    }
+
+    componentWillMount() {
+        authenticationStore.addChangeListener(this._onChange);
+    }
+
+    componentWillUnmount() {
+        authenticationStore.removeChangeListener(this._onChange);
+    }
+
+    _onChange() {
+        this.setState({
+            user: authenticationStore.user
+        });
+    }
+
     render() {
         return (
             <header className="z-depth-1" >
                 <div className="white-text teal darken-2">
                     <div className="container valign-wrapper" style={{height:'40px'}}>
                         <p className="right-align valign" style={{width:'95%',margin:'0 auto'}}>
-                            Your Name
+                            {this.state.user ? this.state.user.name.first + ' ' + this.state.user.name.last : 'Your Name'}
                         </p>
                     </div>
                 </div>

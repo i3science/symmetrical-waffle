@@ -1,22 +1,32 @@
 import BaseStore from './BaseStore';
 import AuthenticationConstants from '../constants/authentication';
+import AppConstants from '../constants/constants';
+import userService from '../services/UserService';
+import { register } from '../dispatcher/dispatcher';
 
 class AuthenticationStore extends BaseStore {
 
     constructor() {
         super();
-        // Register with the dispatcher so that we can list for actions
-        this.subscribe(this.actionListener);
         this._user = null;
         this._jwt = null;
         this._redirectLocation = null;
     }
 
-    actionListener(action) {
+    _listener(action) {
         if (!action) {
             return;
         }
+        var self = this;
         switch(action.actionType) {
+            case AppConstants.INITIALIZE:
+                userService
+                    .getCurrentUser()
+                    .then(function(user){
+                        self._user = user;
+                        self.emitChange();
+                    });
+                break;
             case AuthenticationConstants.REQUIRE_AUTHENTICATION:
                 this._redirectLocation = action.redirectLocation;
                 this.emitChange();
