@@ -5,14 +5,12 @@ class AuthenticationStore extends BaseStore {
 
     constructor() {
         super();
-        // Register with the dispatcher so that we can list for actions
-        this.subscribe(this.actionListener);
         this._user = null;
         this._jwt = null;
         this._redirectLocation = null;
     }
 
-    actionListener(action) {
+    _listener(action) {
         if (!action) {
             return;
         }
