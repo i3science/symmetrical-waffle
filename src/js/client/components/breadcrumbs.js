@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; // eslint-disable-line no-unused-vars
 
 const Breadcrumbs = (props) => {
     let paths = (props.path).split('/');

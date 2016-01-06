@@ -1,5 +1,5 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
-import Footer from './footer'
+import Footer from './footer';
 
 export default (props) => {
     return (

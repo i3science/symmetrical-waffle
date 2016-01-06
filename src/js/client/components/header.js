@@ -1,5 +1,4 @@
 import React from 'react';
-import AppStore from '../stores/UiStore'
 import { Link } from 'react-router';
 import Breadcrumbs from './breadcrumbs';
 
