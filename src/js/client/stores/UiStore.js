@@ -7,8 +7,20 @@ const CHANGE_EVENT = 'change';
 
 var _influencers = [],
     _influencerList = [],
+    _resultsList = [],
     _filters = [],
-    _colors = ['#e65100', '#ef6c00', '#f57c00', '#fb8c00', '#ff9800', '#ffa726', '#ffb74d', '#ffcc80', '#ffe0b2', '#fff3e0'];
+    _colors = [
+        '#546E7B',
+        '#F5511E',
+        '#FDD832',
+        '#43A149',
+        '#01897B',
+        '#D81A60',
+        '#9123AA',
+        '#ffcc80',
+        '#ffe0b2',
+        '#fff3e0'
+    ];
 
 const AppStore = Object.assign(EventEmitter.prototype, {
     emitChange() {
@@ -22,6 +34,9 @@ const AppStore = Object.assign(EventEmitter.prototype, {
     },
     getAllInfluencers() {
         return _influencers;
+    },
+    getResults() {
+        return _resultsList;
     },
     getSelectedInfluencers() {
         return _influencerList;
@@ -43,6 +58,10 @@ const AppStore = Object.assign(EventEmitter.prototype, {
                 break;
             case AppConstants.ADD_INFLUENCER_TO_LIST:
                 _influencerList.push(action.influencer);
+                break;
+            case AppConstants.INFLUENCER_RESULTS:
+                //console.log(action);
+                _resultsList = action.influencers;
                 break;
             case AppConstants.ADD_FILTER:
                 _filters.push(action.id);

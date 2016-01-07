@@ -15,22 +15,19 @@ const Verticals = (props) => {
             <div className="col s3">
                 <h6 className="teal-text">Design</h6>
                 <CheckBox
-                    id="design1"
+                    id="beauty"
                     label="Art & Culture"
                     onChange={props.onChange}
-                    filters={props.filters}
                 />
                 <CheckBox
-                    id="design2"
+                    id="fashion"
                     label="Fashion"
                     onChange={props.onChange}
-                    filters={props.filters}
                 />
                 <CheckBox
-                    id="design3"
+                    id="mechanics"
                     label="Home Decor"
                     onChange={props.onChange}
-                    filters={props.filters}
                 />
             </div>
             <div className="col s3">
@@ -39,19 +36,16 @@ const Verticals = (props) => {
                     id="tech1"
                     label="Gadgets"
                     onChange={props.onChange}
-                    filters={props.filters}
                 />
                 <CheckBox
                     id="tech2"
                     label="Gaming"
                     onChange={props.onChange}
-                    filters={props.filters}
                 />
                 <CheckBox
                     id="tech3"
                     label="Cars"
                     onChange={props.onChange}
-                    filters={props.filters}
                 />
             </div>
             <div className="col s3">
@@ -60,13 +54,11 @@ const Verticals = (props) => {
                     id="life1"
                     label="Parenting"
                     onChange={props.onChange}
-                    filters={props.filters}
                 />
                 <CheckBox
                     id="life2"
                     label="Travel"
                     onChange={props.onChange}
-                    filters={props.filters}
                 />
                 <CheckBox
                     id="life3"
@@ -121,10 +113,11 @@ class Filters extends React.Component {
                 <h5 className="teal-text">Personal</h5>
                 <hr />
                 <h5 className="teal-text">Verticals</h5>
+
                 <Verticals
                     onChange={this.props.onChange}
-                    filters={this.props.filters}
                 />
+
                 <button className="btn">Add</button>
             </div>
         );

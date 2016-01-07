@@ -6,7 +6,7 @@ class InfluencerService {
             credentials: 'same-origin'
         })
             .then(function(response){
-                return response;
+                return response.json();
             });
     }
 }

@@ -3,15 +3,18 @@ import { Link } from 'react-router';
 import AppStore from '../../stores/UiStore';
 import Actions from '../../actions/UiActions';
 import Filters from './filters';
+import _ from 'lodash';
 
 class SearchPage extends React.Component {
     constructor() {
         super();
         this.state = {
             influencers: AppStore.getAllInfluencers(),
-            filters: AppStore.getAllFilters()
+            filters: AppStore.getAllFilters(),
+            results: AppStore.getResults()
         };
         this._onChange = this._onChange.bind(this);
+        this.addFilter = this.addFilter.bind(this);
     }
 
     componentWillMount() {
@@ -25,16 +28,21 @@ class SearchPage extends React.Component {
     _onChange() {
         this.setState({
             filters: AppStore.getAllFilters(),
-            influencers: AppStore.getAllInfluencers()
+            influencers: AppStore.getAllInfluencers(),
+            results: AppStore.getResults()
         });
     }
     addFilter(id, obj) {
-        if (obj.target.type) {
+        if (obj.target.type === 'checkbox') {
             if (obj.target.checked) {
                 Actions.addFilter(id);
             } else {
                 Actions.removeFilter(id);
             }
+        }
+        if (this.state.filters) {
+            this.state.results = _.filter(this.state.influencers, 'verticals', this.state.filters);
+            Actions.updateResults(this.state.results);
         }
     }
     render() {
