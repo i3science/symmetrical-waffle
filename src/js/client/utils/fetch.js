@@ -3,7 +3,7 @@ var old_fetch = window.fetch;
 
 window.fetch = function() {
     let args = Array.prototype.slice.call(arguments);
-    if (typeof args[1] === 'undefined' || typeof args[1] === null) {
+    if (typeof args[1] === 'undefined' || args[1] === null) {
         args[1] = {
             credentials: 'same-origin'
         };
