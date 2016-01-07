@@ -29,6 +29,11 @@ export default {
             actionType: AppConstants.ADD_INFLUENCER_TO_LIST, influencer
         });
     },
+    updateResults(influencers) {
+        dispatch({
+            actionType: AppConstants.INFLUENCER_RESULTS, influencers
+        });
+    },
     addFilter(id) {
         dispatch({
             actionType: AppConstants.ADD_FILTER, id

@@ -31,7 +31,7 @@ class Result extends React.Component {
                                     <div className="row">
                                         <Link to={'/results/profile/'+item.id}>
                                             <div className="col s3">
-                                                <img className="circle responsive-img" src={'images/' + item._id +'.jpg'} />
+                                                <img className="circle responsive-img" src={'/images/' + item._id +'.jpg'} />
                                             </div>
                                             <div className="col s6" style={{marginTop:'5%'}}>
                                                 <h4 className="teal-text" style={{margin: 0}}>{item.name.first} {item.name.last}</h4>
