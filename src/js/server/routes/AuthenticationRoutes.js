@@ -6,5 +6,5 @@ module.exports = function(app) {
 	app.route('/auth/signin').post(authenticationController.signin);
 	app.route('/auth/signout').get(authenticationController.signout);
 
-	app.param('userId', userController.userById);
+	app.param('userId', userController.findById);
 };

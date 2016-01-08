@@ -10,6 +10,25 @@ class UserService {
     getCurrentUser() {
         return fetch('/api/users/me');
     }
+    create(user) {
+        return fetch('/api/users/', {
+            method: 'post',
+            body: user
+        });
+    }
+    update(user) {
+        return fetch('/api/users/'+user._id, {
+            method: 'put',
+            body: JSON.stringify(user),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        });
+    }
+    save(user) {
+        return user._id ? this.update(user) : this.create(user);
+    }
 }
 
 export default new UserService();

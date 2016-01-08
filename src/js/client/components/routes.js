@@ -7,6 +7,8 @@ import Serp from './serp/serpPage';
 import Profile from './profile/profilePage';
 import Login from './login';
 import Projects from './projects/projectPage';
+import Preferences from './preferences/preferences';
+import AccountEdit from './account/edit';
 
 export default (
 		<div>
@@ -17,6 +19,11 @@ export default (
 				<Route path="search" component={SearchPage} />
 				<Route path="search/results" component={Serp} />
 				<Route path="search/results/profile/:id" component={Profile} />
+				<Route path="prefs" component={Preferences}>
+					<Route path="account/:id">
+						<Route path="edit" component={AccountEdit} />
+					</Route>
+				</Route>
 			</Route>
 			<Route path="login" component={Full}>
 				<IndexRoute component={Login} />

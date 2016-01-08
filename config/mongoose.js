@@ -6,7 +6,8 @@
       chalk = require('chalk'),
       path = require('path'),
       mongoose = require('mongoose'),
-      Q = require('q');
+      Q = require('q'),
+      _ = require('lodash');
 
   // Connect to Mongo DB
   module.exports = mongoose.connect(process.env.MONGO_URL || config.db.uri, config.db.options, function(err) {
@@ -50,5 +51,25 @@
           throw err;
         }
       })
+  };
+
+  /**
+   * Return Q promises from mongoose save
+   */
+  mongoose.Document.prototype.savePromise = function() {
+    var self = this;
+    var isNew = self.isNew;
+    var original = _.clone(self._orig);
+    var opts = arguments[0] || {};
+    var omitEvent = opts.omitEvent;
+    delete opts.omitEvent;
+    return Q.Promise(function(resolve, reject){
+      self.save(opts, function(err, item, numberAffected){
+        if (err) {
+          return reject(err);
+        }
+        resolve([item, numberAffected]);
+      });
+    });
   };
 })();
