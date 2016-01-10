@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import AppStore from '../../stores/UiStore';
+import influencerStore from '../../stores/InfluencerStore';
 import Actions from '../../actions/UiActions';
 
 /*
@@ -74,7 +74,7 @@ class Serp extends React.Component {
 
         super();
         this.state = {
-            //projectResults: AppStore.getAllInfluencers()
+            //projectResults: influencerStore.getInfluencers()
             projectResults: [
                 project,
                 project,
@@ -92,16 +92,16 @@ class Serp extends React.Component {
     }
 
     componentWillMount() {
-        AppStore.addChangeListener(this._onChange);
+        influencerStore.addChangeListener(this._onChange);
     }
 
     componentWillUnmount() {
-        AppStore.removeChangeListener(this._onChange);
+        influencerStore.removeChangeListener(this._onChange);
     }
 
     _onChange() {
         this.setState({
-            projects: AppStore.getAllInfluencers()
+            projects: influencerStore.getInfluencers()
         });
     }
 

@@ -20,7 +20,8 @@ class UserController {
             .fail(ErrorUtils.failureHandler());
     }
     /**
-     * 
+     * Retrieve the currently logged in user, or the user identified by the
+     * userId request parameter.
      */
     read(req, res) {
         return res.json(req.user);

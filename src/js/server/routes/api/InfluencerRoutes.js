@@ -6,8 +6,8 @@ module.exports = function(app) {
         .get(authenticationController.hasRole(['organizer','client']), influencerController.list)
         .post(authenticationController.hasRole(['organizer','client']), influencerController.create);
     app.route('/api/influencer/:influencerId')
-        .get(authenticationController.hasRole(['organizer','client']), influencerController.find)
+        .get(authenticationController.hasRole(['organizer','client']), influencerController.read)
         .put(authenticationController.hasRole(['organizer']), influencerController.update)
         .delete(authenticationController.hasRole(['organizer']), influencerController.delete);
-    app.param('influencerId', influencerController.find);
+    app.param('influencerId', influencerController.findById);
 };

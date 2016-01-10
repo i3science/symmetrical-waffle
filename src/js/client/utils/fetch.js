@@ -7,6 +7,9 @@ window.fetch = function() {
     args[1].credentials = 'same-origin';
     return old_fetch.apply(window, args)
         .then(function(response){
+            if (response.status == 201 || response.status == 204) {
+                return true;
+            }
             if (response.status == 401) {
                 authenticationActions.requireAuthentication();
                 throw new Error('Unauthorized');

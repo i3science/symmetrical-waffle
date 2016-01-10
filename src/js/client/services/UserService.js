@@ -13,7 +13,11 @@ class UserService {
     create(user) {
         return fetch('/api/users/', {
             method: 'post',
-            body: user
+            body: JSON.stringify(user),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
         });
     }
     update(user) {

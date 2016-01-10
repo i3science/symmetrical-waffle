@@ -1,4 +1,5 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
+import { Link } from 'react-router';
 
 export default (props) => {
     return (
@@ -6,9 +7,9 @@ export default (props) => {
             <div className="col s3">
                 <h3>Preferences</h3>
                 <ul>
-                    <a href="#">My Account</a>
-                    <a href="#">Influencers</a>
-                    <a href="#">Clients</a>
+                    <Link to="/prefs/accounts/me">My Account</Link>
+                    <Link to="/prefs/influencers">Influencers</Link>
+                    <Link to="/prefs/clients">Clients</Link>
                 </ul>
             </div>
             <div className="col s9">

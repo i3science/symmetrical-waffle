@@ -2,6 +2,10 @@ import _ from 'lodash';
 import mongoose from 'mongoose';
 let User = mongoose.model('User');
 
+/**
+ * The UserService is responsible for persisting and retrieving information to
+ * and from the underlying datastore in a consistent manner.
+ */
 class UserService {
     /**
      * Retrieve zero or more users that match the given options.
@@ -32,7 +36,8 @@ class UserService {
      * @param user The representation of the user to persist
      */
     create(user) {
-        return user.save();
+        user = new User(user);
+        return user.savePromise();
     }
 
     /**

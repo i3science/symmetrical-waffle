@@ -9,7 +9,7 @@ export default {
                 actionType: AppConstants.INITIALIZE,
                 initialData: {
                     influencers: results,
-                    influencerList: []
+                    selectedInfluencers: []
                 }
             });
         });

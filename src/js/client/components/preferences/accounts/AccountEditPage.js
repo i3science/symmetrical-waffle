@@ -1,9 +1,9 @@
 import React from 'react';
-import userService from '../../services/UserService';
+import userService from '../../../services/UserService';
 import Loader from 'react-loader';
-import Input from '../elements/input.js';
+import Input from '../../elements/input.js';
 
-class AccountEdit extends React.Component {
+class AccountEditPage extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -16,12 +16,16 @@ class AccountEdit extends React.Component {
                 email: ''
             }
         };
+        this._onSubmit = this._onSubmit.bind(this);
     }
+
     componentWillMount() {
+        this.service = this.props.route.service || userService;
         if (this.props.params.id) {
             var self = this;
             this.setState({ loaded: false });
-            userService
+
+            this.service
                 .find(this.props.params.id)
                 .then(function(user){
                     self.setState({ loaded: true, user: user });
@@ -31,10 +35,10 @@ class AccountEdit extends React.Component {
 
     _onSubmit(ev) {
         ev.preventDefault();
-        userService
+        this.service
             .save(this.state.user)
-            .then(function(response){
-                alert(response);
+            .then(function(){
+                alert('Created!');
             });
     }
 
@@ -42,7 +46,7 @@ class AccountEdit extends React.Component {
         return (
             <div className="card-panel z-depth-4">
                 <Loader loaded={this.state.loaded}>
-                    <form onSubmit={this._onSubmit.bind(this)}>
+                    <form onSubmit={this._onSubmit}>
                         <div className="row">
                             <div className="col s2">First Name</div>
                             <div className="col s10"><Input name="first_name" property="state.user.name.first" this={this}/></div>
@@ -62,4 +66,4 @@ class AccountEdit extends React.Component {
     }
 
 }
-export default AccountEdit;
+export default AccountEditPage;
