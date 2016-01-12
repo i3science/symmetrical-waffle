@@ -6,11 +6,13 @@ import SearchPage from './search/searchPage';
 import Serp from './serp/serpPage';
 import Profile from './profile/profilePage';
 import Login from './login';
+import Projects from './projects/projectPage';
 
 export default (
 		<div>
 			<Route path="/" component={Template}>
 				<IndexRoute component={SearchPage} />
+                <Route path="dashboard/projects" component={Projects} />
 				<Route path="profile/:id" component={Profile} />
 				<Route path="search" component={SearchPage} />
 				<Route path="search/results" component={Serp} />
