@@ -50,7 +50,7 @@ class Profile extends React.Component {
                         <div className="col s7">
                             <div className="row">
                                 <div className="col s3">
-                                    <img className="circle responsive-img" src={'/images/' + this.props.influencer._id +'-profile.jpg'} />
+                                    <img className="circle responsive-img" src={'/images/' + this.props.influencer._id +'.jpg'} />
                                 </div>
                                 <div className="col s9">
                                     <h3 className="teal-text" style={{margin: 0}}>{this.props.influencer.name.first} {this.props.influencer.name.last}</h3>

@@ -9,7 +9,7 @@ class Serp extends React.Component {
     constructor() {
         super();
         this.state = {
-            influencers: AppStore.getAllInfluencers(),
+            results: AppStore.getResults(),
             selectedInfluencers: AppStore.getSelectedInfluencers(),
             exposures: 150000000,
             colors: AppStore.getColors()
@@ -27,7 +27,7 @@ class Serp extends React.Component {
 
     _onChange() {
         this.setState({
-            influencers: AppStore.getAllInfluencers(),
+            results: AppStore.getResults(),
             selectedInfluencers: AppStore.getSelectedInfluencers()
         });
     }
@@ -46,10 +46,10 @@ class Serp extends React.Component {
                     addInfluencer={this.addInfluencerToList}
                     colors={this.state.colors}
                     exposures={this.state.exposures}
-                    resultNum={this.state.influencers.length}
+                    resultNum={this.state.results.length}
                 />
                 <Results
-                    influencers={this.state.influencers}
+                    influencers={this.state.results}
                     addToList={this.addToList}
                     selectedInfluencers={this.state.selectedInfluencers}
                 />

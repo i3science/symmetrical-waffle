@@ -7,23 +7,27 @@ class Login extends React.Component {
     constructor() {
         super();
         this.state = {
+            user: {
+                name: '',
+                pass: ''
+            },
+            loggedIn: false,
             dirty: false
         };
         this.setUserState = this.setUserState.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    setUserState(event) {
-        this.setState({dirty: true});
-        this.state.user[event.target.ref] = event.target.value;
-        this.setState({user: this.state.user});
+    setUserState(user,pass) {
+        this.setState({user: {name: user, pass: pass}});
     }
 
     handleSubmit(obj, event) {
         event.preventDefault();
-        const email = obj.refs.email.value;
-        const pass = obj.refs.pass.value;
-        authenticationService.signin(email, pass)
+        const user = '' || obj.refs.email.value;
+        const pass = '' || obj.refs.pass.value;
+        this.setUserState(user, pass);
+        authenticationService.signin(this.state.user.name, this.state.user.pass)
             .then(function(jwt){
                 // We trigger the LoginAction with that JWT.
                 authenticationActions.userAuthenticated(jwt);
@@ -47,11 +51,9 @@ class Login extends React.Component {
                             <p><small>Copyright &copy; 2015 JONES MEDIA INC.  All Rights Reserved.</small></p>
                         </div>
                     </div>
-
                     <div className="col s2">&nbsp;</div>
                 </div>
             </div>
-
         );
     }
 }
