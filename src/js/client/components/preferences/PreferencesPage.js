@@ -5,6 +5,9 @@ class PreferencesPage extends React.Component {
     constructor() {
         super();
     }
+    static name() {
+        return 'Preferences';
+    }
 
     render() {
         return (

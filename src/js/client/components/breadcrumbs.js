@@ -1,27 +1,43 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
+import { Link } from 'react-router';
+import _ from 'lodash';
 
-const Breadcrumbs = (props) => {
-    let paths = (props.path).split('/');
-    String.prototype.capitalize = function(){
-        return this.toLowerCase().replace( /\b\w/g, function (m) {
-            return m.toUpperCase();
-        });
-    };
-    var links = '';
-    let breadcrumbs = paths.map((item, index) => {
-        if (item) {
-            links = links+'/'+item;
+class Breadcrumbs extends React.Component {
+    constructor() {
+        super();
+    }
+
+    render() {
+        let routes = this.props.props.routes;
+        routes.shift();
+        let params = this.props.props.params;
+        params = params.prefixKeys(':');
+
+        let links = '';
+        let breadcrumbs = routes.map(function(route, idx){
+            // Handle index routes when the component comes up (next iter)
+            if (!route.component && route.indexRoute === routes[idx+1]) {
+                return;
+            }
+            // Whoops. Nothing to see here
+            if (!route.component) {
+                return;
+            }
+            let path = route.path;
+            if (!route.path && route === routes[idx-1].indexRoute) {
+                path = routes[idx-1].path;
+            }
+            links = '/' + _.trimLeft(links + '/' + (path || ''), '/');
             return (
-                <a key={index} href={links} className="breadcrumb">{item.capitalize()}</a>
+                <Link to={links} key={idx} className="breadcrumb">{route.component.name()}</Link>
             );
-        }
-    });
-    return (
-        <div>
-            <a href='/' className="breadcrumb">Home</a>
-            {breadcrumbs}
-        </div>
-    );
-};
+        });
+        return (
+            <div>
+                {breadcrumbs}
+            </div>
+        );
+    }
+}
 
 export default Breadcrumbs;

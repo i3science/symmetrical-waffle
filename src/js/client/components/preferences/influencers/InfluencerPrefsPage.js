@@ -13,6 +13,10 @@ class InfluencerPrefsPage extends React.Component {
         };
     }
 
+    static name() {
+        return 'Influencers';
+    }
+
     componentWillMount() {
         influencerStore.addChangeListener(this._onChange);
     }

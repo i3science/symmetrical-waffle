@@ -21,9 +21,7 @@ export default (
 				<Route path="search/results" component={Serp} />
 				<Route path="search/results/profile/:id" component={ProfilePage} />
 				<Route path="prefs" component={PreferencesPage}>
-					<Route path="accounts/:id">
-						<Route path="edit" component={AccountEditPage} />
-					</Route>
+					<Route path="accounts/:id" component={AccountEditPage}/>
 					<Route path="influencers">
 						<IndexRoute component={InfluencerPrefsPage}/>
 						<Route path="create" component={AccountEditPage} service={influencerService}/>

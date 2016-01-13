@@ -19,6 +19,10 @@ class AccountEditPage extends React.Component {
         this._onSubmit = this._onSubmit.bind(this);
     }
 
+    static name() {
+        return 'Edit Account';
+    }
+
     componentWillMount() {
         this.service = this.props.route.service || userService;
         if (this.props.params.id) {

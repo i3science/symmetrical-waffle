@@ -38,7 +38,7 @@ class Header extends React.Component {
                     <div className="nav-wrapper container">
                         <div className="col s12">
                             <Breadcrumbs
-                                path={this.props.path}
+                                props={this.props.props}
                             />
                         </div>
                     </div>
