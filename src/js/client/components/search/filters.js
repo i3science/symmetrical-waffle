@@ -4,30 +4,8 @@ import InputText from '../elements/inputtext';
 import _ from 'lodash';
 import Verticals from './verticals';
 
-
-
-var persLocations = [
-    {
-        name: 'Geographic Location',
-        location: [
-            {
-                id: 'country',
-                label: 'Country'
-            },
-            {
-                id: 'state',
-                label: 'State/Province'
-            },
-            {
-                id: 'city',
-                label: 'City'
-            }
-        ]
-    }
-];
-
-var persMediums = [
-    {
+var persCollection = {
+    mediums: {
         name: 'They must be a...',
         medium: [
             {
@@ -47,72 +25,88 @@ var persMediums = [
                 label: 'Amplifier'
             }
         ]
+    },
+    locations: {
+        name: 'Geographic Location',
+        location: [
+            {
+                id: 'country',
+                label: 'Country'
+            },
+            {
+                id: 'state',
+                label: 'State/Province'
+            },
+            {
+                id: 'city',
+                label: 'City'
+            }
+        ]
     }
-];
+};
 
 
 const Personal = (props) => {
-    let mustBeA = persMediums.map(item => {
-        let children = item.medium.map(child => {
-            let checked = '';
-            let filterIndex = _.findIndex(props.filters, {id: child.id, val: true});
-            if (filterIndex > -1) {
-                checked = 'checked';
-            }
-            return (
-                <div key={child.id} className="col s3">
-                    <CheckBox
-                        id={child.id}
-                        label={child.label}
-                        onChange={props.onChange}
-                        checked={checked}
-                    />
-                </div>
-            );
-        });
+
+
+    let mediums = persCollection.mediums.medium.map(item => {
+        let checked = '';
+        let filterIndex = _.findIndex(props.filters, {id: item.id, val: true});
+        if (filterIndex > -1) {
+            checked = 'checked';
+        }
         return (
-            <div key={item.name} className="">
-                <h6 className="teal-text">{item.name}</h6>
-                <div key={item.name} className="row">
-                    {children}
-                </div>
+            <div key={item.id} className="col s3">
+                <CheckBox
+                    id={item.id}
+                    label={item.label}
+                    onChange={props.onChange}
+                    checked={checked}
+                />
             </div>
         );
     });
 
-    let location = persLocations.map(item => {
-        let children = item.location.map(child => {
-            let inputVal = '';
-            let filterValue = _.find(props.filters, {id: child.id});
-            if (filterValue) {
-                inputVal = filterValue.val;
-            }
-            return (
-                <div key={child.id} className="col s4">
-                    <InputText
-                        key={child.id}
-                        id={child.id}
-                        label={child.label}
-                        onChange={props.onChange}
-                        val={inputVal}
-                    />
-                </div>
-            );
-        });
+    let location = persCollection.locations.location.map(item => {
+        let inputVal = '';
+        let filterValue = _.find(props.filters, {id: item.id});
+        if (filterValue) {
+            inputVal = filterValue.val;
+        }
         return (
-            <div key={item.name} className="">
-                <h6 className="teal-text">{item.name}</h6>
-                <div key={item.name} className="row">
-                    {children}
-                </div>
+            <div key={item.id} className="col s4">
+                <InputText
+                    key={item.id}
+                    id={item.id}
+                    label={item.label}
+                    onChange={props.onChange}
+                    val={inputVal}
+                />
             </div>
         );
-
     });
+
     return (
         <div>
-            {location}
-            {mustBeA}
+            <div className="row">
+                <div className="input-field col s12">
+                    <select onChange={props.onChange.bind(this, this)}>
+                        <option value="" disabled>Choose your option</option>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                    </select>
+                    <label>Materialize Multiple Select</label>
+                </div>
+            </div>
+            <h6 className="teal-text">Geographic Location</h6>
+            <div className="row">
+                {location}
+            </div>
+            <h6 className="teal-text">They must be a...</h6>
+            <div className="row">
+                {mediums}
+            </div>
         </div>
     );
 };
@@ -127,6 +121,7 @@ class Filters extends React.Component {
             <div className="card-panel">
                 <h4>Search Criteria</h4>
                 <h6 className="teal-text">I am looking for an influencer...</h6>
+
                 <hr />
                 <h5 className="teal-text">Personal</h5>
                 <Personal
@@ -139,8 +134,6 @@ class Filters extends React.Component {
                     onChange={this.props.onChange}
                     filters={this.props.filters}
                 />
-
-                <button className="btn">Add</button>
             </div>
         );
     }

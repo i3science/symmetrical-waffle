@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import AppStore from '../../stores/UiStore';
 import Actions from '../../actions/UiActions';
 import Filters from './filters';
+import _ from 'lodash';
 
 class SearchPage extends React.Component {
     constructor() {
@@ -32,30 +33,30 @@ class SearchPage extends React.Component {
         });
     }
     addFilter(id, obj) {
-
-
-
         if (obj.target.type === 'checkbox') {
             Actions.addFilter(id, obj.target.checked);
         } else {
             Actions.addFilter(obj.target.id, obj.target.value);
         }
-        //if (this.state.filters) {
-        //    this.state.results = _.filter(this.state.influencers, 'verticals', this.state.filters);
-        //    console.log(this.state.results);
-        //    //Actions.updateResults(this.state.results);
-        //}
-        //console.log(this.state.filters);
+        if (this.state.filters) {
+            let filters = [];
+            _.forEach(this.state.filters, function(item) {
+                filters.push(item.id);
+            });
+            this.state.results = _.filter(this.state.influencers, 'verticals', filters);
+            Actions.updateResults(this.state.results);
+        }
     }
     render() {
         return (
             <div>
-                <Link to="/search/results" className="btn">Results</Link>
+
                 <Filters
                     filters={this.state.filters}
                     influencers={this.state.influencers}
                     onChange={this.addFilter}
                 />
+                <Link to="/search/results" className="btn">Results</Link>
             </div>
         );
     }
