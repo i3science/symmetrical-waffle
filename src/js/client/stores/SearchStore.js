@@ -22,7 +22,19 @@ class SearchStore extends BaseStore {
                 this.emitChange();
                 break;
             case AppConstants.ADD_FILTER:
-                this.filters.push(action.id);
+                let isFilter = _.find(this.filters, {id: action.id});
+                let filterIndex = _.indexOf(this.filters, isFilter);
+                if (filterIndex === -1) {
+                    this.filters.push({id: action.id, val: action.val});
+                } else {
+                    if (action.val) {
+                        this.filters.splice(filterIndex, 1, {id: action.id, val: action.val});
+                    } else {
+                        _.remove(this.filters, function(filter){
+                            return action.id === filter.id;
+                        });
+                    }
+                }
                 this.emitChange();
                 break;
             case AppConstants.REMOVE_FILTER:
