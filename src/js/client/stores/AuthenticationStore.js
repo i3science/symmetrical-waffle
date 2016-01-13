@@ -2,7 +2,6 @@ import BaseStore from './BaseStore';
 import AuthenticationConstants from '../constants/authentication';
 import AppConstants from '../constants/constants';
 import userService from '../services/UserService';
-import { register } from '../dispatcher/dispatcher';
 
 class AuthenticationStore extends BaseStore {
 

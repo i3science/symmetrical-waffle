@@ -46,10 +46,7 @@ var Influencer = new Schema({
     personal: {
         sex: String,
         language: String,
-        age: {
-            start: Number,
-            end: Number
-        },
+        age: Number,
         married: Boolean,
         kids: [Number],
         country: String,

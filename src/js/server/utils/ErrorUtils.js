@@ -26,6 +26,14 @@ class ErrorUtils {
         }
         return err;
     }
+
+    static failureHandler(req, res) {
+        return function(err){
+            return res.status(400).send({
+                message: ErrorUtils.getErrorMessage(err)
+            });
+        };
+    }
 }
 
 export default ErrorUtils;

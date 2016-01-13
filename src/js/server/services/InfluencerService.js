@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
+import _ from 'lodash';
 let Influencer = mongoose.model('Influencer');
 
 /**
  * The InfluencerService is responsible for persisting and retrieving
  * information to and from the underlying datastore in a consistent manner.
- * @class
  */
 class InfluencerService {
     /**
@@ -12,9 +12,9 @@ class InfluencerService {
      * @param opts A dictionary of search options
      * @todo Document available options
      */
-    list(/*opts*/) {
+    list(opts) {
         return Influencer
-            .find({})
+            .find(opts || {})
             .exec();
     }
 
@@ -25,8 +25,10 @@ class InfluencerService {
      * @param opts A dictionary of search options
      * @todo Document available options
      */
-    findOne(/*opts*/) {
-
+    findOne(opts) {
+        return Influencer
+            .findOne(opts || {})
+            .exec();
     }
 
     /**
@@ -34,23 +36,25 @@ class InfluencerService {
      * @param influencer The representation of the influencer to persist
      */
     create(influencer) {
-        return influencer.save();
+        influencer = new Influencer(influencer);
+        return influencer.savePromise();
     }
 
     /**
      * Update an existing influencer entity.
      * @param influencer The representation of the influencer to update
      */
-    update(/*influencer*/) {
-
+    update(influencer, modified) {
+        _.extend(influencer, modified);
+        return influencer.savePromise();
     }
 
     /**
      * Delete the influencer represented by the given entity or identifier.
      * @param influencer A JSON representation or identifier
      */
-    delete(/*influencer*/) {
-
+    delete(influencer) {
+        return influencer.removePromise();
     }
 }
 

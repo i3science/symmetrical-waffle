@@ -8,6 +8,8 @@ module.exports = _.extend(
   require('./env/' + process.env.NODE_ENV) || {}
 );
 
+process.on('uncaughtException', console.log);
+
 /**
  * Get files by glob patterns
  */

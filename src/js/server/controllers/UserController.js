@@ -1,45 +1,78 @@
 import userService from '../services/UserService';
+import ErrorUtils from '../utils/ErrorUtils';
 
+/**
+ * The UserController is responsible for interpreting client requests and
+ * formatting a response back to the client, often delegating to a UserService
+ * instance.
+ */
 class UserController {
 
-    list() {
-
+    /**
+     * Retrieves zero or more entities that adhere to the given criteria.
+     */
+    list(req, res) {
+        return userService
+            .list(req.params || {})
+            .then(function(users){
+                return res.jsonp(users);
+            })
+            .fail(ErrorUtils.failureHandler());
     }
-    find() {
-
-    }
-    getCurrentUser(req, res) {
+    /**
+     * Retrieve the currently logged in user, or the user identified by the
+     * userId request parameter.
+     */
+    read(req, res) {
         return res.json(req.user);
     }
-    userById(req, res, next, id) {
+    /**
+     * Creates a new user account with the given information.
+     */
+    create(req, res) {
         return userService
-            .findOne({_id:id})
-            .then(function(user){
-                return res.jsonp(user);
+            .create(req.body)
+            .spread(function(){
+                return res.status(201).send();
             })
-            .fail(function(){
-                return res.status(400).send({
-                    message: 'An error occurred'
-                });
+            .fail(ErrorUtils.failureHandler(req, res));
+    }
+    /**
+     * Updates an existing user account with the given modifications.
+     */
+    update(req, res) {
+        return userService
+            .update(req.user, req.body)
+            .spread(function(){
+                return res.status(204).send();
+            })
+            .fail(ErrorUtils.failureHandler(req, res));
+    }
+    /**
+     * Delete an existing user account.
+     */
+    delete(req, res) {
+        return userService
+            .remove(req.user)
+            .spread(function(){
+                return res.status(204).send();
+            })
+            .fail(ErrorUtils.failureHandler(req, res));
+    }
+
+    /**
+     * User middleware
+     */
+    findById(req, res, next, id) {
+        userService
+            .findOne({ _id: id })
+            .then(function(user){
+                req.user = user;
+                return next();
+            })
+            .fail(function(err){
+                return next(err);
             });
-    }
-    create() {
-
-    }
-    update() {
-
-    }
-    delete() {
-
-    }
-
-    requiresLogin(req, res, next) {
-        // if (!req.isAuthenticated()) {
-        //  return res.status(401).send({
-        //      message: 'User is not logged in'
-        //  });
-        // }
-        next();
     }
 }
 
