@@ -6,7 +6,7 @@ window.fetch = function() {
     if (typeof args[1] === 'undefined' || typeof args[1] === null) {
         args[1] = {
             credentials: 'same-origin'
-        }
+        };
     }
     return old_fetch.apply(window, args)
         .then(function(response){

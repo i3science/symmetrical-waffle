@@ -14,7 +14,7 @@ live date
  */
 
 const Result = (props) => {
-    console.log(props.project.advertiser);
+    //console.log(props.project.advertiser);
     return (
         <div className="col m3 s2">
             <div className="card">

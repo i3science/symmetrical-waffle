@@ -3,7 +3,6 @@ import { Link } from 'react-router';
 import AppStore from '../../stores/UiStore';
 import Actions from '../../actions/UiActions';
 import Filters from './filters';
-import _ from 'lodash';
 
 class SearchPage extends React.Component {
     constructor() {
@@ -33,17 +32,20 @@ class SearchPage extends React.Component {
         });
     }
     addFilter(id, obj) {
+
+
+
         if (obj.target.type === 'checkbox') {
-            if (obj.target.checked) {
-                Actions.addFilter(id);
-            } else {
-                Actions.removeFilter(id);
-            }
+            Actions.addFilter(id, obj.target.checked);
+        } else {
+            Actions.addFilter(obj.target.id, obj.target.value);
         }
-        if (this.state.filters) {
-            this.state.results = _.filter(this.state.influencers, 'verticals', this.state.filters);
-            Actions.updateResults(this.state.results);
-        }
+        //if (this.state.filters) {
+        //    this.state.results = _.filter(this.state.influencers, 'verticals', this.state.filters);
+        //    console.log(this.state.results);
+        //    //Actions.updateResults(this.state.results);
+        //}
+        //console.log(this.state.filters);
     }
     render() {
         return (
