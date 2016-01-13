@@ -60,12 +60,22 @@ const AppStore = Object.assign(EventEmitter.prototype, {
                 _influencerList.push(action.influencer);
                 break;
             case AppConstants.INFLUENCER_RESULTS:
-                //console.log(action);
                 _resultsList = action.influencers;
                 break;
             case AppConstants.ADD_FILTER:
-                _filters.push(action.id);
-                // filter state with updated filters
+                let isFilter = _.find(_filters, {id: action.id});
+                let filterIndex = _.indexOf(_filters, isFilter);
+                if (filterIndex === -1) {
+                    _filters.push({id: action.id, val: action.val});
+                } else {
+                    if (action.val) {
+                        _filters.splice(filterIndex, 1, {id: action.id, val: action.val});
+                    } else {
+                        _.remove(_filters, function(filter){
+                            return action.id === filter.id;
+                        });
+                    }
+                }
                 break;
             case AppConstants.REMOVE_FILTER:
                 _.pull(_filters, action.id);
