@@ -5,3 +5,6 @@ String.prototype.replaceAll = function(map) {
         return map[matched.toLowerCase()];
     });
 };
+String.prototype.capitalize = function() {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+};

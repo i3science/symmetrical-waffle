@@ -27,9 +27,10 @@ class Breadcrumbs extends React.Component {
             if (!route.path && route === routes[idx-1].indexRoute) {
                 path = routes[idx-1].path;
             }
+            let name = route.component.name && typeof route.component.name === 'function' ? route.component.name() : path.capitalize();
             links = '/' + _.trimLeft(links + '/' + (path || ''), '/');
             return (
-                <Link to={links} key={idx} className="breadcrumb">{route.component.name()}</Link>
+                <Link to={links} key={idx} className="breadcrumb">{name}</Link>
             );
         });
         return (
