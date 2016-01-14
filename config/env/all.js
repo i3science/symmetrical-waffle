@@ -8,7 +8,7 @@ module.exports = {
   },
   debug: process.env.DEBUG || false,
   port: process.env.PORT || 3000,
-  templateEngine: 'jade',
+  templateEngine: 'swig',
   session: {
     // The secret should be set to a non-guessable string that
     // is used to compute a session hash
@@ -33,6 +33,9 @@ module.exports = {
       // domain: 'yourdomain.com'
 
     }
+  },
+  mail: {
+    transport: 'smtps://user%40gmail.com:pass@smtp.gmail.com'
   },
   ssl: {
     enabled: false

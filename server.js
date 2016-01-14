@@ -9,6 +9,7 @@
   var express = require('express'),
       http = require('http'),
       mongoose = require('mongoose'),
+      extend = require('mongoose-schema-extend'),
       init = require('./config/init')(),
       config = require('./config/config'),
       chalk = require('chalk'),

@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import _ from 'lodash';
+import mailService from './MailService';
 let Influencer = mongoose.model('Influencer');
 
 /**
@@ -35,9 +36,32 @@ class InfluencerService {
      * Persist a new influencer entity.
      * @param influencer The representation of the influencer to persist
      */
-    create(influencer) {
+    create(influencer, basePath) {
+        let _influencer = null;
+        let _affected = null;
         influencer = new Influencer(influencer);
-        return influencer.savePromise();
+        return influencer
+            .savePromise()
+            .spread(function(influencer, affected){
+                _influencer = influencer;
+                _affected = affected;
+                return mailService.send('reset-password', {
+                    from: 'no-reply@smp.com',
+                    to: influencer.email,
+                    subject: 'Hello'
+                }, {
+                    link: basePath + '/auth/reset-password'
+                });
+            })
+            .then(function(info){
+                let messageId = info.messageId;
+                console.log('Sent message: ', messageId); // eslint-disable-line no-console
+                return [_influencer, _affected];
+            })
+            .fail(function(err){
+                console.log(err); // eslint-disable-line no-console
+                throw err;
+            });
     }
 
     /**
