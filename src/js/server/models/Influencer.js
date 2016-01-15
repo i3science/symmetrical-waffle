@@ -4,19 +4,14 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-  Schema = mongoose.Schema;
+    User = require('./User');
 
 /**
  * The Influencer represents an actor that exerts their influence within a
  * particular segment of a market.
  */
-var Influencer = new Schema({
+var Influencer = User.extend({
     amplifier: Boolean,
-    name: {
-        first: String,
-        last: String
-    },
-    email: String,
     reach: [{
         medium: String,
         value: Number

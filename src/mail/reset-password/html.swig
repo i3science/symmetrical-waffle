@@ -1,0 +1,1 @@
+<p><a href="{ link }">Reset password</a></p>

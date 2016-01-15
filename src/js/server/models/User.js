@@ -8,32 +8,14 @@ var mongoose = require('mongoose'),
   crypto = require('crypto');
 
 /**
- * A Validation function for local strategy properties
+ * The User schema represents the common attributes of all actors that interact
+ * with the application, including security and personal attributes, as well
+ * as primary auditing information.
  */
-var validateLocalStrategyProperty = function (property) {
-  return ((this.provider !== 'local' && !this.updated) || property.length);
-};
-
-/**
- * A Validation function for local strategy password
- */
-var validateLocalStrategyPassword = function (password) {
-  return (this.provider !== 'local' || (password && password.length > 6));
-};
-
-/**
- * User Schema
- */
-var UserSchema = new Schema({
+var User = new Schema({
   name: {
-    first: {
-      type: String,
-      validate: [validateLocalStrategyProperty, 'Please fill in first name']
-    },
-    last: {
-      type: String,
-      validate: [validateLocalStrategyProperty, 'Please fill in last name']
-    }
+    first: String,
+    last: String
   },
   email: {
     type: String,
@@ -42,21 +24,8 @@ var UserSchema = new Schema({
     trim: true,
     required: [/.+\@.+\..+/, 'Please fill a valid email address']
   },
-  salt: {
-    type: String
-  },
-  password: {
-    type: String,
-    default: '',
-    validate: [validateLocalStrategyPassword, 'Password should be longer']
-  },
-  // provider: {
-  //   type: String,
-  //   required: 'Provider is required'
-  // },
-  // providerData: {},
-  // additionalProvidersData: {},
-
+  salt: String,
+  passwordHash: String,
   passwordResetToken: {
     id: String,
     expires: Date
@@ -93,62 +62,70 @@ var UserSchema = new Schema({
 },
 { collection : 'users', discriminatorKey : '_type' });
 
+var UserModel = mongoose.model('User', User);
+
+/*
+ * Check for unique email address
+ */
+UserModel.schema.path('email').validate(function(value, respond){
+  mongoose.models['User']
+    .findOne({email: value}, function(err, user){
+      if (!user) {
+        respond(true);
+      } else {
+        respond(false);
+      }
+    });
+}, 'Email address must be unique');
+
+User.virtual('password')
+  .get(function(){
+    return this._password;
+  })
+  .set(function(value){
+    this._password = value;
+    this.salt = crypto.randomBytes(16).toString('base64');
+    this.password = crypto.pbkdf2Sync(this._password, new Buffer(this.salt, 'base64'), 10000, 64).toString('base64');
+  });
+
+// User.virtual('passwordConfirmation')
+//   .get(function() {
+//     return this._passwordConfirmation;
+//   })
+//   .set(function(value){
+//     this._passwordConfirmation = value;
+//   });
+
+/*
+ * Validate new password
+ */
+// UserModel.schema.path('passwordHash').validate(function(value){
+//   if (this._password || this._passwordConfirmation) {
+//     if (value.length < 8) {
+//       this.invalidate('password', 'Must be at least 8 characters');
+//     }
+//     if (this._password !== this._passwordConfirmation) {
+//       this.invalidate('passwordConfirmation', 'Password and confirmation must match');
+//     }
+//   }
+
+//   if (this.isNew && !this._password) {
+//     this.invalidate('password', 'A password is required');
+//   }
+// }, null);
 
 /**
- * Hook a pre save method to hash the password
+ * Hash the given salt and password
  */
-UserSchema.pre('save', function (next) {
-  this.updated = new Date();
-
-  if (this.isNew) {
-    // only set password and salt for new records
-    if (this.password && this.password.length > 6) {
-      this.salt = crypto.randomBytes(16).toString('base64');
-      this.password = this.hashPassword(this.password);
-    }
-  }
-  next();
-});
-
-/**
- * Create instance method for hashing a password
- */
-UserSchema.methods.hashPassword = function (password) {
-  if (this.salt && password) {
-    return crypto.pbkdf2Sync(password, new Buffer(this.salt, 'base64'), 10000, 64).toString('base64');
-  } else {
-    return password;
-  }
+User.methods.hashPassword = function (salt, password) {
+  return crypto.pbkdf2Sync(password, new Buffer(salt, 'base64'), 10000, 64).toString('base64');
 };
 
 /**
  * Verifies password for a user
  */
-UserSchema.methods.authenticate = function (password) {
-  return this.password === this.hashPassword(password);
+User.methods.authenticate = function (password) {
+  return this.passwordHash === this.hashPassword(this.salt, password);
 };
 
-/**
- * Find possible not used username
- */
-UserSchema.statics.findUniqueUsername = function (username, suffix, callback) {
-  var _this = this;
-  var possibleUsername = username + (suffix || '');
-
-  _this.findOne({
-    username: possibleUsername
-  }, function (err, user) {
-    if (!err) {
-      if (!user) {
-        callback(possibleUsername);
-      } else {
-        return _this.findUniqueUsername(username, (suffix || 0) + 1, callback);
-      }
-    } else {
-      callback(null);
-    }
-  });
-};
-
-mongoose.model('User', UserSchema);
-module.exports = UserSchema;
+module.exports = User;

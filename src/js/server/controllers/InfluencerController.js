@@ -33,7 +33,7 @@ class InfluencerController {
      */
     create(req, res) {
         return influencerService
-            .create(req.body)
+            .create(req.body, req.basePath)
             .spread(function(){
                 return res.status(201).send();
             })
