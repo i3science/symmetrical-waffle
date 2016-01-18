@@ -1,6 +1,6 @@
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { createRoutes, match, RoutingContext } from 'react-router';
+import { createRoutes, match, RoutingContext, RouterContext } from 'react-router';
 import Routes from '../src/js/client/components/routes';
 import a from '../src/js/client/components/app';
 import createLocation from 'history/lib/createLocation';
@@ -62,6 +62,11 @@ module.exports = function(db) {
 
     // Showing stack errors
     app.set('showStackError', true);
+
+    // Set the template engine
+    app.engine('swig', consolidate[config.templateEngine]);
+    app.set('view engine', 'swig');
+    app.set('views', './src/public');
 
     // Enable logger (morgan)
     app.use(morgan(logger.getLogFormat(), logger.getLogOptions()));
@@ -136,7 +141,14 @@ module.exports = function(db) {
             } else if (redirectLocation) {
                 return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
             } else if (renderProps) {
-                return res.status(200).sendFile(path.resolve(__dirname, '../src/public/index.html'));
+                // return res.status(200).sendFile(path.resolve(__dirname, '../src/public/index.swig'));
+
+                // var App = require('../src/js/client/components/app').default;
+                // console.log('App: ', App);
+                // var ReactApp = React.createFactory(App);
+                // var content = ReactDOMServer.renderToString(ReactApp({}));
+                var content = renderToString(<RoutingContext {...renderProps} />);
+                return res.render('index', {content: content});
             }
         });
     });

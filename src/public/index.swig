@@ -6,12 +6,12 @@
     <title>SMP</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="//localhost:3000/css/bundle.css">
+    <link rel="stylesheet" href="css/bundle.css">
 </head>
 <body class="grey lighten-4">
-    <div id="main"></div>
+    <div id="main">{% autoescape false %}{{ content }}{% endautoescape %}</div>
     <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
-    <script src="//localhost:3000/bundle.js"></script>
+    <script src="/bundle.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
     <script>
         document.write('<script src="//' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')
