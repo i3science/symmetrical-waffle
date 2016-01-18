@@ -88,17 +88,6 @@ const Personal = (props) => {
 
     return (
         <div>
-            <div className="row">
-                <div className="input-field col s12">
-                    <select onChange={props.onChange.bind(this, this)}>
-                        <option value="" disabled>Choose your option</option>
-                        <option value="1">Option 1</option>
-                        <option value="2">Option 2</option>
-                        <option value="3">Option 3</option>
-                    </select>
-                    <label>Materialize Multiple Select</label>
-                </div>
-            </div>
             <h6 className="teal-text">Geographic Location</h6>
             <div className="row">
                 {location}
@@ -113,9 +102,6 @@ const Personal = (props) => {
 
 
 class Filters extends React.Component {
-    shouldComponentUpdate() {
-        return true;
-    }
     render() {
         return (
             <div className="card-panel">

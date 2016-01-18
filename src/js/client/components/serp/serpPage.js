@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router';
 import influencerStore from '../../stores/InfluencerStore';
 import searchStore from '../../stores/SearchStore';
 import Actions from '../../actions/UiActions';
@@ -10,7 +9,8 @@ class Serp extends React.Component {
     constructor() {
         super();
         this.state = {
-            influencers: influencerStore.getInfluencers(),
+            results: searchStore.getResults(),
+            //influencers: influencerStore.getInfluencers(),
             selectedInfluencers: influencerStore.getSelectedInfluencers(),
             exposures: 150000000,
             colors: searchStore.getColors()
@@ -20,15 +20,18 @@ class Serp extends React.Component {
 
     componentWillMount() {
         influencerStore.addChangeListener(this._onChange);
+        searchStore.addChangeListener(this._onChange);
     }
 
     componentWillUnmount() {
         influencerStore.removeChangeListener(this._onChange);
+        searchStore.addChangeListener(this._onChange);
     }
 
     _onChange() {
         this.setState({
-            influencers: influencerStore.getInfluencers(),
+            //results: influencerStore.getResults();
+            //influencers: influencerStore.getInfluencers(),
             selectedInfluencers: influencerStore.getSelectedInfluencers()
         });
     }
@@ -43,22 +46,30 @@ class Serp extends React.Component {
     }
 
     render() {
-        return (
-            <div>
-                <Link to="/search" className="btn">Results</Link>
-                <SelectedInfluencers
-                    selectedInfluencers={this.state.selectedInfluencers}
-                    addInfluencer={this.addInfluencerToList}
-                    colors={this.state.colors}
-                    exposures={this.state.exposures}
-                    resultNum={this.state.influencers.length} />
-                <InfluencerCardList
-                    influencers={this.state.influencers}
-                    addToList={this.addToList}
-                    selectedInfluencers={this.state.selectedInfluencers}
-                    onSelectionChanged={this._onSelectionChanged} />
-            </div>
-        );
+        if (this.state.results) {
+            return (
+                <div>
+                    <SelectedInfluencers
+                        selectedInfluencers={this.state.selectedInfluencers}
+                        addInfluencer={this.addInfluencerToList}
+                        colors={this.state.colors}
+                        exposures={this.state.exposures}
+                        resultNum={this.state.results.length} />
+                    <InfluencerCardList
+                        influencers={this.state.results}
+                        addToList={this.addToList}
+                        selectedInfluencers={this.state.selectedInfluencers}
+                        onSelectionChanged={this._onSelectionChanged} />
+                </div>
+            );
+        } else {
+            return (
+                <div>
+                    <h3>Sorry, there were no results</h3>
+                </div>
+            );
+        }
+
     }
 }
 
