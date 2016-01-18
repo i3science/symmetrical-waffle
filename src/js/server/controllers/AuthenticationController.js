@@ -37,8 +37,7 @@ class AuthenticationController {
                     res.status(400).send(err);
                     return;
                 }
-                req.session.test = 'hey';
-                User.findOne({_id:user._id}, '-salt -password')
+                User.findOne({_id:user._id}, '-salt -passwordHash')
                     .exec(function(err, found){
                         // TODO: Log successful authentication in history
                         res.json(found);
