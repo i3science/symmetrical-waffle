@@ -54,8 +54,10 @@ class InfluencerService {
                 });
             })
             .then(function(info){
-                let messageId = info.messageId;
-                console.log('Sent message: ', messageId); // eslint-disable-line no-console
+                if (info && info.messageId) {
+                    let messageId = info.messageId;
+                    console.log('Sent message: ', messageId); // eslint-disable-line no-console
+                }
                 return [_influencer, _affected];
             })
             .fail(function(err){

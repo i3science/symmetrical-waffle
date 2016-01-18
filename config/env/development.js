@@ -20,6 +20,7 @@ module.exports = {
     }
   },
   mail: {
+    disable: false,
     transport: pickupTransport({
       directory: mailPath
     })

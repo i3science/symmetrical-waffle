@@ -23,6 +23,8 @@ if (process.env.NODE_ENV === 'production' && !interactive) {
 	process.exit(-1);
 }
 
+config.mail.disable = true;
+
 var dropCollections = function(callback) {
 	var collections = _.keys(mongoose.connection.collections);
 	async.forEach(collections, function(collectionName, done) {
@@ -34,7 +36,10 @@ var dropCollections = function(callback) {
 			}
 			done(null);
 		});
-	}, callback);
+	}, function(){
+        console.log('Dropped all collections');
+        callback();
+    });
 };
 
 var databaseName = config.db.uri.match(/[^\/]*$/)[0];

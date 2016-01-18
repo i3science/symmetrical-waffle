@@ -29,7 +29,7 @@ class AuthenticationController {
                 return;
             }
 
-            user.password = undefined;
+            user.passwordHash = undefined;
             user.salt = undefined;
 
             req.login(user, function(err){
