@@ -53,17 +53,17 @@ class SearchPage extends React.Component {
 
         /* redoing filters, please leave here */
 
-        var filter = {};
-        filter['amplifier'] = true;
-        filter['verticals'] = ['beauty', 'fashion'];
-
-        var filtered = this.state.influencers.filter(function(influencer) {
-            return (
-                influencer.amplifier === filter.amplifier &&
-                _.intersection(influencer.verticals, filter.verticals).length === filter.verticals.length
-            );
-        });
-        console.log(filtered);
+        //var filter = {};
+        //filter['amplifier'] = true;
+        //filter['verticals'] = ['beauty', 'fashion'];
+        //
+        //var filtered = this.state.influencers.filter(function(influencer) {
+        //    return (
+        //        influencer.amplifier === filter.amplifier &&
+        //        _.intersection(influencer.verticals, filter.verticals).length === filter.verticals.length
+        //    );
+        //});
+        //console.log(filtered);
 
         /* end */
 

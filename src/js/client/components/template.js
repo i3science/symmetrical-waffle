@@ -1,5 +1,5 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
-import Header from './header';
+import Header from './header/header';
 
 class Template extends React.Component {
     render() {

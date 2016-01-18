@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; // eslint-disable-line no-unused-vars
 
 const Profile = (props) => {
     let reach = props.influencer.reach.map(item => {
