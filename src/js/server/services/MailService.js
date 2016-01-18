@@ -32,6 +32,9 @@ class MailService {
      *     of the transport request.
      */
     send(template, opts, data) {
+        if (config.mail.disable) {
+            return Q.fcall(() => { return true; });
+        }
         return this.render(template, opts, data)
             .spread(function(text, html){
                 opts.text = text;

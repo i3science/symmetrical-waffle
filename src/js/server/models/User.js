@@ -62,12 +62,11 @@ var User = new Schema({
 },
 { collection : 'users', discriminatorKey : '_type' });
 
-var UserModel = mongoose.model('User', User);
 
 /*
  * Check for unique email address
  */
-UserModel.schema.path('email').validate(function(value, respond){
+User.path('email').validate(function(value, respond){
   mongoose.models['User']
     .findOne({email: value}, function(err, user){
       if (!user) {
@@ -85,7 +84,7 @@ User.virtual('password')
   .set(function(value){
     this._password = value;
     this.salt = crypto.randomBytes(16).toString('base64');
-    this.password = crypto.pbkdf2Sync(this._password, new Buffer(this.salt, 'base64'), 10000, 64).toString('base64');
+    this.passwordHash = this.hashPassword(this._password);
   });
 
 // User.virtual('passwordConfirmation')
@@ -117,15 +116,16 @@ User.virtual('password')
 /**
  * Hash the given salt and password
  */
-User.methods.hashPassword = function (salt, password) {
-  return crypto.pbkdf2Sync(password, new Buffer(salt, 'base64'), 10000, 64).toString('base64');
+User.methods.hashPassword = function (password) {
+  return crypto.pbkdf2Sync(password, new Buffer(this.salt, 'base64'), 10000, 64).toString('base64');
 };
 
 /**
  * Verifies password for a user
  */
 User.methods.authenticate = function (password) {
-  return this.passwordHash === this.hashPassword(this.salt, password);
+  return this.passwordHash === this.hashPassword(password);
 };
 
+mongoose.model('User', User);
 module.exports = User;

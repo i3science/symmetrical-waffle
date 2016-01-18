@@ -35,6 +35,7 @@ module.exports = {
     }
   },
   mail: {
+    disable: false,
     transport: 'smtps://user%40gmail.com:pass@smtp.gmail.com'
   },
   ssl: {

@@ -5,6 +5,7 @@
  */
 var mongoose = require('mongoose'),
     User = require('./User');
+require('mongoose-schema-extend'); // This should not need to be here, but seeding breaks without it :@
 
 /**
  * The Influencer represents an actor that exerts their influence within a
