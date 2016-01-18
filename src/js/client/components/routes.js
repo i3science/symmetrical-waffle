@@ -2,6 +2,7 @@ import React from 'react'; // eslint-disable-line no-unused-vars
 import { Route, IndexRoute } from 'react-router';
 import Template from './template';
 import Full from './FullScreen';
+import SearchStart from './search/searchStartPage';
 import SearchPage from './search/searchPage';
 import Serp from './serp/serpPage';
 import ProfilePage from './influencers/ProfilePage';
@@ -15,9 +16,9 @@ import influencerService from '../services/InfluencerService';
 export default (
 		<div>
 			<Route path="/" component={Template}>
-				<IndexRoute component={SearchPage} />
                 <Route path="dashboard/projects" component={Projects} />
-				<Route path="search" component={SearchPage} />
+				<Route path="search/influencer" component={SearchPage} />
+				<Route path="search" component={SearchStart} />
 				<Route path="search/results" component={Serp} />
 				<Route path="search/results/profile/:id" component={ProfilePage} />
 				<Route path="prefs" component={PreferencesPage}>

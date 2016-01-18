@@ -34,11 +34,11 @@ class SearchPage extends React.Component {
             influencers: influencerStore.getInfluencers()
         });
     }
-    addFilter(id, obj) {
-        if (obj.target.type === 'checkbox') {
-            Actions.addFilter(id, obj.target.checked);
+    addFilter(event) {
+        if (event.target.type === 'checkbox') {
+            Actions.addFilter(event.target.id, event.target.checked);
         } else {
-            Actions.addFilter(obj.target.id, obj.target.value);
+            Actions.addFilter(event.target.id, event.target.value);
         }
         if (this.state.filters) {
             let filters = [];
@@ -50,9 +50,26 @@ class SearchPage extends React.Component {
         }
     }
     render() {
+
+        /* redoing filters, please leave here */
+
+        var filter = {};
+        filter['amplifier'] = true;
+        filter['verticals'] = ['beauty', 'fashion'];
+
+        var filtered = this.state.influencers.filter(function(influencer) {
+            return (
+                influencer.amplifier === filter.amplifier &&
+                _.intersection(influencer.verticals, filter.verticals).length === filter.verticals.length
+            );
+        });
+        console.log(filtered);
+
+        /* end */
+
+
         return (
             <div>
-
                 <Filters
                     filters={this.state.filters}
                     influencers={this.state.influencers}

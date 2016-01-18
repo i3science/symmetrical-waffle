@@ -35,7 +35,7 @@ class InfluencerStore extends BaseStore {
         return this.selectedInfluencers;
     }
     getInfluencerById(id) {
-        return _.find(this.influencers, { id: id });
+        return _.find(this.influencers, { _id: id });
     }
 }
 
