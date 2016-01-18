@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-Object.prototype.prefixKeys = function(prefix) {
+Object.prefixKeys = function(prefix) {
     let tmp = _.extend({}, this);
     Object.keys(tmp).map(function(k){
         let v = tmp[k];

@@ -13,19 +13,30 @@ import AccountEditPage from './preferences/accounts/AccountEditPage';
 import InfluencerPrefsPage from './preferences/influencers/InfluencerPrefsPage';
 import influencerService from '../services/InfluencerService';
 
+// Import utilities to make them available
+import '../utils/fetch';
+import '../utils/String.js';
+import '../utils/Object.js';
+
 export default (
 		<div>
-			<Route path="/" component={Template}>
-                <Route path="dashboard/projects" component={Projects} />
-				<Route path="search/influencer" component={SearchPage} />
-				<Route path="search" component={SearchStart} />
-				<Route path="search/results" component={Serp} />
-				<Route path="search/results/profile/:id" component={ProfilePage} />
-				<Route path="prefs" component={PreferencesPage}>
-					<Route path="accounts/:id" component={AccountEditPage}/>
-					<Route path="influencers">
+			<Route path="/" component={Template} name="Home">
+                <Route path="dashboard/projects" component={Projects} name="Projects" />
+				<Route path="search" name="Search">
+					<IndexRoute component={SearchStart} />
+					<Route path="influencer" component={SearchPage} name="Influencers" />
+					<Route path="results" name="Results">
+						<IndexRoute component={Serp} />
+						<Route path="profile/:id" component={ProfilePage} name="Profile" />
+					</Route>
+				</Route>
+				<Route path="prefs" component={PreferencesPage} name="Preferences">
+					<Route path="accounts/:id" name="Account">
+						<Route path="edit" component={AccountEditPage} name="Edit" />
+					</Route>
+					<Route path="influencers" name="Influencers">
 						<IndexRoute component={InfluencerPrefsPage}/>
-						<Route path="create" component={AccountEditPage} service={influencerService}/>
+						<Route path="create" component={AccountEditPage} service={influencerService} name="Create" />
 					</Route>
 				</Route>
 			</Route>

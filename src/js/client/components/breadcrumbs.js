@@ -11,24 +11,16 @@ class Breadcrumbs extends React.Component {
         let routes = this.props.props.routes;
         routes.shift();
         let params = this.props.props.params;
-        params = params.prefixKeys(':');
+        params = Object.prefixKeys(params, ':');
 
         let links = '';
         let breadcrumbs = routes.map(function(route, idx){
-            // Handle index routes when the component comes up (next iter)
-            if (!route.component && route.indexRoute === routes[idx+1]) {
-                return;
+            links = '/' + _.trimLeft(links + '/' + (route.path || ''), '/');
+            let name = route.name;
+            if (!name) {
+                return '';
             }
-            // Whoops. Nothing to see here
-            if (!route.component) {
-                return;
-            }
-            let path = route.path;
-            if (!route.path && route === routes[idx-1].indexRoute) {
-                path = routes[idx-1].path;
-            }
-            let name = route.component.name && typeof route.component.name === 'function' ? route.component.name() : path.capitalize();
-            links = '/' + _.trimLeft(links + '/' + (path || ''), '/');
+            
             return (
                 <Link to={links} key={idx} className="breadcrumb">{name}</Link>
             );

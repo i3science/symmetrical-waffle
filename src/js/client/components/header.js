@@ -1,27 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router';
+import UserMenu from './UserMenu';
 import Breadcrumbs from './breadcrumbs';
-import authenticationStore from '../stores/AuthenticationStore';
 
 class Header extends React.Component {
     constructor() {
         super();
-        this.state = {};
-        this._onChange = this._onChange.bind(this);
-    }
-
-    componentWillMount() {
-        authenticationStore.addChangeListener(this._onChange);
-    }
-
-    componentWillUnmount() {
-        authenticationStore.removeChangeListener(this._onChange);
-    }
-
-    _onChange() {
-        this.setState({
-            user: authenticationStore.user
-        });
     }
 
     render() {
@@ -29,17 +13,14 @@ class Header extends React.Component {
             <header className="z-depth-1" >
                 <div className="white-text teal darken-2">
                     <div className="container valign-wrapper" style={{height:'40px'}}>
-                        <p className="right-align valign" style={{width:'95%',margin:'0 auto'}}>
-                            {this.state.user ? this.state.user.name.first + ' ' + this.state.user.name.last : 'Your Name'}
-                        </p>
+                        <UserMenu />
                     </div>
                 </div>
                 <nav className="teal">
                     <div className="nav-wrapper container">
                         <div className="col s12">
                             <Breadcrumbs
-                                props={this.props.props}
-                            />
+                                props={this.props.props} />
                         </div>
                     </div>
                 </nav>
