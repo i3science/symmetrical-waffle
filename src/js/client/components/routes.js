@@ -21,7 +21,7 @@ import '../utils/Object.js';
 export default (
 		<div>
 			<Route path="/" component={Template} name="Home">
-                <Route path="dashboard/projects" component={Projects} name="Projects" />
+                <Route path="projects" component={Projects} name="Projects" />
 				<Route path="search" name="Search">
 					<IndexRoute component={SearchStart} />
 					<Route path="influencer" component={SearchPage} name="Influencers" />

@@ -16,6 +16,15 @@ table.search-stats {
 table.search-stats td {
     padding: 0;
 }
+header .tabs li {
+    cursor: pointer;
+}
+header .tabs .indicator {
+    background-color: #80cbc4;
+}
+.breadcrumb:last-child {
+    color: rgba(255,255,255,0.7);
+}
 .container {
     max-width: 1200px;
 }

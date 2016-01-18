@@ -1,13 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router';
-import UserMenu from './UserMenu';
+import UserMenu from './../UserMenu';
 import Breadcrumbs from './breadcrumbs';
+import Tabs from './tabs';
 
 class Header extends React.Component {
     constructor() {
         super();
+        this.onClick = this.onClick.bind(this);
     }
-
+    onClick(event) {
+        event.preventDefault();
+        this.props.props.history.pushState(null, event.target.dataset.href);
+    }
     render() {
         return (
             <header className="z-depth-1" >
@@ -29,11 +33,10 @@ class Header extends React.Component {
                         <div className="row">
                             <div className="col s2">&nbsp;</div>
                             <div className="col s8">
-                                <ul className="tabs">
-                                    <li className="tab col s3"><Link to="/search">SEARCH</Link></li>
-                                    <li className="tab col s3"><Link to="/projects">PROJECTS</Link></li>
-                                    <li className="tab col s3"><Link to="/search">LISTS</Link></li>
-                                </ul>
+                                <Tabs
+                                    onClick={this.onClick}
+                                    routes={this.props.props.routes}
+                                />
                             </div>
                         </div>
                     </div>
