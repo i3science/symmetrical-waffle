@@ -68,8 +68,8 @@ module.exports = [
             sex: 'Female',
             language: 'English',
             age: {
-            	start: 20,
-            	end: 35
+                start: 20,
+                end: 35
             },
             married: true,
             kids: [ 'Toddlers', 'Teens' ],
@@ -85,8 +85,8 @@ module.exports = [
             sex: 'Female',
             language: 'English',
             age: {
-            	start: 20,
-            	end: 35
+                start: 20,
+                end: 35
             },
             married: true,
             kids: [ 8, 10, 13 ],
@@ -98,7 +98,7 @@ module.exports = [
             pets: [ 'Dog' ],
             ethnicity: 'Caucasion'
         }
-	}),
+    }),
     
     //
     // Derek Bois
