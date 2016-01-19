@@ -3,8 +3,8 @@ import { Route, IndexRoute } from 'react-router';
 import Template from './template';
 import Full from './FullScreen';
 import SearchStart from './search/searchStartPage';
-import SearchPage from './search/searchPage';
-import Serp from './serp/serpPage';
+import SearchInfluencer from './search/searchInfluencer';
+import Results from './results/resultsPage';
 import ProfilePage from './influencers/ProfilePage';
 import Login from './login';
 import Projects from './projects/projectPage';
@@ -24,9 +24,9 @@ export default (
                 <Route path="projects" component={Projects} name="Projects" />
 				<Route path="search" name="Search">
 					<IndexRoute component={SearchStart} />
-					<Route path="influencer" component={SearchPage} name="Influencers" />
+					<Route path="influencer" component={SearchInfluencer} name="Influencers" />
 					<Route path="results" name="Results">
-						<IndexRoute component={Serp} />
+						<IndexRoute component={Results} />
 						<Route path="profile/:id" component={ProfilePage} name="Profile" />
 					</Route>
 				</Route>

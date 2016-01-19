@@ -1,4 +1,6 @@
 import React from 'react';
+import Sidebar from '../sidebar';
+import SidebarFilter from './sidebarfilter';
 import influencerStore from '../../stores/InfluencerStore';
 import searchStore from '../../stores/SearchStore';
 import Actions from '../../actions/UiActions';
@@ -49,6 +51,9 @@ class Serp extends React.Component {
         if (this.state.results) {
             return (
                 <div>
+                    <Sidebar>
+                        <SidebarFilter />
+                    </Sidebar>
                     <SelectedInfluencers
                         selectedInfluencers={this.state.selectedInfluencers}
                         addInfluencer={this.addInfluencerToList}

@@ -1,5 +1,5 @@
 import React from 'react';
-import UserMenu from './../UserMenu';
+import UserMenu from './UserMenu';
 import Breadcrumbs from './breadcrumbs';
 import Tabs from './tabs';
 
@@ -15,6 +15,7 @@ class Header extends React.Component {
     render() {
         return (
             <header className="z-depth-1" >
+                <a style={{display: 'none'}} href="#" data-activates="slide-out" className="button-collapse"><i className="mdi-navigation-menu"></i></a>
                 <div className="white-text teal darken-2">
                     <div className="container valign-wrapper" style={{height:'40px'}}>
                         <UserMenu />
