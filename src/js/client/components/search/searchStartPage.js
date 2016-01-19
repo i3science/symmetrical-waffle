@@ -61,7 +61,6 @@ class SearchStart extends React.Component {
         var value = this.state.filter.searchtag;
         return (
             <div>
-                <h1>{this.state.results ? this.state.results.length + ' results' : ''}</h1>
                 <div className="card-panel">
                     <div className="row center-align">
                         <div className="col s6" style={{float: 'none', margin: '50px auto'}}>
@@ -79,6 +78,7 @@ class SearchStart extends React.Component {
                                     active={true}
                                     onChange={this.handleChange}
                                 />
+                                <h6>{this.state.results ? this.state.results.length + ' results' : ''}</h6>
                                 <Link to="" className="amber accent-3 waves-effect waves-light btn-large center" style={{marginTop: '20px'}} onClick={this.onClick}>Go for it</Link>
                             </div>
                         </div>

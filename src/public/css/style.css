@@ -89,6 +89,15 @@ header .tabs .indicator {
     height: 20px;
     transition: .2s all ease;
 }
+.side-nav.fixed header a {
+    display: inline-block;
+    padding: 0 10px;
+    height: auto;
+    line-height: 100%;
+    font-size: 24px;
+    color: #fff;
+    vertical-align: middle;
+}
 
 @media only screen and (min-width: 993px) {
     .container {

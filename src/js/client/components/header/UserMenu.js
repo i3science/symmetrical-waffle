@@ -1,5 +1,5 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
-import authenticationStore from '../stores/AuthenticationStore';
+import authenticationStore from '../../stores/AuthenticationStore';
 
 class UserMenu extends React.Component {
     constructor() {
