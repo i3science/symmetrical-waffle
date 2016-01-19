@@ -12,7 +12,7 @@ import '../utils/fetch';
 import '../utils/String.js';
 import '../utils/Object.js';
 
-// Actions.initData();
+Actions.initData();
 
 class App extends React.Component {
     constructor() {
