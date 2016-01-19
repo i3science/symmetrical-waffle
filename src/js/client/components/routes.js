@@ -19,29 +19,30 @@ import '../utils/String.js';
 import '../utils/Object.js';
 
 export default (
-		<div>
-			<Route path="/" component={Template} name="Home">
+        <div>
+            <Route path="/" component={Template} name="Home">
+                <IndexRoute component={SearchStart} name="Search" />
                 <Route path="projects" component={Projects} name="Projects" />
-				<Route path="search" name="Search">
-					<IndexRoute component={SearchStart} />
-					<Route path="influencer" component={SearchInfluencer} name="Influencers" />
-					<Route path="results" name="Results">
-						<IndexRoute component={Results} />
-						<Route path="profile/:id" component={ProfilePage} name="Profile" />
-					</Route>
-				</Route>
-				<Route path="prefs" component={PreferencesPage} name="Preferences">
-					<Route path="accounts/:id" name="Account">
-						<Route path="edit" component={AccountEditPage} name="Edit" />
-					</Route>
-					<Route path="influencers" name="Influencers">
-						<IndexRoute component={InfluencerPrefsPage}/>
-						<Route path="create" component={AccountEditPage} service={influencerService} name="Create" />
-					</Route>
-				</Route>
-			</Route>
-			<Route path="login" component={Full}>
-				<IndexRoute component={Login} />
-			</Route>
-		</div>
+                <Route path="search" name="Search">
+                    <IndexRoute component={SearchStart} />
+                    <Route path="influencer" component={SearchInfluencer} name="Influencers" />
+                    <Route path="results" name="Results">
+                        <IndexRoute component={Results} />
+                        <Route path="profile/:id" component={ProfilePage} name="Profile" />
+                    </Route>
+                </Route>
+                <Route path="prefs" component={PreferencesPage} name="Preferences">
+                    <Route path="accounts/:id" name="Account">
+                        <Route path="edit" component={AccountEditPage} name="Edit" />
+                    </Route>
+                    <Route path="influencers" name="Influencers">
+                        <IndexRoute component={InfluencerPrefsPage}/>
+                        <Route path="create" component={AccountEditPage} service={influencerService} name="Create" />
+                    </Route>
+                </Route>
+            </Route>
+            <Route path="login" component={Full}>
+                <IndexRoute component={Login} />
+            </Route>
+        </div>
 );
