@@ -2,10 +2,6 @@ machine:
   node:
     version: 5.2.0
 
-checkout:
-  post:
-    - 
-
 dependencies:
   cache_directories:
     - "node_modules"
