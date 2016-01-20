@@ -141,3 +141,7 @@ gulp.task('watch', function(){
 
 // Default task
 gulp.task('default', ['css','js','lint','open','watch']);
+
+gulp.task('test', function() {
+
+});
