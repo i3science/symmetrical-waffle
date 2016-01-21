@@ -15,18 +15,26 @@ import InfluencerCard from './Card';
  */
 class InfluencerCardList extends React.Component {
     render() {
-        let influencers = this.props.influencers.map((item,index) => {
-            return <InfluencerCard
-                key={index}
-                influencer={item}
-                onSelectionChanged={this.props.onSelectionChanged}/>;
-        });
-        return (
-            <div>
-                {influencers}
-            </div>
+        console.log (this.props);
+        if (this.props.influencers) {
+            let influencers = this.props.influencers.map((item, index) => {
+                return <InfluencerCard
+                    key={index}
+                    influencer={item}
+                    onSelectionChanged={this.props.onSelectionChanged}/>;
+            });
+            return (
+                <div>
+                    {influencers}
+                </div>
 
-        );
+            );
+        } else {
+            return (
+                <div></div>
+
+            );
+        }
     }
 }
 

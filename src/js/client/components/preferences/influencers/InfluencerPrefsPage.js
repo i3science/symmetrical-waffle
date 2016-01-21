@@ -1,18 +1,25 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 import { Link } from 'react-router';
+import _ from 'lodash';
+import InputText from '../../elements/inputtext';
 import InfluencerCardList from '../../influencers/list/CardList';
 import influencerStore from '../../../stores/InfluencerStore';
 import userService from '../../../services/UserService';
+import Actions from '../../../actions/UiActions';
 
 class InfluencerPrefsPage extends React.Component {
     constructor() {
         super();
-        this._onChange = this._onChange.bind(this);
         this.state = {
+            filter: {
+                searchtag: ''
+            },
             influencers: influencerStore.getInfluencers()
         };
+        this.handleChange = this.handleChange.bind(this);
+        this._onChange = this._onChange.bind(this);
+        this.onClick = this.onClick.bind(this);
     }
-
     componentWillMount() {
         influencerStore.addChangeListener(this._onChange);
     }
@@ -23,36 +30,77 @@ class InfluencerPrefsPage extends React.Component {
 
     _onChange() {
         this.setState({
-            influencers: influencerStore.getInfluencers(),
-            selectedInfluencers: influencerStore.getSelectedInfluencers()
+            influencers: influencerStore.getInfluencers()
         });
     }
-
-    _onSubmit(ev) {
-        ev.preventDefault();
-        userService
-            .save(this.state.user)
-            .then(function(response){
-                alert(response);
+    handleChange(event) {
+        this.setState({
+            filter: {
+                searchtag: event.target.value
+            }
+        });
+        if ((event.target.value.length > 0) && (event.target.value != (' ' || null || undefined))) {
+            this.state.results = _.filter(this.state.influencers, function (item) {
+                let result = (item.name.first + ' ' + item.name.last).toLowerCase();
+                return result.indexOf(event.target.value.toLowerCase()) > -1;
             });
+        } else {
+            this.state.results = [];
+        }
+        this.setState({results: this.state.results});
+    }
+
+    onClick(event) {
+        event.preventDefault();
+        Actions.updateResults(this.state.results);
+        //this.props.history.pushState(null, '/search/results');
     }
 
     render() {
+        console.log(this.state);
+        var value = this.state.filter.searchtag;
         return (
             <div>
-                <form onSubmit={this._onSubmit.bind(this)}>
-                    <input type="text" name="influencer_name" id="influencer_name"/>
-                    <input type="submit" value="go get'em"/>
-                </form>
-
-                <div>
-                    <Link to="/prefs/influencers/create">Add an influencer</Link>
+                <div className="card-panel z-depth-4">
+                    <div className="row center-align">
+                        <h4>Find an Influencer by First and/or Last Name</h4>
+                        <div className="col s6" style={{margin: '0 auto', float: 'none'}}>
+                            <div className="col s12" style={{marginTop: '50px'}}>
+                                <InputText
+                                    id="something"
+                                    label="Find and influencer"
+                                    color="teal"
+                                    placeholder="Start typing a first or last name"
+                                    col="s12"
+                                    val={value}
+                                    active={true}
+                                    onChange={this.handleChange}
+                                />
+                                <Link
+                                    to=""
+                                    className="amber accent-3 waves-effect waves-light btn-large center"
+                                    style={{marginTop: '20px'}}
+                                    onClick={this.onClick}>Go for it
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div className="row center-align">
+                        <Link
+                            to="/preferences/influencers/create"
+                            className="teal waves-effect waves-light btn-large center
+                            "><i className="material-icons right">person_add</i>Add an influencer
+                        </Link>
+                    </div>
                 </div>
-
-                <InfluencerCardList influencers={this.state.influencers}/>
+                <h5 className="center-align teal-text">{(this.state.results && this.state.results.length > 0) ? this.state.results.length + ' results' : ''}</h5>
+                <InfluencerCardList
+                    influencers={(this.state.results && this.state.results.length > 0) ? this.state.results : this.state.influencers}
+                />
             </div>
         );
     }
-
 }
+
 export default InfluencerPrefsPage;

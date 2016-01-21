@@ -54,7 +54,6 @@ class InfluencerCard extends React.Component {
                 </a>
             );
         }
-
         return (
             <div key={influencer._id} className="row" style={{position:'relative'}}>
                 <div className={'col ' + (this.props.onSelectionChanged ? 's11' : 's12')}>

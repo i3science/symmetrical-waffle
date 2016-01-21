@@ -30,7 +30,7 @@ export default (
 						<Route path="profile/:id" component={ProfilePage} name="Profile" />
 					</Route>
 				</Route>
-				<Route path="prefs" component={PreferencesPage} name="Preferences">
+				<Route path="preferences" component={PreferencesPage} name="Preferences">
 					<Route path="accounts/:id" name="Account">
 						<Route path="edit" component={AccountEditPage} name="Edit" />
 					</Route>
