@@ -16,4 +16,15 @@ dependencies:
     - sudo cp ~/mongodb-linux-x86_64-3.0.6/bin/* /usr/bin
     - sudo service mongodb start
 
+    - npm install -g gulp
     - npm install
+
+test:
+  override:
+    - gulp build
+
+deployment:
+  deploy_staging:
+    branch: develop
+    commands:
+      - ./deploy_staging.sh
