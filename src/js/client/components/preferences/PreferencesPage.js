@@ -1,5 +1,19 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 import { Link } from 'react-router';
+import Sidebar from '../sidebar';
+
+const PreferencesSidebar = () => {
+    return (
+        <div>
+            <header className='teal lighten-4 white-text valign-wrapper center-align' style={{height: '40px'}}>
+                <h6 style={{width: '100%'}}>PREFERENCES</h6>
+            </header>
+            <li><Link to="/preferences/accounts/me">My Account</Link></li>
+            <li><Link to="/preferences/influencers">Influencers</Link></li>
+            <li><Link to="/preferences/clients">Clients</Link></li>
+        </div>
+    );
+};
 
 class PreferencesPage extends React.Component {
     constructor() {
@@ -8,18 +22,11 @@ class PreferencesPage extends React.Component {
 
     render() {
         return (
-            <div className="row">
-                <div className="col s3">
-                    <h3>Preferences</h3>
-                    <ul>
-                        <Link to="/prefs/accounts/me">My Account</Link>
-                        <Link to="/prefs/influencers">Influencers</Link>
-                        <Link to="/prefs/clients">Clients</Link>
-                    </ul>
-                </div>
-                <div className="col s9">
-                    {this.props.children}
-                </div>
+            <div>
+                <Sidebar>
+                    <PreferencesSidebar />
+                </Sidebar>
+                {this.props.children}
             </div>
         );
     }

@@ -58,6 +58,7 @@ class SearchStart extends React.Component {
     }
 
     render() {
+        console.log(this.state);
         var value = this.state.filter.searchtag;
         return (
             <div>
