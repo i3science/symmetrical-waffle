@@ -27,6 +27,6 @@ deployment:
   deploy_staging:
     branch: [develop, 'feature-circleci']
     commands:
-      - tar -czf dist.tgz config/ dist/ seed/ src/mail src/public gulpfile.js server.js
+      - tar -czf dist.tgz config/ dist/ seed/ src/mail src/public gulpfile.js package.json server.js
       - rsync -avz -e "ssh -p 9731" dist.tgz circleci@54.173.3.126:/home/circleci
       - ssh circleci@54.173.3.126 -p 9731 "sudo /home/circleci/deploy.sh"
