@@ -25,6 +25,6 @@ test:
 
 deployment:
   deploy_staging:
-    branch: develop
+    branch: [develop, feature-circleci]
     commands:
-      - ./deploy_staging.sh
+      - bash deploy_staging.sh
