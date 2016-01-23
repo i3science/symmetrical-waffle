@@ -2,13 +2,21 @@ import 'isomorphic-fetch';
 
 class UserService {
     list() {
-        return fetch('/api/users');
+        return fetch('/api/users')
+            .catch(() => {});
     }
     find(id) {
-        return fetch('/api/users/'+id);
+        return fetch('/api/users/'+id)
+            .then((response, status) => {
+                console.log('Response: ', response);
+                console.log('Status: ', status);
+                return response.content;
+            })
+            .catch(() => {});
     }
     getCurrentUser() {
-        return fetch('/api/users/me');
+        return fetch('/api/users/me')
+            .catch(() => {});
     }
     create(user) {
         return fetch('/api/users/', {
@@ -18,7 +26,8 @@ class UserService {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
-        });
+        })
+            .catch(() => {});
     }
     update(user) {
         return fetch('/api/users/'+user._id, {
@@ -28,10 +37,12 @@ class UserService {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
-        });
+        })
+            .catch(() => {});
     }
     save(user) {
-        return user._id ? this.update(user) : this.create(user);
+        return (user._id ? this.update(user) : this.create(user))
+            .catch(() => {});
     }
 }
 
