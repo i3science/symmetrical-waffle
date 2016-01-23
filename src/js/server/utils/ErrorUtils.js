@@ -1,6 +1,4 @@
-'use strict';
-
-class ErrorUtils {
+export default class ErrorUtils {
     static getUniqueErrorMessage(err) {
         let output = '';
 
@@ -29,11 +27,9 @@ class ErrorUtils {
 
     static failureHandler(req, res) {
         return function(err){
-            return res.status(400).send({
+            res.status(400).send({
                 message: ErrorUtils.getErrorMessage(err)
             });
         };
     }
 }
-
-export default ErrorUtils;

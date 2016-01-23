@@ -13,7 +13,7 @@ fs.access(mailPath, fs.F_OK, function(err) {
 
 module.exports = {
   db: {
-    uri: 'mongodb://localhost/smp',
+    uri: (process.env.MONGO_BASE || 'mongodb://localhost/') + 'smp',
     options: {
       user: '',
       pass: ''

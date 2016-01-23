@@ -25,7 +25,7 @@ class AuthenticationController {
             }
 
             if (!user) {
-                res.status(401).send({ message: 'Unknown user or invalid password' });
+                res.status(400).send({ message: 'Unknown user or invalid password' });
                 return;
             }
 

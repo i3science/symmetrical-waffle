@@ -1,11 +1,14 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 import { Router } from 'react-router';
 import Routes from './routes';
+import Actions from '../actions/UiActions';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 import routerStore from '../stores/RouterStore';
 import '../utils/fetch';
 import '../utils/String.js';
 import '../utils/Object.js';
+
+Actions.initData();
 
 class App extends React.Component {
     constructor() {

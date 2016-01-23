@@ -1,3 +1,5 @@
+import 'isomorphic-fetch';
+
 class AuthenticationService {
 
     signin(email, password) {
@@ -9,7 +11,7 @@ class AuthenticationService {
         return fetch('/auth/signin', {
             credentials: 'same-origin',
             method: 'POST',
-            body: Object.keys(body).reduce(function(a,k){
+            body: Object.keys(body).reduce((a,k) => {
                 a.push(encodeURIComponent(k)+'='+encodeURIComponent(body[k]));
                 return a;
             },[]).join('&'),

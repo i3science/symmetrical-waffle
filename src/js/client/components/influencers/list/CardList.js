@@ -15,7 +15,6 @@ import InfluencerCard from './Card';
  */
 class InfluencerCardList extends React.Component {
     render() {
-        console.log (this.props);
         if (this.props.influencers) {
             let influencers = this.props.influencers.map((item, index) => {
                 return <InfluencerCard

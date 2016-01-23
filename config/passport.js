@@ -14,7 +14,6 @@ config = require('./config');
 module.exports = function() {
     // Serialize sessions
     passport.serializeUser(function(user, done) {
-        console.log('Serializing user: ', user.id);
         done(null, user.id);
     });
 

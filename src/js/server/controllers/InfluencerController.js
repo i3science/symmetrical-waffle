@@ -16,11 +16,7 @@ class InfluencerController {
             .then(function(influencers){
                 return res.json(influencers);
             })
-            .fail(function(){
-                return res.status(400).send({
-                    message: 'An error occurred'
-                });
-            });
+            .fail(ErrorUtils.failureHandler(req, res));
     }
     /**
      * Retrieves the influencer indicated by the influencerId request parameter.

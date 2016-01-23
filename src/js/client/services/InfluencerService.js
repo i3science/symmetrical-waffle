@@ -5,7 +5,8 @@ class InfluencerService {
         return fetch('/api/influencers');
     }
     find(id) {
-        return fetch('/api/influencers/'+id);
+        return fetch('/api/influencers/'+id)
+            .catch(() => {});
     }
     create(influencer) {
         return fetch('/api/influencers/', {
@@ -15,7 +16,8 @@ class InfluencerService {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
-        });
+        })
+            .catch(() => {});
     }
     update(influencer) {
         return fetch('/api/influencers/'+influencer._id, {
@@ -25,10 +27,12 @@ class InfluencerService {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
-        });
+        })
+            .catch(() => {});
     }
     save(influencer) {
-        return influencer._id ? this.update(influencer) : this.create(influencer);
+        return (influencer._id ? this.update(influencer) : this.create(influencer))
+            .catch(() => {});
     }
 }
 
