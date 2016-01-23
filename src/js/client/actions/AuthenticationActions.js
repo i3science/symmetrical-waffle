@@ -12,12 +12,12 @@ export default {
         });
     },
 
-    userAuthenticated: (jwt) => {
+    userAuthenticated: (user) => {
         routerStore.get().props.history.pushState(null, '/');
-        localStorage.setItem('jwt', jwt);
+        localStorage.setItem('user', user);
         dispatch({
             actionType: AuthenticationConstants.USER_AUTHENTICATED,
-            jwt: jwt
+            user: user
         });
     }
 };

@@ -21,8 +21,8 @@ class AuthenticationStore extends BaseStore {
             case AppConstants.INITIALIZE:
                 userService
                     .getCurrentUser()
-                    .then(function(user){
-                        self._user = user;
+                    .then(function(response){
+                        self._user = response.content;
                         self.emitChange();
                     });
                 break;
@@ -31,8 +31,7 @@ class AuthenticationStore extends BaseStore {
                 this.emitChange();
                 break;
             case AuthenticationConstants.USER_AUTHENTICATED:
-                this._jwt = action.jwt;
-                // this._user = jwt_decode(this._jwt);
+                this._user = action.user;
                 this._redirectLocation = null;
                 this.emitChange();
                 break;
