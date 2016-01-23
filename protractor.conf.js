@@ -2,7 +2,7 @@
 require('babel-register');
 
 exports.config = {
-    specs: ['test/js/client/components/*.ee.js'],
+    specs: ['test/js/client/*.ee.js'],
 
     seleniumPort: 4444,
 

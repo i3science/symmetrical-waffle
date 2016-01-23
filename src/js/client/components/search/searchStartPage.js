@@ -58,7 +58,6 @@ class SearchStart extends React.Component {
     }
 
     render() {
-        console.log(this.state);
         var value = this.state.filter.searchtag;
         return (
             <div>
@@ -77,9 +76,8 @@ class SearchStart extends React.Component {
                                     col="s12"
                                     val={value}
                                     active={true}
-                                    onChange={this.handleChange}
-                                />
-                                <h6>{this.state.results ? this.state.results.length + ' results' : ''}</h6>
+                                    onChange={this.handleChange} />
+                                <h6 id="result-count">{this.state.results ? this.state.results.length + ' results' : ''}</h6>
                                 <Link to="" className="amber accent-3 waves-effect waves-light btn-large center" style={{marginTop: '20px'}} onClick={this.onClick}>Go for it</Link>
                             </div>
                         </div>

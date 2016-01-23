@@ -72,8 +72,8 @@ var fs = require('fs');
 let { until, By } = protractor;
 let { $, baseUrl, driver, getCurrentUrl, wait } = browser;
 
-import '../../../../init';
-import { fixtures, clean, setup } from '../../server/common.js';
+import '../../../init';
+import { fixtures, clean, setup } from '../server/common.js';
 import './utils'
 
 let expectNoErrors = () => {

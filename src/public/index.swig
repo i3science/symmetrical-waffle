@@ -6,7 +6,7 @@
     <title>SMP</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="css/bundle.css">
+    <link rel="stylesheet" href="/css/bundle.css">
 </head>
 <body class="grey lighten-4">
     <div id="main">{% autoescape false %}{{ content }}{% endautoescape %}</div>

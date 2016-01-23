@@ -18,9 +18,6 @@ class AuthenticationService {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
-        })
-        .catch(() => {
-            console.log('Error: ', arguments);
         });
     }
     

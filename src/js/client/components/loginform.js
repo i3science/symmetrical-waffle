@@ -19,11 +19,7 @@ class LoginForm extends React.Component {
                     return;
                 }
 
-                // We trigger the LoginAction with that JWT.
                 authenticationActions.userAuthenticated(response.content);
-            })
-            .catch(function(err){
-                console.log('Failure: ', arguments);
             });
     }
 

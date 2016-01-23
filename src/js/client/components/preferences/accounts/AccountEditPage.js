@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; // eslint-disable-line no-unused-vars
 import userService from '../../../services/UserService';
 import { Link } from 'react-router';
 import Input from '../../elements/input';

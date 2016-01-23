@@ -8,8 +8,6 @@ class UserService {
     find(id) {
         return fetch('/api/users/'+id)
             .then((response, status) => {
-                console.log('Response: ', response);
-                console.log('Status: ', status);
                 return response.content;
             })
             .catch(() => {});

@@ -1,4 +1,7 @@
+/* global Materialize */
+
 import authenticationActions from '../actions/AuthenticationActions';
+
 if (typeof window !== 'undefined') {
     var old_fetch = window.fetch;
 
@@ -14,7 +17,7 @@ if (typeof window !== 'undefined') {
                         var r = {
                             status: response.status,
                             content: data
-                        }
+                        };
                         if (response.status < 400) {
                             return r;
                         }

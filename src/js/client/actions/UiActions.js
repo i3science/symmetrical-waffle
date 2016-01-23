@@ -4,11 +4,11 @@ import influencerService from '../services/InfluencerService';
 
 export default {
     initData() {
-        influencerService.list().then(results => {
+        influencerService.list().then(response => {
             dispatch({
                 actionType: AppConstants.INITIALIZE,
                 initialData: {
-                    influencers: results,
+                    influencers: response.content,
                     selectedInfluencers: []
                 }
             });

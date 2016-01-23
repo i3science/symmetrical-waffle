@@ -4,7 +4,6 @@ import _ from 'lodash';
 import InputText from '../../elements/inputtext';
 import InfluencerCardList from '../../influencers/list/CardList';
 import influencerStore from '../../../stores/InfluencerStore';
-import userService from '../../../services/UserService';
 import Actions from '../../../actions/UiActions';
 
 class InfluencerPrefsPage extends React.Component {
@@ -57,7 +56,6 @@ class InfluencerPrefsPage extends React.Component {
     }
 
     render() {
-        console.log(this.state);
         var value = this.state.filter.searchtag;
         return (
             <div>

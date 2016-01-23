@@ -35,7 +35,6 @@ const Input = (props) => {
             props.this.setState(props.this.state);
         }
     };
-    console.log(props);
     return (
         <input
             type={props.type || 'text'}

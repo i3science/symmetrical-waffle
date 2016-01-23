@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; // eslint-disable-line no-unused-vars
 
 const Verticals =(props) => {
     let verticals = props.verticals.map(item => {
