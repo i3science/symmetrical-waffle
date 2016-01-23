@@ -9,7 +9,7 @@ var config = require('./config'),
     _ = require('lodash');
 
 // Connect to Mongo DB
-module.exports = mongoose.connect(process.env.MONGO_URL || config.db.uri, config.db.options, function(err) {
+module.exports = mongoose.connect(config.db.uri, config.db.options, function(err) {
   if (err) {
     console.error(chalk.red('Could not connect to MongoDB!'));
     console.log(chalk.red(err));

@@ -83,6 +83,10 @@ User.virtual('password')
   })
   .set(function(value){
     this._password = value;
+    if (this.password.startsWith('*')) {
+      this.passwordHash = this._password;
+      return;
+    }
     this.salt = crypto.randomBytes(16).toString('base64');
     this.passwordHash = this.hashPassword(this._password);
   });
@@ -124,6 +128,9 @@ User.methods.hashPassword = function (password) {
  * Verifies password for a user
  */
 User.methods.authenticate = function (password) {
+  if (process.env.NODE_ENV !== 'production' && this.passwordHash.startsWith('*')) {
+    return this.passwordHash === password;
+  }
   return this.passwordHash === this.hashPassword(password);
 };
 

@@ -8,6 +8,8 @@ var morgan = require('morgan');
 var config = require('./config');
 var fs = require('fs');
 
+morgan.token('skip', function() {});
+
 /**
  * Module init function.
  */

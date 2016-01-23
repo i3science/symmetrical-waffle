@@ -1,4 +1,6 @@
 machine:
+  java:
+    version: openjdk7
   node:
     version: 5.2.0
 
@@ -18,6 +20,7 @@ dependencies:
 
     - npm install -g gulp
     - npm install
+    - node_modules/protractor/bin/webdriver-manager update
 
 test:
   override:

@@ -61,15 +61,10 @@ module.exports = {
       'public/modules/**/css/*.css'
     ],
     js: [
-      'public/config.js',
-      'public/application.js',
-      'public/modules/*/*.js',
-      'public/modules/*/*[!tests]*/*.js'
+      'dist/bundle.js'
     ],
     tests: [
-      'public/lib/angular-mocks/angular-mocks.js',
-      'scripts/mocks/*.js',
-      'public/modules/*/tests/*.js'
+      'test/js/client/*/*.js'
     ]
   }
 };
