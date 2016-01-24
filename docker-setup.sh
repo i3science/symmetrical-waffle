@@ -59,4 +59,5 @@ then
 fi
 
 npm install -g gulp
+npm install
 ./node_modules/protractor/bin/webdriver-manager update
