@@ -13,9 +13,11 @@
     <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
     <script src="/bundle.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+    {% if process.env.NODE_ENV === 'development' %}
     <script>
         document.write('<script src="//' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')
         $(".button-collapse").sideNav();
     </script>
+    {% endif %}
 </body>
 </html>
