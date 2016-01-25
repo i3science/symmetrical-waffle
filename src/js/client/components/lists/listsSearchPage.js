@@ -101,11 +101,7 @@ class ListPage extends React.Component {
                     </div>
                     <br />
                     <div className="row center-align">
-                        <Link
-                            to="/search"
-                            className="teal waves-effect waves-light btn-large center
-                            "><i className="material-icons right">list</i>Create a list
-                        </Link>
+                        <Link to="/search" className="teal waves-effect waves-light btn-large center"><i className="material-icons right">list</i>Create a list</Link>
                     </div>
                 </div>
                 <h5 className="center-align teal-text">{(this.state.listResults && this.state.listResults.length > 0) ? this.state.listResults.length + ' results' : ''}</h5>
