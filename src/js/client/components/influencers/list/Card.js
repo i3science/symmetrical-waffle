@@ -1,4 +1,4 @@
-import React from 'react'; // eslint-disable-line no-unused-vars
+import React from 'react';
 import { Link } from 'react-router';
 import Score from '../profile/score';
 import MediaKit from '../profile/mediakit';

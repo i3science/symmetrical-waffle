@@ -4,6 +4,7 @@ import _ from 'lodash';
 import InputText from '../../elements/inputtext';
 import InfluencerCardList from '../../influencers/list/CardList';
 import influencerStore from '../../../stores/InfluencerStore';
+
 import Actions from '../../../actions/UiActions';
 
 class InfluencerPrefsPage extends React.Component {

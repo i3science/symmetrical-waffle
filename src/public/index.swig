@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="/css/bundle.css">
 </head>
-<body class="grey lighten-4">
+<body class="grey lighten-3">
     <div id="main">{% autoescape false %}{{ content }}{% endautoescape %}</div>
     <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
     <script src="/bundle.js"></script>

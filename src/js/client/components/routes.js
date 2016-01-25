@@ -8,6 +8,8 @@ import Results from './results/resultsPage';
 import ProfilePage from './influencers/ProfilePage';
 import Login from './login';
 import Projects from './projects/projectPage';
+import Lists from './lists/listsSearchPage';
+import List from './lists/list';
 import PreferencesPage from './preferences/PreferencesPage';
 import AccountEditPage from './preferences/accounts/AccountEditPage';
 import InfluencerPrefsPage from './preferences/influencers/InfluencerPrefsPage';
@@ -30,6 +32,8 @@ export default (
 						<Route path="profile/:id" component={ProfilePage} name="Profile" />
 					</Route>
 				</Route>
+				<Route path="lists" component={Lists} name="Lists" />
+				<Route path="list/:id" component={List} name="List" />
 				<Route path="preferences" component={PreferencesPage} name="Preferences">
 					<Route path="accounts/:id" name="Account">
 						<Route path="edit" component={AccountEditPage} name="Edit" />

@@ -1,6 +1,9 @@
 html, body, #main {
     height: 100%;
 }
+html {
+    color: rgba(0,0,0,0.67);
+}
 h6 {
     font-size: 1.2rem;
 }
