@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router';
-import influencerStore from '../../stores/InfluencerStore';
-import Actions from '../../actions/UiActions';
+import _ from 'lodash';
+import InputText from '../elements/inputtext';
+import CheckBox from '../elements/checkbox';
 
 /*
 
@@ -24,96 +25,189 @@ const Result = (props) => {
                     <p>Amplifiers: {props.project.amplifiers}</p>
                     <p>Live Date: {props.project.start}</p>
                 </div>
-                <div className="card-action">
-                    <a href="#">More Info...</a>
+                <div className="card-action grey lighten-5">
+                    <Link to="">More Info...</Link>
                 </div>
             </div>
         </div>
     );
 };
 
-const Results = (props) => {
-    let results = props.projects.map((item, index) => {
+class Results extends React.Component {
+    render() {
+        let results = this.props.projects.map((item, index) => {
+            return (
+                <Result key={index}
+                        project={item}
+                />
+            );
+        });
         return (
-            <Result key={index}
-                project={item}
-            />
+            <div className="">
+                <div className="row">
+                    {results}
+                </div>
+            </div>
         );
-    });
+    }
+}
 
-    return (
-        <div className="card-panel">
-            <div className="row">
-                {results}
-                <div className="col m3 s2">
-                    <div className="card">
-                        <div className="card-content">
-                            <span className="card-title teal-text text-darken-1">Ford</span>
-                            <p><strong>Ford Thanksgiving</strong></p>
-                            <p>Amplifiers: 123456</p>
-                            <p>Live Date: 11.15.15</p>
+
+var project = {
+    advertiser: 'Ford',
+    name: 'Pepsi Thanksgiving',
+    amplifiers: 300,
+    start: 112015,
+    state: 'active'
+};
+var project2 = {
+    advertiser: 'Ford',
+    name: 'Chrysler Picnic',
+    amplifiers: 900,
+    start: 112016,
+    state: 'pending'
+};
+
+var projects = [
+    project,
+    project2,
+    project,
+    project2,
+    project,
+    project2,
+    project,
+    project2,
+    project,
+    project2,
+    project,
+    project2
+];
+
+class ProjectPage extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            projectResults: [],
+            projects: [],
+            filter: {
+                client: '',
+                keyword: '',
+                state: [
+                    'active',
+                    'pending',
+                    'inexec',
+                    'closed'
+                ]
+            }
+        };
+        this.handleChange = this.handleChange.bind(this);
+    }
+    componentWillMount() {
+        this.setState({projects: projects});
+    }
+    handleChange(event) {
+        if (event.target.type === 'checkbox') {
+            if (event.target.checked) {
+                this.state.filter.state.push(event.target.id);
+            } else {
+                _.pull(this.state.filter.state, event.target.id);
+            }
+        } else {
+            this.state.filter[event.target.id] = event.target.value;
+        }
+        this.setState({filter: this.state.filter});
+
+        if ((this.state.filter.client || this.state.filter.keyword).length > 0 &&
+            (this.state.filter.client || this.state.filter.keyword) !== (' ' || '' || null || undefined)) {
+            this.state.projectResults = _.filter(this.state.projects, function (item) {
+                let client = item.advertiser.toLowerCase();
+                let keyword = (item.name + ' ' + item.advertiser).toLowerCase();
+                return (
+                    (client.indexOf(this.state.filter.client.toLowerCase()) > -1) &&
+                    (keyword.indexOf(this.state.filter.keyword.toLowerCase()) > -1) &&
+                    _.contains(this.state.filter.state, item.state)
+                );
+            }, this);
+        } else {
+            this.state.projectResults = [];
+        }
+        this.setState({projectResults: this.state.projectResults});
+    }
+    render() {
+        var keyword = this.state.filter.keyword,
+            client = this.state.filter.client,
+            active = _.contains(this.state.filter.state, 'active'),
+            pending = _.contains(this.state.filter.state, 'pending'),
+            inexec = _.contains(this.state.filter.state, 'inexec'),
+            closed = _.contains(this.state.filter.state, 'closed');
+        return (
+            <div>
+                <div className="card-panel z-depth-4">
+                    <div className="row center-align">
+                        <h4 className="grey-text text-darken-2">Find a Project</h4>
+                        <div className="col s10" style={{margin: '0 auto', float: 'none'}}>
+                            <div className="row" style={{marginTop: '50px'}}>
+                                <div className="col s6">
+                                    <InputText
+                                        id="client"
+                                        label="Client"
+                                        color="teal"
+                                        placeholder="Start typing a client name"
+                                        val={client}
+                                        active={true}
+                                        onChange={this.handleChange}
+                                    />
+                                </div>
+                                <div className="col s6">
+                                    <InputText
+                                        id="keyword"
+                                        label="Keyword"
+                                        color="teal"
+                                        placeholder="Start typing a keyword"
+                                        val={keyword}
+                                        active={true}
+                                        onChange={this.handleChange}
+                                    />
+                                </div>
+                            </div>
                         </div>
-                        <div className="card-action">
-                            <a href="#">More Info...</a>
+                        <div className="col s8" style={{margin: '0 auto ', float: 'none'}}>
+                            <div className="col s3">
+                                <CheckBox
+                                    id='active'
+                                    label='Active'
+                                    onChange={this.handleChange}
+                                    checked={active}
+                                />
+                            </div>
+                            <div className="col s3">
+                                <CheckBox
+                                    id='pending'
+                                    label='Pending'
+                                    onChange={this.handleChange}
+                                    checked={pending}
+                                />
+                            </div>
+                            <div className="col s3">
+                                <CheckBox
+                                    id='inexec'
+                                    label='In Execution'
+                                    onChange={this.handleChange}
+                                    checked={inexec}
+                                />
+                            </div>
+                            <div className="col s3">
+                                <CheckBox
+                                    id='closed'
+                                    label='Closed'
+                                    onChange={this.handleChange}
+                                    checked={closed}
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    );
-};
-
-class Serp extends React.Component {
-    constructor() {
-        var project = {
-            advertiser: 'Ford',
-            name: 'Ford Thanksgiving',
-            amplifiers: 300,
-            start: 112015
-        };
-
-        super();
-        this.state = {
-            //projectResults: influencerStore.getInfluencers()
-            projectResults: [
-                project,
-                project,
-                project,
-                project,
-                project,
-                project,
-                project,
-                project,
-                project,
-                project
-            ]
-        };
-        this._onChange = this._onChange.bind(this);
-    }
-
-    componentWillMount() {
-        influencerStore.addChangeListener(this._onChange);
-    }
-
-    componentWillUnmount() {
-        influencerStore.removeChangeListener(this._onChange);
-    }
-
-    _onChange() {
-        this.setState({
-            projects: influencerStore.getInfluencers()
-        });
-    }
-
-    addToList(pass, event) {
-        event.preventDefault();
-        Actions.addInfluencerToList(pass);
-    }
-
-    render() {
-        return (
-            <div>
-                <Link to="/search" className="btn">Results</Link>
+                <h5 className="center-align teal-text">{(this.state.projectResults && this.state.projectResults.length > 0) ? this.state.projectResults.length + ' results' : ''}</h5>
                 <Results
                     projects={this.state.projectResults}
                 />
@@ -123,4 +217,4 @@ class Serp extends React.Component {
     }
 }
 
-export default Serp;
+export default ProjectPage;

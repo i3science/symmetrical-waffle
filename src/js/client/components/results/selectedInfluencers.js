@@ -74,7 +74,7 @@ class SelectedInfluencers extends React.Component {
         return (
             <div className="row">
                 <div className="col s11">
-                    <div className="card-panel">
+                    <div className="card-panel z-depth-4">
                         <div className="row">
                             <div className="col s4">
                                 <h4>SEARCH STATS</h4>
