@@ -2,6 +2,11 @@
     "application": {
         "title": "Social Marketplace Platform"
     },
+    "login": {
+        "email": "Email",
+        "password": "Password",
+        "signin": "Sign In"
+    },
     "search": {
         "label": "Let's just search...",
         "placeholder": "What are you looking for?",
