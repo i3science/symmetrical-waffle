@@ -6,7 +6,7 @@ import influencerStore from '../../stores/InfluencerStore';
 import Actions from '../../actions/UiActions';
 //import Filters from './filters';
 import _ from 'lodash';
-
+import { __ } from '../../utils/i18n';
 
 class SearchStart extends React.Component {
     constructor() {
@@ -15,7 +15,8 @@ class SearchStart extends React.Component {
             filter: {
                 searchtag: ''
             },
-            influencers: influencerStore.getInfluencers()
+            influencers: influencerStore.getInfluencers(),
+            results: []
         };
         this.handleChange = this.handleChange.bind(this);
         this._onChange = this._onChange.bind(this);
@@ -70,15 +71,15 @@ class SearchStart extends React.Component {
                             <div className="col s12" style={{marginTop: '50px'}}>
                                 <InputText
                                     id="something"
-                                    label="Let's just search..."
+                                    label={__('search.label')}
                                     color="teal"
-                                    placeholder="What are you looking for?"
+                                    placeholder={__('search.placeholder')}
                                     col="s12"
                                     val={value}
                                     active={true}
                                     onChange={this.handleChange} />
-                                <h6 id="result-count">{this.state.results ? this.state.results.length + ' results' : ''}</h6>
-                                <Link to="" className="amber accent-3 waves-effect waves-light btn-large center" style={{marginTop: '20px'}} onClick={this.onClick}>Go for it</Link>
+                                <h6 id="result-count">{__('search.results_count', {count: this.state.results.length})}</h6>
+                                <Link to="" className="amber accent-3 waves-effect waves-light btn-large center" style={{marginTop: '20px'}} onClick={this.onClick}>{__('search.button')}</Link>
                             </div>
                         </div>
                     </div>

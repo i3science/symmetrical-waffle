@@ -29,11 +29,24 @@ var fs = require('fs'),
     config = require('./config'),
     consolidate = require('consolidate'),
     path = require('path'),
-    mongoose = require('mongoose');
+    mongoose = require('mongoose'),
+    i18next = require('i18next'),
+    backend = require('i18next-sync-fs-backend'),
+    middleware = require('i18next-express-middleware'),
+    _ = require('lodash');
+
+i18next
+    .use(backend)
+    .use(middleware.LanguageDetector)
+    .init(config.i18n);
 
 module.exports = function(db) {
     // Initialize express app
     var app = express();
+
+    // Setting the app router and static folder
+    app.use('/assets', express.static(path.resolve('./src/public')));
+    app.use('/assets', express.static(path.resolve('./dist')));
 
     // Setting application local variables
     app.locals.title = config.app.title;
@@ -47,6 +60,39 @@ module.exports = function(db) {
     app.use(function(req, res, next) {
         res.locals.url = req.protocol + '://' + req.headers.host + req.url;
         req.basePath = req.protocol + '://' + req.headers.host;
+        next();
+    });
+
+    // Set up i18n
+    app.use(middleware.handle(i18next));
+    app.use(function(req, res, next){
+        req.translations = {};
+
+        // Add translation resources when they're loaded, for isomorphic render
+        i18next.on('loaded', function(loaded){
+            // The key given is the language that is loaded, but doesn't always
+            // correspond with the name of the file that was loaded
+            Object.keys(loaded).forEach(function(key){
+                // One or more namespaces may be loaded
+                loaded[key].forEach(function(ns){
+                    // As the language that is loaded doesn't necessarily
+                    // correspond with the filename, we'll just troll through
+                    // all possible file names
+                    req.languages.forEach(function(lang){
+                        var translation = i18next.getResourceBundle(lang, ns);
+                        if (typeof translation !== 'undefined') {
+                            var tmp = {};
+                            tmp[lang] = {};
+                            tmp[lang][ns] = translation;
+                            req.translations = _.extend(
+                                req.translations,
+                                tmp
+                            );
+                        }
+                    })
+                });
+            });
+        });
         next();
     });
 
@@ -91,10 +137,6 @@ module.exports = function(db) {
     app.use(helmet.ienoopen());
     app.disable('x-powered-by');
 
-    // Setting the app router and static folder
-    app.use(express.static(path.resolve('./src/public')));
-    app.use(express.static(path.resolve('./dist')));
-
     // CookieParser should be above session
     app.use(cookieParser());
 
@@ -132,6 +174,10 @@ module.exports = function(db) {
 
     // Set up React-Router
     app.use(function(req, res, next){
+        if (req.url.indexOf('/assets') > -1) {
+            next();
+        }
+
         let r = createRoutes(Routes);
         let location = createLocation(req.url);
 
@@ -148,7 +194,7 @@ module.exports = function(db) {
                 // var ReactApp = React.createFactory(App);
                 // var content = ReactDOMServer.renderToString(ReactApp({}));
                 var content = renderToString(<RoutingContext {...renderProps} />);
-                return res.render('index', {content: content});
+                return res.render('index', {content: content, translations: JSON.stringify(req.translations)});
             }
         });
     });
