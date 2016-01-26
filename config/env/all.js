@@ -1,5 +1,7 @@
 'use strict';
 
+var path = require('path');
+
 module.exports = {
   app: {
     title: 'SMP',
@@ -66,5 +68,11 @@ module.exports = {
     tests: [
       'test/js/client/*/*.js'
     ]
+  },
+  i18n: {
+    fallbackLng: 'en',
+    backend: {
+      loadPath: path.resolve(__dirname, '../../src/public/locales/{{lng}}.json')
+    }
   }
 };
