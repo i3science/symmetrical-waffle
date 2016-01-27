@@ -30,8 +30,8 @@ class InfluencerController {
     create(req, res) {
         return influencerService
             .create(req.body, req.basePath)
-            .spread(function(){
-                return res.status(201).send();
+            .spread(function(influencer){
+                return res.status(201).send({ id: influencer._id });
             })
             .fail(ErrorUtils.failureHandler(req, res));
     }

@@ -6,12 +6,15 @@
     <title>SMP</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="/css/bundle.css">
+    <link rel="stylesheet" href="/assets/css/bundle.css">
 </head>
 <body class="grey lighten-3">
     <div id="main">{% autoescape false %}{{ content }}{% endautoescape %}</div>
+    <script type="text/javascript">
+        window.translations = {% autoescape false %}{{ translations }}{% endautoescape %};
+    </script>
     <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
-    <script src="/bundle.js"></script>
+    <script src="/assets/bundle.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
     {% if process.env.NODE_ENV === 'development' %}
     <script>

@@ -91,7 +91,7 @@ const Review = (props) => {
     return (
         <div className="row">
             <div className="col s6">
-                <img className="circle responsive-img left" style={{width: '80px', marginRight: '30px'}} src="/images/567442a2fb6e1490001fbe91.jpg" />
+                <img className="circle responsive-img left" style={{width: '80px', marginRight: '30px'}} src="/assets/images/567442a2fb6e1490001fbe91.jpg" />
                 <div style={{overflow: 'hidden', height: '90px', position: 'relative'}}>
                     <p style={{fontSize: '15px', margin: '0'}}>{props.review.body}</p>
                     <div style={{
@@ -151,7 +151,7 @@ const Profile = (props) => {
                     <div className="col s9">
                         <div className="row">
                             <div className="col s3">
-                                <img className="circle responsive-img" src={'/images/' + props.influencer._id +'.jpg'} />
+                                <img className="circle responsive-img" src={'/assets/images/' + props.influencer._id +'.jpg'} />
                             </div>
                             <div className="col s9">
                                 <h4 className="teal-text" style={{margin: 0}}>{influencer.name.first} {influencer.name.last}</h4>

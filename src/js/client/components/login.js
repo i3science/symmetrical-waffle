@@ -1,5 +1,6 @@
 import React from 'react';
 import LoginForm from './loginform';
+import { __ } from '../utils/i18n';
 
 class Login extends React.Component {
     constructor() {
@@ -16,13 +17,13 @@ class Login extends React.Component {
                 <div className="row">
                     <div className="col s2">&nbsp;</div>
                     <div className="col s8">
-                        <h3 className="center" style={{margin: '10% 0'}}>Social Marketplace Platform</h3>
+                        <h3 className="center" style={{margin: '10% 0'}}>{__('application.title')}</h3>
                         <LoginForm />
                         <div className="teal-text text-darken-1 center-align">
-                            <p><strong>Forgot your password?</strong><br />
-                                Not a user? Contact us here!</p>
+                            <p><strong>{__('forgot_password')}</strong><br />
+                                {__('sign_up')}</p>
                             <br />
-                            <p><small>Copyright &copy; 2015 JONES MEDIA INC.  All Rights Reserved.</small></p>
+                            <p><small>{__('legal.copyright')}</small></p>
                         </div>
                     </div>
                     <div className="col s2">&nbsp;</div>
