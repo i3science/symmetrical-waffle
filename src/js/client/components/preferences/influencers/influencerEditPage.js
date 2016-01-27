@@ -1,4 +1,4 @@
-import React from 'react'; // eslint-disable-line no-unused-vars
+import React from 'react';
 import userService from '../../../services/UserService';
 import { Link } from 'react-router';
 import Input from '../../elements/input';
@@ -6,7 +6,7 @@ import InputText from '../../elements/inputtext';
 
 
 
-class AccountEditPage extends React.Component {
+class InfluencerEditPage extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -27,10 +27,10 @@ class AccountEditPage extends React.Component {
             var self = this;
             this.setState({ loaded: false });
             this.service
-            .find(this.props.params.id)
-            .then(function(user){
-            self.setState({ loaded: true, user: user });
-            });
+                .find(this.props.params.id)
+                .then(function(user){
+                    self.setState({ loaded: true, user: user });
+                });
         }
     }
 
@@ -46,7 +46,7 @@ class AccountEditPage extends React.Component {
         return (
             <div>
                 <div className="card-panel z-depth-4">
-                    <h4 className="center-align">Create an Influencer</h4><br />
+                    <h4 className="center-align">Create an Influencer dfsdasfasdfasfds</h4><br />
                     <div className="row">
                         <div className="col s8" style={{float: 'none', margin: '0 auto'}}>
                             <InputText
@@ -111,25 +111,25 @@ class AccountEditPage extends React.Component {
 
                 <div className="card-panel z-depth-4" style={{display: 'none'}}>
                     <h4>Create an Influencer</h4>
-                        <form>
-                            <div className="row">
+                    <form>
+                        <div className="row">
 
-                                <div className="col s2">First Name</div>
-                                <div className="col s10"><Input name="first_name" property="state.user.name.first" this={this}/></div>
-                                <div className="col s2">Last Name</div>
-                                <div className="col s10"><Input name="last_name" property="state.user.name.last" this={this}/></div>
-                                <div className="col s2">Email Address</div>
-                                <div className="col s10"><Input name="email_address" property="state.user.email" this={this}/></div>
-                                <div className="col s2">Timezone</div>
-                                <div className="col s10"><input type="text" name="timezone" id="timezone"/></div>
+                            <div className="col s2">First Name</div>
+                            <div className="col s10"><Input name="first_name" property="state.user.name.first" this={this}/></div>
+                            <div className="col s2">Last Name</div>
+                            <div className="col s10"><Input name="last_name" property="state.user.name.last" this={this}/></div>
+                            <div className="col s2">Email Address</div>
+                            <div className="col s10"><Input name="email_address" property="state.user.email" this={this}/></div>
+                            <div className="col s2">Timezone</div>
+                            <div className="col s10"><input type="text" name="timezone" id="timezone"/></div>
 
-                                <input type="submit" value="Save"/>
-                            </div>
-                        </form>
+                            <input type="submit" value="Save"/>
+                        </div>
+                    </form>
                 </div>
             </div>
         );
     }
 
 }
-export default AccountEditPage;
+export default InfluencerEditPage;

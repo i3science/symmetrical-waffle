@@ -12,6 +12,7 @@ import Lists from './lists/listsSearchPage';
 import List from './lists/list';
 import PreferencesPage from './preferences/PreferencesPage';
 import AccountEditPage from './preferences/accounts/AccountEditPage';
+import InfluencerCreatePage from './preferences/influencers/influencerCreatePage';
 import InfluencerPrefsPage from './preferences/influencers/InfluencerPrefsPage';
 import influencerService from '../services/InfluencerService';
 
@@ -40,7 +41,7 @@ export default (
 					</Route>
 					<Route path="influencers" name="Influencers">
 						<IndexRoute component={InfluencerPrefsPage}/>
-						<Route path="create" component={AccountEditPage} service={influencerService} name="Create" />
+						<Route path="create" component={InfluencerCreatePage} service={influencerService} name="Create" />
 					</Route>
 				</Route>
 			</Route>

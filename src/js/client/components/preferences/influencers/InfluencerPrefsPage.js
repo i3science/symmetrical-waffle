@@ -67,10 +67,9 @@ class InfluencerPrefsPage extends React.Component {
                             <div className="col s12" style={{marginTop: '50px'}}>
                                 <InputText
                                     id="something"
-                                    label="Find and influencer"
+                                    label="Find an influencer"
                                     color="teal"
                                     placeholder="Start typing a first or last name"
-                                    col="s12"
                                     val={value}
                                     active={true}
                                     onChange={this.handleChange}
