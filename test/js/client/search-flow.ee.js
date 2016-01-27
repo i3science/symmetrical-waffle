@@ -60,7 +60,7 @@ describe('search flow', () => {
                 return wait(until.elementLocated(By.id('result-count')), 10000);
             })
             .then(() => {
-                return wait(until.elementTextIs($('#result-count'), '1 results'), 10000);
+                return wait(until.elementTextIs($('#result-count'), '1 result'), 10000);
             });
     });
 });
