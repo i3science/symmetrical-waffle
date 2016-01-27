@@ -41,6 +41,7 @@ class InfluencerCreatePage extends React.Component {
         //            self.setState({ loaded: true, user: user });
         //        });
         //}
+
     }
     _onChange(event) {
         switch (event.target.id) {
