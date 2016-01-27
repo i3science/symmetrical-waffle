@@ -6,6 +6,7 @@ class InfluencerStore extends BaseStore {
 
     constructor() {
         super();
+        this.currentInfluencerId = '';
         this.influencers = [];
         this.selectedInfluencers = [];
     }
@@ -25,6 +26,10 @@ class InfluencerStore extends BaseStore {
                 this.selectedInfluencers.push(action.influencer);
                 this.emitChange();
                 break;
+            case AppConstants.CREATE_INFLUENCER:
+                this.influencers.push(action.influencer);
+                this.emitChange();
+                break;
         }
     }
 
@@ -36,6 +41,9 @@ class InfluencerStore extends BaseStore {
     }
     getInfluencerById(id) {
         return _.find(this.influencers, { _id: id });
+    }
+    getCurrentInfluencerId() {
+        return this.currentInfluencerId;
     }
 }
 

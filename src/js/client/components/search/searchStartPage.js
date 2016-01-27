@@ -61,8 +61,9 @@ class SearchStart extends React.Component {
         var value = this.state.filter.searchtag;
         return (
             <div>
-                <div className="card-panel">
+                <div className="card-panel z-depth-4">
                     <div className="row center-align">
+                        <h4 className="grey-text text-darken-2">Find an Influencer</h4>
                         <div className="col s6" style={{float: 'none', margin: '50px auto'}}>
                             <Link to="search" className="waves-effect waves-light btn-large left"><i className="material-icons right">playlist_add</i>Start a Project</Link>
                             <Link to="search/influencer" className="waves-effect waves-light btn-large right"><i className="material-icons right">search</i>Free Form Search</Link>
