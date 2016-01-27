@@ -14,6 +14,15 @@ export default {
             });
         });
     },
+    createInfluencer(influencer) {
+        influencerService.save(influencer)
+            .then(function(){
+                dispatch({
+                    actionType: AppConstants.CREATE_INFLUENCER, influencer
+                });
+            });
+    },
+
     addUser(user) {
         dispatch({
             actionType: AppConstants.ADD_USER, user
