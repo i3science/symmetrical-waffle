@@ -8,6 +8,7 @@ module.exports = [
     new Influencer({
         _id: '567442a2fb6e1490001fbe5f',
         amplifier: true,
+        hasImage: true,
         name: {
             first: 'Shawna',
             last: 'O\'Brien'
@@ -63,7 +64,7 @@ module.exports = [
                 name: 'Something with no value',
                 price: ''
             }],
-        verticals: [ 'beauty', 'fashion', 'parenting' ],
+        verticals: [ 'Beauty', 'Fashion', 'Parenting' ],
         audience: {
             sex: 'Female',
             language: 'English',
@@ -84,14 +85,11 @@ module.exports = [
         personal: {
             sex: 'Female',
             language: 'English',
-            age: {
-                start: 20,
-                end: 35
-            },
+            age: 30,
             married: true,
             kids: [ 8, 10, 13 ],
             country: 'Canada',
-            region: 'Ontario',
+            state: 'Ontario',
             city: 'Toronto',
             residence: 'Condo',
             householdIncome: 100000,
@@ -106,6 +104,7 @@ module.exports = [
     new Influencer({
         _id: '567442a2fb6e1490001fbe70',
         amplifier: false,
+        hasImage: true,
         name: {
             first: 'Derek',
             last: 'Bois'
@@ -177,10 +176,7 @@ module.exports = [
         personal: {
             sex: 'Male',
             language: 'English',
-            age: {
-                start: 20,
-                end: 35
-            },
+            age: 20,
             married: false,
             kids: [ 10 ],
             country: 'Canada',
@@ -198,6 +194,7 @@ module.exports = [
     new Influencer({
         _id: '567442a2fb6e1490001fbe80',
         amplifier: true,
+        hasImage: true,
         name: {
             first: 'Ava',
             last: 'Greene'
@@ -274,10 +271,7 @@ module.exports = [
         personal: {
             sex: 'Female',
             language: 'English',
-            age: {
-                start: 20,
-                end: 35
-            },
+            age: 60,
             married: true,
             kids: [ 8, 10, 13 ],
             country: 'Canada',
@@ -296,6 +290,7 @@ module.exports = [
     new Influencer({
         _id: '567442a2fb6e1490001fbe91',
         amplifier: false,
+        hasImage: true,
         name: {
             first: 'Jordan',
             last: 'Stone'
@@ -367,10 +362,7 @@ module.exports = [
         personal: {
             sex: 'Male',
             language: 'English',
-            age: {
-                start: 20,
-                end: 35
-            },
+            age: 80,
             married: false,
             kids: [ 10 ],
             country: 'Canada',

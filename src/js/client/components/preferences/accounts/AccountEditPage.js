@@ -4,6 +4,8 @@ import { Link } from 'react-router';
 import Input from '../../elements/input';
 import InputText from '../../elements/inputtext';
 
+
+
 class AccountEditPage extends React.Component {
     constructor() {
         super();
@@ -16,10 +18,29 @@ class AccountEditPage extends React.Component {
                 email: ''
             }
         };
-
+        this._onSubmit = this._onSubmit.bind(this);
     }
 
+    componentWillMount() {
+        this.service = this.props.route.service || userService;
+        if (this.props.params.id) {
+            var self = this;
+            this.setState({ loaded: false });
+            this.service
+            .find(this.props.params.id)
+            .then(function(user){
+            self.setState({ loaded: true, user: user });
+            });
+        }
+    }
 
+    _onSubmit(ev) {
+        ev.preventDefault();
+        this.service.save(this.state.user)
+            .then(function(){
+                alert('Created!');
+            });
+    }
 
     render() {
         return (

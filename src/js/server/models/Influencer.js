@@ -13,6 +13,7 @@ require('mongoose-schema-extend'); // This should not need to be here, but seedi
  */
 var Influencer = User.extend({
     amplifier: Boolean,
+    hasImage: Boolean,
     reach: [{
         medium: String,
         value: Number
@@ -43,15 +44,16 @@ var Influencer = User.extend({
         sex: String,
         language: String,
         age: Number,
-        married: Boolean,
-        kids: [Number],
+        married: String,
+        kids: [String],
         country: String,
         region: String,
         city: String,
         residence: String,
         householdIncome: Number,
         pets: [String],
-        ethnicity: String
+        ethnicity: String,
+        employment: String
     }
 });
 

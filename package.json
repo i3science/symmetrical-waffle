@@ -58,8 +58,6 @@
     "swig": "^1.4.2"
   },
   "devDependencies": {
-    "chai": "^3.4.1",
-    "chai-as-promised": "^5.2.0",
     "connect-livereload": "~0.5.4",
     "eslint-plugin-react": "^3.11.3",
     "gulp": "~3.9.0",
@@ -69,14 +67,9 @@
     "gulp-eslint": "~1.1.1",
     "gulp-livereload": "~3.8.1",
     "gulp-mocha": "^2.2.0",
-    "gulp-nodemon": "~2.0.4",
     "gulp-open": "~1.0.0",
     "gulp-protractor": "^2.1.0",
-    "jasmine-core": "^2.4.1",
     "nodemailer-pickup-transport": "^0.1.1",
-    "phantomjs": "^1.9.19",
-    "protractor": "^3.0.0",
-    "supertest": "^1.1.0",
     "vinyl-source-stream": "~1.1.0",
     "webpack": "~1.12.9",
     "webpack-dev-server": "~1.14.0",
