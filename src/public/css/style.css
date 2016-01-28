@@ -33,6 +33,28 @@ hr {
     border-bottom: 0;
     margin: 40px 0;
 }
+select {
+    background-color: transparent;
+    width: 100%;
+    border: none;
+    border-radius: 0;
+    height: 2.55rem;
+    padding: 0;
+    cursor: pointer;
+    outline: none;
+    margin-left: -4px;
+}
+select:active,
+select:focus,
+select:hover {
+    outline: none;
+}
+select option {
+    color: rgba(0,0,0,0.67);
+}
+select option:disabled {
+    color: rgba(0,0,0,0.4);
+}
 .breadcrumb:last-child {
     color: rgba(255,255,255,0.7);
 }

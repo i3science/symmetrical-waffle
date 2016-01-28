@@ -6,6 +6,7 @@ const InputText = (props) => {
             <input
                 type={props.type ? props.type : 'text'}
                 id={props.id}
+                name={props.label}
                 className="validate"
                 placeholder={props.placeholder ? props.placeholder : ''}
                 value={props.val ? props.val : ''}

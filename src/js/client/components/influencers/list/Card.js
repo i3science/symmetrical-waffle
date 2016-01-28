@@ -63,7 +63,7 @@ class InfluencerCard extends React.Component {
                                 <div className="row">
                                     <Link to={'/search/results/profile/'+influencer._id}>
                                         <div className="col s3">
-                                            <img className="circle responsive-img" src={'/assets/images/' + influencer._id +'.jpg'} />
+                                            <img className="circle responsive-img" src={'/assets/images/' + (influencer.hasImage ? influencer._id : 'default') +'.jpg'} />
                                         </div>
                                         <div className="col s6" style={{marginTop:'5%'}}>
                                             <h4 className="teal-text" style={{margin: 0}}>{influencer.name.first} {influencer.name.last}</h4>

@@ -28,6 +28,7 @@ class InfluencerStore extends BaseStore {
                 break;
             case AppConstants.CREATE_INFLUENCER:
                 this.influencers.push(action.influencer);
+                this.currentInfluencerId = action.influencer._id;
                 this.emitChange();
                 break;
         }
@@ -40,10 +41,11 @@ class InfluencerStore extends BaseStore {
         return this.selectedInfluencers;
     }
     getInfluencerById(id) {
-        return _.find(this.influencers, { _id: id });
+        return _.find(this.influencers, {_id: id});
     }
-    getCurrentInfluencerId() {
-        return this.currentInfluencerId;
+    getCurrentInfluencer() {
+        return _.find(this.influencers, {_id: this.currentInfluencerId});
+
     }
 }
 

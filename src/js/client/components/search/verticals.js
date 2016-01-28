@@ -82,17 +82,20 @@ var verticalsCollection = [
 ];
 
 const Verticals = (props) => {
+
     let verticals = verticalsCollection.map(item => {
         let children = item.verts.map(child => {
             let checked = '';
-            let filterIndex = _.findIndex(props.filters, {id: child.id, val: true});
-            if (filterIndex > -1) {
+            let filterIndex = _.contains(props.verticals, child.label);
+            if (filterIndex) {
                 checked = 'checked';
+            } else {
+                checked = '';
             }
             return (
                 <CheckBox
                     key={child.id}
-                    id={child.id}
+                    id={'verticals_' + child.id}
                     label={child.label}
                     onChange={props.onChange}
                     checked={checked}
@@ -107,7 +110,7 @@ const Verticals = (props) => {
         );
     });
     return (
-        <div className="row">
+        <div className="col s12">
             {verticals}
         </div>
     );

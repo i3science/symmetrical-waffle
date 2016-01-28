@@ -16,13 +16,25 @@ export default {
     },
     createInfluencer(influencer) {
         influencerService.save(influencer)
-            .then(function(){
+        .then(function(response){
+            return influencerService.find(response.content.id);
+        })
+        .then(function(response) {
+            dispatch({
+                actionType: AppConstants.CREATE_INFLUENCER,
+                influencer: response.content
+            });
+        });
+    },
+    updateInfluencer(influencer) {
+        influencerService.save(influencer)
+            .then(function(response) {
                 dispatch({
-                    actionType: AppConstants.CREATE_INFLUENCER, influencer
+                    actionType: AppConstants.UPDATE_INFLUENCER,
+                    influencer: response.content
                 });
             });
     },
-
     addUser(user) {
         dispatch({
             actionType: AppConstants.ADD_USER, user

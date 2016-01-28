@@ -14,12 +14,17 @@
         window.translations = {% autoescape false %}{{ translations }}{% endautoescape %};
     </script>
     <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
-    <script src="/assets/bundle.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+    <script src="/assets/bundle.js"></script>
     {% if process.env.NODE_ENV === 'development' %}
     <script>
         document.write('<script src="//' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')
         $(".button-collapse").sideNav();
+
+        $(document).ready(function() {
+        $('select').material_select();
+        });
+
     </script>
     {% endif %}
 </body>

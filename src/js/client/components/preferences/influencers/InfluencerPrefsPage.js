@@ -74,16 +74,10 @@ class InfluencerPrefsPage extends React.Component {
                                     active={true}
                                     onChange={this.handleChange}
                                 />
-                                <Link
-                                    to=""
-                                    className="amber accent-3 waves-effect waves-light btn-large center"
-                                    style={{marginTop: '20px'}}
-                                    onClick={this.onClick}>Go for it
-                                </Link>
                             </div>
                         </div>
                     </div>
-                    <br />
+                    <hr />
                     <div className="row center-align">
                         <Link
                             to="/preferences/influencers/create"

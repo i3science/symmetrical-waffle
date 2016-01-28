@@ -5,7 +5,7 @@ import Sidebar from '../sidebar';
 const PreferencesSidebar = (props) => {
     return (
         <div>
-            <header className={(props.color ? props.color : 'teal') + ' lighten-4 white-text valign-wrapper center-align'} style={{height: '40px'}}>
+            <header className={(props.color ? props.color : 'teal lighten-1') + ' white-text valign-wrapper center-align'} style={{height: '40px'}}>
                 <h6 style={{width: '100%'}}>PREFERENCES</h6>
             </header>
             <li><Link to="/preferences/accounts/me">My Account</Link></li>

@@ -1,8 +1,17 @@
 import React from 'react';
-import userService from '../../../services/UserService';
 import { Link } from 'react-router';
-import Input from '../../elements/input';
+import Actions from '../../../actions/UiActions';
+import InfluencerStore from '../../../stores/InfluencerStore';
 import InputText from '../../elements/inputtext';
+import InputSelect from '../../elements/inputselect';
+
+var options = [
+    'Male',
+    'Female',
+    'Vampire',
+    'Other'
+];
+
 
 
 
@@ -10,90 +19,126 @@ class InfluencerEditPage extends React.Component {
     constructor() {
         super();
         this.state = {
-            user: {
-                name: {
-                    first: '',
-                    last: ''
-                },
-                email: ''
+            influencer: {
+                name: {},
+                audience: {}
             }
+
         };
+        this._onChange = this._onChange.bind(this);
+        this.handleChange = this.handleChange.bind(this);
         this._onSubmit = this._onSubmit.bind(this);
+        this._cancel = this._cancel.bind(this);
     }
 
     componentWillMount() {
-        this.service = this.props.route.service || userService;
-        if (this.props.params.id) {
-            var self = this;
-            this.setState({ loaded: false });
-            this.service
-                .find(this.props.params.id)
-                .then(function(user){
-                    self.setState({ loaded: true, user: user });
-                });
-        }
+        InfluencerStore.addChangeListener(this._onChange);
     }
 
-    _onSubmit(ev) {
-        ev.preventDefault();
-        this.service.save(this.state.user)
-            .then(function(){
-                alert('Created!');
-            });
+    componentWillUnmount() {
+        InfluencerStore.removeChangeListener(this._onChange);
+    }
+
+
+
+    _onChange() {
+        let currentInfluencer = InfluencerStore.getCurrentInfluencer();
+        if (currentInfluencer) {
+            this.setState({influencer: currentInfluencer});
+        }
+
+    }
+
+    handleChange(event) {
+        if (event.target.id.indexOf('_') > -1) {
+            let drill = event.target.id.split('_');
+            this.state.influencer[drill[0]][drill[1]] = event.target.value;
+        } else {
+            this.state.influencer[event.target.id] = event.target.value;
+        }
+
+        this.setState({influencer: this.state.influencer});
+    }
+    _cancel() {
+        this.setState({influencer: {}});
+        this.props.history.goBack();
+    }
+
+    _onSubmit(event) {
+        event.preventDefault();
+        Actions.createInfluencer(this.state.influencer);
     }
 
     render() {
         return (
             <div>
                 <div className="card-panel z-depth-4">
-                    <h4 className="center-align">Create an Influencer dfsdasfasdfasfds</h4><br />
+                    <h4 className="center-align">Create an Influencer</h4>
                     <div className="row">
                         <div className="col s8" style={{float: 'none', margin: '0 auto'}}>
-                            <InputText
-                                id="firstname"
-                                label="First Name"
-                                color="teal"
-                                active={true}
+                            <InputSelect
+                                id="audience_sex"
+                                label="Sex"
+                                val={this.state.influencer.audience.sex}
+                                options={options}
+                                onChange={this.handleChange}
                             />
                             <InputText
-                                id="lastname"
-                                label="Last Name"
-                                color="teal"
+                                id="name_first"
+                                label="First Name"
+                                val={this.state.influencer.name.first}
+                                placeholder="something"
                                 active={true}
+                                onChange={this.handleChange}
+                            />
+                            <InputText
+                                id="name_last"
+                                label="Last Name"
+                                val={this.state.influencer.name.last}
+                                active={true}
+                                onChange={this.handleChange}
                             />
                             <InputText
                                 id="email"
                                 label="Email Address"
-                                color="teal"
+                                type="email"
+                                val={this.state.influencer.email}
                                 active={true}
+                                onChange={this.handleChange}
                             />
                             <InputText
                                 id="timezone"
                                 label="Time Zone"
-                                color="teal"
+                                val={this.state.influencer.timezone}
                                 active={true}
+                                onChange={this.handleChange}
                             />
                             <InputText
                                 id="username"
                                 label="Username"
-                                color="teal"
+                                val={this.state.influencer.username}
                                 active={true}
+                                onChange={this.handleChange}
                             />
                             <InputText
                                 id="password"
                                 label="Password"
-                                color="teal"
+                                type="password"
+                                val={this.state.influencer.password}
                                 active={true}
+                                onChange={this.handleChange}
                             />
                             <InputText
-                                id="confirm"
+                                id="confirmPassword"
                                 label="Confirm Password"
-                                color="teal"
+                                type="password"
+                                val={this.state.influencer.confirmPassword}
                                 active={true}
+                                onChange={this.handleChange}
                             />
                             <div className="col 12" style={{float: 'none'}}>
-                                <Link to="" className="blue-grey lighten-3 waves-effect waves-light btn-large">Cancel</Link>
-                                <Link to="" className="teal waves-effect waves-light btn-large right">Save Changes</Link>
+                                <Link to="" className="blue-grey lighten-3 waves-effect waves-light btn-large" onClick={this._cancel}>Cancel</Link>
+                                <Link to="" className="teal waves-effect waves-light btn-large right" onClick={this._onSubmit}>Save Changes</Link>
                             </div>
                         </div>
                     </div>
@@ -109,24 +154,6 @@ class InfluencerEditPage extends React.Component {
 
 
 
-                <div className="card-panel z-depth-4" style={{display: 'none'}}>
-                    <h4>Create an Influencer</h4>
-                    <form>
-                        <div className="row">
-
-                            <div className="col s2">First Name</div>
-                            <div className="col s10"><Input name="first_name" property="state.user.name.first" this={this}/></div>
-                            <div className="col s2">Last Name</div>
-                            <div className="col s10"><Input name="last_name" property="state.user.name.last" this={this}/></div>
-                            <div className="col s2">Email Address</div>
-                            <div className="col s10"><Input name="email_address" property="state.user.email" this={this}/></div>
-                            <div className="col s2">Timezone</div>
-                            <div className="col s10"><input type="text" name="timezone" id="timezone"/></div>
-
-                            <input type="submit" value="Save"/>
-                        </div>
-                    </form>
-                </div>
             </div>
         );
     }

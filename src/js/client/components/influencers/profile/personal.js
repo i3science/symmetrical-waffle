@@ -21,7 +21,7 @@ class Personal extends React.Component {
                 </tr>
                 <tr>
                     <td style={{width: '33.3333%'}}><div style={{paddingRight: padit + '%'}}>Country <span className="right teal-text text-lighten-2">{this.props.personal.country}</span></div></td>
-                    <td style={{width: '33.3333%'}}><div style={{padding: '0 ' + padit/2 + '%'}}>Province <span className="right teal-text text-lighten-2">{this.props.personal.region}</span></div></td>
+                    <td style={{width: '33.3333%'}}><div style={{padding: '0 ' + padit/2 + '%'}}>State/Province <span className="right teal-text text-lighten-2">{this.props.personal.state}</span></div></td>
                     <td style={{width: '33.3333%'}}><div style={{paddingLeft: padit + '%'}}>City <span className="right teal-text text-lighten-2">{this.props.personal.city}</span></div></td>
                 </tr>
                 <tr>
