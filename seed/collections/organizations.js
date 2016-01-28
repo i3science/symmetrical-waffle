@@ -5,8 +5,13 @@ module.exports = function(fixtures) {
     fixtures.organizations = {
         jones: new Organization({
             name: 'Jones Media',
-            hostnames: 'jones',
+            hostnames: ['jones'],
             defaultLanguage: 'en'
+        }),
+        reverb: new Organization({
+            name: 'Reverb Consulting',
+            hostnames: ['reverb'],
+            defaultLanguage: 'fr_CA'
         })
     };
 };

@@ -3,24 +3,29 @@ var
     db = require('./../config/mongoose'),
     mongoose = require('mongoose'),
     extend = require('mongoose-schema-extend'),
-    influencerService = require('./../src/js/server/services/InfluencerService.js').default,
-    userService = require('./../src/js/server/services/UserService.js').default,
     organizationService = require('./../src/js/server/services/OrganizationService.js').default,
+    userService = require('./../src/js/server/services/UserService.js').default,
+    influencerService = require('./../src/js/server/services/InfluencerService.js').default,
     async = require('async'),
     chalk = require('chalk'),
     glob = require('glob'),
     Q = require('q'),
     _ = require('lodash');
 
+let log = console.log;
+if (process.env.NODE_ENV === 'test') {
+    log = () => {};
+}
+
 class Seeder {
 
-    static drop(next) {
+    static drop() {
         let waiting = [];
         let collections = _.keys(mongoose.connection.collections);
         collections.forEach((collectionName) => {
             waiting.push(Q.Promise((resolve, reject, notify) => {
                 let collection = mongoose.connection.collections[collectionName];
-                console.log('Dropping ' + collectionName);
+                log('Dropping ' + collectionName);
                 collection.drop((err) => {
                     if (err && err.message != 'ns not found') {
                         reject(err);
@@ -33,7 +38,7 @@ class Seeder {
         return Q
             .all(waiting)
             .then(() => {
-                console.log('Dropped all collections');
+                log('Dropped all collections');
                 return true;
             })
             .fail((err) => {
@@ -42,20 +47,22 @@ class Seeder {
             });
     }
 
-    static populate() {
-        console.log('Begin population');
+    static populate(fixtures) {
+        log('Begin population');
         let waiting = [];
         let oldMailDisable = config.mail.disable;
         config.mail.disable = true;
 
-        let fixtures = {};
-        require('./collections/organizations')(fixtures);
-        require('./collections/users')(fixtures);
-        require('./collections/influencers')(fixtures);
+        if (typeof fixtures === 'undefined') {
+            fixtures = {};
+            require('./collections/organizations')(fixtures);
+            require('./collections/users')(fixtures);
+            require('./collections/influencers')(fixtures);
+        }
 
         let populateCollection = (fixtures, service) => {
             let waiting = [];
-            Object.keys(fixtures).forEach((key) => {
+            Object.keys(fixtures || []).forEach((key) => {
                 waiting.push(service
                     .create(fixtures[key])
                     .then((result) => {
@@ -76,8 +83,8 @@ class Seeder {
             })
             .then(() => {
                 config.mail.disable = oldMailDisable;
-                console.log('Population completed');
-                return true;
+                log('Population completed');
+                return fixtures;
             })
             .fail((err) => {
                 console.log(chalk.red('An error occurred during seeding'));
