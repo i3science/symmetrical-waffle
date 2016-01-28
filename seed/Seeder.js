@@ -65,7 +65,7 @@ class Seeder {
             Object.keys(fixtures || []).forEach((key) => {
                 waiting.push(service
                     .create(fixtures[key])
-                    .then((result) => {
+                    .spread((result) => {
                         fixtures[key] = result;
                         return result;
                     }));

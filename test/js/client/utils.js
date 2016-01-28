@@ -15,8 +15,7 @@ until.uriEquals = (desired) => {
     return until.urlEquals(baseUrl+desired);
 }
 
-
-let screenshot = () => {
+export function screenshot() {
     return browser.takeScreenshot()
         .then((data) => {
             data = data.replace(/^data:image\/png;base64,/,'');
@@ -28,4 +27,27 @@ let screenshot = () => {
         });
 }
 
-export { screenshot }
+export function login(email, password) {
+    return driver.get(browser.baseUrl+'/auth/signout')
+        .then(() => {
+            return driver.get(browser.baseUrl+'/login');
+        })
+        .then(() => {
+            return wait(until.elementLocated(By.id('email')), 10000);
+        })
+        .then(() => {
+            return $('#email').clear();
+        })
+        .then(() => {
+            return $('#email').sendKeys(email)
+        })
+        .then(() => {
+            return $('#pass').sendKeys(password);
+        })
+        .then(() => {
+            return $('#login-form').submit();
+        })
+        .then(() => {
+            return wait(until.uriEquals('/'), 10000);
+        });
+};
