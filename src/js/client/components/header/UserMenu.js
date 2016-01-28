@@ -9,7 +9,7 @@ class UserMenu extends React.Component {
         this._onChange = this._onChange.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         authenticationStore.addChangeListener(this._onChange);
     }
 

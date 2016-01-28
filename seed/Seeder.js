@@ -6,6 +6,7 @@ var
     organizationService = require('./../src/js/server/services/OrganizationService.js').default,
     userService = require('./../src/js/server/services/UserService.js').default,
     influencerService = require('./../src/js/server/services/InfluencerService.js').default,
+    projectService = require('./../src/js/server/services/ProjectService.js').default,
     async = require('async'),
     chalk = require('chalk'),
     glob = require('glob'),
@@ -58,6 +59,10 @@ class Seeder {
             require('./collections/organizations')(fixtures);
             require('./collections/users')(fixtures);
             require('./collections/influencers')(fixtures);
+            require('./collections/projects')(fixtures);
+            log('Fixtures loaded');
+        } else {
+            log('Fixtures supplied');
         }
 
         let populateCollection = (fixtures, service) => {
@@ -68,10 +73,18 @@ class Seeder {
                     .spread((result) => {
                         fixtures[key] = result;
                         return result;
+                    })
+                    .fail((err) => {
+                        console.log(chalk.red('An error occurred during seeding'));
+                        throw err;
                     }));
             });
             return Q
-                .all(waiting);
+                .all(waiting)
+                .fail((err) => {
+                    console.log(chalk.red('An error occurred during seeding'));
+                    throw err;
+                });
         }
 
         return populateCollection(fixtures.organizations, organizationService)
@@ -80,6 +93,9 @@ class Seeder {
             })
             .then(() => {
                 return populateCollection(fixtures.influencers, influencerService);
+            })
+            .then(() => {
+                return populateCollection(fixtures.projects, projectService);
             })
             .then(() => {
                 config.mail.disable = oldMailDisable;
