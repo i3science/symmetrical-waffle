@@ -1,14 +1,20 @@
 import 'isomorphic-fetch';
 
 class UserService {
-    list() {
-        return fetch('/api/users')
+    list(opts) {
+        return fetch('/api/users', {
+            method: 'get',
+            params: opts || {},
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
             .catch(() => {});
     }
     find(id) {
         return fetch('/api/users/'+id)
             .then((response) => {
-                return response.content;
+                return response.json();
             })
             .catch(() => {});
     }

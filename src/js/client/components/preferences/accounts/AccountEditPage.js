@@ -2,7 +2,7 @@ import React from 'react'; // eslint-disable-line no-unused-vars
 import { Link } from 'react-router';
 import Input from '../../elements/input';
 import InputText from '../../elements/inputtext';
-
+import userService from '../../../services/UserService';
 
 
 class AccountEditPage extends React.Component {

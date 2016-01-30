@@ -3,19 +3,22 @@ import { dispatch } from '../dispatcher/dispatcher';
 import influencerService from '../services/InfluencerService';
 
 export default {
-    initData() {
+    initialize() {
+        dispatch({
+            actionType: AppConstants.INITIALIZE
+        });
+    },
+    refreshInfluencerList() {
         influencerService
             .list()
             .then((response) => {
                 return response.json();
             })
-            .then((data) => {
+            .then((data) =>{
                 dispatch({
-                    actionType: AppConstants.INITIALIZE,
-                    initialData: {
-                        influencers: data,
-                        selectedInfluencers: []
-                    }
+                    actionType: AppConstants.INFLUENCER_LIST_REFRESHED,
+                    influencers: data,
+                    selectedInfluencers: []
                 });
             });
     },

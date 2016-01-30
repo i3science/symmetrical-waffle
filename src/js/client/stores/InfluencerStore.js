@@ -17,9 +17,9 @@ class InfluencerStore extends BaseStore {
         }
 
         switch(action.actionType) {
-            case AppConstants.INITIALIZE:
-                this.influencers = action.initialData.influencers;
-                this.selectedInfluencers = action.initialData.selectedInfluencers;
+            case AppConstants.INFLUENCER_LIST_REFRESHED:
+                this.influencers = action.influencers;
+                this.selectedInfluencers = action.selectedInfluencers;
                 this.emitChange();
                 break;
             case AppConstants.ADD_INFLUENCER_TO_LIST:

@@ -15,6 +15,7 @@ export default ([
     'UPDATE_INFLUENCER',
     'ADD_INFLUENCER_TO_LIST',
     'INFLUENCER_RESULTS',
+    'INFLUENCER_LIST_REFRESHED',
 
     // Project-specific constants
     'REFRESH_PROJECTS',
