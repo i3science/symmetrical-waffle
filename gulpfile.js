@@ -79,41 +79,45 @@ gulp.task('compile', ['js','jslint','css','csslint']);
 //----
 // STEP 3 - Testing
 //----
-gulp.task('test', ['compile'], function(done){
-  var old = process.env.NODE_ENV;
-  process.env.NODE_ENV = 'test';
-  if (node) {
-    node.kill();
-  }
-  node = spawn('node', ['server.js']);
-  node.stdout.pipe(process.stdout);
-  node.stderr.pipe(process.stderr);
-  node.stdin.pause();
-  node.on('end', function(){
-    node.kill();
-    process.env.NODE_ENV = old;
-  })
-  .on('error', function(e){
-    node.kill();
-    process.env.NODE_ENV = old;
-    throw e;
-  });
+gulp.task('test', ['compile'], function(){
+ var old = process.env.NODE_ENV;
+ process.env.NODE_ENV = 'test';
+ if (node) {
+   node.kill();
+ }
+ node = spawn('node', ['server.js']);
+ node.stdout.pipe(process.stdout);
+ node.stderr.pipe(process.stderr);
+ node.stdin.pause();
+ node.on('end', function(){
+   console.log('test-server done ======');
+   node.kill();
+   process.env.NODE_ENV = old;
+ })
+ .on('error', function(e){
+   console.log('test-server done ======');
+   node.kill();
+   process.env.NODE_ENV = old;
+   throw e;
+ });
 
-  // Start protractor
-  return gulp.src('test/js/client/components/*.ee.js')
-    .pipe(protractor({
-      configFile: 'protractor.conf.js',
-      debug: false
-    }))
-    .on('end', function(){
-      node.kill();
-      process.env.NODE_ENV = old;
-    })
-    .on('error', function(e){
-      node.kill();
-      process.env.NODE_ENV = old;
-      throw e;
-    });
+ // Start protractor
+ return gulp.src('test/js/client/components/*.ee.js')
+   .pipe(protractor({
+     configFile: 'protractor.conf.js',
+     debug: false
+   }))
+   .on('end', function(){
+     console.log('e2e done ======');
+     node.kill();
+     process.env.NODE_ENV = old;
+   })
+   .on('error', function(e){
+     console.log('e2e done ======');
+     node.kill();
+     process.env.NODE_ENV = old;
+     throw e;
+   });
 });
 
 //----
