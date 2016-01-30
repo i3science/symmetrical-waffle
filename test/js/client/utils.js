@@ -19,7 +19,7 @@ export function screenshot() {
     return browser.takeScreenshot()
         .then((data) => {
             data = data.replace(/^data:image\/png;base64,/,'');
-            fs.writeFile('out.png', data, 'base64', (err) => {
+            fs.writeFile('tmp/out.png', data, 'base64', (err) => {
                 if (err) {
                     console.log(err);
                 }

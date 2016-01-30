@@ -4,10 +4,10 @@ var pickupTransport = require('nodemailer-pickup-transport'),
     fs = require('fs'),
     path = require('path');
 
-var mailPath = path.resolve(__dirname, '../../mail');
+var mailPath = path.resolve(__dirname, '../../tmp/mail');
 fs.access(mailPath, fs.F_OK, function(err) {
   if (err) {
-    fs.mkdirSync(mailPath);
+    fs.mkdirParentSync(mailPath);
   }
 });
 
