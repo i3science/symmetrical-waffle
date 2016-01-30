@@ -3,27 +3,24 @@ import { Link } from 'react-router';
 import _ from 'lodash';
 import InputText from '../elements/inputtext';
 import CheckBox from '../elements/checkbox';
-
-/*
-
-project object:
-advertiser
-project name
-amplifiers
-live date
-
- */
+import projectActions from '../../actions/ProjectActions';
+import projectStore from '../../stores/ProjectStore';
+import moment from 'moment';
+import { list_filter } from '../../../shared/projects.js';
 
 const Result = (props) => {
-    //console.log(props.project.advertiser);
+    let amplifiers = Object.keys(props.project.required_influencers).reduce((obj, val) => {
+        obj += props.project.required_influencers[val];
+        return obj;
+    }, 0);
     return (
         <div className="col m3 s2">
             <div className="card">
                 <div className="card-content">
-                    <span className="card-title teal-text text-darken-1">{props.project.advertiser}</span>
+                    <span className="card-title teal-text text-darken-1">{props.project.client}</span>
                     <p><strong>{props.project.name}</strong></p>
-                    <p>Amplifiers: {props.project.amplifiers}</p>
-                    <p>Live Date: {props.project.start}</p>
+                    <p>Amplifiers: {amplifiers}</p>
+                    <p>Live Date: {moment(props.project.project_live).format('DD/MM/YYYY')}</p>
                 </div>
                 <div className="card-action grey lighten-5">
                     <Link to="">More Info...</Link>
@@ -52,37 +49,6 @@ class Results extends React.Component {
     }
 }
 
-
-var project = {
-    advertiser: 'Ford',
-    name: 'Pepsi Thanksgiving',
-    amplifiers: 300,
-    start: 112015,
-    state: 'active'
-};
-var project2 = {
-    advertiser: 'Ford',
-    name: 'Chrysler Picnic',
-    amplifiers: 900,
-    start: 112016,
-    state: 'pending'
-};
-
-var projects = [
-    project,
-    project2,
-    project,
-    project2,
-    project,
-    project2,
-    project,
-    project2,
-    project,
-    project2,
-    project,
-    project2
-];
-
 class ProjectPage extends React.Component {
     constructor() {
         super();
@@ -95,15 +61,32 @@ class ProjectPage extends React.Component {
                 state: [
                     'active',
                     'pending',
-                    'inexec',
+                    'inmarket',
                     'closed'
                 ]
             }
         };
+        this._onChange = this._onChange.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
     componentWillMount() {
-        this.setState({projects: projects});
+        projectActions.refreshProjects();
+        projectStore.addChangeListener(this._onChange);
+    }
+
+    componentWillUnmount() {
+        projectStore.removeChangeListener(this._onChange);
+    }
+
+    _onChange() {
+        this.setState({
+            projects: projectStore.getProjects()
+        });
+        this._filter();
+    }
+    _filter() {
+        this.state.projectResults = list_filter(this.state.projects, this.state.filter);
+        this.setState({projectResults: this.state.projectResults});
     }
     handleChange(event) {
         if (event.target.type === 'checkbox') {
@@ -116,29 +99,14 @@ class ProjectPage extends React.Component {
             this.state.filter[event.target.id] = event.target.value;
         }
         this.setState({filter: this.state.filter});
-
-        if ((this.state.filter.client || this.state.filter.keyword).length > 0 &&
-            (this.state.filter.client || this.state.filter.keyword) !== (' ' || '' || null || undefined)) {
-            this.state.projectResults = _.filter(this.state.projects, function (item) {
-                let client = item.advertiser.toLowerCase();
-                let keyword = (item.name + ' ' + item.advertiser).toLowerCase();
-                return (
-                    (client.indexOf(this.state.filter.client.toLowerCase()) > -1) &&
-                    (keyword.indexOf(this.state.filter.keyword.toLowerCase()) > -1) &&
-                    _.contains(this.state.filter.state, item.state)
-                );
-            }, this);
-        } else {
-            this.state.projectResults = [];
-        }
-        this.setState({projectResults: this.state.projectResults});
+        this._filter();
     }
     render() {
         var keyword = this.state.filter.keyword,
             client = this.state.filter.client,
             active = _.contains(this.state.filter.state, 'active'),
             pending = _.contains(this.state.filter.state, 'pending'),
-            inexec = _.contains(this.state.filter.state, 'inexec'),
+            inmarket = _.contains(this.state.filter.state, 'inmarket'),
             closed = _.contains(this.state.filter.state, 'closed');
         return (
             <div>
@@ -174,14 +142,6 @@ class ProjectPage extends React.Component {
                         <div className="col s8" style={{margin: '0 auto ', float: 'none'}}>
                             <div className="col s3">
                                 <CheckBox
-                                    id='active'
-                                    label='Active'
-                                    onChange={this.handleChange}
-                                    checked={active}
-                                />
-                            </div>
-                            <div className="col s3">
-                                <CheckBox
                                     id='pending'
                                     label='Pending'
                                     onChange={this.handleChange}
@@ -190,10 +150,18 @@ class ProjectPage extends React.Component {
                             </div>
                             <div className="col s3">
                                 <CheckBox
-                                    id='inexec'
-                                    label='In Execution'
+                                    id='active'
+                                    label='Active'
                                     onChange={this.handleChange}
-                                    checked={inexec}
+                                    checked={active}
+                                />
+                            </div>
+                            <div className="col s3">
+                                <CheckBox
+                                    id='inmarket'
+                                    label='In Market'
+                                    onChange={this.handleChange}
+                                    checked={inmarket}
                                 />
                             </div>
                             <div className="col s3">

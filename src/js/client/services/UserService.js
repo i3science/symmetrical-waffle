@@ -7,7 +7,7 @@ class UserService {
     }
     find(id) {
         return fetch('/api/users/'+id)
-            .then((response, status) => {
+            .then((response) => {
                 return response.content;
             })
             .catch(() => {});

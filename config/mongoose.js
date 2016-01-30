@@ -7,6 +7,7 @@ var config = require('./config'),
     mongoose = require('mongoose'),
     Q = require('q'),
     _ = require('lodash');
+require('mongoose-moment')(mongoose);
 
 // Connect to Mongo DB
 module.exports = mongoose.connect(config.db.uri, config.db.options, function(err) {

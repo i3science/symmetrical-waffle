@@ -65,36 +65,6 @@ module.exports = function(db) {
 
     // Set up i18n
     app.use(middleware.handle(i18next));
-    app.use(function(req, res, next){
-        req.translations = {};
-
-        // Add translation resources when they're loaded, for isomorphic render
-        i18next.on('loaded', function(loaded){
-            // The key given is the language that is loaded, but doesn't always
-            // correspond with the name of the file that was loaded
-            Object.keys(loaded).forEach(function(key){
-                // One or more namespaces may be loaded
-                loaded[key].forEach(function(ns){
-                    // As the language that is loaded doesn't necessarily
-                    // correspond with the filename, we'll just troll through
-                    // all possible file names
-                    req.languages.forEach(function(lang){
-                        var translation = i18next.getResourceBundle(lang, ns);
-                        if (typeof translation !== 'undefined') {
-                            var tmp = {};
-                            tmp[lang] = {};
-                            tmp[lang][ns] = translation;
-                            req.translations = _.extend(
-                                req.translations,
-                                tmp
-                            );
-                        }
-                    })
-                });
-            });
-        });
-        next();
-    });
 
     // Should be placed before express.static
     app.use(compression({
@@ -194,7 +164,7 @@ module.exports = function(db) {
                 // var ReactApp = React.createFactory(App);
                 // var content = ReactDOMServer.renderToString(ReactApp({}));
                 var content = renderToString(<RoutingContext {...renderProps} />);
-                return res.render('index', {content: content, translations: JSON.stringify(req.translations)});
+                return res.render('index', {content: content, translations: JSON.stringify(i18next.store.data)});
             }
         });
     });
