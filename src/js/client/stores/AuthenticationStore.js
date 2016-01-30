@@ -21,8 +21,11 @@ class AuthenticationStore extends BaseStore {
             case AppConstants.INITIALIZE:
                 userService
                     .getCurrentUser()
-                    .then(function(response){
-                        self._user = response.content;
+                    .then((response) => {
+                        return response.json();
+                    })
+                    .then((data) => {
+                        self._user = data;
                         self.emitChange();
                     });
                 break;
