@@ -1,6 +1,6 @@
+import Q from 'q';
 import BaseStore from './BaseStore';
 import AuthenticationConstants from '../constants/authentication';
-import AppConstants from '../constants/constants';
 import userService from '../services/UserService';
 
 class AuthenticationStore extends BaseStore {
@@ -16,19 +16,7 @@ class AuthenticationStore extends BaseStore {
         if (!action) {
             return;
         }
-        var self = this;
         switch(action.actionType) {
-            case AppConstants.INITIALIZE:
-                userService
-                    .getCurrentUser()
-                    .then((response) => {
-                        return response.json();
-                    })
-                    .then((data) => {
-                        self._user = data;
-                        self.emitChange();
-                    });
-                break;
             case AuthenticationConstants.REQUIRE_AUTHENTICATION:
                 this._redirectLocation = action.redirectLocation;
                 this.emitChange();
@@ -54,6 +42,22 @@ class AuthenticationStore extends BaseStore {
     }
     get redirectLocation() {
         return this._redirectLocation;
+    }
+
+    getCurrentUser() {
+        if (self._user) {
+            return Q.all(self._user);
+        }
+        return userService
+            .getCurrentUser()
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                self._user = data;
+                this.emitChange();
+                return data;
+            });
     }
 }
 

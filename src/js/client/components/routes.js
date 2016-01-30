@@ -14,6 +14,9 @@ import PreferencesPage from './preferences/PreferencesPage';
 import AccountEditPage from './preferences/accounts/AccountEditPage';
 import InfluencerCreatePage from './preferences/influencers/influencerCreatePage';
 import InfluencerPrefsPage from './preferences/influencers/InfluencerPrefsPage';
+import ForgotPasswordPage from './auth/ForgotPasswordPage';
+import ResetPasswordPage from './auth/ResetPasswordPage';
+
 import influencerService from '../services/InfluencerService';
 
 // Import utilities to make them available
@@ -47,6 +50,10 @@ export default (
 			</Route>
 			<Route path="login" component={Full}>
 				<IndexRoute component={Login} />
+			</Route>
+			<Route path="security">
+				<Route path="forgot-password" component={ForgotPasswordPage} />
+				<Route path="reset-password" component={ResetPasswordPage} />
 			</Route>
 		</div>
 );

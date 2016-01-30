@@ -1,4 +1,5 @@
 import AuthenticationConstants from '../constants/authentication';
+import Constants from '../constants/constants';
 import authenticationService from '../services/AuthenticationService';
 import { dispatch } from '../dispatcher/dispatcher';
 import routerStore from '../stores/RouterStore';
@@ -38,4 +39,14 @@ export default class AuthenticationActions {
             user: user
         });
     }
+
+    static requestPasswordReset(email) {
+        authenticationService.requestPasswordReset(email)
+            .then(() => {
+                dispatch({
+                    actionType: Constants.PASSWORD_RESET_REQUESTED
+                });
+            });
+    }
+    
 }

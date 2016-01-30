@@ -11,6 +11,7 @@ class UserMenu extends React.Component {
 
     componentDidMount() {
         authenticationStore.addChangeListener(this._onChange);
+        authenticationStore.getCurrentUser();
     }
 
     componentWillUnmount() {

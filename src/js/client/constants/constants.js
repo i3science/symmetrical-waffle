@@ -22,7 +22,11 @@ export default ([
     'GET_PROJECT',
     'CREATE_PROJECT',
     'UPDATE_PROJECT',
-    'DELETE_PROJECT'
+    'DELETE_PROJECT',
+
+    // Security-specific
+    'PASSWORD_RESET_REQUESTED',
+    'USER_FOUND_BY_RESET'
 ].reduce((obj, val) => {
     obj[val] = val;
     return obj;
