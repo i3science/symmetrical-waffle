@@ -7,6 +7,13 @@
         "password": "Password",
         "signin": "Sign In"
     },
+    "forgotpassword": {
+        "email": "Email",
+        "request_reset": "Request Password Reset",
+        "reset": "Reset Password",
+        "password": "Password",
+        "confirm_password": "Confirm Password"
+    },
     "search": {
         "label": "Let's just search...",
         "placeholder": "What are you looking for?",

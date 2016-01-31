@@ -1,5 +1,5 @@
 let { until, By } = protractor;
-let { $, baseUrl, driver, getCurrentUrl, wait } = browser;
+let { $, baseUrl, driver, getCurrentUrl, sleep, wait } = browser;
 let fixtures = null;
 
 import '../../../init';
@@ -28,6 +28,9 @@ describe('search flow', () => {
         return login('admin@smp.com', 'admin123')
             .then(() => {
                 return driver.get(browser.baseUrl+'/search');
+            })
+            .then(() => {
+                return sleep(500);
             })
             .then(() => {
                 return wait(until.elementLocated(By.id('something')), 10000);

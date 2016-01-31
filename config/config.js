@@ -1,7 +1,25 @@
 'use strict';
 
 var _ = require('lodash'),
-  glob = require('glob');
+  glob = require('glob'),
+  fs = require('fs'),
+  path = require('path');
+
+fs.mkdirParentSync = function(dirPath, mode, callback) {
+  var dirs = dirPath.split(path.sep);
+  var root = '';
+
+  while (dirs.length > 0) {
+    var dir = dirs.shift();
+    if (dir === '') {
+      root = path.sep;
+    }
+    if (!fs.existsSync(root + dir)) {
+      fs.mkdirSync(root + dir);
+    }
+    root += dir + path.sep;
+  }
+};
 
 module.exports = _.extend(
   require('./docker'),

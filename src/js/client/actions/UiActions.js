@@ -3,35 +3,58 @@ import { dispatch } from '../dispatcher/dispatcher';
 import influencerService from '../services/InfluencerService';
 
 export default {
-    initData() {
-        influencerService.list().then(response => {
-            dispatch({
-                actionType: AppConstants.INITIALIZE,
-                initialData: {
-                    influencers: response.content,
-                    selectedInfluencers: []
-                }
-            });
+    initialize() {
+        dispatch({
+            actionType: AppConstants.INITIALIZE
         });
+    },
+    refreshInfluencerList() {
+        influencerService
+            .list()
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) =>{
+                dispatch({
+                    actionType: AppConstants.INFLUENCER_LIST_REFRESHED,
+                    influencers: data,
+                    selectedInfluencers: []
+                });
+            });
     },
     createInfluencer(influencer) {
-        influencerService.save(influencer)
-        .then(function(response){
-            return influencerService.find(response.content.id);
-        })
-        .then(function(response) {
-            dispatch({
-                actionType: AppConstants.CREATE_INFLUENCER,
-                influencer: response.content
+        influencerService.create(influencer)
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                return influencerService.find(data.id);
+            })
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                dispatch({
+                    actionType: AppConstants.CREATE_INFLUENCER,
+                    influencer: data
+                });
             });
-        });
     },
     updateInfluencer(influencer) {
-        influencerService.save(influencer)
-            .then(function(response) {
+        influencerService.update(influencer)
+            .then((response) => {
+                if (response.status !== 204) {
+                    throw new Error('An error occurred while updating the influencer');
+                }
+                return influencerService.find(influencer._id);
+            })
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
                 dispatch({
                     actionType: AppConstants.UPDATE_INFLUENCER,
-                    influencer: response.content
+                    influencer: data
                 });
             });
     },

@@ -13,7 +13,7 @@ class UserController {
      */
     list(req, res) {
         return userService
-            .list(req.params || {})
+            .list(req.query || {})
             .then(function(users){
                 return res.jsonp(users);
             })
@@ -30,6 +30,10 @@ class UserController {
      * Creates a new user account with the given information.
      */
     create(req, res) {
+        delete req.body.password;
+        delete req.body.passwordConfirmation;
+        delete req.body.passwordResetToken;
+        
         return userService
             .create(req.body)
             .spread(function(){
@@ -41,6 +45,10 @@ class UserController {
      * Updates an existing user account with the given modifications.
      */
     update(req, res) {
+        delete req.body.password;
+        delete req.body.passwordConfirmation;
+        delete req.body.passwordResetToken;
+        
         return userService
             .update(req.user, req.body)
             .spread(function(){

@@ -1,1 +1,1 @@
-Reset your password by navigating to: { link }
+Reset your password by navigating to: {{ link }}

@@ -1,4 +1,8 @@
 import fs from 'fs';
+import path from 'path';
+import moment from 'moment';
+import { MailParser } from 'mailparser';
+import Q from 'q';
 let { until, By } = protractor;
 let { $, baseUrl, driver, getCurrentUrl, wait } = browser;
 
@@ -19,7 +23,8 @@ export function screenshot() {
     return browser.takeScreenshot()
         .then((data) => {
             data = data.replace(/^data:image\/png;base64,/,'');
-            fs.writeFile('out.png', data, 'base64', (err) => {
+            let time = moment().format('YYYY-MM-DD_HH-mm-ss-SSSSSS');
+            fs.writeFile('tmp/'+time+'.png', data, 'base64', (err) => {
                 if (err) {
                     console.log(err);
                 }
@@ -50,4 +55,35 @@ export function login(email, password) {
         .then(() => {
             return wait(until.uriEquals('/'), 10000);
         });
+};
+
+export function countEmails() {
+    return getEmails().length;
+};
+
+export function getEmail(name) {
+    return fs.readFileSync(path.resolve(__dirname, '../../../tmp/mail/'+name));
+}
+
+export function parseEmail(name) {
+    let text = getEmail(name);
+    let mailparser = new MailParser();
+
+    let deferred = Q.defer();
+    mailparser.on('end', (obj) => {
+        deferred.resolve(obj);
+    });
+    mailparser.write(text);
+    mailparser.end();
+    return deferred.promise;
+}
+
+export function getEmails() {
+    return fs.readdirSync(path.resolve(__dirname, '../../../tmp/mail'));
+}
+
+export function clearEmails() {
+    getEmails().forEach((obj) => {
+        fs.unlinkSync(path.resolve(__dirname, '../../../tmp/mail/'+obj));
+    });
 };

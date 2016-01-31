@@ -1,5 +1,16 @@
 'use strict';
 
+var pickupTransport = require('nodemailer-pickup-transport'),
+    fs = require('fs'),
+    path = require('path');
+
+var mailPath = path.resolve(__dirname, '../../tmp/mail');
+fs.access(mailPath, fs.F_OK, function(err) {
+  if (err) {
+    fs.mkdirParentSync(mailPath);
+  }
+});
+
 module.exports = {
   db: {
     uri: (process.env.MONGO_BASE || 'mongodb://localhost/') + 'smp-test',
@@ -9,8 +20,10 @@ module.exports = {
     }
   },
   mail: {
-    disable: true,
-    transport: null
+    disable: false,
+    transport: pickupTransport({
+      directory: mailPath
+    })
   },
   log: {
     // Can specify one of 'combined', 'common', 'dev', 'short', 'tiny', 'skip'

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import LoginForm from './loginform';
 import { __ } from '../utils/i18n';
 
@@ -20,8 +21,7 @@ class Login extends React.Component {
                         <h3 className="center" style={{margin: '10% 0'}}>{__('application.title')}</h3>
                         <LoginForm />
                         <div className="teal-text text-darken-1 center-align">
-                            <p><strong>{__('forgot_password')}</strong><br />
-                                {__('sign_up')}</p>
+                            <p><Link to="/security/forgot-password">{__('forgot_password')}</Link></p>
                             <br />
                             <p><small>{__('legal.copyright')}</small></p>
                         </div>
