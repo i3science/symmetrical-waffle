@@ -131,7 +131,15 @@ select option:disabled {
     color: #fff;
     vertical-align: middle;
 }
-
+.separate-right {
+    border-right: 1px solid rgba(0,0,0,0.1);
+}
+.separate-left {
+    border-left: 1px solid rgba(0,0,0,0.1);
+}
+.thumb {
+    display: none;
+}
 @media only screen and (min-width: 993px) {
     .container {
         width: 90%;

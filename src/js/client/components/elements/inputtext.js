@@ -1,6 +1,9 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 
 const InputText = (props) => {
+    if (!props.id) {
+        return <div></div>;
+    }
     return (
         <div className={'input-field col '+ (props.col ? props.col : 's12')}>
             <input

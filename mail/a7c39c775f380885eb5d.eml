@@ -1,0 +1,20 @@
+Content-Type: multipart/alternative;
+ boundary="----sinikael-?=_1-14539510622740.3647972324397415"
+From: no-reply@smp.com
+Subject: Hello
+X-Mailer: nodemailer (2.0.0; +http://nodemailer.com/; Pickup/0.1.1)
+Date: Thu, 28 Jan 2016 03:17:42 +0000
+Message-Id: <1453951062277-ac7467a3-e447772b-aff34b19@smp.com>
+MIME-Version: 1.0
+
+------sinikael-?=_1-14539510622740.3647972324397415
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
+
+Reset your password by navigating to: { link }
+------sinikael-?=_1-14539510622740.3647972324397415
+Content-Type: text/html
+Content-Transfer-Encoding: 7bit
+
+<p><a href="{ link }">Reset password</a></p>
+------sinikael-?=_1-14539510622740.3647972324397415--

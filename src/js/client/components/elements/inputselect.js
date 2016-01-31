@@ -1,7 +1,7 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 
 const InputSelect = (props) => {
-    if (!props.options) {
+    if (!props.id) {
         return <div></div>;
     }
     let selectOptions = props.options.map(item => {

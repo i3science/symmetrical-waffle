@@ -24,7 +24,8 @@ var Influencer = User.extend({
     }],
     verticals: [String],
     audience: {
-        sex: String,
+        female: Number,
+        male: Number,
         language: String,
         age: {
             start: Number,
