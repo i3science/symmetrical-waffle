@@ -66,7 +66,7 @@ module.exports = [
             }],
         verticals: [ 'Beauty', 'Fashion', 'Parenting' ],
         audience: {
-            sex: 'Female',
+            sex: 30,
             language: 'English',
             age: {
                 start: 20,
@@ -159,7 +159,7 @@ module.exports = [
             }],
         verticals: [ 'beauty', 'fashion', 'parenting', 'mechanics' ],
         audience: {
-            sex: 'Male',
+            sex: 100,
             language: 'English',
             age: {
                 start: 20,
@@ -252,7 +252,7 @@ module.exports = [
             }],
         verticals: [ 'beauty', 'fashion', 'parenting' ],
         audience: {
-            sex: 'Female',
+            sex: 90,
             language: 'English',
             age: {
                 start: 20,
@@ -345,7 +345,7 @@ module.exports = [
             }],
         verticals: [ 'beauty', 'fashion', 'parenting', 'mechanics' ],
         audience: {
-            sex: 'Male',
+            sex: 50,
             language: 'English',
             age: {
                 start: 20,

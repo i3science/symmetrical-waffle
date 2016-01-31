@@ -4,6 +4,7 @@ import Actions from '../../../actions/UiActions';
 import InfluencerStore from '../../../stores/InfluencerStore';
 import InputText from '../../elements/inputtext';
 import InputSelect from '../../elements/inputselect';
+import InputRange from '../../elements/inputrange';
 
 import Verticals from '../../search/verticals';
 
@@ -122,6 +123,120 @@ const Personal = (props) => {
     );
 };
 
+const Audience = (props) => {
+    if (!props.audience) {
+        return <div></div>;
+    }
+    return (
+        <div>
+            <div className="row">
+                <div className="col s3">
+                    <InputRange
+                        id="audience_sex"
+                        label="Gender"
+                        val={props.audience.sex}
+                        onChange={props.onChange}
+                    />
+                </div>
+                <div className="col s3">
+                    <InputText
+                        id="audience_age"
+                        label="Age"
+                        val={props.audience.age}
+                        active={true}
+                        onChange={props.onChange}
+                    />
+                </div>
+                <div className="col s3">
+                    <InputSelect
+                        id="audience_married"
+                        label="Marital Status"
+                        val={props.audience.married}
+                        options={['Yes', 'No', 'Common Law']}
+                        onChange={props.onChange}
+                    />
+                </div>
+                <div className="col s3">
+                    <InputSelect
+                        id="audience_language"
+                        label="Primary Language"
+                        val={props.audience.language}
+                        options={['Yes', 'No', 'Common Law']}
+                        onChange={props.onChange}
+                    />
+                </div>
+            </div>
+            <div className="row">
+                <div className="col s3">
+                    <InputSelect
+                        id="audience_employment"
+                        label="Employment Status"
+                        val={props.audience.employment}
+                        options={['Employed', 'Unemployed']}
+                        onChange={props.onChange}
+                    />
+                </div>
+                <div className="col s3">
+                    <InputText
+                        id="audience_householdIncome"
+                        label="Household Income"
+                        val={props.audience.householdIncome}
+                        active={true}
+                        onChange={props.onChange}
+                    />
+                </div>
+                <div className="col s3">
+                    <InputText
+                        id="audience_ethnicity"
+                        label="Ethnicity"
+                        val={props.audience.ethnicity}
+                        active={true}
+                        onChange={props.onChange}
+                    />
+                </div>
+                <div className="col s3">
+                    <InputSelect
+                        id="audience_residence"
+                        label="Type of Residence"
+                        val={props.audience.residence}
+                        options={['House', 'Condo', 'Apartment', 'Other']}
+                        onChange={props.onChange}
+                    />
+                </div>
+            </div>
+            <div className="row">
+                <div className="col s4">
+                    <InputText
+                        id="audience_city"
+                        label="City"
+                        val={props.audience.city}
+                        active={true}
+                        onChange={props.onChange}
+                    />
+                </div>
+                <div className="col s4">
+                    <InputText
+                        id="audience_state"
+                        label="State/Province"
+                        val={props.audience.state}
+                        active={true}
+                        onChange={props.onChange}
+                    />
+                </div>
+                <div className="col s4">
+                    <InputText
+                        id="audience_country"
+                        label="Country"
+                        val={props.audience.country}
+                        active={true}
+                        onChange={props.onChange}
+                    />
+                </div>
+            </div>
+        </div>
+    );
+};
+
 class InfluencerCreatePage extends React.Component {
     constructor() {
         super();
@@ -129,6 +244,7 @@ class InfluencerCreatePage extends React.Component {
             influencer: {
                 name: {},
                 personal: {},
+                audience: {},
                 verticals: []
             }
 
@@ -154,10 +270,11 @@ class InfluencerCreatePage extends React.Component {
         if (currentInfluencer) {
             this.setState({influencer: currentInfluencer});
         }
-
+        console.log()
     }
 
     handleChange(event) {
+        console.log(event);
         var value = event.target.value;
         if (event.target.id.indexOf('_') > -1) {
             let drill = event.target.id.split('_');
@@ -206,9 +323,9 @@ class InfluencerCreatePage extends React.Component {
         return (
             <div>
                 <div className="card-panel z-depth-4">
-                    <h4 className="center-align">Create an Influencer</h4>
+                    <h4 className="center-align" style={{marginBottom: '30px'}}>Create an Influencer</h4>
                     <div className="row">
-                        <div className="col s8" style={{float: 'none', margin: '0 auto'}}>
+                        <div className="col s8 separate-right">
                             <InputText
                                 id="name_first"
                                 label="First Name"
@@ -231,26 +348,22 @@ class InfluencerCreatePage extends React.Component {
                                 active={true}
                                 onChange={this.handleChange}
                             />
-                            <InputText
-                                id="username"
-                                label="Username"
-                                val={this.state.influencer.username}
-                                active={true}
-                                onChange={this.handleChange}
-                            />
-                            <div className="col 12" style={{float: 'none'}}>
-                                <Link to="" className="blue-grey lighten-3 waves-effect waves-light btn-large" onClick={this._cancel}>Cancel</Link>
-                                <Link to="" className="teal waves-effect waves-light btn-large right" onClick={this._onSubmit}>Save Changes</Link>
+                        </div>
+                        <div className="col s4">
+                            <div className="center-align">
+                                <h6 className="teal-text" style={{marginBottom: '20px'}}>Send to influencer for them to complete</h6>
+                                <br />
+                                <Link to="" className="teal waves-effect waves-light btn-large center">
+                                    <i className="material-icons right">send</i>Send
+                                </Link>
                             </div>
                         </div>
+
                     </div>
                     <hr />
-                    <div className="row center-align">
-                        <h6 className="teal-text" style={{marginBottom: '20px'}}>Send to influencer for them to complete</h6>
-                        <br />
-                        <Link to="" className="teal waves-effect waves-light btn-large center">
-                            <i className="material-icons right">send</i>Send
-                        </Link>
+                    <div className="col 12" style={{float: 'none'}}>
+                        <Link to="" className="teal waves-effect waves-light btn-large" onClick={this._onSubmit}>Save Changes</Link>
+                        <Link to="" className="blue-grey lighten-5 waves-effect waves-light btn-large btn-flat right" onClick={this._cancel}>Cancel</Link>
                     </div>
                 </div>
                 <div className="card-panel">
@@ -266,6 +379,13 @@ class InfluencerCreatePage extends React.Component {
                     <div className="row">
                         <Verticals
                             verticals={this.state.influencer.verticals}
+                            onChange={this.handleChange}
+                        />
+                    </div>
+                    <h5 className="teal-text">Audience</h5>
+                    <div className="row">
+                        <Audience
+                            audience={this.state.influencer.audience}
                             onChange={this.handleChange}
                         />
                     </div>

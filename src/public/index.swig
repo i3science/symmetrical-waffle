@@ -22,7 +22,8 @@
         $(".button-collapse").sideNav();
 
         $(document).ready(function() {
-        $('select').material_select();
+            $('select').material_select();
+            $('.expand').collapsible({accordion : false});
         });
 
     </script>
