@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import _ from 'lodash';
 import ListItem from './listitem';
-import InputText from '../elements/inputtext';
+import Form from '../common/Form';
 
 var list = {
     name: 'Mommies',
@@ -86,12 +86,12 @@ class ListPage extends React.Component {
                         <div className="col s10" style={{margin: '0 auto', float: 'none'}}>
                             <div className="row" style={{marginTop: '50px'}}>
                                 <div className="col s6" style={{margin: '0 auto', float: 'none'}}>
-                                    <InputText
-                                        id="keyword"
+                                    <Form.Text
+                                        name="keyword"
                                         label="Keyword"
                                         color="teal"
                                         placeholder="Start typing a keyword"
-                                        val={keyword}
+                                        value={keyword}
                                         active={true}
                                         onChange={this.handleChange}
                                     />

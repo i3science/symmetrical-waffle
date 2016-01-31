@@ -1,6 +1,5 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
-import InputText from '../../elements/inputtext';
-import InputSelect from '../../elements/inputselect';
+import Form from '../../common/Form';
 
 const Personal = (props) => {
     if (!props.personal) {
@@ -12,37 +11,37 @@ const Personal = (props) => {
             </div>
             <div className="row">
                 <div className="col s3">
-                    <InputSelect
-                        id="personal_sex"
+                    <Form.Select
+                        name="personal_sex"
                         label="Gender"
-                        val={props.personal.sex}
+                        value={props.personal.sex}
                         options={['Male', 'Female', 'Vampire', 'Other']}
                         onChange={props.onChange}
                     />
                 </div>
                 <div className="col s3">
-                    <InputText
-                        id="personal_age"
+                    <Form.Text
+                        name="personal_age"
                         label="Age"
-                        val={props.personal.age}
+                        value={props.personal.age}
                         active={true}
                         onChange={props.onChange}
                     />
                 </div>
                 <div className="col s3">
-                    <InputSelect
-                        id="personal_married"
+                    <Form.Select
+                        name="personal_married"
                         label="Marital Status"
-                        val={props.personal.married}
+                        value={props.personal.married}
                         options={['Yes', 'No', 'Common Law']}
                         onChange={props.onChange}
                     />
                 </div>
                 <div className="col s3">
-                    <InputSelect
-                        id="personal_language"
+                    <Form.Select
+                        name="personal_language"
                         label="Primary Language"
-                        val={props.personal.language}
+                        value={props.personal.language}
                         options={['Yes', 'No', 'Common Law']}
                         onChange={props.onChange}
                     />
@@ -50,37 +49,37 @@ const Personal = (props) => {
             </div>
             <div className="row">
                 <div className="col s3">
-                    <InputSelect
-                        id="personal_employment"
+                    <Form.Select
+                        name="personal_employment"
                         label="Employment Status"
-                        val={props.personal.employment}
+                        value={props.personal.employment}
                         options={['Employed', 'Unemployed']}
                         onChange={props.onChange}
                     />
                 </div>
                 <div className="col s3">
-                    <InputText
-                        id="personal_householdIncome"
+                    <Form.Text
+                        name="personal_householdIncome"
                         label="Household Income"
-                        val={props.personal.householdIncome}
+                        value={props.personal.householdIncome}
                         active={true}
                         onChange={props.onChange}
                     />
                 </div>
                 <div className="col s3">
-                    <InputText
-                        id="personal_ethnicity"
+                    <Form.Text
+                        name="personal_ethnicity"
                         label="Ethnicity"
-                        val={props.personal.ethnicity}
+                        value={props.personal.ethnicity}
                         active={true}
                         onChange={props.onChange}
                     />
                 </div>
                 <div className="col s3">
-                    <InputSelect
-                        id="personal_residence"
+                    <Form.Select
+                        name="personal_residence"
                         label="Type of Residence"
-                        val={props.personal.residence}
+                        value={props.personal.residence}
                         options={['House', 'Condo', 'Apartment', 'Other']}
                         onChange={props.onChange}
                     />
@@ -88,28 +87,28 @@ const Personal = (props) => {
             </div>
             <div className="row">
                 <div className="col s4">
-                    <InputText
-                        id="personal_city"
+                    <Form.Text
+                        name="personal_city"
                         label="City"
-                        val={props.personal.city}
+                        value={props.personal.city}
                         active={true}
                         onChange={props.onChange}
                     />
                 </div>
                 <div className="col s4">
-                    <InputText
-                        id="personal_state"
+                    <Form.Text
+                        name="personal_state"
                         label="State/Province"
-                        val={props.personal.state}
+                        value={props.personal.state}
                         active={true}
                         onChange={props.onChange}
                     />
                 </div>
                 <div className="col s4">
-                    <InputText
-                        id="personal_country"
+                    <Form.Text
+                        name="personal_country"
                         label="Country"
-                        val={props.personal.country}
+                        value={props.personal.country}
                         active={true}
                         onChange={props.onChange}
                     />

@@ -3,39 +3,41 @@ import { Link } from 'react-router';
 import Personal from './personal';
 import Audience from './audience';
 import Verticals from '../../search/verticals';
-import InputText from '../../elements/inputtext';
-import CheckBox from '../../elements/checkbox';
+import Form from '../../common/Form';
 
 const InfluencerManageForm = (props) => {
+    if (!props.influencer) {
+        return <div/>;
+    }
     return (
         <div>
             <div className="row">
                 <div className="col s8 separate-right">
-                    <InputText
-                        id="name_first"
+                    <Form.Text
+                        name="name_first"
                         label="First Name"
-                        val={props.influencer.name.first}
+                        value={props.influencer.name.first}
                         active={true}
                         onChange={props.onChange}
                     />
-                    <InputText
-                        id="name_last"
+                    <Form.Text
+                        name="name_last"
                         label="Last Name"
-                        val={props.influencer.name.last}
+                        value={props.influencer.name.last}
                         active={true}
                         onChange={props.onChange}
                     />
-                    <InputText
-                        id="email"
+                    <Form.Text
+                        name="email"
                         label="Email Address"
                         type="email"
-                        val={props.influencer.email}
+                        value={props.influencer.email}
                         active={true}
                         onChange={props.onChange}
                     />
                     <div className="col s12 right-align">
-                        <CheckBox
-                            id="advanced"
+                        <Form.CheckBox
+                            name="advanced"
                             label="Advanced"
                             onChange={props.expand}
                         />

@@ -23,9 +23,8 @@ class InfluencerEditPage extends React.Component {
     }
 
     componentWillMount() {
-        
-        this.setState({influencer: InfluencerStore.getInfluencerById(this.props.params.id)});
         InfluencerStore.addChangeListener(this._onChange);
+        this.setState({influencer: InfluencerStore.getInfluencerById(this.props.params.id)});
     }
 
     componentWillUnmount() {
@@ -100,8 +99,7 @@ class InfluencerEditPage extends React.Component {
                         expand={this._expand}
                         onChange={this.handleChange}
                         onSubmit={this._onSubmit}
-                        cancel={this._cancel}
-                    />
+                        cancel={this._cancel} />
                 </div>
             </div>
         );

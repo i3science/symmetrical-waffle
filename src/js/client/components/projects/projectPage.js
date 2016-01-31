@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import _ from 'lodash';
-import InputText from '../elements/inputtext';
-import CheckBox from '../elements/checkbox';
+import Form from '../common/Form';
 import projectActions from '../../actions/ProjectActions';
 import projectStore from '../../stores/ProjectStore';
 import moment from 'moment';
@@ -69,7 +68,7 @@ class ProjectPage extends React.Component {
         this._onChange = this._onChange.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
-    componentWillMount() {
+    componentDidMount() {
         projectActions.refreshProjects();
         projectStore.addChangeListener(this._onChange);
     }
@@ -116,23 +115,23 @@ class ProjectPage extends React.Component {
                         <div className="col s10" style={{margin: '0 auto', float: 'none'}}>
                             <div className="row" style={{marginTop: '50px'}}>
                                 <div className="col s6">
-                                    <InputText
-                                        id="client"
+                                    <Form.Text
+                                        name="client"
                                         label="Client"
                                         color="teal"
                                         placeholder="Start typing a client name"
-                                        val={client}
+                                        value={client}
                                         active={true}
                                         onChange={this.handleChange}
                                     />
                                 </div>
                                 <div className="col s6">
-                                    <InputText
-                                        id="keyword"
+                                    <Form.Text
+                                        name="keyword"
                                         label="Keyword"
                                         color="teal"
                                         placeholder="Start typing a keyword"
-                                        val={keyword}
+                                        value={keyword}
                                         active={true}
                                         onChange={this.handleChange}
                                     />
@@ -141,32 +140,32 @@ class ProjectPage extends React.Component {
                         </div>
                         <div className="col s8" style={{margin: '0 auto ', float: 'none'}}>
                             <div className="col s3">
-                                <CheckBox
-                                    id='pending'
+                                <Form.CheckBox
+                                    name='pending'
                                     label='Pending'
                                     onChange={this.handleChange}
                                     checked={pending}
                                 />
                             </div>
                             <div className="col s3">
-                                <CheckBox
-                                    id='active'
+                                <Form.CheckBox
+                                    name='active'
                                     label='Active'
                                     onChange={this.handleChange}
                                     checked={active}
                                 />
                             </div>
                             <div className="col s3">
-                                <CheckBox
-                                    id='inmarket'
+                                <Form.CheckBox
+                                    name='inmarket'
                                     label='In Market'
                                     onChange={this.handleChange}
                                     checked={inmarket}
                                 />
                             </div>
                             <div className="col s3">
-                                <CheckBox
-                                    id='closed'
+                                <Form.CheckBox
+                                    name='closed'
                                     label='Closed'
                                     onChange={this.handleChange}
                                     checked={closed}

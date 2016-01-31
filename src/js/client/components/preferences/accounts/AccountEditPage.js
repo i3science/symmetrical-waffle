@@ -1,9 +1,7 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 import { Link } from 'react-router';
-import Input from '../../elements/input';
-import InputText from '../../elements/inputtext';
 import userService from '../../../services/UserService';
-
+import Form from '../../common/Form';
 
 class AccountEditPage extends React.Component {
     constructor() {
@@ -48,48 +46,41 @@ class AccountEditPage extends React.Component {
                     <h4 className="center-align">Create an Influencer</h4><br />
                     <div className="row">
                         <div className="col s8" style={{float: 'none', margin: '0 auto'}}>
-                            <InputText
-                                id="firstname"
+                            <Form.Text
+                                name="firstname"
                                 label="First Name"
                                 color="teal"
-                                active={true}
-                            />
-                            <InputText
-                                id="lastname"
+                                active={true} />
+                            <Form.Text
+                                name="lastname"
                                 label="Last Name"
                                 color="teal"
-                                active={true}
-                            />
-                            <InputText
-                                id="email"
+                                active={true} />
+                            <Form.Text
+                                name="email"
                                 label="Email Address"
                                 color="teal"
-                                active={true}
-                            />
-                            <InputText
-                                id="timezone"
+                                active={true} />
+                            <Form.Text
+                                name="timezone"
                                 label="Time Zone"
                                 color="teal"
-                                active={true}
-                            />
-                            <InputText
-                                id="username"
+                                active={true} />
+                            <Form.Text
+                                name="username"
                                 label="Username"
                                 color="teal"
-                                active={true}
-                            />
-                            <InputText
-                                id="password"
+                                active={true} />
+                            <Form.Text
+                                name="password"
                                 label="Password"
                                 color="teal"
-                                active={true}
-                            />
-                            <InputText
-                                id="confirm"
+                                active={true} />
+                            <Form.Text
+                                name="confirm"
                                 label="Confirm Password"
                                 color="teal"
-                                active={true}
-                            />
+                                active={true} />
                             <div className="col 12" style={{float: 'none'}}>
                                 <Link to="" className="blue-grey lighten-3 waves-effect waves-light btn-large">Cancel</Link>
                                 <Link to="" className="teal waves-effect waves-light btn-large right">Save Changes</Link>
@@ -104,27 +95,6 @@ class AccountEditPage extends React.Component {
                             <i className="material-icons right">send</i>Send
                         </Link>
                     </div>
-                </div>
-
-
-
-                <div className="card-panel z-depth-4" style={{display: 'none'}}>
-                    <h4>Create an Influencer</h4>
-                        <form>
-                            <div className="row">
-
-                                <div className="col s2">First Name</div>
-                                <div className="col s10"><Input name="first_name" property="state.user.name.first" this={this}/></div>
-                                <div className="col s2">Last Name</div>
-                                <div className="col s10"><Input name="last_name" property="state.user.name.last" this={this}/></div>
-                                <div className="col s2">Email Address</div>
-                                <div className="col s10"><Input name="email_address" property="state.user.email" this={this}/></div>
-                                <div className="col s2">Timezone</div>
-                                <div className="col s10"><input type="text" name="timezone" id="timezone"/></div>
-
-                                <input type="submit" value="Save"/>
-                            </div>
-                        </form>
                 </div>
             </div>
         );

@@ -1,6 +1,5 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
-import InputText from '../../elements/inputtext';
-import InputSelect from '../../elements/inputselect';
+import Form from '../../common/Form';
 
 const Audience = (props) => {
     if (!props.audience) {
@@ -10,63 +9,63 @@ const Audience = (props) => {
         <div>
             <div className="row">
                 <div className="col s3">
-                    <InputText
+                    <Form.Text
                         type="number"
-                        id="audience_male"
+                        name="audience_male"
                         label="Male"
                         class="center-align"
                         col="s6"
-                        val={props.audience.male}
+                        value={props.audience.male}
                         active={true}
                         onChange={props.onChange}
                     />
-                    <InputText
+                    <Form.Text
                         type="number"
-                        id="audience_female"
+                        name="audience_female"
                         label="Female"
                         class="center-align"
                         col="s6"
-                        val={props.audience.female}
+                        value={props.audience.female}
                         active={true}
                         onChange={props.onChange}
                     />
                 </div>
                 <div className="col s3">
-                    <InputText
+                    <Form.Text
                         type="number"
-                        id="audience_ageFrom"
+                        name="audience_ageFrom"
                         label="Age"
                         class="center-align"
                         col="s6"
-                        val={props.audience.ageFrom}
+                        value={props.audience.ageFrom}
                         active={true}
                         onChange={props.onChange}
                     />
-                    <InputText
+                    <Form.Text
                         type="number"
-                        id="audience_ageTo"
+                        name="audience_ageTo"
                         label="to"
                         class="center-align"
                         col="s6"
-                        val={props.audience.ageTo}
+                        value={props.audience.ageTo}
                         active={true}
                         onChange={props.onChange}
                     />
                 </div>
                 <div className="col s3">
-                    <InputSelect
-                        id="audience_married"
+                    <Form.Select
+                        name="audience_married"
                         label="Marital Status"
-                        val={props.audience.married}
+                        value={props.audience.married}
                         options={['Yes', 'No', 'Common Law']}
                         onChange={props.onChange}
                     />
                 </div>
                 <div className="col s3">
-                    <InputSelect
-                        id="audience_language"
+                    <Form.Select
+                        name="audience_language"
                         label="Primary Language"
-                        val={props.audience.language}
+                        value={props.audience.language}
                         options={['Yes', 'No', 'Common Law']}
                         onChange={props.onChange}
                     />
@@ -74,39 +73,39 @@ const Audience = (props) => {
             </div>
             <div className="row">
                 <div className="col s3">
-                    <InputSelect
-                        id="audience_employment"
+                    <Form.Select
+                        name="audience_employment"
                         label="Employment Status"
-                        val={props.audience.employment}
+                        value={props.audience.employment}
                         options={['Employed', 'Unemployed']}
                         onChange={props.onChange}
                     />
                 </div>
                 <div className="col s3">
-                    <InputText
+                    <Form.Text
                         type="number"
-                        id="audience_householdIncome"
+                        name="audience_householdIncome"
                         label="Household Income"
                         prefix="$"
-                        val={props.audience.householdIncome}
+                        value={props.audience.householdIncome}
                         active={true}
                         onChange={props.onChange}
                     />
                 </div>
                 <div className="col s3">
-                    <InputText
-                        id="audience_ethnicity"
+                    <Form.Text
+                        name="audience_ethnicity"
                         label="Ethnicity"
-                        val={props.audience.ethnicity}
+                        value={props.audience.ethnicity}
                         active={true}
                         onChange={props.onChange}
                     />
                 </div>
                 <div className="col s3">
-                    <InputSelect
-                        id="audience_residence"
+                    <Form.Select
+                        name="audience_residence"
                         label="Type of Residence"
-                        val={props.audience.residence}
+                        value={props.audience.residence}
                         options={['House', 'Condo', 'Apartment', 'Other']}
                         onChange={props.onChange}
                     />
@@ -114,28 +113,28 @@ const Audience = (props) => {
             </div>
             <div className="row">
                 <div className="col s4">
-                    <InputText
-                        id="audience_city"
+                    <Form.Text
+                        name="audience_city"
                         label="City"
-                        val={props.audience.city}
+                        value={props.audience.city}
                         active={true}
                         onChange={props.onChange}
                     />
                 </div>
                 <div className="col s4">
-                    <InputText
-                        id="audience_state"
+                    <Form.Text
+                        name="audience_state"
                         label="State/Province"
-                        val={props.audience.state}
+                        value={props.audience.state}
                         active={true}
                         onChange={props.onChange}
                     />
                 </div>
                 <div className="col s4">
-                    <InputText
-                        id="audience_country"
+                    <Form.Text
+                        name="audience_country"
                         label="Country"
-                        val={props.audience.country}
+                        value={props.audience.country}
                         active={true}
                         onChange={props.onChange}
                     />
