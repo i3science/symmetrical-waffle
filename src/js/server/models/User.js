@@ -5,7 +5,9 @@
  */
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema,
-  crypto = require('crypto');
+  crypto = require('crypto'),
+  uuid = require('node-uuid'),
+  moment = require('moment');
 
 /**
  * The User schema represents the common attributes of all actors that interact
@@ -67,6 +69,9 @@ var User = new Schema({
  * Check for unique email address
  */
 User.path('email').validate(function(value, respond){
+  if (!this.isNew) {
+    respond(true);
+  }
   mongoose.models['User']
     .findOne({email: value}, function(err, user){
       if (!user) {
@@ -91,13 +96,13 @@ User.virtual('password')
     this.passwordHash = this.hashPassword(this._password);
   });
 
-// User.virtual('passwordConfirmation')
-//   .get(function() {
-//     return this._passwordConfirmation;
-//   })
-//   .set(function(value){
-//     this._passwordConfirmation = value;
-//   });
+User.virtual('passwordConfirmation')
+  .get(function() {
+    return this._passwordConfirmation;
+  })
+  .set(function(value){
+    this._passwordConfirmation = value;
+  });
 
 /*
  * Validate new password
@@ -132,6 +137,20 @@ User.methods.authenticate = function (password) {
     return this.passwordHash === password;
   }
   return this.passwordHash === this.hashPassword(password);
+};
+
+/**
+ * Generates a new password reset token
+ */
+User.methods.createPasswordResetToken = function () {
+  if (this.passwordResetToken.expires
+      && moment(this.passwordResetToken.expires).isAfter(moment())) {
+    return false;
+  }
+
+  this.passwordResetToken.id = uuid.v4();
+  this.passwordResetToken.expires = moment().add(24, 'hours');
+  return true;
 };
 
 mongoose.model('User', User);

@@ -1,6 +1,5 @@
 import React from 'react';
 import authenticationActions from '../actions/AuthenticationActions';
-import authenticationService from '../services/AuthenticationService';
 import { __ } from '../utils/i18n';
 
 class LoginForm extends React.Component {
@@ -14,14 +13,7 @@ class LoginForm extends React.Component {
         event.preventDefault();
         const user = '' || this.refs.email.value;
         const pass = '' || this.refs.pass.value;
-        authenticationService.signin(user, pass)
-            .then(function(response){
-                if (response.status !== 200 || !response.content._id) {
-                    return;
-                }
-
-                authenticationActions.userAuthenticated(response.content);
-            });
+        authenticationActions.signin(user, pass);
     }
 
     render() {

@@ -1,8 +1,8 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 import { Router } from 'react-router';
 import Routes from './routes';
-import Actions from '../actions/UiActions';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
+import Actions from '../actions/UiActions';
 import routerStore from '../stores/RouterStore';
 import i18next from 'i18next';
 import xhr from 'i18next-xhr-backend';
@@ -10,7 +10,7 @@ import '../utils/fetch';
 import '../utils/String.js';
 import '../utils/Object.js';
 
-Actions.initData();
+Actions.initialize();
 
 class App extends React.Component {
     constructor() {

@@ -311,10 +311,8 @@ class InfluencerCreatePage extends React.Component {
         event.preventDefault();
         if (!this.state.influencer._id) {
             Actions.createInfluencer(this.state.influencer);
-            alert('Created!');
         } else {
             Actions.updateInfluencer(this.state.influencer);
-            alert('Updated!');
         }
 
     }

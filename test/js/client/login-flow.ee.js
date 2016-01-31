@@ -71,23 +71,33 @@ var fs = require('fs');
 
 let { until, By } = protractor;
 let { $, baseUrl, driver, getCurrentUrl, wait } = browser;
+let fixtures = null;
 
 import '../../../init';
-import { fixtures, clean, setup } from '../server/common.js';
-import './utils'
-
-let expectNoErrors = () => {
-    
-}
+import { repopulate } from '../server/common.js';
+import { screenshot } from './utils'
 
 describe('login flow', () => {
     beforeEach(() => {
-        return clean()
-          .then(setup);
+        return repopulate()
+            .then((_fixtures) => {
+                fixtures = _fixtures;
+                return fixtures;
+            });
     });
 
     it('can log in successfully', () => {
         driver.get(browser.baseUrl+'/login')
+            // .then(() => {
+            //     screenshot();
+            //     return browser.manage().logs().get('browser');
+            // })
+            // .then((logs) => {
+            //     logs.forEach((log) => {
+            //         console.log(log.message);
+            //     });
+            //     return true;
+            // })
             .then(() => {
                 return wait(until.elementLocated(By.id('email')), 10000);
             })
@@ -95,10 +105,10 @@ describe('login flow', () => {
                 return $('#email').clear();
             })
             .then(() => {
-                return $('#email').sendKeys('thamilton@smp.com')
+                return $('#email').sendKeys('admin@smp.com')
             })
             .then(() => {
-                return $('#pass').sendKeys('*admin123');
+                return $('#pass').sendKeys('admin123');
             })
             .then(() => {
                 return $('#login-form').submit();
@@ -129,7 +139,7 @@ describe('login flow', () => {
                 return wait(until.elementLocated(By.className('toast')), 4000);
             })
             .then(() => {
-                expect($('.toast').getText()).toBe('Unknown user or invalid password');
+                expect($('.toast:last-child').getText()).toBe('Unknown user or invalid password');
             });
     });
 });

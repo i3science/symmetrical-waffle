@@ -1,1 +1,1 @@
-<p><a href="{ link }">Reset password</a></p>
+<p><a href="{{ link }}">Reset password</a></p>
