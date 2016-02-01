@@ -16,7 +16,10 @@ var mongoose = require('mongoose'),
  */
 var User = new Schema({
   name: {
-    first: String,
+    first: {
+      type: String,
+      required: 'Please neter name'
+    },
     last: String
   },
   email: {

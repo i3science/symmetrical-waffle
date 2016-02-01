@@ -69,7 +69,6 @@ class InfluencerService {
                 return [_influencer, _affected];
             })
             .fail(function(err){
-                console.log(err); // eslint-disable-line no-console
                 throw err;
             });
     }

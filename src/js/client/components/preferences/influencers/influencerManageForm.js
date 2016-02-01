@@ -10,7 +10,7 @@ const InfluencerManageForm = (props) => {
         return <div/>;
     }
     return (
-        <div>
+        <Form>
             <div className="row">
                 <div className="col s8 separate-right">
                     <Form.Text
@@ -81,7 +81,7 @@ const InfluencerManageForm = (props) => {
                 <Link to="" className="teal waves-effect waves-light btn-large" onClick={props.onSubmit}>Save Changes</Link>
                 <Link to="" className="blue-grey lighten-5 waves-effect waves-light btn-large btn-flat right" onClick={props.cancel}>Cancel</Link>
             </div>
-        </div>
+        </Form>
     );
 };
 

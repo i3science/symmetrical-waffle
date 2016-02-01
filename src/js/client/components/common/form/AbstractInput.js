@@ -1,11 +1,28 @@
 import React from 'react';
+import errorStore from '../../../stores/ErrorStore';
 import _ from 'lodash';
 
 class AbstractInput extends React.Component {
     constructor() {
         super();
+        this.state = {
+            error: ''
+        };
         this.onChange = this.onChange.bind(this);
         this.getValue = this.getValue.bind(this);
+        this._onReceivedError = this._onReceivedError.bind(this);
+    }
+
+    componentDidMount() {
+        errorStore.addChangeListener(this._onReceivedError);
+    }
+
+    componentWillUnmount() {
+        errorStore.removeChangeListener(this._onReceivedError);
+    }
+
+    _onReceivedError() {
+        this.setState({ error: errorStore.getFieldError(this.props.name) });
     }
 
     onChange(ev) {
@@ -37,6 +54,13 @@ class AbstractInput extends React.Component {
         return '';
     }
 
+    getError() {
+        if (this.props.error) {
+            return this.props.error;
+        }
+        return this.state.error;
+    }
+
     getLabelClasses() {
         let classes = [];
         if (this.getValue() || this.props.active) {
@@ -52,7 +76,7 @@ class AbstractInput extends React.Component {
 
     getInputClasses() {
         let classes = ['validate'];
-        if (this.props.error) {
+        if (this.getError()) {
             classes.push('invalid');
         }
         return classes.join(' ');
@@ -81,7 +105,7 @@ class AbstractInput extends React.Component {
                 <label
                     htmlFor={this.props.id || this.props.name}
                     className={this.getLabelClasses()}
-                    data-error={this.props.error}
+                    data-error={this.getError()}
                 >{this.props.label}</label>
             </div>
         );

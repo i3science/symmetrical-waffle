@@ -1,3 +1,22 @@
+import mongoose from 'mongoose';
+let ValidationError = mongoose.Error.ValidationError;
+
+/**
+ * All messages that are pushed from server to client are pushed in a single
+ * coherent object. For example:
+ * {
+ *   messages: [{
+ *     text: 'An error occurred while trying to create an influencer',
+ *     level: 'error'
+ *   }, {
+ *     text: 'Your influencer was created successfully',
+ *     level: 'info'
+ *   }],
+ *   errors: {
+ *     email: 'An email address is required'
+ *   }
+ * }
+ */
 export default class ErrorUtils {
     static getUniqueErrorMessage(err) {
         let output = '';
@@ -13,23 +32,31 @@ export default class ErrorUtils {
     }
 
     static getErrorMessage(err) {
-        if (err.code) {
-            return err.code + ' ' + err.err;
+        if (err instanceof ValidationError) {
+            let errors = {};
+            Object.keys(err.errors).forEach((key) => {
+                errors[key] = err.errors[key].message;
+            });
+            return {errors: errors};
         }
-        if (err.errors) {
-            return err.errors;
+        if (err.code) {
+            return { messages: [{
+                text: err.code + ' ' + err.err,
+                level: 'error'
+            }]};
         }
         if (err.message) {
-            return { error: { message: err.message } };
+            return { messages: [{
+                text: err.message,
+                level: 'error'
+            }]};
         }
         return err;
     }
 
     static failureHandler(req, res) {
         return function(err){
-            res.status(400).send({
-                message: ErrorUtils.getErrorMessage(err)
-            });
+            res.status(400).send(ErrorUtils.getErrorMessage(err));
         };
     }
 }

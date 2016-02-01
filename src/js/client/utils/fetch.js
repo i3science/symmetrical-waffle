@@ -1,5 +1,5 @@
 /* global Materialize */
-
+import Actions from '../actions/UiActions';
 import authenticationActions from '../actions/AuthenticationActions';
 
 if (typeof window !== 'undefined') {
@@ -33,8 +33,14 @@ if (typeof window !== 'undefined') {
                     .then(function(data){
                         let messages = [].concat(data.messages || []).concat(data.message);
                         messages.forEach(function(message){
-                            Materialize.toast(message, 4000, 'error');
+                            if (typeof message === 'undefined') {
+                                return;
+                            }
+                            Materialize.toast(message, 4000, message.level || 'error');
                         });
+                        if (data.errors) {
+                            Actions.receivedErrors(data.errors);
+                        }
                     });
 
                 // Error out by throwing the entire response
