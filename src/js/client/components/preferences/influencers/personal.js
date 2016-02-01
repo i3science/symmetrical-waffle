@@ -9,6 +9,8 @@ const Personal = (props) => {
     return (
         <div>
             <div className="row">
+            </div>
+            <div className="row">
                 <div className="col s3">
                     <InputSelect
                         id="personal_sex"

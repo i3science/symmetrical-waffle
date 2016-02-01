@@ -1,105 +1,7 @@
 import React from 'react';
-import CheckBox from '../elements/checkbox';
-import InputText from '../elements/inputtext';
-import _ from 'lodash';
 import Verticals from './verticals';
-
-var persCollection = {
-    mediums: {
-        name: 'They must be a...',
-        medium: [
-            {
-                id: 'blogger',
-                label: 'Blogger'
-            },
-            {
-                id: 'vlogger',
-                label: 'Vlogger'
-            },
-            {
-                id: 'plogger',
-                label: 'Photo Blogger'
-            },
-            {
-                id: 'amplifier',
-                label: 'Amplifier'
-            }
-        ]
-    },
-    locations: {
-        name: 'Geographic Location',
-        location: [
-            {
-                id: 'country',
-                label: 'Country'
-            },
-            {
-                id: 'state',
-                label: 'State/Province'
-            },
-            {
-                id: 'city',
-                label: 'City'
-            }
-        ]
-    }
-};
-
-
-const Personal = (props) => {
-
-
-    let mediums = persCollection.mediums.medium.map(item => {
-        let checked = '';
-        let filterIndex = _.findIndex(props.filters, {id: item.id, val: true});
-        if (filterIndex > -1) {
-            checked = 'checked';
-        }
-        return (
-            <div key={item.id} className="col s3">
-                <CheckBox
-                    id={item.id}
-                    label={item.label}
-                    onChange={props.onChange}
-                    checked={checked}
-                />
-            </div>
-        );
-    });
-
-    let location = persCollection.locations.location.map(item => {
-        let inputVal = '';
-        let filterValue = _.find(props.filters, {id: item.id});
-        if (filterValue) {
-            inputVal = filterValue.val;
-        }
-        return (
-            <div key={item.id} className="col s4">
-                <InputText
-                    key={item.id}
-                    id={item.id}
-                    label={item.label}
-                    onChange={props.onChange}
-                    val={inputVal}
-                />
-            </div>
-        );
-    });
-
-    return (
-        <div>
-            <h6 className="teal-text">Geographic Location</h6>
-            <div className="row">
-                {location}
-            </div>
-            <h6 className="teal-text">They must be a...</h6>
-            <div className="row">
-                {mediums}
-            </div>
-        </div>
-    );
-};
-
+import Personal from '../preferences/influencers/personal';
+import Medium from '../preferences/influencers/medium';
 
 class Filters extends React.Component {
     render() {
@@ -107,19 +9,28 @@ class Filters extends React.Component {
             <div className="card-panel">
                 <h4>Search Criteria</h4>
                 <h6 className="teal-text">I am looking for an influencer...</h6>
-
                 <hr />
+
                 <h5 className="teal-text">Personal</h5>
                 <Personal
                     onChange={this.props.onChange}
-                    filters={this.props.filters}
+                    personal={this.props.filters.personal}
                 />
+                <div className="row">
+                    <h6 className="teal-text">Mediums</h6>
+                    <Medium
+                        onChange={this.props.onChange}
+                        medium={this.props.filters.medium}
+                    />
+                </div>
                 <hr />
                 <h5 className="teal-text">Verticals</h5>
-                <Verticals
-                    onChange={this.props.onChange}
-                    filters={this.props.filters}
-                />
+                <div className="row">
+                    <Verticals
+                        onChange={this.props.onChange}
+                        verticals={this.props.filters.verticals}
+                    />
+                </div>
             </div>
         );
     }
