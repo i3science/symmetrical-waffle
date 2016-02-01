@@ -82,11 +82,6 @@ class InfluencerPrefsPage extends React.Component {
                     <hr />
                     <div className="row center-align">
                         <Link
-                            to="/preferences/influencers/edit/567442a2fb6e1490001fbe5f"
-                            className="teal waves-effect waves-light btn-large center
-                            "><i className="material-icons right">person_add</i>Edit this influencer
-                        </Link>
-                        <Link
                             to="/preferences/influencers/create"
                             className="teal waves-effect waves-light btn-large center
                             "><i className="material-icons right">person_add</i>Add an influencer

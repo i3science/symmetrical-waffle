@@ -40,8 +40,9 @@ export default (
 				<Route path="lists" component={Lists} name="Lists" />
 				<Route path="list/:id" component={List} name="List" />
 				<Route path="preferences" component={PreferencesPage} name="Preferences">
-					<Route path="accounts/:id" name="Account">
-						<Route path="edit" component={AccountEditPage} name="Edit" />
+					<Route path="accounts" name="Account">
+						<IndexRoute component={AccountEditPage}/>
+						<Route path="edit/:id" component={AccountEditPage} name="Edit" />
 					</Route>
 					<Route path="influencers" name="Influencers">
 						<IndexRoute component={InfluencerPrefsPage}/>
