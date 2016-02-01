@@ -28,6 +28,7 @@ import '../utils/Object.js';
 export default (
 		<div>
 			<Route path="/" component={Template} name="Home">
+				<IndexRoute component={Projects} name="Projects"/>
                 <Route path="projects" component={Projects} name="Projects" />
 				<Route path="search" name="Search">
 					<IndexRoute component={SearchStart} />
