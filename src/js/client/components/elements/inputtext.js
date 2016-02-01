@@ -8,13 +8,13 @@ const InputText = (props) => {
         var prefix = <div
                 className="prefix center-align"
                 style={{ fontSize: '17px', marginTop: '8px'}}
-            >{props.prefix}</div>
+            >{props.prefix}</div>;
     }
     if (props.suffix) {
         var suffix = <div
             className="suffix center-align"
             style={{ fontSize: '17px', marginTop: '8px'}}
-        >{props.suffix}</div>
+        >{props.suffix}</div>;
     }
     return (
         <div className={'input-field col '+ (props.col ? props.col : 's12')}>

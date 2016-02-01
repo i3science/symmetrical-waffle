@@ -1,7 +1,6 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 import InputText from '../../elements/inputtext';
 import InputSelect from '../../elements/inputselect';
-import InputRange from '../../elements/inputrange';
 
 const Audience = (props) => {
     if (!props.audience) {
