@@ -53,6 +53,7 @@ class InfluencerPrefsPage extends React.Component {
 
     onClick(event) {
         event.preventDefault();
+
         Actions.updateResults(this.state.results);
         //this.props.history.pushState(null, '/search/results');
     }
@@ -67,7 +68,7 @@ class InfluencerPrefsPage extends React.Component {
                         <div className="col s6" style={{margin: '0 auto', float: 'none'}}>
                             <div className="col s12" style={{marginTop: '50px'}}>
                                 <InputText
-                                    id="something"
+                                    id="search"
                                     label="Find an influencer"
                                     color="teal"
                                     placeholder="Start typing a first or last name"
@@ -81,6 +82,11 @@ class InfluencerPrefsPage extends React.Component {
                     <hr />
                     <div className="row center-align">
                         <Link
+                            to="/preferences/influencers/edit/567442a2fb6e1490001fbe5f"
+                            className="teal waves-effect waves-light btn-large center
+                            "><i className="material-icons right">person_add</i>Edit this influencer
+                        </Link>
+                        <Link
                             to="/preferences/influencers/create"
                             className="teal waves-effect waves-light btn-large center
                             "><i className="material-icons right">person_add</i>Add an influencer
@@ -90,6 +96,7 @@ class InfluencerPrefsPage extends React.Component {
                 <h5 className="center-align teal-text">{(this.state.results && this.state.results.length > 0) ? this.state.results.length + ' results' : ''}</h5>
                 <InfluencerCardList
                     influencers={(this.state.results && this.state.results.length > 0) ? this.state.results : this.state.influencers}
+                    edit="/preferences/influencers/edit"
                 />
             </div>
         );

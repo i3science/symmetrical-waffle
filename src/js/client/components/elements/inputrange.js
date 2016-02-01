@@ -5,7 +5,6 @@ const InputRange = (props) => {
     if (!props.id) {
         return <div></div>;
     } else {
-        console.log(props);
         return (
             <div className={'input-field col '+ (props.col ? props.col : 's12')}>
                 <label

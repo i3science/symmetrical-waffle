@@ -1,19 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router';
 import Actions from '../../../actions/UiActions';
 import InfluencerStore from '../../../stores/InfluencerStore';
-import InputText from '../../elements/inputtext';
-import InputSelect from '../../elements/inputselect';
-
-var options = [
-    'Male',
-    'Female',
-    'Vampire',
-    'Other'
-];
-
-
-
+import InfluencerManageForm from './influencerManageForm';
 
 class InfluencerEditPage extends React.Component {
     constructor() {
@@ -21,7 +9,9 @@ class InfluencerEditPage extends React.Component {
         this.state = {
             influencer: {
                 name: {},
-                audience: {}
+                personal: {},
+                audience: {},
+                verticals: []
             }
 
         };
@@ -29,9 +19,12 @@ class InfluencerEditPage extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this._onSubmit = this._onSubmit.bind(this);
         this._cancel = this._cancel.bind(this);
+        this._expand = this._expand.bind(this);
     }
 
     componentWillMount() {
+        
+        this.setState({influencer: InfluencerStore.getInfluencerById(this.props.params.id)});
         InfluencerStore.addChangeListener(this._onChange);
     }
 
@@ -39,24 +32,39 @@ class InfluencerEditPage extends React.Component {
         InfluencerStore.removeChangeListener(this._onChange);
     }
 
-
-
     _onChange() {
         let currentInfluencer = InfluencerStore.getCurrentInfluencer();
         if (currentInfluencer) {
             this.setState({influencer: currentInfluencer});
         }
-
     }
 
     handleChange(event) {
+        var value = event.target.value;
         if (event.target.id.indexOf('_') > -1) {
             let drill = event.target.id.split('_');
-            this.state.influencer[drill[0]][drill[1]] = event.target.value;
+            var category = drill[0];
+            var item = drill[1];
         } else {
-            this.state.influencer[event.target.id] = event.target.value;
+            item = event.target.id;
         }
-
+        if (event.target.type === 'checkbox') {
+            value = (event.target.checked === true);
+        }
+        if (category) {
+            if (category === 'verticals') {
+                var isIn = this.state.influencer[category].indexOf(event.target.name);
+                if ((isIn === -1) && value) {
+                    this.state.influencer[category].push(event.target.name);
+                } else {
+                    this.state.influencer[category].splice(isIn, 1);
+                }
+            } else {
+                this.state.influencer[category][item] = value;
+            }
+        } else {
+            this.state.influencer[item] = value;
+        }
         this.setState({influencer: this.state.influencer});
     }
     _cancel() {
@@ -66,94 +74,35 @@ class InfluencerEditPage extends React.Component {
 
     _onSubmit(event) {
         event.preventDefault();
-        Actions.createInfluencer(this.state.influencer);
+        if (!this.state.influencer._id) {
+            Actions.createInfluencer(this.state.influencer);
+        } else {
+            Actions.updateInfluencer(this.state.influencer);
+        }
+    }
+
+    _expand(event) {
+        var advanced = document.getElementById('advanced-collapse');
+        if (event.target.checked) {
+            advanced.style.maxHeight = '1000px';
+        } else {
+            advanced.style.maxHeight = '0';
+        }
     }
 
     render() {
         return (
             <div>
                 <div className="card-panel z-depth-4">
-                    <h4 className="center-align">Create an Influencer</h4>
-                    <div className="row">
-                        <div className="col s8" style={{float: 'none', margin: '0 auto'}}>
-                            <InputSelect
-                                id="audience_sex"
-                                label="Sex"
-                                val={this.state.influencer.audience.sex}
-                                options={options}
-                                onChange={this.handleChange}
-                            />
-                            <InputText
-                                id="name_first"
-                                label="First Name"
-                                val={this.state.influencer.name.first}
-                                placeholder="something"
-                                active={true}
-                                onChange={this.handleChange}
-                            />
-                            <InputText
-                                id="name_last"
-                                label="Last Name"
-                                val={this.state.influencer.name.last}
-                                active={true}
-                                onChange={this.handleChange}
-                            />
-                            <InputText
-                                id="email"
-                                label="Email Address"
-                                type="email"
-                                val={this.state.influencer.email}
-                                active={true}
-                                onChange={this.handleChange}
-                            />
-                            <InputText
-                                id="timezone"
-                                label="Time Zone"
-                                val={this.state.influencer.timezone}
-                                active={true}
-                                onChange={this.handleChange}
-                            />
-                            <InputText
-                                id="username"
-                                label="Username"
-                                val={this.state.influencer.username}
-                                active={true}
-                                onChange={this.handleChange}
-                            />
-                            <InputText
-                                id="password"
-                                label="Password"
-                                type="password"
-                                val={this.state.influencer.password}
-                                active={true}
-                                onChange={this.handleChange}
-                            />
-                            <InputText
-                                id="confirmPassword"
-                                label="Confirm Password"
-                                type="password"
-                                val={this.state.influencer.confirmPassword}
-                                active={true}
-                                onChange={this.handleChange}
-                            />
-                            <div className="col 12" style={{float: 'none'}}>
-                                <Link to="" className="blue-grey lighten-3 waves-effect waves-light btn-large" onClick={this._cancel}>Cancel</Link>
-                                <Link to="" className="teal waves-effect waves-light btn-large right" onClick={this._onSubmit}>Save Changes</Link>
-                            </div>
-                        </div>
-                    </div>
-                    <hr />
-                    <div className="row center-align">
-                        <h6 className="teal-text" style={{marginBottom: '20px'}}>Send to influencer for them to complete</h6>
-                        <br />
-                        <Link to="" className="teal waves-effect waves-light btn-large center">
-                            <i className="material-icons right">send</i>Send
-                        </Link>
-                    </div>
+                    <h4 className="center-align" style={{marginBottom: '30px'}}>Create an Influencer</h4>
+                    <InfluencerManageForm
+                        influencer={this.state.influencer}
+                        expand={this._expand}
+                        onChange={this.handleChange}
+                        onSubmit={this._onSubmit}
+                        cancel={this._cancel}
+                    />
                 </div>
-
-
-
             </div>
         );
     }
