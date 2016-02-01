@@ -12,7 +12,7 @@ import Lists from './lists/listsSearchPage';
 import List from './lists/list';
 import PreferencesPage from './preferences/PreferencesPage';
 import AccountEditPage from './preferences/accounts/AccountEditPage';
-import InfluencerPrefsPage from './preferences/influencers/influencerPrefsPage';
+import InfluencerPrefsPage from './preferences/influencers/InfluencerPrefsPage';
 import InfluencerCreatePage from './preferences/influencers/influencerCreatePage';
 import InfluencerEditPage from './preferences/influencers/influencerEditPage';
 import ForgotPasswordPage from './auth/ForgotPasswordPage';
