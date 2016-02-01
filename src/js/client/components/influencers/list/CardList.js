@@ -20,7 +20,9 @@ class InfluencerCardList extends React.Component {
                 return <InfluencerCard
                     key={index}
                     influencer={item}
-                    onSelectionChanged={this.props.onSelectionChanged}/>;
+                    onSelectionChanged={this.props.onSelectionChanged}
+                    edit={this.props.edit}
+                />;
             });
             return (
                 <div>

@@ -12,8 +12,9 @@ import Lists from './lists/listsSearchPage';
 import List from './lists/list';
 import PreferencesPage from './preferences/PreferencesPage';
 import AccountEditPage from './preferences/accounts/AccountEditPage';
-import InfluencerCreatePage from './preferences/influencers/influencerCreatePage';
 import InfluencerPrefsPage from './preferences/influencers/InfluencerPrefsPage';
+import InfluencerCreatePage from './preferences/influencers/influencerCreatePage';
+import InfluencerEditPage from './preferences/influencers/influencerEditPage';
 import ForgotPasswordPage from './auth/ForgotPasswordPage';
 import ResetPasswordPage from './auth/ResetPasswordPage';
 
@@ -39,12 +40,15 @@ export default (
 				<Route path="lists" component={Lists} name="Lists" />
 				<Route path="list/:id" component={List} name="List" />
 				<Route path="preferences" component={PreferencesPage} name="Preferences">
-					<Route path="accounts/:id" name="Account">
-						<Route path="edit" component={AccountEditPage} name="Edit" />
+					<Route path="accounts" name="Account">
+						<IndexRoute component={AccountEditPage}/>
+						<Route path="edit/:id" component={AccountEditPage} name="Edit" />
 					</Route>
 					<Route path="influencers" name="Influencers">
 						<IndexRoute component={InfluencerPrefsPage}/>
 						<Route path="create" component={InfluencerCreatePage} service={influencerService} name="Create" />
+						<Route path="profile/:id" component={ProfilePage} name="Profile" />
+						<Route path="edit/:id" component={InfluencerEditPage} service={influencerService} name="Edit" />
 					</Route>
 				</Route>
 			</Route>

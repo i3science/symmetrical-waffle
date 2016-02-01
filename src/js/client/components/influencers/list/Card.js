@@ -61,7 +61,7 @@ class InfluencerCard extends React.Component {
                         <div className="row" style={{marginBottom:'0'}}>
                             <div className="col s9">
                                 <div className="row">
-                                    <Link to={'/search/results/profile/'+influencer._id}>
+                                    <Link to={(this.props.edit ? this.props.edit : '/search/results/profile') + '/' + influencer._id}>
                                         <div className="col s3">
                                             <img className="circle responsive-img" src={'/assets/images/' + (influencer.hasImage ? influencer._id : 'default') +'.jpg'} />
                                         </div>
