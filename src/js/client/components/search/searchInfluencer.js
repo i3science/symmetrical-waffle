@@ -4,7 +4,6 @@ import influencerStore from '../../stores/InfluencerStore';
 import searchStore from '../../stores/SearchStore';
 import Actions from '../../actions/UiActions';
 import Filters from './filters';
-import _ from 'lodash';
 
 class SearchPage extends React.Component {
     constructor() {
@@ -45,7 +44,7 @@ class SearchPage extends React.Component {
         });
 
     }
-    addFilter(event) {
+    addFilter(/*event*/) {
         //if (event.target.type === 'checkbox') {
         //    Actions.addFilter(event.target.id, event.target.checked);
         //} else {
@@ -90,12 +89,11 @@ class SearchPage extends React.Component {
             this.state.filters[item] = value;
         }
         this.setState({filters: this.state.filters});
-        console.log(this.state.filters);
 
         this.compare(this.state.filters, this.state.influencers);
     }
 
-    compare(one, two) {
+    compare(/*one, two*/) {
         //console.log(two[0]);
         //console.log(_.intersection(two[0], one));
 

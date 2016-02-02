@@ -1,7 +1,7 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 import { Link } from 'react-router';
 import _ from 'lodash';
-import InputText from '../../elements/inputtext';
+import Form from '../../common/Form';
 import InfluencerCardList from '../../influencers/list/CardList';
 import influencerStore from '../../../stores/InfluencerStore';
 
@@ -67,12 +67,12 @@ class InfluencerPrefsPage extends React.Component {
                         <h4>Find an Influencer by First and/or Last Name</h4>
                         <div className="col s6" style={{margin: '0 auto', float: 'none'}}>
                             <div className="col s12" style={{marginTop: '50px'}}>
-                                <InputText
-                                    id="search"
+                                <Form.Text
+                                    name="search"
                                     label="Find an influencer"
                                     color="teal"
                                     placeholder="Start typing a first or last name"
-                                    val={value}
+                                    value={value}
                                     active={true}
                                     onChange={this.handleChange}
                                 />

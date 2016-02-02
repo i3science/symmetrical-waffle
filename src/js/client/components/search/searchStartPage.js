@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import InputText from '../elements/inputtext';
+import Form from '../common/Form';
 import influencerStore from '../../stores/InfluencerStore';
 //import searchStore from '../../stores/SearchStore';
 import Actions from '../../actions/UiActions';
@@ -71,13 +71,13 @@ class SearchStart extends React.Component {
                             <Link to="search/influencer" className="waves-effect waves-light btn-large right"><i className="material-icons right">search</i>Free Form Search</Link>
                             <div className="clearfix"></div>
                             <div className="col s12" style={{marginTop: '50px'}}>
-                                <InputText
-                                    id="something"
+                                <Form.Text
+                                    name="something"
                                     label={__('search.label')}
                                     color="teal"
                                     placeholder={__('search.placeholder')}
                                     col="s12"
-                                    val={value}
+                                    value={value}
                                     active={true}
                                     onChange={this.handleChange} />
                                 <h6 id="result-count">{__('search.results_count', {count: this.state.results.length})}</h6>

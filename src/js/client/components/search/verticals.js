@@ -1,5 +1,5 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
-import CheckBox from '../elements/checkbox';
+import Form from '../common/Form';
 import _ from 'lodash';
 
 var verticalsCollection = [
@@ -93,9 +93,10 @@ const Verticals = (props) => {
                 checked = '';
             }
             return (
-                <CheckBox
+                <Form.CheckBox
                     key={child.id}
                     id={'verticals_' + child.id}
+                    name={child.label}
                     label={child.label}
                     onChange={props.onChange}
                     checked={checked}

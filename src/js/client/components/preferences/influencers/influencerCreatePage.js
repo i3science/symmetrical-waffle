@@ -98,8 +98,7 @@ class InfluencerCreatePage extends React.Component {
                         expand={this._expand}
                         onChange={this.handleChange}
                         onSubmit={this._onSubmit}
-                        cancel={this._cancel}
-                    />
+                        cancel={this._cancel} />
                 </div>
             </div>
         );

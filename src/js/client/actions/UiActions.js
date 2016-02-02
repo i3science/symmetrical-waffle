@@ -87,5 +87,12 @@ export default {
         dispatch({
             actionType: AppConstants.REMOVE_FILTER, id
         });
+    },
+
+    receivedErrors(errors) {
+        dispatch({
+            actionType: AppConstants.RECEIVED_ERRORS,
+            errors: errors
+        });
     }
 };

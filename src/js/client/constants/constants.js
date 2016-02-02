@@ -1,5 +1,6 @@
 export default {
     INITIALIZE: 'INITIALIZE',
+    RECEIVED_ERRORS: 'RECEIVED_ERRORS',
 
     // Filter-specific
     ADD_FILTER: 'ADD_FILTER',

@@ -1,5 +1,5 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
-import CheckBox from '../../elements/checkbox';
+import Form from '../../common/Form';
 import _ from 'lodash';
 
 var mediumCollection = [
@@ -37,9 +37,10 @@ const Medium = (props) => {
         }
         return (
             <div key={item.id} className="col s3">
-                <CheckBox
+                <Form.CheckBox
                     key={item.id}
                     id={'medium_' + item.id}
+                    name={item.label}
                     label={item.label}
                     onChange={props.onChange}
                     checked={checked}
