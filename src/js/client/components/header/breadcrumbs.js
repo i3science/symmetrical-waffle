@@ -15,7 +15,7 @@ class Breadcrumbs extends React.Component {
 
         let links = '';
         let breadcrumbs = routes.map(function(route, idx){
-            links = '/' + _.trimLeft(links + '/' + (route.path || ''), '/');
+            links = '/' + _.trimStart(links + '/' + (route.path || ''), '/');
             let name = route.name;
             if (!name) {
                 return '';

@@ -82,35 +82,56 @@ var verticalsCollection = [
 ];
 
 const Verticals = (props) => {
-
+    if (!props.verticals) {
+        return <div></div>;
+    }
     let verticals = verticalsCollection.map(item => {
         let children = item.verts.map(child => {
             let checked = '';
-            let filterIndex = _.contains(props.verticals, child.label);
+            let filterIndex = _.includes(props.verticals, child.label);
             if (filterIndex) {
                 checked = 'checked';
             } else {
                 checked = '';
             }
-            return (
-                <CheckBox
-                    key={child.id}
-                    id={'verticals_' + child.id}
-                    label={child.label}
-                    onChange={props.onChange}
-                    checked={checked}
-                />
-            );
+
+            if (props.minimal && !checked) {
+                return <div></div>;
+            } else {
+                return (
+                    <CheckBox
+                        key={child.id}
+                        id={'verticals_' + child.id}
+                        label={child.label}
+                        onChange={props.onChange}
+                        checked={checked}
+                    />
+                );
+            }
+
+
         });
-        return (
-            <div key={item.name} className="col s3">
-                <h6 className="teal-text">{item.name}</h6>
-                {children}
-            </div>
-        );
+        if (props.minimal) {
+            return (
+                <div key={item.name} className="col s12">
+                    <div className="col s12">
+                        {children}
+                    </div>
+                </div>
+            );
+        } else {
+            return (
+                <div key={item.name} className="col s3">
+                    <h6 className="teal-text">{item.name}</h6>
+                    {children}
+                </div>
+            );
+        }
+
+
     });
     return (
-        <div className="col s12">
+        <div className="row">
             {verticals}
         </div>
     );

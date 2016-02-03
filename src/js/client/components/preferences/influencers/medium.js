@@ -22,34 +22,34 @@ var mediumCollection = [
 ];
 
 const Medium = (props) => {
-    if (!props.medium) {
+    if (!props.mediums) {
         return <div></div>;
     }
-
-
-    let medium = mediumCollection.map(item => {
+    let mediums = mediumCollection.map(item => {
         let checked = '';
-        let filterIndex = _.contains(props.medium, item.label);
+        let filterIndex = _.includes(props.mediums, item.label);
         if (filterIndex) {
             checked = 'checked';
         } else {
             checked = '';
         }
         return (
-            <div key={item.id} className="col s3">
+            <div key={item.id} className={'col ' + (props.minimal ? 's12' : 's3')}>
+                {props.minimal && !checked ? null :
                 <CheckBox
-                    key={item.id}
-                    id={'medium_' + item.id}
+                    id={'mediums_' + item.id}
                     label={item.label}
                     onChange={props.onChange}
                     checked={checked}
-                />
+                />}
             </div>
         );
     });
     return (
-        <div className="col s12">
-            {medium}
+        <div className="row">
+            <div className={props.minimal ? 'col s12' : ''}>
+                {mediums}
+            </div>
         </div>
     );
 };

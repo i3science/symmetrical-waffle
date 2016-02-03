@@ -76,8 +76,8 @@ const InfluencerManageForm = (props) => {
             </div>
             <hr />
             <div className="col 12" style={{float: 'none'}}>
-                <Link to="" className="teal waves-effect waves-light btn-large" onClick={props.onSubmit}>Save Changes</Link>
-                <Link to="" className="blue-grey lighten-5 waves-effect waves-light btn-large btn-flat right" onClick={props.cancel}>Cancel</Link>
+                <Link to="" className="blue-grey lighten-5 waves-effect waves-light btn-large btn-flat" onClick={props.cancel}>Cancel</Link>
+                <Link to="" className="teal waves-effect waves-light btn-large right" onClick={props.onSubmit}>Save Changes</Link>
             </div>
         </div>
     );

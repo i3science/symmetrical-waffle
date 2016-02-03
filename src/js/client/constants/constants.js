@@ -2,9 +2,7 @@ export default {
     INITIALIZE: 'INITIALIZE',
 
     // Filter-specific
-    ADD_FILTER: 'ADD_FILTER',
     UPDATE_FILTERS: 'UPDATE_FILTERS',
-    REMOVE_FILTER: 'REMOVE_FILTER',
 
     // User-specific
     ADD_USER: 'ADD_USER',

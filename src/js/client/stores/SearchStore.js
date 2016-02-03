@@ -1,12 +1,15 @@
 import BaseStore from './BaseStore';
 import AppConstants from '../constants/constants';
-import _ from 'lodash';
 
 class SearchStore extends BaseStore {
 
     constructor() {
         super();
-        this.filters = [];
+        this.filters = {
+            personal: {},
+            mediums: [],
+            verticals: []
+        };
         this.results = [];
         this.colors = [
             '#546E7B',
@@ -32,24 +35,8 @@ class SearchStore extends BaseStore {
                 this.results = action.influencers;
                 this.emitChange();
                 break;
-            case AppConstants.ADD_FILTER:
-                let isFilter = _.find(this.filters, {id: action.id});
-                let filterIndex = _.indexOf(this.filters, isFilter);
-                if (filterIndex === -1) {
-                    this.filters.push({id: action.id, val: action.val});
-                } else {
-                    if (action.val) {
-                        this.filters.splice(filterIndex, 1, {id: action.id, val: action.val});
-                    } else {
-                        _.remove(this.filters, function(filter){
-                            return action.id === filter.id;
-                        });
-                    }
-                }
-                this.emitChange();
-                break;
-            case AppConstants.REMOVE_FILTER:
-                _.pull(this.filters, action.id);
+            case AppConstants.UPDATE_FILTERS:
+                this.filters = action.filters;
                 this.emitChange();
                 break;
         }

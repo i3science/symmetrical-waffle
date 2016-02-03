@@ -13,7 +13,6 @@ class InfluencerCreatePage extends React.Component {
                 audience: {},
                 verticals: []
             }
-
         };
         this._onChange = this._onChange.bind(this);
         this.handleChange = this.handleChange.bind(this);

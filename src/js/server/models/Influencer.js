@@ -53,7 +53,8 @@ var Influencer = User.extend({
         pets: [String],
         ethnicity: String,
         employment: String
-    }
+    },
+    mediums: [String]
 });
 
 
