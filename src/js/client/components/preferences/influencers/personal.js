@@ -7,11 +7,10 @@ const Personal = (props) => {
         return <div></div>;
     }
     return (
-        <div>
-            <div className="row">
-            </div>
-            <div className="row">
-                <div className="col s3">
+        <div className="row">
+            <div className="">
+                {props.minimal && !props.personal.sex ? null :
+                <div className={'col ' + (props.minimal ? 's12' : 's3')}>
                     <InputSelect
                         id="personal_sex"
                         label="Gender"
@@ -19,8 +18,9 @@ const Personal = (props) => {
                         options={['Male', 'Female', 'Vampire', 'Other']}
                         onChange={props.onChange}
                     />
-                </div>
-                <div className="col s3">
+                </div>}
+                {props.minimal && !props.personal.age ? null :
+                <div className={'col ' + (props.minimal ? 's12' : 's3')}>
                     <InputText
                         id="personal_age"
                         label="Age"
@@ -28,8 +28,9 @@ const Personal = (props) => {
                         active={true}
                         onChange={props.onChange}
                     />
-                </div>
-                <div className="col s3">
+                </div>}
+                {props.minimal && !props.personal.married ? null :
+                <div className={'col ' + (props.minimal ? 's12' : 's3')}>
                     <InputSelect
                         id="personal_married"
                         label="Marital Status"
@@ -37,19 +38,19 @@ const Personal = (props) => {
                         options={['Yes', 'No', 'Common Law']}
                         onChange={props.onChange}
                     />
-                </div>
-                <div className="col s3">
+                </div>}
+                {props.minimal && !props.personal.language ? null :
+                <div className={'col ' + (props.minimal ? 's12' : 's3')}>
                     <InputSelect
                         id="personal_language"
                         label="Primary Language"
                         val={props.personal.language}
-                        options={['Yes', 'No', 'Common Law']}
+                        options={['English', 'French', 'Spanish', 'Other']}
                         onChange={props.onChange}
                     />
-                </div>
-            </div>
-            <div className="row">
-                <div className="col s3">
+                </div>}
+                {props.minimal && !props.personal.employment ? null :
+                <div className={'col ' + (props.minimal ? 's12' : 's3')}>
                     <InputSelect
                         id="personal_employment"
                         label="Employment Status"
@@ -57,8 +58,9 @@ const Personal = (props) => {
                         options={['Employed', 'Unemployed']}
                         onChange={props.onChange}
                     />
-                </div>
-                <div className="col s3">
+                </div>}
+                {props.minimal && !props.personal.householdIncome ? null :
+                <div className={'col ' + (props.minimal ? 's12' : 's3')}>
                     <InputText
                         id="personal_householdIncome"
                         label="Household Income"
@@ -66,8 +68,9 @@ const Personal = (props) => {
                         active={true}
                         onChange={props.onChange}
                     />
-                </div>
-                <div className="col s3">
+                </div>}
+                {props.minimal && !props.personal.ethnicity ? null :
+                <div className={'col ' + (props.minimal ? 's12' : 's3')}>
                     <InputText
                         id="personal_ethnicity"
                         label="Ethnicity"
@@ -75,8 +78,9 @@ const Personal = (props) => {
                         active={true}
                         onChange={props.onChange}
                     />
-                </div>
-                <div className="col s3">
+                </div>}
+                {props.minimal && !props.personal.residence ? null :
+                <div className={'col ' + (props.minimal ? 's12' : 's3')}>
                     <InputSelect
                         id="personal_residence"
                         label="Type of Residence"
@@ -84,10 +88,9 @@ const Personal = (props) => {
                         options={['House', 'Condo', 'Apartment', 'Other']}
                         onChange={props.onChange}
                     />
-                </div>
-            </div>
-            <div className="row">
-                <div className="col s4">
+                </div>}
+                {props.minimal && !props.personal.city ? null :
+                <div className={'col ' + (props.minimal ? 's12' : 's3')}>
                     <InputText
                         id="personal_city"
                         label="City"
@@ -95,8 +98,9 @@ const Personal = (props) => {
                         active={true}
                         onChange={props.onChange}
                     />
-                </div>
-                <div className="col s4">
+                </div>}
+                {props.minimal && !props.personal.state ? null :
+                <div className={'col ' + (props.minimal ? 's12' : 's3')}>
                     <InputText
                         id="personal_state"
                         label="State/Province"
@@ -104,8 +108,9 @@ const Personal = (props) => {
                         active={true}
                         onChange={props.onChange}
                     />
-                </div>
-                <div className="col s4">
+                </div>}
+                {props.minimal && !props.personal.country ? null :
+                <div className={'col ' + (props.minimal ? 's12' : 's3')}>
                     <InputText
                         id="personal_country"
                         label="Country"
@@ -113,7 +118,7 @@ const Personal = (props) => {
                         active={true}
                         onChange={props.onChange}
                     />
-                </div>
+                </div>}
             </div>
         </div>
     );

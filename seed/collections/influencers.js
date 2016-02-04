@@ -65,7 +65,7 @@ module.exports = function(fixtures) {
                 name: 'Something with no value',
                 price: ''
             }],
-            verticals: [ 'Beauty', 'Fashion', 'Prenting' ],
+            verticals: ['Beauty', 'Fashion', 'Parenting', 'Fitness'],
             audience: {
                 male: 60,
                 female: 40,
@@ -86,7 +86,7 @@ module.exports = function(fixtures) {
                 sex: 'Female',
                 language: 'English',
                 age: 30,
-                married: true,
+                married: 'Yes',
                 kids: [ 8, 10, 13 ],
                 country: 'Canada',
                 state: 'Ontario',
@@ -95,7 +95,8 @@ module.exports = function(fixtures) {
                 householdIncome: 100000,
                 pets: [ 'Dog' ],
                 ethnicity: 'Caucasion'
-            }
+            },
+            mediums: ['Blogger', 'Vlogger', 'Amplifier']
         }),
 
         //
@@ -157,7 +158,7 @@ module.exports = function(fixtures) {
                 name: 'Social Amplification Post',
                 price: 500
             }],
-            verticals: [ 'beauty', 'fashion', 'parenting', 'mechanics' ],
+            verticals: ['Beauty', 'Fashion', 'Parenting', 'Art & Culture'],
             audience: {
                 male: 60,
                 female: 40,
@@ -176,7 +177,7 @@ module.exports = function(fixtures) {
                 sex: 'Male',
                 language: 'English',
                 age: 20,
-                married: false,
+                married: 'Common Law',
                 kids: [ 10 ],
                 country: 'Canada',
                 state: 'Ontario',
@@ -184,7 +185,8 @@ module.exports = function(fixtures) {
                 residence: 'House',
                 householdIncome: 90000,
                 ethnicity: 'Caucasion'
-            }
+            },
+            mediums: ['Blogger', 'Vlogger', 'Amplifier']
         }),
 
         //
@@ -249,7 +251,7 @@ module.exports = function(fixtures) {
                 name: 'Something with no value',
                 price: ''
             }],
-            verticals: [ 'beauty', 'fashion', 'parenting' ],
+            verticals: ['Beauty', 'Fashion', 'Parenting'],
             audience: {
                 male: 60,
                 female: 40,
@@ -270,7 +272,7 @@ module.exports = function(fixtures) {
                 sex: 'Female',
                 language: 'English',
                 age: 60,
-                married: true,
+                married: 'Yes',
                 kids: [ 8, 10, 13 ],
                 country: 'Canada',
                 state: 'Ontario',
@@ -279,7 +281,8 @@ module.exports = function(fixtures) {
                 householdIncome: 100000,
                 pets: [ 'Dog' ],
                 ethnicity: 'Caucasion'
-            }
+            },
+            mediums: ['Blogger', 'Vlogger', 'Photo Blogger']
         }),
 
         //
@@ -341,7 +344,7 @@ module.exports = function(fixtures) {
                 name: 'Social Amplification Post',
                 price: 500
             }],
-            verticals: [ 'beauty', 'fashion', 'parenting', 'mechanics' ],
+            verticals: ['Beauty', 'Fashion', 'Parenting', 'Art & Culture'],
             audience: {
                 male: 60,
                 female: 40,
@@ -360,7 +363,7 @@ module.exports = function(fixtures) {
                 sex: 'Male',
                 language: 'English',
                 age: 80,
-                married: false,
+                married: 'No',
                 kids: [ 10 ],
                 country: 'Canada',
                 state: 'Ontario',
@@ -368,7 +371,8 @@ module.exports = function(fixtures) {
                 residence: 'House',
                 householdIncome: 90000,
                 ethnicity: 'Caucasion'
-            }
+            },
+            mediums: ['Blogger', 'Photo Blogger', 'Amplifier']
         })
     };
 };

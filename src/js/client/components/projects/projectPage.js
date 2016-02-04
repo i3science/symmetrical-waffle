@@ -104,10 +104,10 @@ class ProjectPage extends React.Component {
     render() {
         var keyword = this.state.filter.keyword,
             client = this.state.filter.client,
-            active = _.contains(this.state.filter.state, 'active'),
-            pending = _.contains(this.state.filter.state, 'pending'),
-            inmarket = _.contains(this.state.filter.state, 'inmarket'),
-            closed = _.contains(this.state.filter.state, 'closed');
+            active = _.includes(this.state.filter.state, 'active'),
+            pending = _.includes(this.state.filter.state, 'pending'),
+            inmarket = _.includes(this.state.filter.state, 'inmarket'),
+            closed = _.includes(this.state.filter.state, 'closed');
         return (
             <div>
                 <div className="card-panel z-depth-4">
