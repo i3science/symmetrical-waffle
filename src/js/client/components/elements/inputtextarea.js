@@ -1,6 +1,6 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 
-const InputText = (props) => {
+const InputTextArea = (props) => {
     if (!props.id) {
         return <div></div>;
     }
@@ -13,23 +13,22 @@ const InputText = (props) => {
     if (props.suffix) {
         var suffix = <div
             className="suffix center-align"
-            style={{ fontSize: '14px', marginTop: '8px', marginLeft: '10px', display: 'inline-block'}}
+            style={{ fontSize: '17px', marginTop: '8px'}}
         >{props.suffix}</div>;
     }
     return (
         <div className={'input-field col '+ (props.col ? props.col : 's12')}>
             {prefix || ''}
-            <input
+            <textarea
                 type={props.type ? props.type : 'text'}
                 id={props.id}
                 name={props.label}
-                className={props.class || ''}
+                className={(props.class || '') + ' materialize-textarea'}
                 placeholder={props.placeholder ? props.placeholder : ''}
                 value={props.val ? props.val : ''}
                 data-parent={props.parent || null}
-                onChange={props.onChange ? props.onChange.bind(this) : null}
-                style={props.width ? {width: props.width} : null}
-            />
+                onChange={props.onChange ? props.onChange.bind(this) : null}>
+            </textarea>
             {suffix || ''}
             <label
                 htmlFor={props.id}
@@ -39,4 +38,4 @@ const InputText = (props) => {
     );
 };
 
-export default InputText;
+export default InputTextArea;

@@ -7,7 +7,8 @@ import SearchInfluencer from './search/searchInfluencer';
 import Results from './results/resultsPage';
 import ProfilePage from './influencers/ProfilePage';
 import Login from './login';
-import Projects from './projects/projectPage';
+import ProjectSearchPage from './projects/projectSearchPage';
+import ProjectPage from './projects/projectPage';
 import Lists from './lists/listsSearchPage';
 import List from './lists/list';
 import PreferencesPage from './preferences/PreferencesPage';
@@ -28,8 +29,12 @@ import '../utils/Object.js';
 export default (
 		<div>
 			<Route path="/" component={Template} name="Home">
-				<IndexRoute component={Projects} name="Projects"/>
-                <Route path="projects" component={Projects} name="Projects" />
+				<IndexRoute component={ProjectSearchPage} name="Projects"/>
+                <Route path="projects" name="Projects">
+					<IndexRoute component={ProjectSearchPage} />
+					<Route path="project/:id" component={ProjectPage} name="Edit" />
+
+				</Route>
 				<Route path="search" name="Search">
 					<IndexRoute component={SearchStart} />
 					<Route path="influencer" component={SearchInfluencer} name="Influencers" />

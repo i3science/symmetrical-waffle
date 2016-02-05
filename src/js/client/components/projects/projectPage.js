@@ -1,186 +1,199 @@
 import React from 'react';
-import { Link } from 'react-router';
-import _ from 'lodash';
-import InputText from '../elements/inputtext';
-import CheckBox from '../elements/checkbox';
-import projectActions from '../../actions/ProjectActions';
 import projectStore from '../../stores/ProjectStore';
-import moment from 'moment';
-import { list_filter } from '../../../shared/projects.js';
+//import Profile from './profile/profile';
 
-const Result = (props) => {
-    let amplifiers = Object.keys(props.project.required_influencers).reduce((obj, val) => {
-        obj += props.project.required_influencers[val];
-        return obj;
-    }, 0);
+// TODO -- be awesome
+// Derek √
+// Wilson √
+// George W Bush
+
+import InputText from '../elements/inputtext';
+import InputTextArea from '../elements/inputtextarea';
+import CheckBox from '../elements/checkbox';
+
+
+const Project = (props) => {
+    console.log(props.project);
     return (
-        <div className="col m3 s2">
-            <div className="card">
-                <div className="card-content">
-                    <span className="card-title teal-text text-darken-1">{props.project.client}</span>
-                    <p><strong>{props.project.name}</strong></p>
-                    <p>Amplifiers: {amplifiers}</p>
-                    <p>Live Date: {moment(props.project.project_live).format('DD/MM/YYYY')}</p>
+        <div className="card-panel z-depth-4">
+            <h5 className="grey-text text-darken-2" style={{marginBottom: '30px'}}>Find a Project</h5>
+            <div className="row">
+                <div className="col s6 separate-right">
+                        <InputText
+                            id="client"
+                            label="Client Name"
+                            val={props.project.client}
+                            active={true}
+                            onChange={props.onChange}
+                        />
+
+                        <InputText
+                            id="name"
+                            label="Project Name"
+                            val={props.project.name}
+                            active={true}
+                            onChange={props.onChange}
+                        />
+
+                        <InputText
+                            id="advertiser"
+                            label="Advertiser Name"
+                            val="NEED ADVERTISER NAME"
+                            active={true}
+                            onChange={props.onChange}
+                        />
+
+                        <InputTextArea
+                            id="brief"
+                            label="Project Brief"
+                            val={props.project.brief}
+                            active={true}
+                            onChange={props.onChange}
+                        />
+
                 </div>
-                <div className="card-action grey lighten-5">
-                    <Link to="">More Info...</Link>
+                <div className="col s6">
+                    <div className="col s12">
+                        <h6>Project Goals</h6>
+                        <div className="row">
+                            <div className="col s4">
+                                <CheckBox
+                                    id="engagement"
+                                    label="Engagement"
+                                    parent="goals"
+                                    onChange={props.onChange}
+                                    checked={props.project.goals.engagement}
+                                />
+                            </div>
+                            <div className="col s4">
+                                <CheckBox
+                                    id="reach"
+                                    label="Reach"
+                                    parent="goals"
+                                    onChange={props.onChange}
+                                    checked={props.project.goals.reach}
+                                />
+                            </div>
+                            <div className="col s4">
+                                <CheckBox
+                                    id="general"
+                                    label="General"
+                                    parent="goals"
+                                    onChange={props.onChange}
+                                    checked={props.project.goals.general}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col s8">
+                        <h6>Number of Influencers</h6>
+                        <div className="row">
+                            <InputText
+                                type="number"
+                                id="bloggers"
+                                col="s6"
+                                width="50px"
+                                suffix="Bloggers"
+                                val={props.project.required_influencers.bloggers}
+                                parent="required_influencers"
+                                active={true}
+                                onChange={props.onChange}
+                            />
+                            <InputText
+                                type="number"
+                                id="vloggers"
+                                col="s6"
+                                width="50px"
+                                suffix="Vloggers"
+                                val={props.project.required_influencers.vloggers}
+                                parent="required_influencers"
+                                active={true}
+                                onChange={props.onChange}
+                            />
+                            <InputText
+                                type="number"
+                                id="photo_bloggers"
+                                col="s6"
+                                width="50px"
+                                suffix="Photo Bloggers"
+                                val={props.project.required_influencers.photo_bloggers}
+                                parent="required_influencers"
+                                active={true}
+                                onChange={props.onChange}
+                            />
+                            <InputText
+                                type="number"
+                                id="amplifiers"
+                                col="s6"
+                                width="50px"
+                                suffix="Amplifiers"
+                                val={props.project.required_influencers.amplifiers}
+                                parent="required_influencers"
+                                active={true}
+                                onChange={props.onChange}
+                            />
+                        </div>
+                    </div>
+                    <div className="col s4 center-align">
+                        <h6>Total Influencers</h6>
+                        <h4>{props.project.required_influencers.bloggers +
+                        props.project.required_influencers.vloggers +
+                        props.project.required_influencers.photo_bloggers +
+                        props.project.required_influencers.amplifiers}
+                        </h4>
+                    </div>
                 </div>
+
             </div>
         </div>
     );
 };
 
-class Results extends React.Component {
-    render() {
-        let results = this.props.projects.map((item, index) => {
-            return (
-                <Result key={index}
-                        project={item}
-                />
-            );
-        });
-        return (
-            <div className="">
-                <div className="row">
-                    {results}
-                </div>
-            </div>
-        );
-    }
-}
+
+
+
+
+
+
+
+
+
 
 class ProjectPage extends React.Component {
     constructor() {
         super();
         this.state = {
-            projectResults: [],
-            projects: [],
-            filter: {
-                client: '',
-                keyword: '',
-                state: [
-                    'active',
-                    'pending',
-                    'inmarket',
-                    'closed'
-                ]
-            }
+            project: {}
         };
-        this._onChange = this._onChange.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
     componentWillMount() {
-        projectActions.refreshProjects();
-        projectStore.addChangeListener(this._onChange);
-    }
-
-    componentWillUnmount() {
-        projectStore.removeChangeListener(this._onChange);
-    }
-
-    _onChange() {
-        this.setState({
-            projects: projectStore.getProjects()
-        });
-        this._filter();
-    }
-    _filter() {
-        this.state.projectResults = list_filter(this.state.projects, this.state.filter);
-        this.setState({projectResults: this.state.projectResults});
+        this.state.project = projectStore.getProjectById(this.props.params.id);
+        this.setState({project: this.state.project});
     }
     handleChange(event) {
-        if (event.target.type === 'checkbox') {
-            if (event.target.checked) {
-                this.state.filter.state.push(event.target.id);
-            } else {
-                _.pull(this.state.filter.state, event.target.id);
-            }
-        } else {
-            this.state.filter[event.target.id] = event.target.value;
+        console.log(event.target);
+        let value = event.target.value;
+        if (event.target.type === 'number') {
+            value = Number(value);
         }
-        this.setState({filter: this.state.filter});
-        this._filter();
+        if (event.target.type === 'checkbox') {
+            value = event.target.checked;
+        }
+        if (!event.target.dataset.parent) {
+            this.state.project[event.target.id] = value;
+        } else {
+            this.state.project[event.target.dataset.parent][event.target.id] = value;
+        }
+        this.setState({project: this.state.project});
+        console.log(this.state.project);
     }
     render() {
-        var keyword = this.state.filter.keyword,
-            client = this.state.filter.client,
-            active = _.includes(this.state.filter.state, 'active'),
-            pending = _.includes(this.state.filter.state, 'pending'),
-            inmarket = _.includes(this.state.filter.state, 'inmarket'),
-            closed = _.includes(this.state.filter.state, 'closed');
         return (
-            <div>
-                <div className="card-panel z-depth-4">
-                    <div className="row center-align">
-                        <h4 className="grey-text text-darken-2">Find a Project</h4>
-                        <div className="col s10" style={{margin: '0 auto', float: 'none'}}>
-                            <div className="row" style={{marginTop: '50px'}}>
-                                <div className="col s6">
-                                    <InputText
-                                        id="client"
-                                        label="Client"
-                                        color="teal"
-                                        placeholder="Start typing a client name"
-                                        val={client}
-                                        active={true}
-                                        onChange={this.handleChange}
-                                    />
-                                </div>
-                                <div className="col s6">
-                                    <InputText
-                                        id="keyword"
-                                        label="Keyword"
-                                        color="teal"
-                                        placeholder="Start typing a keyword"
-                                        val={keyword}
-                                        active={true}
-                                        onChange={this.handleChange}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col s8" style={{margin: '0 auto ', float: 'none'}}>
-                            <div className="col s3">
-                                <CheckBox
-                                    id='pending'
-                                    label='Pending'
-                                    onChange={this.handleChange}
-                                    checked={pending}
-                                />
-                            </div>
-                            <div className="col s3">
-                                <CheckBox
-                                    id='active'
-                                    label='Active'
-                                    onChange={this.handleChange}
-                                    checked={active}
-                                />
-                            </div>
-                            <div className="col s3">
-                                <CheckBox
-                                    id='inmarket'
-                                    label='In Market'
-                                    onChange={this.handleChange}
-                                    checked={inmarket}
-                                />
-                            </div>
-                            <div className="col s3">
-                                <CheckBox
-                                    id='closed'
-                                    label='Closed'
-                                    onChange={this.handleChange}
-                                    checked={closed}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <h5 className="center-align teal-text">{(this.state.projectResults && this.state.projectResults.length > 0) ? this.state.projectResults.length + ' results' : ''}</h5>
-                <Results
-                    projects={this.state.projectResults}
-                />
-
-            </div>
+            <Project
+                project={this.state.project}
+                onChange={this.handleChange}
+            />
         );
     }
 }
