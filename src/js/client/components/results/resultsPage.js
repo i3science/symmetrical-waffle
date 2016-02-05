@@ -1,7 +1,6 @@
 import React from 'react';
 import Sidebar from '../sidebar';
 import SidebarFilter from './sidebarfilter';
-import Filters from '../search/filters'
 import influencerStore from '../../stores/InfluencerStore';
 import searchStore from '../../stores/SearchStore';
 import Actions from '../../actions/UiActions';
@@ -84,7 +83,7 @@ class Serp extends React.Component {
                     if (Array.isArray(fil[prop])) {
                         let isit = _.intersection(fil[prop], inf[prop]);
                         if (!(isit.length === fil[prop].length) && (fil[prop].length > 0)) {
-                            return false
+                            return false;
                         }
                     } else if ((typeof fil[prop] === 'object') && !Array.isArray(fil[prop])) {
                         for (var deep in fil[prop]) {
@@ -92,10 +91,10 @@ class Serp extends React.Component {
                                 if (Array.isArray(fil[prop][deep])) {
                                     let isit = _.intersection(fil[prop][deep], inf[prop][deep]);
                                     if (!(isit.length === fil[prop].length) && (fil[prop].length > 0)) {
-                                        return false
+                                        return false;
                                     }
                                 } else if ((typeof fil[prop][deep] === 'object') && !Array.isArray(fil[prop][deep])) {
-                                    console.log('not_array but is_object');
+                                    //console.log('not_array but is_object');
                                 } else {
                                     let condition = _.isEqual(
                                         (isNaN(inf[prop][deep]) ? inf[prop][deep].toLowerCase() : inf[prop][deep].toString()),
@@ -129,7 +128,6 @@ class Serp extends React.Component {
     }
 
     render() {
-        console.log(this.state.filters);
         if (this.state.results) {
             return (
                 <div>
