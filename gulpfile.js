@@ -80,6 +80,10 @@ gulp.task('compile', ['js','jslint','css','csslint']);
 // STEP 3 - Testing
 //----
 gulp.task('test', ['compile'], function(){
+  if (JSON.parse(process.env.SKIP_TESTS || '0')) {
+    console.log('Skipping Tests');
+    return;
+  }
  var old = process.env.NODE_ENV;
  process.env.NODE_ENV = 'test';
  if (node) {
