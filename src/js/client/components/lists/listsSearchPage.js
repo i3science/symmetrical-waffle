@@ -3,39 +3,14 @@ import { Link } from 'react-router';
 import _ from 'lodash';
 import ListItem from './listitem';
 import InputText from '../elements/inputtext';
-
-var list = {
-    name: 'Mommies',
-    added: 112015,
-    influencers: []
-};
-var list2 = {
-    name: 'Good list for Ford',
-    added: 112016,
-    influencers: []
-};
-
-var lists = [
-    list,
-    list2,
-    list,
-    list2,
-    list,
-    list2,
-    list,
-    list2,
-    list,
-    list2,
-    list,
-    list2
-];
+import listActions from '../../actions/ListActions';
+import listStore from '../../stores/ListStore';
 
 const ListResults = (props) => {
     let results = props.lists.map((item, index) => {
         return (
             <ListItem key={index}
-                        list={item}
-            />
+                        list={item} />
         );
     });
     return (
@@ -57,10 +32,20 @@ class ListPage extends React.Component {
                 keyword: ''
             }
         };
+        this._onChange = this._onChange.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
     componentWillMount() {
-        this.setState({lists: lists});
+        listActions.refreshLists();
+        listStore.addChangeListener(this._onChange);
+    }
+    componentWillUnmount() {
+        listStore.removeChangeListener(this._onChange);
+    }
+    _onChange() {
+        this.setState({
+            lists: listStore.getLists()
+        });
     }
     handleChange(event) {
         this.state.filter[event.target.id] = event.target.value;
@@ -70,7 +55,7 @@ class ListPage extends React.Component {
             this.state.listResults = _.filter(this.state.lists, function (item) {
                 let keyword = item.name.toLowerCase();
                 return keyword.indexOf(this.state.filter.keyword.toLowerCase()) > -1;
-            }, this);
+            }.bind(this));
         } else {
             this.state.listResults = [];
         }

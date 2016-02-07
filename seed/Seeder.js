@@ -7,6 +7,7 @@ var
     userService = require('./../src/js/server/services/UserService.js').default,
     influencerService = require('./../src/js/server/services/InfluencerService.js').default,
     projectService = require('./../src/js/server/services/ProjectService.js').default,
+    listService = require('./../src/js/server/services/ListService.js').default,
     async = require('async'),
     chalk = require('chalk'),
     glob = require('glob'),
@@ -60,8 +61,9 @@ class Seeder {
             require('./collections/users')(fixtures);
             require('./collections/influencers')(fixtures);
             require('./collections/projects')(fixtures);
+            require('./collections/lists')(fixtures);
             log('Fixtures loaded');
-        } else {
+        } else {;
             log('Fixtures supplied');
         }
 
@@ -96,6 +98,9 @@ class Seeder {
             })
             .then(() => {
                 return populateCollection(fixtures.projects, projectService);
+            })
+            .then(() => {
+                return populateCollection(fixtures.lists, listService);
             })
             .then(() => {
                 config.mail.disable = oldMailDisable;
