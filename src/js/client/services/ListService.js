@@ -1,14 +1,21 @@
 import 'isomorphic-fetch';
 
 export default class ListService {
-    list() {
-        return fetch('/api/lists');
+    static list() {
+        return fetch('/api/lists')
+            .then((response) => {
+                return response.json();
+            })
+            .then((lists) => {
+                return lists;
+            })
+            .catch(() => {});
     }
-    find(id) {
+    static find(id) {
         return fetch('/api/lists/'+id)
             .catch(() => {});
     }
-    create(list) {
+    static create(list) {
         return fetch('/api/lists/', {
             method: 'post',
             body: JSON.stringify(list),
@@ -19,7 +26,7 @@ export default class ListService {
         })
             .catch(() => {});
     }
-    update(list) {
+    static update(list) {
         return fetch('/api/lists/'+list._id, {
             method: 'put',
             body: JSON.stringify(list),
