@@ -58,6 +58,7 @@ class Seeder {
         if (typeof fixtures === 'undefined') {
             fixtures = {};
             require('./collections/organizations')(fixtures);
+            // require('./collections/organizers')(fixtures);
             require('./collections/users')(fixtures);
             require('./collections/influencers')(fixtures);
             require('./collections/projects')(fixtures);
@@ -91,18 +92,27 @@ class Seeder {
 
         return populateCollection(fixtures.organizations, organizationService)
             .then(() => {
+                log('Populated Organizations');
+            //     return populateCollection(fixtures.organizers, organizerService);
+            // })
+            // .then(() => {
+            //     log('Populated Organizers');
                 return populateCollection(fixtures.users, userService);
             })
             .then(() => {
+                log('Populated Users');
                 return populateCollection(fixtures.influencers, influencerService);
             })
             .then(() => {
+                log('Populated Influencers');
                 return populateCollection(fixtures.projects, projectService);
             })
             .then(() => {
+                log('Populated Projects');
                 return populateCollection(fixtures.lists, listService);
             })
             .then(() => {
+                log('Populated Lists');
                 config.mail.disable = oldMailDisable;
                 log('Population completed');
                 return fixtures;

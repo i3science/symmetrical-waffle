@@ -6,7 +6,6 @@
                 last: 'Gluhorn'
             },
             email: 'mgluhorn@smp.com',
-            roles: ['client'],
             active: true,
             language: 'en_CA'
         },
@@ -16,7 +15,6 @@
                 last: 'Reese'
             },
             email: 'sreese@smp.com',
-            roles: ['client'],
             active: false,
             language: 'fr_CA'
         }

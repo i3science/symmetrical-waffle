@@ -147,7 +147,7 @@ class AuthenticationController {
 
         return function(req, res, next) {
             self.isLoggedIn(req, res, function() {
-                if (!_.intersection(req.user.roles, ['admin'].concat(roles)).length) {
+                if (!_.intersection(req.loggedInUser.roles, ['admin'].concat(roles)).length) {
                     return res.status(403).send({
                         message: 'User is not authorized'
                     });

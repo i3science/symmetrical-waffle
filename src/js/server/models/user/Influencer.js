@@ -62,5 +62,16 @@ var Influencer = User.extend({
     }
 });
 
+function findInfluencers(next) {
+    this.where({roles: 'influencer'});
+    next();
+}
+
+Influencer.pre('find', findInfluencers);
+Influencer.pre('findOne', findInfluencers);
+Influencer.pre('findOneAndUpdate', findInfluencers);
+Influencer.pre('count', findInfluencers);
+
+// Auditing plugin provided by User superclass
 mongoose.model('Influencer', Influencer);
 module.exports = Influencer;

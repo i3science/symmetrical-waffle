@@ -17,7 +17,6 @@ var Organization = new Schema({
     settings: {}
 });
 
-
-
+Organization.plugin(require('./_auditing.js'));
 mongoose.model('Organization', Organization);
 module.exports = Organization;

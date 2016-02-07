@@ -6,9 +6,9 @@ module.exports = function(app) {
         .get(authenticationController.hasRole(['organizer']), userController.list)
         .post(authenticationController.hasRole(['organizer']), userController.create);
     app.route('/api/users/me')
-        .get(authenticationController.isLoggedIn, userController.read);
+        .get(authenticationController.isLoggedIn, userController.me);
     app.route('/api/users/:userId')
-        .get(authenticationController.hasRole(['organizer','client']), userController.read)
+        .get(/*authenticationController.hasRole(['organizer','client']), */userController.read)
         .put(authenticationController.hasRole(['organizer']), userController.update)
         .delete(authenticationController.hasRole(['organizer']), userController.delete);
     app.param('userId', userController.findById);

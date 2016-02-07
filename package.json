@@ -56,6 +56,7 @@
     "react-dom": "~0.14.3",
     "react-loader": "^2.0.0",
     "react-router": "~1.0.3",
+    "request-context": "^0.1.6",
     "restful.js": "git+https://github.com/thomas-p-wilson/restful.js.git",
     "swig": "^1.4.2"
   },

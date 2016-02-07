@@ -20,11 +20,16 @@ class UserController {
             .fail(ErrorUtils.failureHandler());
     }
     /**
-     * Retrieve the currently logged in user, or the user identified by the
-     * userId request parameter.
+     * Retrieve the user identified by the userId request parameter.
      */
     read(req, res) {
         return res.json(req.user);
+    }
+    /**
+     * Retrieve the currently logged in user.
+     */
+    me(req, res) {
+        return res.json(req.loggedInUser);
     }
     /**
      * Creates a new user account with the given information.

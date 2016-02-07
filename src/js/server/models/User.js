@@ -49,7 +49,7 @@ var User = new Schema({
     type: Date,
     default: Date.now
   },
-  createdBy: {
+  created_by: {
     type: String,
     ref: 'User'
   },
@@ -57,7 +57,7 @@ var User = new Schema({
     type: Date,
     default: Date.now
   },
-  updatedBy: {
+  updated_by: {
     type: String,
     ref: 'User'
   }
@@ -159,5 +159,6 @@ User.methods.createPasswordResetToken = function () {
   return true;
 };
 
+User.plugin(require('./_auditing.js'));
 mongoose.model('User', User);
 module.exports = User;
