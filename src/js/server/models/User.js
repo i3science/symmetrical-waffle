@@ -104,6 +104,12 @@ User.virtual('passwordConfirmation')
     this._passwordConfirmation = value;
   });
 
+User.path('roles').validate(function(value){
+  if (!value || value.length === 0) {
+    this.invalidate('roles', 'Must have at least one role');
+  }
+}, null);
+
 /*
  * Validate new password
  */

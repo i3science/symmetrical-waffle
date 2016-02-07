@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-    User = require('./User');
+    User = require('./../User');
 require('mongoose-schema-extend'); // This should not need to be here, but seeding breaks without it :@
 
 /**
@@ -54,10 +54,13 @@ var Influencer = User.extend({
         ethnicity: String,
         employment: String
     },
-    mediums: [String]
+    mediums: [String],
+
+    roles: {
+        type: Array,
+        default: ['influencer']
+    }
 });
-
-
 
 mongoose.model('Influencer', Influencer);
 module.exports = Influencer;
