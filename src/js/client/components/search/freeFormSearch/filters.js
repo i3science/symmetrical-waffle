@@ -1,7 +1,7 @@
 import React from 'react';
-import Verticals from './verticals';
-import Personal from '../preferences/influencers/personal';
-import Medium from '../preferences/influencers/medium';
+import Verticals from './../verticals';
+import Personal from '../../preferences/influencers/personal';
+import Medium from '../../preferences/influencers/medium';
 
 class Filters extends React.Component {
     render() {

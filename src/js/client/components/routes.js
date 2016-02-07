@@ -2,13 +2,13 @@ import React from 'react'; // eslint-disable-line no-unused-vars
 import { Route, IndexRoute } from 'react-router';
 import Template from './template';
 import Full from './FullScreen';
-import SearchStart from './search/searchStartPage';
-import SearchInfluencer from './search/searchInfluencer';
+import SearchStart from './search/searchStart/searchStartPage';
+import SearchInfluencer from './search/freeFormSearch/freeFormSearch';
 import Results from './results/resultsPage';
 import ProfilePage from './influencers/ProfilePage';
 import Login from './login';
-import ProjectSearchPage from './projects/projectSearchPage';
-import ProjectPage from './projects/projectPage';
+import ProjectSearchPage from './projects/projectSearch/projectSearchPage';
+import ProjectPage from './projects/project/projectPage';
 import Lists from './lists/listsSearchPage';
 import List from './lists/list';
 import PreferencesPage from './preferences/PreferencesPage';

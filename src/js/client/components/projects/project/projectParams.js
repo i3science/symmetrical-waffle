@@ -1,8 +1,8 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 import ProjectDates from './projectDates';
-import InputTextArea from '../elements/inputtextarea';
-import CheckBox from '../elements/checkbox';
-import InputText from '../elements/inputtext';
+import InputTextArea from '../../elements/inputtextarea';
+import CheckBox from '../../elements/checkbox';
+import InputText from '../../elements/inputtext';
 
 const Project = (props) => {
     console.log(props.project);

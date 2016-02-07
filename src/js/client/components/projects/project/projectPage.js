@@ -1,11 +1,11 @@
 import React from 'react';
-import projectStore from '../../stores/ProjectStore';
-import influencerStore from '../../stores/InfluencerStore';
-import searchStore from '../../stores/SearchStore';
-import Actions from '../../actions/UiActions';
+import projectStore from '../../../stores/ProjectStore';
+import influencerStore from '../../../stores/InfluencerStore';
+import searchStore from '../../../stores/SearchStore';
+import Actions from '../../../actions/UiActions';
 import ProjectParams from './projectParams';
-import InfluencerCardList from '../influencers/list/CardList';
-import SelectedInfluencers from '../results/selectedInfluencers';
+import InfluencerCardList from '../../influencers/list/CardList';
+import SelectedInfluencers from '../../results/selectedInfluencers';
 
 class ProjectPage extends React.Component {
     constructor() {
