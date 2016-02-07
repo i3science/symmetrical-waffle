@@ -130,6 +130,24 @@ const Project = (props) => {
                         props.project.required_influencers.amplifiers}
                         </h4>
                     </div>
+                    <div className="col s12">
+                        <InputText
+                            id="required_impressions"
+                            label="Total Impressions"
+                            col="s4"
+                            val={props.project.required_impressions}
+                            active={true}
+                            onChange={props.onChange}
+                        />
+                        <InputText
+                            id="budget"
+                            label="Budget"
+                            col="s4"
+                            val={props.project.budget}
+                            active={true}
+                            onChange={props.onChange}
+                        />
+                    </div>
                 </div>
             </div>
             <h6>Project Dates</h6>
