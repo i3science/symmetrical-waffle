@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router';
-import influencerStore from '../../stores/InfluencerStore';
-import searchStore from '../../stores/SearchStore';
-import Actions from '../../actions/UiActions';
+import influencerStore from '../../../stores/InfluencerStore';
+import searchStore from '../../../stores/SearchStore';
+import Actions from '../../../actions/UiActions';
 import Filters from './filters';
 import _ from 'lodash';
 

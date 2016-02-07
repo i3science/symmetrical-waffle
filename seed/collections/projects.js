@@ -23,9 +23,51 @@ module.exports = function(fixtures) {
             },
             required_impressions: 2000000,
             budget: 10000,
+            project_start: moment().add(1, 'days'),
             project_live: moment().add(7, 'days'),
             project_end: moment().add(21, 'days'),
-            checkpoints: [],
+            checkpoints_start: [
+                {
+                    name: 'Checkpoint #1',
+                    date: '11/11/1111'
+                },
+                {
+                    name: 'Checkpoint #2',
+                    date: '11/11/1111'
+                },
+                {
+                    name: 'Checkpoint #3',
+                    date: '11/11/1111'
+                }
+            ],
+            checkpoints_live: [
+                {
+                    name: 'Checkpoint #1',
+                    date: '11/11/1111'
+                },
+                {
+                    name: 'Checkpoint #2',
+                    date: '11/11/1111'
+                },
+                {
+                    name: 'Checkpoint #3',
+                    date: '11/11/1111'
+                }
+            ],
+            checkpoints_end: [
+                {
+                    name: 'Checkpoint #1',
+                    date: '11/11/1111'
+                },
+                {
+                    name: 'Checkpoint #2',
+                    date: '11/11/1111'
+                },
+                {
+                    name: 'Checkpoint #3',
+                    date: '11/11/1111'
+                }
+            ],
             influencers: [{
                 influencer: fixtures.influencers.shawna,
                 client_approved: null,
@@ -54,9 +96,51 @@ module.exports = function(fixtures) {
             },
             required_impressions: 14000000,
             budget: 70000,
+            project_start: moment().add(2, 'days'),
             project_live: moment().add(5, 'days'),
             project_end: moment().add(19, 'days'),
-            checkpoints: [],
+            checkpoints_start: [
+                {
+                    name: 'Checkpoint #1',
+                    date: '11/11/1111'
+                },
+                {
+                    name: 'Checkpoint #2',
+                    date: '11/11/1111'
+                },
+                {
+                    name: 'Checkpoint #3',
+                    date: '11/11/1111'
+                }
+            ],
+            checkpoints_live: [
+                {
+                    name: 'Checkpoint #1',
+                    date: '11/11/1111'
+                },
+                {
+                    name: 'Checkpoint #2',
+                    date: '11/11/1111'
+                },
+                {
+                    name: 'Checkpoint #3',
+                    date: '11/11/1111'
+                }
+            ],
+            checkpoints_end: [
+                {
+                    name: 'Checkpoint #1',
+                    date: '11/11/1111'
+                },
+                {
+                    name: 'Checkpoint #2',
+                    date: '11/11/1111'
+                },
+                {
+                    name: 'Checkpoint #3',
+                    date: '11/11/1111'
+                }
+            ],
             influencers: [{
                 influencer: fixtures.influencers.derek,
                 client_approved: true,
@@ -85,9 +169,51 @@ module.exports = function(fixtures) {
             },
             required_impressions: 1250000,
             budget: 7500,
+            project_start: moment().subtract(2, 'days'),
             project_live: moment().subtract(1, 'day'),
             project_end: moment().add(13, 'days'),
-            checkpoints: [],
+            checkpoints_start: [
+                {
+                    name: 'Checkpoint #1',
+                    date: '11/11/1111'
+                },
+                {
+                    name: 'Checkpoint #2',
+                    date: '11/11/1111'
+                },
+                {
+                    name: 'Checkpoint #3',
+                    date: '11/11/1111'
+                }
+            ],
+            checkpoints_live: [
+                {
+                    name: 'Checkpoint #1',
+                    date: '11/11/1111'
+                },
+                {
+                    name: 'Checkpoint #2',
+                    date: '11/11/1111'
+                },
+                {
+                    name: 'Checkpoint #3',
+                    date: '11/11/1111'
+                }
+            ],
+            checkpoints_end: [
+                {
+                    name: 'Checkpoint #1',
+                    date: '11/11/1111'
+                },
+                {
+                    name: 'Checkpoint #2',
+                    date: '11/11/1111'
+                },
+                {
+                    name: 'Checkpoint #3',
+                    date: '11/11/1111'
+                }
+            ],
             influencers: [{
                 influencer: fixtures.influencers.derek,
                 client_approved: true,
@@ -116,9 +242,51 @@ module.exports = function(fixtures) {
             },
             required_impressions: 50000000,
             budget: 500000,
+            project_start: moment().subtract(100, 'days'),
             project_live: moment().subtract(42, 'days'),
             project_end: moment().subtract(11, 'days'),
-            checkpoints: [],
+            checkpoints_start: [
+                {
+                    name: 'Checkpoint #1',
+                    date: '11/11/1111'
+                },
+                {
+                    name: 'Checkpoint #2',
+                    date: '11/11/1111'
+                },
+                {
+                    name: 'Checkpoint #3',
+                    date: '11/11/1111'
+                }
+            ],
+            checkpoints_live: [
+                {
+                    name: 'Checkpoint #1',
+                    date: '11/11/1111'
+                },
+                {
+                    name: 'Checkpoint #2',
+                    date: '11/11/1111'
+                },
+                {
+                    name: 'Checkpoint #3',
+                    date: '11/11/1111'
+                }
+            ],
+            checkpoints_end: [
+                {
+                    name: 'Checkpoint #1',
+                    date: '11/11/1111'
+                },
+                {
+                    name: 'Checkpoint #2',
+                    date: '11/11/1111'
+                },
+                {
+                    name: 'Checkpoint #3',
+                    date: '11/11/1111'
+                }
+            ],
             influencers: [{
                 influencer: fixtures.influencers.derek,
                 client_approved: true,

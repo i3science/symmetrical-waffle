@@ -65,12 +65,21 @@ var Project = new Schema({
     /**
      * Campaign-significant dates.
      */
+    project_start: Date,
     project_live: Date,
     project_end: Date,
     /**
      * Arbitrary user-generated checkpoints.
      */
-    checkpoints: [{
+    checkpoints_start: [{
+        name: String,
+        date: Date
+    }],
+    checkpoints_live: [{
+        name: String,
+        date: Date
+    }],
+    checkpoints_end: [{
         name: String,
         date: Date
     }],

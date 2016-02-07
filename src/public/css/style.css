@@ -143,6 +143,20 @@ select option:disabled {
 .thumb {
     display: none;
 }
+.project-dates .row {
+    margin: 0;
+}
+.project-dates .input-field {
+    margin: 0;
+}
+.project-dates p {
+    margin: 6px 0;
+}
+.project-dates input {
+    height: 2rem;
+}
+
+
 @media only screen and (min-width: 993px) {
     .container {
         width: 90%;

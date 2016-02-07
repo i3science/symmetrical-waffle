@@ -63,7 +63,7 @@ class Seeder {
             require('./collections/projects')(fixtures);
             require('./collections/lists')(fixtures);
             log('Fixtures loaded');
-        } else {;
+        } else {
             log('Fixtures supplied');
         }
 

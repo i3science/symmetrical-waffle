@@ -17,7 +17,7 @@ const InputTextArea = (props) => {
         >{props.suffix}</div>;
     }
     return (
-        <div className={'input-field col '+ (props.col ? props.col : 's12')}>
+        <div className={'input-field' + ((props.col === false) ? '' : (props.col ? (' col ' + props.col) : ' col s12'))}>
             {prefix || ''}
             <textarea
                 type={props.type ? props.type : 'text'}

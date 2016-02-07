@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router';
-import InputText from '../elements/inputtext';
-import influencerStore from '../../stores/InfluencerStore';
+import InputText from '../../elements/inputtext';
+import influencerStore from '../../../stores/InfluencerStore';
 //import searchStore from '../../stores/SearchStore';
-import Actions from '../../actions/UiActions';
+import Actions from '../../../actions/UiActions';
 //import Filters from './filters';
 import _ from 'lodash';
-import { __ } from '../../utils/i18n';
+import { __ } from '../../../utils/i18n';
 
 class SearchStart extends React.Component {
     constructor() {

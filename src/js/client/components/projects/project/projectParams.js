@@ -1,56 +1,44 @@
-import React from 'react';
-import projectStore from '../../stores/ProjectStore';
-//import Profile from './profile/profile';
-
-// TODO -- be awesome
-// Derek √
-// Wilson √
-// George W Bush
-
-import InputText from '../elements/inputtext';
-import InputTextArea from '../elements/inputtextarea';
-import CheckBox from '../elements/checkbox';
-
+import React from 'react'; // eslint-disable-line no-unused-vars
+import ProjectDates from './projectDates';
+import InputTextArea from '../../elements/inputtextarea';
+import CheckBox from '../../elements/checkbox';
+import InputText from '../../elements/inputtext';
 
 const Project = (props) => {
     console.log(props.project);
     return (
         <div className="card-panel z-depth-4">
-            <h5 className="grey-text text-darken-2" style={{marginBottom: '30px'}}>Find a Project</h5>
+            <h5 className="grey-text text-darken-2" style={{marginBottom: '30px'}}>{props.project.name}</h5>
             <div className="row">
                 <div className="col s6 separate-right">
-                        <InputText
-                            id="client"
-                            label="Client Name"
-                            val={props.project.client}
-                            active={true}
-                            onChange={props.onChange}
-                        />
-
-                        <InputText
-                            id="name"
-                            label="Project Name"
-                            val={props.project.name}
-                            active={true}
-                            onChange={props.onChange}
-                        />
-
-                        <InputText
-                            id="advertiser"
-                            label="Advertiser Name"
-                            val="NEED ADVERTISER NAME"
-                            active={true}
-                            onChange={props.onChange}
-                        />
-
-                        <InputTextArea
-                            id="brief"
-                            label="Project Brief"
-                            val={props.project.brief}
-                            active={true}
-                            onChange={props.onChange}
-                        />
-
+                    <InputText
+                        id="client"
+                        label="Client Name"
+                        val={props.project.client}
+                        active={true}
+                        onChange={props.onChange}
+                    />
+                    <InputText
+                        id="name"
+                        label="Project Name"
+                        val={props.project.name}
+                        active={true}
+                        onChange={props.onChange}
+                    />
+                    <InputText
+                        id="advertiser"
+                        label="Advertiser Name"
+                        val="NEED ADVERTISER NAME"
+                        active={true}
+                        onChange={props.onChange}
+                    />
+                    <InputTextArea
+                        id="brief"
+                        label="Project Brief"
+                        val={props.project.brief}
+                        active={true}
+                        onChange={props.onChange}
+                    />
                 </div>
                 <div className="col s6">
                     <div className="col s12">
@@ -142,60 +130,33 @@ const Project = (props) => {
                         props.project.required_influencers.amplifiers}
                         </h4>
                     </div>
+                    <div className="col s12">
+                        <InputText
+                            id="required_impressions"
+                            label="Total Impressions"
+                            col="s4"
+                            val={props.project.required_impressions}
+                            active={true}
+                            onChange={props.onChange}
+                        />
+                        <InputText
+                            id="budget"
+                            label="Budget"
+                            col="s4"
+                            val={props.project.budget}
+                            active={true}
+                            onChange={props.onChange}
+                        />
+                    </div>
                 </div>
-
             </div>
+            <h6>Project Dates</h6>
+            <br />
+            <ProjectDates
+                {...props}
+            />
         </div>
     );
 };
 
-
-
-
-
-
-
-
-
-
-
-class ProjectPage extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            project: {}
-        };
-        this.handleChange = this.handleChange.bind(this);
-    }
-    componentWillMount() {
-        this.state.project = projectStore.getProjectById(this.props.params.id);
-        this.setState({project: this.state.project});
-    }
-    handleChange(event) {
-        console.log(event.target);
-        let value = event.target.value;
-        if (event.target.type === 'number') {
-            value = Number(value);
-        }
-        if (event.target.type === 'checkbox') {
-            value = event.target.checked;
-        }
-        if (!event.target.dataset.parent) {
-            this.state.project[event.target.id] = value;
-        } else {
-            this.state.project[event.target.dataset.parent][event.target.id] = value;
-        }
-        this.setState({project: this.state.project});
-        console.log(this.state.project);
-    }
-    render() {
-        return (
-            <Project
-                project={this.state.project}
-                onChange={this.handleChange}
-            />
-        );
-    }
-}
-
-export default ProjectPage;
+export default Project;
