@@ -10,6 +10,7 @@ var
     projectService = require('./../src/js/server/services/ProjectService.js').default,
     listService = require('./../src/js/server/services/ListService.js').default,
     clientService = require('./../src/js/server/services/ClientService.js').default,
+    representativeService = require('./../src/js/server/services/RepresentativeService.js').default,
     async = require('async'),
     chalk = require('chalk'),
     glob = require('glob'),
@@ -112,6 +113,10 @@ class Seeder {
             })
             .then(() => {
                 log('Populated Clients');
+                return populateCollection(fixtures.representatives, representativeService);
+            })
+            .then(() => {
+                log('Populated Representatives');
                 return populateCollection(fixtures.projects, projectService);
             })
             .then(() => {
