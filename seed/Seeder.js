@@ -4,6 +4,7 @@ var
     mongoose = require('mongoose'),
     extend = require('mongoose-schema-extend'),
     organizationService = require('./../src/js/server/services/OrganizationService.js').default,
+    organizerService = require('./../src/js/server/services/OrganizerService.js').default,
     userService = require('./../src/js/server/services/UserService.js').default,
     influencerService = require('./../src/js/server/services/InfluencerService.js').default,
     projectService = require('./../src/js/server/services/ProjectService.js').default,
@@ -58,7 +59,7 @@ class Seeder {
         if (typeof fixtures === 'undefined') {
             fixtures = {};
             require('./collections/organizations')(fixtures);
-            // require('./collections/organizers')(fixtures);
+            require('./collections/organizers')(fixtures);
             require('./collections/users')(fixtures);
             require('./collections/influencers')(fixtures);
             require('./collections/projects')(fixtures);
@@ -93,10 +94,10 @@ class Seeder {
         return populateCollection(fixtures.organizations, organizationService)
             .then(() => {
                 log('Populated Organizations');
-            //     return populateCollection(fixtures.organizers, organizerService);
-            // })
-            // .then(() => {
-            //     log('Populated Organizers');
+                return populateCollection(fixtures.organizers, organizerService);
+            })
+            .then(() => {
+                log('Populated Organizers');
                 return populateCollection(fixtures.users, userService);
             })
             .then(() => {
