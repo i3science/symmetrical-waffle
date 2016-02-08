@@ -1,6 +1,8 @@
 var mongoose = require('mongoose'),
     moment = require('moment'),
-    Project = mongoose.model('Project');
+    Project = mongoose.model('Project'),
+    projectService = require('./../../src/js/server/services/ProjectService.js').default,
+    populateFixtures = require('../utils').populateFixtures;
 
 module.exports = function(fixtures) {
     fixtures.projects = {
@@ -296,5 +298,9 @@ module.exports = function(fixtures) {
             approved_date: moment().subtract(53, 'days'),
             active: true
         })
+    };
+
+    return function() {
+        return populateFixtures(fixtures.projects, projectService);
     }
 };

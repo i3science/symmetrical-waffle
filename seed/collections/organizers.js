@@ -1,5 +1,7 @@
-var mongoose = require('mongoose'),
-    User = mongoose.model('User');
+var populateFixtures = require('../utils').populateFixtures,
+    mongoose = require('mongoose'),
+    User = mongoose.model('User'),
+    organizerService = require('../../src/js/server/services/OrganizerService').default;
 
 module.exports = function(fixtures) {
     fixtures.organizers = {
@@ -33,5 +35,9 @@ module.exports = function(fixtures) {
             language: 'en_CA',
             password: 'flav1ussucks'
         }
+    };
+
+    return function() {
+        return populateFixtures(fixtures.organizers, organizerService);
     };
 };

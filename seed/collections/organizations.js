@@ -1,5 +1,7 @@
-var mongoose = require('mongoose'),
-    Organization = mongoose.model('Organization');
+var populateFixtures = require('../utils').populateFixtures,
+    mongoose = require('mongoose'),
+    Organization = mongoose.model('Organization'),
+    organizationService = require('../../src/js/server/services/OrganizationService').default;
 
 module.exports = function(fixtures) {
     fixtures.organizations = {
@@ -17,5 +19,9 @@ module.exports = function(fixtures) {
             hostnames: ['smp.reverbconsulting.com', '127.0.0.1'],
             defaultLanguage: 'fr_CA'
         })
+    };
+
+    return function() {
+        return populateFixtures(fixtures.organizations, organizationService);
     };
 };

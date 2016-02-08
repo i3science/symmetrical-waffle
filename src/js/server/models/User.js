@@ -42,25 +42,7 @@ var User = new Schema({
     type: String,
     default: 'en_CA'
   },
-  settings: {},
-
-  // Immediately available auditing information
-  created: {
-    type: Date,
-    default: Date.now
-  },
-  created_by: {
-    type: String,
-    ref: 'User'
-  },
-  updated: {
-    type: Date,
-    default: Date.now
-  },
-  updated_by: {
-    type: String,
-    ref: 'User'
-  }
+  settings: {}
 },
 { collection : 'users', discriminatorKey : '_type' });
 
@@ -139,7 +121,7 @@ User.methods.hashPassword = function (password) {
  * Verifies password for a user
  */
 User.methods.authenticate = function (password) {
-  if (process.env.NODE_ENV !== 'production' && this.passwordHash.startsWith('*')) {
+  if (process.env.NODE_ENV !== 'production' && (this.passwordHash || '').startsWith('*')) {
     return this.passwordHash === password;
   }
   return this.passwordHash === this.hashPassword(password);

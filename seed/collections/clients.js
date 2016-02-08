@@ -1,5 +1,7 @@
 var mongoose = require('mongoose'),
-    Client = mongoose.model('Client');
+    Client = mongoose.model('Client'),
+    clientService = require('./../../src/js/server/services/ClientService.js').default,
+    populateFixtures = require('../utils').populateFixtures;
 
 module.exports = function(fixtures) {
     fixtures.clients = {
@@ -16,4 +18,8 @@ module.exports = function(fixtures) {
             name: 'Green Giant'
         })
     };
+
+    return function() {
+        return populateFixtures(fixtures.clients, clientService);
+    }
 };
