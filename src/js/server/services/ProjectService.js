@@ -15,6 +15,7 @@ class ProjectService {
     list(opts) {
         return Project
             .find(opts || {})
+            .populate('client')
             .exec();
     }
 
@@ -28,6 +29,7 @@ class ProjectService {
     findOne(opts) {
         return Project
             .findOne(opts || {})
+            .populate('client')
             .exec();
     }
 

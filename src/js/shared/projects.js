@@ -24,13 +24,13 @@ export function list_filter(projects, filters) {
     // If we're searching for clients
     if (filters.client.length > 0 && filters.client.trim() !== '') {
         results = _.filter(results, (project) => {
-            return project.client.toLowerCase().indexOf(filters.client.toLowerCase()) > -1;
+            return project.client.name.toLowerCase().indexOf(filters.client.toLowerCase()) > -1;
         });
     }
     // If we're searching for keywords
     if (filters.keyword.length > 0 && filters.keyword.trim() !== '') {
         results = _.filter(results, (project) => {
-            let searchable = (project.name + ' ' + project.client).toLowerCase();
+            let searchable = (project.name + ' ' + project.client.name).toLowerCase();
             return searchable.indexOf(filters.keyword.toLowerCase()) > -1;
         });
     }

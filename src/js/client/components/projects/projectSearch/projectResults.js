@@ -11,7 +11,7 @@ const ProjectResult = (props) => {
         <div className="col m3 s2">
             <div className="card">
                 <div className="card-content">
-                    <span className="card-title teal-text text-darken-1">{props.project.client}</span>
+                    <span className="card-title teal-text text-darken-1">{props.project.client.name}</span>
                     <p><strong>{props.project.name}</strong></p>
                     <p>Amplifiers: {amplifiers}</p>
                     <p>Live Date: {moment(props.project.project_live).format('DD/MM/YYYY')}</p>

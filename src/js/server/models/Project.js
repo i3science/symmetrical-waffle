@@ -15,8 +15,8 @@ var Project = new Schema({
      * The client for whom the campaign is intended. For example, Ford, Crest.
      */
     client: {
-        type: String,
-        required: 'Project client is required'
+        type: Schema.Types.ObjectId,
+        ref: 'Client'
     },
     /**
      * The name of the campaign.

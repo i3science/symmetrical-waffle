@@ -7,7 +7,7 @@ module.exports = function(fixtures) {
         // Pending
         ford_christmas: new Project({
             organization: fixtures.organizations.jones,
-            client: 'Ford Motors Inc',
+            client: fixtures.clients.ford,
             name: 'Ford Christmas Special',
             brief: 'Ford is looking for 8 bloggers to create content to promote their Christmas special.',
             goals: {
@@ -80,7 +80,7 @@ module.exports = function(fixtures) {
         // Active
         pepsi_thanksgiving: new Project({
             organization: fixtures.organizations.jones,
-            client: 'Ford Motors Inc',
+            client: fixtures.clients.ford,
             name: 'Pepsi Thanksgiving',
             brief: 'Ford is looking for 27 bloggers to create content to promote their Thanksgiving special.',
             goals: {
@@ -153,7 +153,7 @@ module.exports = function(fixtures) {
         // In-market
         crest_easter: new Project({
             organization: fixtures.organizations.jones,
-            client: 'Crest Inc',
+            client: fixtures.clients.crest,
             name: 'Crest Easter Campaign',
             brief: 'Crest is looking for 5 bloggers to promote their brand around Easter',
             goals: {
@@ -226,7 +226,7 @@ module.exports = function(fixtures) {
         // Closed
         green_giant: new Project({
             organization: fixtures.organizations.jones,
-            client: 'Green Giant',
+            client: fixtures.clients.green_giant,
             name: 'Green Giant Beans',
             brief: 'Green Giant is looking for 182 individuals to engage the public with an uplifting message about beans.',
             goals: {

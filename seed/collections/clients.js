@@ -1,21 +1,19 @@
+var mongoose = require('mongoose'),
+    Client = mongoose.model('Client');
 
-    clients: {
-        mgluhorn: {
-            name: {
-                first: 'Michelle',
-                last: 'Gluhorn'
-            },
-            email: 'mgluhorn@smp.com',
-            active: true,
-            language: 'en_CA'
-        },
-        sreese: {
-            name: {
-                first: 'Sarah',
-                last: 'Reese'
-            },
-            email: 'sreese@smp.com',
-            active: false,
-            language: 'fr_CA'
-        }
-    },
+module.exports = function(fixtures) {
+    fixtures.clients = {
+        ford: new Client({
+            organization: fixtures.organizations.jones,
+            name: 'Ford Motors Inc'
+        }),
+        crest: new Client({
+            organization: fixtures.organizations.jones,
+            name: 'Crest Inc'
+        }),
+        green_giant: new Client({
+            organization: fixtures.organizations.jones,
+            name: 'Green Giant'
+        })
+    };
+};

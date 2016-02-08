@@ -9,6 +9,7 @@ var
     influencerService = require('./../src/js/server/services/InfluencerService.js').default,
     projectService = require('./../src/js/server/services/ProjectService.js').default,
     listService = require('./../src/js/server/services/ListService.js').default,
+    clientService = require('./../src/js/server/services/ClientService.js').default,
     async = require('async'),
     chalk = require('chalk'),
     glob = require('glob'),
@@ -62,6 +63,7 @@ class Seeder {
             require('./collections/organizers')(fixtures);
             require('./collections/users')(fixtures);
             require('./collections/influencers')(fixtures);
+            require('./collections/clients')(fixtures);
             require('./collections/projects')(fixtures);
             require('./collections/lists')(fixtures);
             log('Fixtures loaded');
@@ -106,6 +108,10 @@ class Seeder {
             })
             .then(() => {
                 log('Populated Influencers');
+                return populateCollection(fixtures.clients, clientService);
+            })
+            .then(() => {
+                log('Populated Clients');
                 return populateCollection(fixtures.projects, projectService);
             })
             .then(() => {
