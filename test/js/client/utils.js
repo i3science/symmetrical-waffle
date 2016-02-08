@@ -32,6 +32,17 @@ export function screenshot() {
         });
 }
 
+export function logs() {
+    return browser.manage().logs().get('browser')
+        .then((logs) => {
+            console.log('Browser console errors:');
+            logs.forEach((log) => {
+                console.log(log.message);
+            });
+            return true;
+        });
+}
+
 export function login(email, password) {
     return driver.get(browser.baseUrl+'/auth/signout')
         .then(() => {
