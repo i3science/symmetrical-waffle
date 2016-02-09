@@ -3,7 +3,7 @@ var context = require('request-context'),
     mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
-module.exports = exports = function auditingPlugin(schema, options) {
+module.exports = exports = function auditingPlugin(schema) {
 
     function action(before, after) {
         if (!before && after) {
@@ -120,4 +120,4 @@ module.exports = exports = function auditingPlugin(schema, options) {
             next();
         });
     });
-}
+};

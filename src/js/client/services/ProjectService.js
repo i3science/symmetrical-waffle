@@ -6,6 +6,9 @@ class ProjectService {
     }
     find(id) {
         return fetch('/api/projects/'+id)
+            .then((response) => {
+                return response.json();
+            })
             .catch(() => {});
     }
     create(project) {

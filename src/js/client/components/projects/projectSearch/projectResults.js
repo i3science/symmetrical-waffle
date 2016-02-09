@@ -17,7 +17,7 @@ const ProjectResult = (props) => {
                     <p>Live Date: {moment(props.project.project_live).format('DD/MM/YYYY')}</p>
                 </div>
                 <div className="card-action grey lighten-5">
-                    <Link to={'/projects/project/' + props.project._id}>More Info...</Link>
+                    <Link to={'/projects/' + props.project._id}>More Info...</Link>
                 </div>
             </div>
         </div>

@@ -32,7 +32,7 @@ export default (
 				<IndexRoute component={ProjectSearchPage} name="Projects"/>
                 <Route path="projects" name="Projects">
 					<IndexRoute component={ProjectSearchPage} />
-					<Route path="project/:id" component={ProjectPage} name="Edit" />
+					<Route path=":id" component={ProjectPage} name="Edit" />
 				</Route>
 				<Route path="search" name="Search">
 					<IndexRoute component={SearchStart} />

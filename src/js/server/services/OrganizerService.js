@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import _ from 'lodash';
-import mailService from './MailService';
 let Organizer = mongoose.model('Organizer');
 
 /**

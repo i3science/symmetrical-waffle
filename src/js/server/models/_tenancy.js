@@ -2,7 +2,7 @@ var context = require('request-context'),
     mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
-module.exports = exports = function auditingPlugin(schema, options) {
+module.exports = exports = function auditingPlugin(schema) {
     schema.add({
         organization: {
             type: Schema.Types.ObjectId,
