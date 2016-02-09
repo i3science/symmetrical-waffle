@@ -8,7 +8,7 @@ import Results from './results/resultsPage';
 import ProfilePage from './influencers/ProfilePage';
 import Login from './login';
 import ProjectSearchPage from './projects/projectSearch/projectSearchPage';
-import ProjectPage from './projects/project/projectPage';
+import ProjectPage from './projects/pending/projectPage';
 import ListSearchPage from './lists/listStart/listsSearchPage';
 import ListPage from './lists/list/listPage';
 import PreferencesPage from './preferences/PreferencesPage';

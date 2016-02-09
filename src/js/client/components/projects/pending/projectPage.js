@@ -48,7 +48,7 @@ class ProjectPage extends React.Component {
     }
     componentWillUnmount() {
         influencerStore.removeChangeListener(this._onChange);
-        projectStore.removeChangeListener(this._onProjectChange);
+        projectStore.removeChangeListener(this._onChange);
         listStore.removeChangeListener(this._onChange);
     }
 
