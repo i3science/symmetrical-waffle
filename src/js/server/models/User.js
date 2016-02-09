@@ -42,25 +42,7 @@ var User = new Schema({
     type: String,
     default: 'en_CA'
   },
-  settings: {},
-
-  // Immediately available auditing information
-  created: {
-    type: Date,
-    default: Date.now
-  },
-  createdBy: {
-    type: String,
-    ref: 'User'
-  },
-  updated: {
-    type: Date,
-    default: Date.now
-  },
-  updatedBy: {
-    type: String,
-    ref: 'User'
-  }
+  settings: {}
 },
 { collection : 'users', discriminatorKey : '_type' });
 
@@ -104,6 +86,12 @@ User.virtual('passwordConfirmation')
     this._passwordConfirmation = value;
   });
 
+User.path('roles').validate(function(value){
+  if (!value || value.length === 0) {
+    this.invalidate('roles', 'Must have at least one role');
+  }
+}, null);
+
 /*
  * Validate new password
  */
@@ -133,7 +121,7 @@ User.methods.hashPassword = function (password) {
  * Verifies password for a user
  */
 User.methods.authenticate = function (password) {
-  if (process.env.NODE_ENV !== 'production' && this.passwordHash.startsWith('*')) {
+  if (process.env.NODE_ENV !== 'production' && (this.passwordHash || '').startsWith('*')) {
     return this.passwordHash === password;
   }
   return this.passwordHash === this.hashPassword(password);
@@ -153,5 +141,6 @@ User.methods.createPasswordResetToken = function () {
   return true;
 };
 
+User.plugin(require('./_auditing.js'));
 mongoose.model('User', User);
 module.exports = User;

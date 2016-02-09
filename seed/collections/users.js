@@ -1,5 +1,7 @@
 var mongoose = require('mongoose'),
-    User = mongoose.model('User');
+    Q = require('q'),
+    User = mongoose.model('User'),
+    context = require('request-context');
 
 module.exports = function(fixtures) {
     fixtures.users = {
@@ -14,41 +16,21 @@ module.exports = function(fixtures) {
         })
     };
 
-
-    
-    // organizers: {
-    //     thamilton: {
-    //         name: {
-    //             first: 'Thomas',
-    //             last: 'Hamilton'
-    //         },
-    //         email: 'thamilton@smp.com',
-    //         roles: ['admin'],
-    //         active: true,
-    //         language: 'en_CA',
-    //         passwordHash: '*admin123'
-    //     },
-    //     twilson: {
-    //         name: {
-    //             first: 'Thomas',
-    //             last: 'Wilson'
-    //         },
-    //         email: 'thomas@thomaspwilson.com',
-    //         roles: ['organizer'],
-    //         active: true,
-    //         language: 'fr_CA',
-    //         passwordHash: '*organizer123'
-    //     },
-    //     dbois: {
-    //         name: {
-    //             first: 'Derek',
-    //             last: 'Bois'
-    //         },
-    //         email: 'dbois@smp.com',
-    //         roles: ['organizer'],
-    //         active: false,
-    //         language: 'en_CA',
-    //         passwordHash: '*organizer456'
-    //     }
-    // },
+    return function() {
+        // Population of the initial user requires that we bypass Mongoose's
+        // validation procedures
+        var deferred = Q.defer();
+        User.collection.insert(fixtures.users.admin.toObject(), function(err, doc){
+            if (err) {
+                deferred.reject(err);
+            } else {
+                User
+                    .findOne({ _id: doc.insertedIds.shift() }, function(err, user){
+                        context.set('request:currentUser', user);
+                        deferred.resolve(user);
+                    })
+            }
+        });
+        return deferred.promise;
+    };
 };

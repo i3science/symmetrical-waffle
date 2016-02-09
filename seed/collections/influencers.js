@@ -1,5 +1,7 @@
-var mongoose = require('mongoose'),
-    Influencer = mongoose.model('Influencer');
+var populateFixtures = require('../utils').populateFixtures,
+    mongoose = require('mongoose'),
+    Influencer = mongoose.model('Influencer'),
+    influencerService = require('../../src/js/server/services/InfluencerService').default;
 
 module.exports = function(fixtures) {
     fixtures.influencers = {
@@ -375,4 +377,8 @@ module.exports = function(fixtures) {
             mediums: ['Blogger', 'Photo Blogger', 'Amplifier']
         })
     };
+
+    return function() {
+        return populateFixtures(fixtures.influencers, influencerService);
+    }
 };

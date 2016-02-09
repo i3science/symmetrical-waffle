@@ -12,19 +12,11 @@ var mongoose = require('mongoose'),
  */
 var Project = new Schema({
     /**
-     * A reference to the agency that is organizing the campaign.
-     */
-    agency: {
-        type: Schema.Types.ObjectId,
-        ref: 'Organization',
-        required: 'Organizing agency is required'
-    },
-    /**
      * The client for whom the campaign is intended. For example, Ford, Crest.
      */
     client: {
-        type: String,
-        required: 'Project client is required'
+        type: Schema.Types.ObjectId,
+        ref: 'Client'
     },
     /**
      * The name of the campaign.
@@ -104,26 +96,10 @@ var Project = new Schema({
     active: {
         type: Boolean,
         default: true
-    },
-    created: {
-        type: Date,
-        default: Date.now
-    },
-    createdBy: {
-        type: String,
-        ref: 'User'
-    },
-    updated: {
-        type: Date,
-        default: Date.now
-    },
-    updatedBy: {
-        type: String,
-        ref: 'User'
     }
 });
 
-
-
+Project.plugin(require('./_tenancy.js'));
+Project.plugin(require('./_auditing.js'));
 mongoose.model('Project', Project);
 module.exports = Project;

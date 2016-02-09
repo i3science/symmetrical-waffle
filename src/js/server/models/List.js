@@ -28,26 +28,10 @@ var List = new Schema({
     active: {
         type: Boolean,
         default: true
-    },
-    created: {
-        type: Date,
-        default: Date.now
-    },
-    createdBy: {
-        type: String,
-        ref: 'User'
-    },
-    updated: {
-        type: Date,
-        default: Date.now
-    },
-    updatedBy: {
-        type: String,
-        ref: 'User'
     }
 });
 
-
-
+List.plugin(require('./_tenancy.js'));
+List.plugin(require('./_auditing.js'));
 mongoose.model('List', List);
 module.exports = List;

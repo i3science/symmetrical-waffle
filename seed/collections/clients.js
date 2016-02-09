@@ -1,23 +1,25 @@
+var mongoose = require('mongoose'),
+    Client = mongoose.model('Client'),
+    clientService = require('./../../src/js/server/services/ClientService.js').default,
+    populateFixtures = require('../utils').populateFixtures;
 
-    clients: {
-        mgluhorn: {
-            name: {
-                first: 'Michelle',
-                last: 'Gluhorn'
-            },
-            email: 'mgluhorn@smp.com',
-            roles: ['client'],
-            active: true,
-            language: 'en_CA'
-        },
-        sreese: {
-            name: {
-                first: 'Sarah',
-                last: 'Reese'
-            },
-            email: 'sreese@smp.com',
-            roles: ['client'],
-            active: false,
-            language: 'fr_CA'
-        }
-    },
+module.exports = function(fixtures) {
+    fixtures.clients = {
+        ford: new Client({
+            organization: fixtures.organizations.jones,
+            name: 'Ford Motors Inc'
+        }),
+        crest: new Client({
+            organization: fixtures.organizations.jones,
+            name: 'Crest Inc'
+        }),
+        green_giant: new Client({
+            organization: fixtures.organizations.jones,
+            name: 'Green Giant'
+        })
+    };
+
+    return function() {
+        return populateFixtures(fixtures.clients, clientService);
+    }
+};

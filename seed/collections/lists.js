@@ -1,6 +1,8 @@
 var mongoose = require('mongoose'),
     moment = require('moment'),
-    List = mongoose.model('List');
+    List = mongoose.model('List'),
+    listService = require('./../../src/js/server/services/ListService.js').default,
+    populateFixtures = require('../utils').populateFixtures;
 
 module.exports = function(fixtures) {
     fixtures.lists = {
@@ -20,5 +22,9 @@ module.exports = function(fixtures) {
                 fixtures.influencers.jordan
             ]
         })
+    };
+
+    return function() {
+        return populateFixtures(fixtures.lists, listService);
     }
 };

@@ -14,7 +14,7 @@ const Project = (props) => {
                     <InputText
                         id="client"
                         label="Client Name"
-                        val={props.project.client}
+                        val={props.project.client.name}
                         active={true}
                         onChange={props.onChange}
                     />

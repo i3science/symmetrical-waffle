@@ -1,13 +1,15 @@
 var mongoose = require('mongoose'),
     moment = require('moment'),
-    Project = mongoose.model('Project');
+    Project = mongoose.model('Project'),
+    projectService = require('./../../src/js/server/services/ProjectService.js').default,
+    populateFixtures = require('../utils').populateFixtures;
 
 module.exports = function(fixtures) {
     fixtures.projects = {
         // Pending
         ford_christmas: new Project({
-            agency: fixtures.organizations.jones,
-            client: 'Ford Motors Inc',
+            organization: fixtures.organizations.jones,
+            client: fixtures.clients.ford,
             name: 'Ford Christmas Special',
             brief: 'Ford is looking for 8 bloggers to create content to promote their Christmas special.',
             goals: {
@@ -79,8 +81,8 @@ module.exports = function(fixtures) {
         }),
         // Active
         pepsi_thanksgiving: new Project({
-            agency: fixtures.organizations.jones,
-            client: 'Ford Motors Inc',
+            organization: fixtures.organizations.jones,
+            client: fixtures.clients.ford,
             name: 'Pepsi Thanksgiving',
             brief: 'Ford is looking for 27 bloggers to create content to promote their Thanksgiving special.',
             goals: {
@@ -152,8 +154,8 @@ module.exports = function(fixtures) {
         }),
         // In-market
         crest_easter: new Project({
-            agency: fixtures.organizations.jones,
-            client: 'Crest Inc',
+            organization: fixtures.organizations.jones,
+            client: fixtures.clients.crest,
             name: 'Crest Easter Campaign',
             brief: 'Crest is looking for 5 bloggers to promote their brand around Easter',
             goals: {
@@ -225,8 +227,8 @@ module.exports = function(fixtures) {
         }),
         // Closed
         green_giant: new Project({
-            agency: fixtures.organizations.jones,
-            client: 'Green Giant',
+            organization: fixtures.organizations.jones,
+            client: fixtures.clients.green_giant,
             name: 'Green Giant Beans',
             brief: 'Green Giant is looking for 182 individuals to engage the public with an uplifting message about beans.',
             goals: {
@@ -296,5 +298,9 @@ module.exports = function(fixtures) {
             approved_date: moment().subtract(53, 'days'),
             active: true
         })
+    };
+
+    return function() {
+        return populateFixtures(fixtures.projects, projectService);
     }
 };

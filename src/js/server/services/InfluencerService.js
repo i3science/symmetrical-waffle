@@ -15,7 +15,6 @@ class InfluencerService {
      */
     list(opts) {
         opts = opts || {};
-        opts.roles = 'influencer';
         return Influencer
             .find(opts)
             .exec();
@@ -41,11 +40,6 @@ class InfluencerService {
     create(influencer, basePath) {
         let _influencer = null;
         let _affected = null;
-
-        if (typeof influencer.roles === 'undefined' || !influencer.roles
-                || influencer.roles.length === 0) {
-            influencer.roles = ['influencer'];
-        }
 
         influencer = new Influencer(influencer);
         return influencer

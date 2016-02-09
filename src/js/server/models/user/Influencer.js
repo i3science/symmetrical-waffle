@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-    User = require('./User');
+    User = require('./../User');
 require('mongoose-schema-extend'); // This should not need to be here, but seeding breaks without it :@
 
 /**
@@ -54,10 +54,24 @@ var Influencer = User.extend({
         ethnicity: String,
         employment: String
     },
-    mediums: [String]
+    mediums: [String],
+
+    roles: {
+        type: Array,
+        default: ['influencer']
+    }
 });
 
+function findInfluencers(next) {
+    this.where({roles: 'influencer'});
+    next();
+}
 
+Influencer.pre('find', findInfluencers);
+Influencer.pre('findOne', findInfluencers);
+Influencer.pre('findOneAndUpdate', findInfluencers);
+Influencer.pre('count', findInfluencers);
 
+// Auditing plugin provided by User superclass
 mongoose.model('Influencer', Influencer);
 module.exports = Influencer;

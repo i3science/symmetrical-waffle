@@ -27,6 +27,7 @@
     "connect-mongo": "^1.0.2",
     "consolidate": "~0.13.0",
     "cookie-parser": "~1.4.0",
+    "deep-diff": "^0.3.3",
     "express": "~4.13.3",
     "express-session": "~1.12.1",
     "flux": "~2.1.1",
@@ -56,6 +57,7 @@
     "react-dom": "~0.14.3",
     "react-loader": "^2.0.0",
     "react-router": "~1.0.3",
+    "request-context": "^0.1.6",
     "restful.js": "git+https://github.com/thomas-p-wilson/restful.js.git",
     "swig": "^1.4.2"
   },

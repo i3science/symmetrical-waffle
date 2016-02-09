@@ -6,7 +6,7 @@ require('babel-register');
 var init = require('./config/init')(),
     config = require('./config/config'),
     chalk = require('chalk'),
-    Seeder = require('./seed/Seeder.js').default;
+    seed = require('./seed/Seeder.js').seed;
 
 // Do not allow seeding of production unless in interactive mode
 if (process.env.NODE_ENV === 'production' && !interactive) {
@@ -14,8 +14,7 @@ if (process.env.NODE_ENV === 'production' && !interactive) {
 	process.exit(-1);
 }
 
-Seeder
-    .seed()
+seed()
     .then(function(){
         console.log('Seeding successful');
         process.exit(0);

@@ -33,7 +33,9 @@ var fs = require('fs'),
     i18next = require('i18next'),
     backend = require('i18next-sync-fs-backend'),
     middleware = require('i18next-express-middleware'),
-    _ = require('lodash');
+    context = require('request-context'),
+    _ = require('lodash'),
+    Organization = mongoose.model('Organization');
 
 i18next
     .use(backend)
@@ -61,6 +63,25 @@ module.exports = function(db) {
         res.locals.url = req.protocol + '://' + req.headers.host + req.url;
         req.basePath = req.protocol + '://' + req.headers.host;
         next();
+    });
+
+    // Find the organization for the current address
+    app.use(function(req, res, next) {
+        Organization
+            .find({ hostnames: req.hostname })
+            .exec()
+            .then((orgs) => {
+                if (orgs.length === 0) {
+                    console.log('No organization found for host: ', req.hostname);
+                    return next();
+                }
+                if (orgs.length > 1) {
+                    console.log('Multiple organizations found for host: ', req.hostname);
+                    return next();
+                }
+                req.currentOrganization = orgs[0];
+                return next();
+            });
     });
 
     // Set up i18n
@@ -124,7 +145,9 @@ module.exports = function(db) {
     }));
 
     // use passport session
-    app.use(passport.initialize());
+    app.use(passport.initialize({
+        userProperty: 'loggedInUser'
+    }));
     app.use(passport.session());
 
     // connect flash for flash messages
@@ -136,6 +159,15 @@ module.exports = function(db) {
     app.use(helmet.nosniff());
     app.use(helmet.ienoopen());
     app.disable('x-powered-by');
+
+    // Set up request-scoped data
+    app.use(context.middleware('request'));
+    app.use(function(req, res, next){
+        context.set('request:currentUser', req.loggedInUser);
+        context.set('request:currentOrganization', req.currentOrganization);
+        context.set('request:currentIP', req.socket.remoteAddress);
+        next();
+    });
 
     // Globbing routing files
     config.getGlobbedFiles('./src/js/server/routes/**/*.js').forEach(function(routePath) {
