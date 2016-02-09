@@ -5,7 +5,7 @@ import CheckBox from '../../elements/checkbox';
 import InputText from '../../elements/inputtext';
 
 const Project = (props) => {
-    console.log(props.project);
+
     return (
         <div className="card-panel z-depth-4">
             <h5 className="grey-text text-darken-2" style={{marginBottom: '30px'}}>{props.project.name}</h5>

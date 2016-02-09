@@ -31,6 +31,7 @@ class ProjectPage extends React.Component {
     componentWillUnmount() {
         influencerStore.removeChangeListener(this._onChange);
     }
+
     _onChange() {
         if (this.state.influencers.length === 0) {
             if (this.state.project.influencers.length > 0) {

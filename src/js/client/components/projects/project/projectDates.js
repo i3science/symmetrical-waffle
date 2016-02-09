@@ -2,6 +2,7 @@ import React from 'react'; // eslint-disable-line no-unused-vars
 import { Link } from 'react-router';
 import InputText from '../../elements/inputtext';
 import ProjectCheckpoint from './projectCheckpoint';
+import moment from 'moment';
 
 const ProjectCheckpoints = (props) => {
     if (!props.checkpoints) {
@@ -13,7 +14,8 @@ const ProjectCheckpoints = (props) => {
                 key={index}
                 id={'checkpoints_' + props.phase + '_' + index}
                 label={item.name}
-                val={item.date}
+                parent={'checkpoints_' + props.phase}
+                val={moment(item.date).format('DD/MM/YYYY') || null}
                 onChange={props.onChange}
             />
         );
