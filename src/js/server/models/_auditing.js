@@ -79,8 +79,12 @@ module.exports = exports = function auditingPlugin(schema) {
         var history = new History;
         history.created_by = context.get('request:currentUser');
         history.action = action(before, after);
-        history.target_id = this._id;
-        history.target_type = this.constructor.modelName;
+        history.summary = action(before, after);
+        history.target = this.name || this._id || 'invalid';
+        history.eventable = {
+            id: this._id,
+            type: this.constructor.modelName
+        };
         history.changes = [];
 
         diff.forEach(function(delta){
