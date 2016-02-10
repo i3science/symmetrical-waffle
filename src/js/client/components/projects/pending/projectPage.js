@@ -8,7 +8,7 @@ import influencerStore from '../../../stores/InfluencerStore';
 import searchStore from '../../../stores/SearchStore';
 import listStore from '../../../stores/ListStore';
 import ProjectActions from '../../../actions/ProjectActions';
-import ProjectParams from './projectParams';
+import ProjectParams from './../common/ProjectParams';
 import InfluencerCardList from '../../influencers/list/CardList';
 import SelectedInfluencers from '../../results/selectedInfluencers';
 
@@ -23,9 +23,8 @@ class ProjectPage extends React.Component {
         super();
         this.state = {
             controlledDate: null,
-            project: null,
             checkpoints: {},
-            influencers: [],
+            influencers: null,
             exposures: 150000000,
             colors: searchStore.getColors()
         };
@@ -38,30 +37,26 @@ class ProjectPage extends React.Component {
         this.shandleChange = this.shandleChange.bind(this);
     }
     componentDidMount() {
-        projectStore.addChangeListener(this._onChange);
         influencerStore.addChangeListener(this._onChange);
         listStore.addChangeListener(this._onChange);
         Actions.refreshInfluencerList();
         Actions.refreshLists();
-        ProjectActions.findById(this.props.params.id);
         this.setState({ controlledDate: '11/11/1111' });
     }
     componentWillUnmount() {
         influencerStore.removeChangeListener(this._onChange);
-        projectStore.removeChangeListener(this._onChange);
         listStore.removeChangeListener(this._onChange);
     }
 
     _onChange() {
         this.setState({ 
-            project: projectStore.getCurrentProject(),
             influencers: influencerStore.getInfluencers()
         });
-        if (!this.state.project) {
+        if (!this.props.project) {
             return;
         }
-        if (this.state.project.lists) {
-            let listResults = listStore.getInfluencersFromList(this.state.project.lists);
+        if (this.props.project.lists) {
+            let listResults = listStore.getInfluencersFromList(this.props.project.lists);
             if (listResults) {
                 listResults.map(item => {
                     let influencer = influencerStore.getInfluencerById(item);
@@ -76,8 +71,8 @@ class ProjectPage extends React.Component {
             return;
         }
         if (this.state.influencers.length === 0) {
-            if (this.state.project.influencers.length > 0) {
-                this.state.project.influencers.map(item => {
+            if (this.props.project.influencers.length > 0) {
+                this.props.project.influencers.map(item => {
                     let influencer = influencerStore.getInfluencerById(item.influencer);
                     if (influencer && !_.find(this.state.influencers, influencer)) {
                         this.state.influencers.push(influencer);
@@ -101,20 +96,18 @@ class ProjectPage extends React.Component {
             name = event.target.name;
         }
         if (!event.target.dataset.parent) {
-            this.state.project[name] = value;
+            this.props.project[name] = value;
         } else {
-            this.state.project[event.target.dataset.parent][name] = value;
+            this.props.project[event.target.dataset.parent][name] = value;
         }
-        this.setState({project: this.state.project});
     }
 
     _addCheckpoint(checkpoint, parent, event) {
         event.preventDefault();
         $('#' + parent + '_container').hide();
         $('#add-check, #add-check i').show();
-        this.state.project[parent].push(checkpoint);
+        this.props.project[parent].push(checkpoint);
         this.setState({
-            project: this.state.project,
             checkpoints: {}
         });
     }
@@ -131,12 +124,12 @@ class ProjectPage extends React.Component {
 
     _addList(event) {
         event.preventDefault();
-        this.props.history.pushState({project: this.state.project}, '/lists');
+        this.props.history.pushState({project: this.props.project}, '/lists');
     }
 
     getProjectInfluencers() {
         let influencers = [];
-        this.state.project.influencers.map((item) => {
+        this.props.project.influencers.map(item => {
             if (influencerStore.getInfluencerById(item.influencer)) {
                 influencers.push(influencerStore.getInfluencerById(item.influencer));
             }
@@ -145,8 +138,8 @@ class ProjectPage extends React.Component {
     }
 
     render() {
-        if (!this.state.project || !this.state.influencers) {
-            return (<p>Loading...</p>);
+        if (!this.state.influencers) {
+            return (<p>Loading influencers...</p>);
         }
         let projectInfluencers = this.getProjectInfluencers();
         return (
@@ -160,7 +153,7 @@ class ProjectPage extends React.Component {
                     />
                 </div>
                 <ProjectParams
-                    project={this.state.project}
+                    project={this.props.project}
                     onChange={this._handleChange}
                     addList={this._addList}
                     addCheckpoint={this._addCheckpoint}
@@ -171,7 +164,7 @@ class ProjectPage extends React.Component {
                     selectedInfluencers={projectInfluencers}
                     //addInfluencer={this.addInfluencerToList}
                     colors={this.state.colors}
-                    exposures={this.state.project.required_impressions}
+                    exposures={this.props.project.required_impressions}
                     resultNum={this.state.influencers.length} />
                 <Link to="" className="btn right" onClick={this._addList}>Add Lists</Link>
                 <div className="clearfix"></div>

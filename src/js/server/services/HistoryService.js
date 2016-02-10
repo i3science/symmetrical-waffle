@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import _ from 'lodash';
-// require('../utils/history_populate.js')(mongoose);
+require('../utils/history_populate.js')(mongoose);
 let History = mongoose.model('History');
 
 /**
@@ -18,11 +18,11 @@ export default class HistoryService {
     static list(type, id, children) {
         return History
             .find({
-                target_type: type,
-                target_id: id
+                'eventable.type': type,
+                'eventable.id': id
             })
             .populate('created_by')
-            // .populateHistoryTarget()
+            .populateHistoryTarget()
             .exec();
     }
 }

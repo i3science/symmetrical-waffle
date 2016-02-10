@@ -30,27 +30,33 @@ config.getGlobbedFiles('./src/js/server/models/**/*.js').forEach(function(modelP
  * Return Q promises from mongoose exec
  */
 mongoose.Query.prototype.execOld = mongoose.Query.prototype.exec;
-mongoose.Query.prototype.exec = function(fn) {
+mongoose.Query.prototype.exec = function(op, cb) {
   var self = this;
-  return Q
-    .fcall(function(){
-      return self.execOld();
-    })
-    .then(function(doc){
-      if (doc && doc instanceof mongoose.Document && !doc.isNew) {
-        doc._orig = doc.toObject();
+
+  if ('function' == typeof op) {
+    cb = op;
+    op = null;
+  } else if ('string' == typeof op) {
+    this.op = op;
+  }
+
+  return Q.Promise(function(resolve, reject) {
+    if (!self.op) {
+      cb && cb(null, undefined);
+      resolve();
+      return;
+    }
+
+    self[self.op].call(self, function(error, res) {
+      if (error) {
+        cb && cb(error);
+        reject(error);
+        return;
       }
-      if (fn) {
-        fn(null, doc);
-      }
-      return doc;
-    })
-    .fail(function(err){
-      if (fn) {
-        return fn(err);
-        throw err;
-      }
-    })
+      cb && cb.apply(null, arguments);
+      resolve(res);
+    });
+  });
 };
 
 /**

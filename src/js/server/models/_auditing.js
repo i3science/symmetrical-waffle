@@ -80,7 +80,7 @@ module.exports = exports = function auditingPlugin(schema) {
         history.created_by = context.get('request:currentUser');
         history.action = action(before, after);
         history.summary = action(before, after);
-        history.target = this.name || this._id || 'invalid';
+        history.target = this.name || this.text || this._id || 'invalid';
         history.eventable = {
             id: this._id,
             type: this.constructor.modelName

@@ -60,7 +60,7 @@ var History = new Schema({
         before: Schema.Types.Mixed,
         after: Schema.Types.Mixed
     }]
-});
+}, { strict: false });
 
 mongoose.model('History', History);
 module.exports = History;

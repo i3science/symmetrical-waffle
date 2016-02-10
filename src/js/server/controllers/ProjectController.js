@@ -1,4 +1,5 @@
 import projectService from '../services/ProjectService.js';
+import historyService from '../services/HistoryService.js';
 import ErrorUtils from '../utils/ErrorUtils';
 
 /**
@@ -56,6 +57,18 @@ class ProjectController {
                 return res.status(204).send();
             })
             .fail(ErrorUtils.failureHandler(req, res));
+    }
+
+    /**
+     * Return the history of modifications for an existing project.
+     */
+    history(req, res) {
+        return historyService
+            .list('Project', req.project._id, !!req.query.children)
+            .then((history) => {
+                return res.jsonp(history);
+            })
+            // .catch(ErrorUtils.failureHandler(req, res));
     }
 
     /**

@@ -31,7 +31,6 @@ module.exports = function(mongoose) {
         } else {
             cb = cb || function(){};
         }
-console.log('HERE')
 
         var resolver = function(resolve, reject) {
             _exec.call(this, op, function(err, docs){
@@ -42,16 +41,16 @@ console.log('HERE')
                     return cb(null, docs), resolve(docs);
                 }
                 var waiting = docs.map(function(doc){
-                    var model = mongoose.model(doc.target_type);
+                    var model = mongoose.model(doc.eventable.type);
                     return model
-                        .findOne({ _id: doc.target_id })
+                        .findOne({ _id: doc.eventable.id })
                         .exec();
                 });
                 Q
                     .all(waiting)
                     .then(function(targets){
                         return docs.map(function(doc, i){
-                            doc.set('target', targets[i] || {});
+                            doc.eventable.target = targets[i];
                             return doc;
                         });
                     })
@@ -62,16 +61,8 @@ console.log('HERE')
                         return cb(err), reject(err);
                     });
             });
-        };  
+        }.bind(this);  
 
-        // Mongoose 4.1.x and up
-        if (mongoose.Promise.ES6) {
-            promise = new mongoose.Promise.ES6(resolver);
-        } else {
-            promise = new mongoose.Promise;
-            resolver(promise.resolve.bind(promise, null), promise.reject.bind(promise));
-        }
-
-        return promise;
+        return Q.Promise(resolver);
     }
 }

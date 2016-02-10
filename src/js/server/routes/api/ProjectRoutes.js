@@ -9,5 +9,7 @@ module.exports = function(app) {
         .get(authenticationController.hasRole(['organizer','client']), projectController.read)
         .put(authenticationController.hasRole(['organizer']), projectController.update)
         .delete(authenticationController.hasRole(['organizer']), projectController.delete);
+    app.route('/api/projects/:projectId/history')
+        .get(authenticationController.hasRole(['organizer','client']), projectController.history);
     app.param('projectId', projectController.findById);
 };
