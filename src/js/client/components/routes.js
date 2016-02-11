@@ -33,7 +33,7 @@ export default (
 				<IndexRoute component={ProjectSearchPage} name="Projects"/>
                 <Route path="projects" name="Projects">
 					<IndexRoute component={ProjectSearchPage} />
-					<Route path=":id">
+					<Route path=":id" name="Project">
 						<IndexRoute component={ProjectPage} name="Edit" />
 						<Route path="elements/:elementId" component={ElementPage} name="Campaign Element" />
 					</Route>
