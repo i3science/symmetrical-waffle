@@ -23,6 +23,9 @@ export default {
     DELETE_PROJECT: 'DELETE_PROJECT',
     SET_CURRENT_PROJECT: 'SET_CURRENT_PROJECT',
 
+    // Campaign elements
+    REFRESH_ELEMENTS: 'REFRESH_ELEMENTS',
+
     // Lists
     REFRESH_LISTS: 'REFRESH_LISTS',
     GET_LIST: 'GET_LIST',

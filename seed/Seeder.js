@@ -59,6 +59,7 @@ let _populate = () => {
         'influencers',
         'clients',
         'projects',
+        'campaign-elements',
         'lists'
     ]
         .forEach((type) => {

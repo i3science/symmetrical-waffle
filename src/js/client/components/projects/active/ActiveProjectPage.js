@@ -2,15 +2,13 @@ import React from 'react';
 import Actions from '../../../actions/UiActions';
 
 import ProjectParams from './../common/ProjectParams';
+import CampaignElements from './../common/CampaignElements';
 
 import Card from '../../common/Card';
 import History from '../../common/History';
 
 const ProjectCalendar = () => {
     return (<Card><p>Loading calendar...</p></Card>);
-}
-const ProjectCampaignElements = () => {
-    return (<Card title="Campaign Elements"><p>Loading campaign elements...</p></Card>);
 }
 const ProjectAssets = () => {
     return (<Card title="Digital Assets"><p>Loading assets...</p></Card>);
@@ -76,7 +74,7 @@ class ActiveProjectPage extends React.Component {
                 <ProjectCalendar
                     project={this.props.project} />
 
-                <ProjectCampaignElements
+                <CampaignElements
                     project={this.props.project} />
 
                 <ProjectAssets
