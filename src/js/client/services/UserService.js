@@ -20,6 +20,9 @@ class UserService {
     }
     getCurrentUser() {
         return fetch('/api/users/me')
+            .then((response) => {
+                return response.json();
+            })
             .catch(() => {});
     }
     create(user) {

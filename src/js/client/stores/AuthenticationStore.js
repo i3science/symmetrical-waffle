@@ -50,9 +50,6 @@ class AuthenticationStore extends BaseStore {
         }
         return userService
             .getCurrentUser()
-            .then((response) => {
-                return response.json();
-            })
             .then((data) => {
                 self._user = data;
                 this.emitChange();

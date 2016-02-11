@@ -1,13 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router';
 import moment from 'moment';
-import Actions from '../../actions/UiActions';
 import TaskActions from '../../actions/TaskActions';
 import CampaignElementActions from '../../actions/CampaignElementActions';
 import taskStore from '../../stores/TaskStore';
 import campaignElementStore from '../../stores/CampaignElementStore';
 import Card from '../common/Card';
-import Checkbox from '../common/input/checkbox';
 
 export default class Tasks extends React.Component {
     constructor() {
@@ -41,7 +38,7 @@ export default class Tasks extends React.Component {
             task.done = ev.target.checked;
             this.setState({});
             TaskActions.save(this.props.project, this.props.element._id, task);
-        }
+        };
     }
 
     _onAddTask(ev) {
@@ -51,7 +48,12 @@ export default class Tasks extends React.Component {
             assignee: ev.target[1].value,
             due: ev.target[2].value
         };
-        TaskActions.save(this.props.project, this.props.element._id, data);
+        TaskActions
+            .save(this.props.project, this.props.element._id, data)
+            .then(() => {
+                this.setState({ adding:false });
+            })
+            .catch(() => {});
     }
 
     renderTasks() {
@@ -77,7 +79,7 @@ export default class Tasks extends React.Component {
                         </div>
                     </label>
                 </div>
-            )
+            );
         });
     }
 
@@ -113,7 +115,7 @@ export default class Tasks extends React.Component {
                             name="task_due" />
                     </div>
                     <div className="col s1">
-                        <input type="button" value="Cancel" onClick={() => {this.setState({ adding:false })}}/>
+                        <input type="button" value="Cancel" onClick={() => {this.setState({ adding:false });}}/>
                         <input type="submit" value="Save"/>
                     </div>
                 </form>
@@ -136,7 +138,7 @@ export default class Tasks extends React.Component {
             <Card title="Tasks & Deadlines">
                 {this.renderTasks()}
                 {this.renderAdder()}
-                <span onClick={() => {this.setState({ adding:true })}}>+ Add Another Task</span>
+                <span onClick={() => {this.setState({ adding:true });}}>+ Add Another Task</span>
             </Card>
         );
     }

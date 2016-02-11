@@ -68,7 +68,6 @@ class ProjectController {
             .then((history) => {
                 return res.jsonp(history);
             });
-            // .catch(ErrorUtils.failureHandler(req, res));
     }
 
     /**

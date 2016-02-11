@@ -26,16 +26,18 @@ if (typeof window !== 'undefined') {
 
         return old_fetch.apply(window, args)
             .then(function(response){
-                // Check for flash messages
-                var tmp = response.clone();
-                tmp
-                    .json()
-                    .then(function(data){
-                        let messages = [].concat(data.messages || []).concat(data.message);
-                        messages.forEach(function(message){
-                            Materialize.toast(message, 4000, 'error');
+                if (response.headers.get('Content-Type')) {
+                    // Check for flash messages
+                    var tmp = response.clone();
+                    tmp
+                        .json()
+                        .then(function(data){
+                            let messages = [].concat(data.messages || []).concat(data.message);
+                            messages.forEach(function(message){
+                                Materialize.toast(message, 4000, 'error');
+                            });
                         });
-                    });
+                }
 
                 // Error out by throwing the entire response
                 if (response.status >= 400) {

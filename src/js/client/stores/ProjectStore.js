@@ -30,6 +30,7 @@ class ProjectStore extends BaseStore {
             case AppConstants.GET_PROJECT:
                 this.currentProject = action.project;
                 this.emitChange();
+                break;
         }
     }
 

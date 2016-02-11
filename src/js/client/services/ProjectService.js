@@ -2,7 +2,11 @@ import 'isomorphic-fetch';
 
 class ProjectService {
     list() {
-        return fetch('/api/projects');
+        return fetch('/api/projects')
+            .then((response) => {
+                return response.json();
+            })
+            .catch(() => {});
     }
     find(id) {
         return fetch('/api/projects/'+id)

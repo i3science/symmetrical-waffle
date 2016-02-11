@@ -14,35 +14,20 @@ export default {
             });
     },
     save(project, element, task) {
+        let self = this;
         if (task._id) {
-            taskService
+            return taskService
                 .update(project, element, task)
                 .then(() => {
-                    dispatch({
-                        actionType: AppConstants.TASK_UPDATED,
-                        task: task
-                    });
-                })
-                .catch(() => {
-                    dispatch({
-                        actionType: AppConstants.TASK_UPDATED_FAILED
-                    });
+                    self.findForElement(project, element);
+                    return true;
                 });
         } else {
-            taskService
+            return taskService
                 .create(project, element, task)
-                .then((id) => {
-                    console.log('ID: ', id);
-                    task._id = id
-                    dispatch({
-                        actionType: AppConstants.TASK_CREATED,
-                        task: task
-                    });
-                })
-                .catch(() => {
-                    dispatch({
-                        actionType: AppConstants.TASK_CREATED_FAILED
-                    });
+                .then(() => {
+                    self.findForElement(project, element);
+                    return true;
                 });
         }
     }

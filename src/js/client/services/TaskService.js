@@ -24,6 +24,9 @@ export default class TaskService {
                 'Content-Type': 'application/json'
             }
         })
+            .then((response) => {
+                return response.json();
+            })
             .catch(() => {});
     }
     static update(project, element, task) {
@@ -35,6 +38,9 @@ export default class TaskService {
                 'Content-Type': 'application/json'
             }
         })
+            .then(() => {
+                return true;
+            })
             .catch(() => {});
     }
 }

@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import _ from 'lodash';
-import Q from 'q';
 import influencerService from './InfluencerService';
 import projectService from './ProjectService';
 import representativeService from './RepresentativeService';
@@ -80,29 +79,15 @@ export default class CampaignElementService {
                 return projectService.findOne({ _id: element.project });
             })
             .then((project) => {
-                console.log('Project: ', project);
                 // 2) Get project client staff
                 return [project, representativeService.list({ client: project.client })];
             })
-            .spread((project, reps) => {
-                console.log('Reps: ', reps);
+            .spread((project/*, reps*/) => {
                 // 3) Get project organizers
-                return organizerService.list({ organization:project.organization })
+                return organizerService.list({ organization:project.organization });
             })
-            .then((organizers) => {
-                console.log('Organizers: ', organizers);
+            .then((/*organizers*/) => {
                 return assignees;
-            })
-
-        // // 2) Get project client staff
-        // console.log('Project')
-        // CampaignElement
-        //     .find
-        // return campaignElementService
-        //     .listAssignees(req.element)
-        //     .then((assignees) => {
-        //         return res.jsonp(assignees);
-        //     })
-        //     .fail(ErrorUtils.failureHandler(req, res));
+            });
     }
 }

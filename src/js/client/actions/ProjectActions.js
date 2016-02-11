@@ -7,9 +7,6 @@ export default {
     refreshProjects() {
         projectService
             .list()
-            .then((response) => {
-                return response.json();
-            })
             .then((data) => {
                 dispatch({
                     actionType: AppConstants.REFRESH_PROJECTS,
