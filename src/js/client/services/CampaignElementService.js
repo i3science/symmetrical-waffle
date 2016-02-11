@@ -15,4 +15,11 @@ export default class CampaignElementService {
             })
             .catch(() => {});
     }
+    static listAssignees(project, element) {
+        return fetch('/api/projects/'+project+'/elements/'+element+'/assignees')
+            .then((response) => {
+                return response.json();
+            })
+            .catch(() => {});
+    }
 }

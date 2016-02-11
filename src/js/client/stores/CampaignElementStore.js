@@ -7,6 +7,7 @@ class CampaignElementStore extends BaseStore {
         super();
         this.elements = null;
         this.element = null;
+        this.assignees = null;
     }
 
     _listener(action) {
@@ -23,6 +24,10 @@ class CampaignElementStore extends BaseStore {
                 this.element = action.element;
                 this.emitChange();
                 break;
+            case AppConstants.LIST_ELEMENT_ASSIGNEES:
+                this.assignees = action.assignees;
+                this.emitChange();
+                break;
         }
     }
 
@@ -31,6 +36,9 @@ class CampaignElementStore extends BaseStore {
     }
     getElement() {
         return this.element;
+    }
+    getAssignees() {
+        return this.assignees;
     }
 }
 

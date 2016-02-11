@@ -22,5 +22,15 @@ export default {
                     element: element
                 });
             });
+    },
+    listAssignees(project, element) {
+        campaignElementService
+            .listAssignees(project, element)
+            .then((assignees) => {
+                dispatch({
+                    actionType: AppConstants.LIST_ELEMENT_ASSIGNEES,
+                    assignees: assignees
+                });
+            });
     }
 };

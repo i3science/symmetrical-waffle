@@ -59,6 +59,20 @@ export default class CampaignElementController {
     }
 
     /**
+     * Lists all users available for assignment to tasks and such under an given
+     * element. This includes influencers on a project, staff of the client to
+     * which the project applies, and organizers.
+     */
+    static listAssignees(req, res) {
+        return campaignElementService
+            .listAssignees(req.project, req.element)
+            .then((assignees) => {
+                return res.jsonp(assignees);
+            })
+            .fail(ErrorUtils.failureHandler(req, res));
+    }
+
+    /**
      * Element middleware
      */
     static findById(req, res, next, elementId) {

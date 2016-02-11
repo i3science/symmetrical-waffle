@@ -2,6 +2,7 @@ import React from 'react';
 import CampaignElementActions from '../../actions/CampaignElementActions';
 import campaignElementStore from '../../stores/CampaignElementStore';
 import Card from '../common/Card';
+import Tasks from './Tasks';
 
 export default class ElementPage extends React.Component {
     constructor() {
@@ -51,8 +52,7 @@ export default class ElementPage extends React.Component {
         }
         return (
             <div>
-                <Card title="Tasks & Deadlines">
-                </Card>
+                <Tasks project={this.props.params.id} element={this.state.element} />
 
                 {this.renderElementContent()}
 

@@ -1,5 +1,6 @@
 import projectController from '../../controllers/ProjectController';
 import campaignElementController from '../../controllers/CampaignElementController';
+import taskController from '../../controllers/TaskController';
 import authenticationController from '../../controllers/AuthenticationController';
 
 module.exports = function(app) {
@@ -21,6 +22,18 @@ module.exports = function(app) {
         .put(authenticationController.hasRole(['organizer']), campaignElementController.update)
         .delete(authenticationController.hasRole(['organizer']), campaignElementController.delete);
 
+    app.route('/api/projects/:projectId/elements/:elementId/tasks')
+        .get(authenticationController.hasRole(['organizer','client']), taskController.list)
+        .post(authenticationController.hasRole(['organizer','client']), taskController.create);
+    app.route('/api/projects/:projectId/elements/:elementId/tasks/:taskId')
+        .get(authenticationController.hasRole(['organizer','client']), taskController.read)
+        .put(authenticationController.hasRole(['organizer']), taskController.update)
+        .delete(authenticationController.hasRole(['organizer']), taskController.delete);
+
+    app.route('/api/projects/:projectId/elements/:elementId/assignees')
+        .get(authenticationController.hasRole(['organizer','client']), campaignElementController.listAssignees);
+
     app.param('projectId', projectController.findById);
     app.param('elementId', campaignElementController.findById);
+    app.param('taskId', taskController.findById);
 };

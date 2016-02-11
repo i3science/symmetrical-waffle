@@ -56,6 +56,7 @@ module.exports = exports = function auditingPlugin(schema) {
                 this._original = doc;
             }.bind(this));
         }
+        this.organization = context.get('request:currentOrganization');
         this.updated = new Date();
         this.updated_by = context.get('request:currentUser');
         next();

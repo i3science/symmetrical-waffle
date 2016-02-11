@@ -4,6 +4,7 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
+    Schema = mongoose.Schema,
     User = require('./../User');
 require('mongoose-schema-extend'); // This should not need to be here, but seeding breaks without it :@
 
@@ -12,6 +13,10 @@ require('mongoose-schema-extend'); // This should not need to be here, but seedi
  * of a client.
  */
 var Representative = User.extend({
+    clients: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Client'
+    }],
     roles: {
         type: Array,
         default: ['rep']
