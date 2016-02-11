@@ -28,9 +28,9 @@ class ProjectPage extends React.Component {
         this._onChange = this._onChange.bind(this);
         this._handleChange = this._handleChange.bind(this);
     }
-    componentWillMount() {
-        projectActions.refreshProjects();
+    componentDidMount() {
         projectStore.addChangeListener(this._onChange);
+        projectActions.refreshProjects();
     }
 
     componentWillUnmount() {
