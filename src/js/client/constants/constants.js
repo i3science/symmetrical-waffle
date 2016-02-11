@@ -25,6 +25,7 @@ export default {
 
     // Campaign elements
     REFRESH_ELEMENTS: 'REFRESH_ELEMENTS',
+    GET_ELEMENT: 'GET_ELEMENT',
 
     // Lists
     REFRESH_LISTS: 'REFRESH_LISTS',

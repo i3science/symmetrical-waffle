@@ -6,6 +6,7 @@ class CampaignElementStore extends BaseStore {
     constructor() {
         super();
         this.elements = null;
+        this.element = null;
     }
 
     _listener(action) {
@@ -17,11 +18,19 @@ class CampaignElementStore extends BaseStore {
             case AppConstants.REFRESH_ELEMENTS:
                 this.elements = action.elements;
                 this.emitChange();
+                break;
+            case AppConstants.GET_ELEMENT:
+                this.element = action.element;
+                this.emitChange();
+                break;
         }
     }
 
     getElements() {
         return this.elements;
+    }
+    getElement() {
+        return this.element;
     }
 }
 

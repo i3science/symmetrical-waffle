@@ -38,7 +38,7 @@ export default class CampaignElements extends React.Component {
                                     <i className="large material-icons">description</i>
                                 </div>
                                 <p className="center-align"><input type="checkbox" disabled="disabled"/> Due Dec. 15</p>
-                                <p className="center-align"><strong><Link to={'/elements/'+el._id}>{el.name}</Link></strong></p>
+                                <p className="center-align"><strong><Link to={'/projects/'+this.props.project._id+'/elements/'+el._id}>{el.name}</Link></strong></p>
                             </Card>
                         </div>
                     );

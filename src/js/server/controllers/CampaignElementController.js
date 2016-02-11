@@ -61,9 +61,9 @@ export default class CampaignElementController {
     /**
      * Element middleware
      */
-    static findById(req, res, next, id) {
+    static findById(req, res, next, elementId) {
         campaignElementService
-            .findOne({ _id: id })
+            .findOne({ _id: elementId })
             .then((element) => {
                 req.element = element;
                 return next();

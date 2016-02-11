@@ -12,5 +12,15 @@ export default {
                     elements: elements
                 });
             });
+    },
+    findForProjectAndId(project, element) {
+        campaignElementService
+            .find(project, element)
+            .then((element) => {
+                dispatch({
+                    actionType: AppConstants.GET_ELEMENT,
+                    element: element
+                });
+            });
     }
 };

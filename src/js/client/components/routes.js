@@ -18,6 +18,7 @@ import InfluencerCreatePage from './preferences/influencers/influencerCreatePage
 import InfluencerEditPage from './preferences/influencers/influencerEditPage';
 import ForgotPasswordPage from './auth/ForgotPasswordPage';
 import ResetPasswordPage from './auth/ResetPasswordPage';
+import ElementPage from './elements/ElementPage';
 
 import influencerService from '../services/InfluencerService';
 
@@ -32,7 +33,10 @@ export default (
 				<IndexRoute component={ProjectSearchPage} name="Projects"/>
                 <Route path="projects" name="Projects">
 					<IndexRoute component={ProjectSearchPage} />
-					<Route path=":id" component={ProjectPage} name="Edit" />
+					<Route path=":id">
+						<IndexRoute component={ProjectPage} name="Edit" />
+						<Route path="elements/:elementId" component={ElementPage} name="Campaign Element" />
+					</Route>
 				</Route>
 				<Route path="search" name="Search">
 					<IndexRoute component={SearchStart} />

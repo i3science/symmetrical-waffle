@@ -8,4 +8,11 @@ export default class CampaignElementService {
             })
             .catch(() => {});
     }
+    static find(project, element) {
+        return fetch('/api/projects/'+project+'/elements/'+element)
+            .then((response) => {
+                return response.json();
+            })
+            .catch(() => {});
+    }
 }
