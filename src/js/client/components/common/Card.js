@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; // eslint-disable-line no-unused-vars
 
 export default (props) => {
     let classes = ['card-panel'];
@@ -11,4 +11,4 @@ export default (props) => {
             { props.children }
         </div>
     );
-}
+};

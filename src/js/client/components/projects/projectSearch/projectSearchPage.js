@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router';
 import _ from 'lodash';
-import InputText from '../../elements/inputtext';
-import CheckBox from '../../elements/checkbox';
+import InputText from '../../common/input/inputtext';
+import CheckBox from '../../common/input/checkbox';
 import projectActions from '../../../actions/ProjectActions';
 import projectStore from '../../../stores/ProjectStore';
 import { list_filter } from '../../../../shared/projects.js';

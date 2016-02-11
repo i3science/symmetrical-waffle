@@ -1,9 +1,9 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 import ProjectDates from './ProjectDates';
 import ProjectType from './ProjectType';
-import InputTextArea from '../../elements/inputtextarea';
-import CheckBox from '../../elements/checkbox';
-import InputText from '../../elements/inputtext';
+import InputTextArea from '../../common/input/inputtextarea';
+import CheckBox from '../../common/input/checkbox';
+import InputText from '../../common/input/inputtext';
 
 export default (props) => {
     return (

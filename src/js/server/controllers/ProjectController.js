@@ -67,7 +67,7 @@ class ProjectController {
             .list('Project', req.project._id, !!req.query.children)
             .then((history) => {
                 return res.jsonp(history);
-            })
+            });
             // .catch(ErrorUtils.failureHandler(req, res));
     }
 

@@ -3,8 +3,8 @@ import { Link } from 'react-router';
 import Personal from './../../search/components/personal';
 import Audience from './audience';
 import Verticals from '../../search/components/verticals';
-import InputText from '../../elements/inputtext';
-import CheckBox from '../../elements/checkbox';
+import InputText from '../../common/input/inputtext';
+import CheckBox from '../../common/input/checkbox';
 
 const InfluencerManageForm = (props) => {
     return (

@@ -1,5 +1,4 @@
 import React from 'react';
-import Actions from '../../../actions/UiActions';
 
 import ProjectParams from './../common/ProjectParams';
 import CampaignElements from './../common/CampaignElements';
@@ -9,10 +8,10 @@ import History from '../../common/History';
 
 const ProjectCalendar = () => {
     return (<Card><p>Loading calendar...</p></Card>);
-}
+};
 const ProjectAssets = () => {
     return (<Card title="Digital Assets"><p>Loading assets...</p></Card>);
-}
+};
 
 class ActiveProjectPage extends React.Component {
     constructor() {
@@ -54,7 +53,6 @@ class ActiveProjectPage extends React.Component {
     _newDate(event) {
         this.state.checkpoints[event.target.id] = event.target.value;
         this.setState({checkpoints: this.state.checkpoints});
-        console.log(this.state);
     }
 
     render() {

@@ -3,11 +3,9 @@ import { Link } from 'react-router';
 import _ from 'lodash';
 
 import Actions from '../../../actions/UiActions';
-import projectStore from '../../../stores/ProjectStore';
 import influencerStore from '../../../stores/InfluencerStore';
 import searchStore from '../../../stores/SearchStore';
 import listStore from '../../../stores/ListStore';
-import ProjectActions from '../../../actions/ProjectActions';
 import ProjectParams from './../common/ProjectParams';
 import InfluencerCardList from '../../influencers/list/CardList';
 import SelectedInfluencers from '../../results/selectedInfluencers';

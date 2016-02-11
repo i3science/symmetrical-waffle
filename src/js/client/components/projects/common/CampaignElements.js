@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router';
-import Actions from '../../../actions/UiActions';
 import CampaignElementActions from '../../../actions/CampaignElementActions';
 import campaignElementStore from '../../../stores/CampaignElementStore';
 import Card from '../../common/Card';
@@ -42,18 +41,17 @@ export default class CampaignElements extends React.Component {
                                 <p className="center-align"><strong><Link to={'/elements/'+el._id}>{el.name}</Link></strong></p>
                             </Card>
                         </div>
-                    )
+                    );
                 })
             }
             </div>
-        )
+        );
     }
 
     render() {
         if (!this.state.elements) {
             return (<Card title="Campaign Elements"><p>Loading campaign elements...</p></Card>);
         }
-        console.log('Elements: ', this.state.elements);
         return (
             <Card title="Campaign Elements">
                 {this.renderElements()}

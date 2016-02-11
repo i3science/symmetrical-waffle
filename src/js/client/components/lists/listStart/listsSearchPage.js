@@ -6,7 +6,7 @@ import Actions from '../../../actions/UiActions';
 import listStore from '../../../stores/ListStore';
 
 import ListResults from './listresults';
-import InputText from '../../elements/inputtext';
+import InputText from '../../common/input/inputtext';
 
 
 class ListPage extends React.Component {

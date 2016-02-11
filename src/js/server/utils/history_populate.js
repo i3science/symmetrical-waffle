@@ -14,16 +14,12 @@ module.exports = function(mongoose) {
         }
         this._populateHistoryTarget = true;
         return this;
-    }
+    };
 
     Query.prototype.exec = function(op, cb) {
         if (!this._populateHistoryTarget) {
             return _exec.call(this, op, cb);
         }
-
-        var model = this.model,
-            lean = this._mongooseOptions.lean,
-            promise;
 
         if (typeof op === 'function') {
             cb = op;
@@ -64,5 +60,5 @@ module.exports = function(mongoose) {
         }.bind(this);  
 
         return Q.Promise(resolver);
-    }
-}
+    };
+};

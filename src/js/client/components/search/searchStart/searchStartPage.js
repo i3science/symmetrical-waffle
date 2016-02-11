@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import InputText from '../../elements/inputtext';
+import InputText from '../../common/input/inputtext';
 import influencerStore from '../../../stores/InfluencerStore';
 //import searchStore from '../../stores/SearchStore';
 import Actions from '../../../actions/UiActions';

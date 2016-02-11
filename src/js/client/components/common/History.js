@@ -1,6 +1,5 @@
 import React from 'react';
 import moment from 'moment';
-import Actions from '../../actions/UiActions';
 import historyStore from '../../stores/HistoryStore';
 import HistoryActions from '../../actions/HistoryActions';
 
@@ -13,7 +12,7 @@ export default class History extends React.Component {
         super();
         this.state = {
             history: null
-        }
+        };
         this._onHistoryChange = this._onHistoryChange.bind(this);
     }
     componentWillMount() {

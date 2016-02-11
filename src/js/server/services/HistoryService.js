@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import _ from 'lodash';
 require('../utils/history_populate.js')(mongoose);
 let History = mongoose.model('History');
 
@@ -15,7 +14,7 @@ export default class HistoryService {
      * @param children Whether or not to return history for children of the
      *         entity as well
      */
-    static list(type, id, children) {
+    static list(type, id/*, children*/) {
         return History
             .find({
                 'eventable.type': type,

@@ -1,7 +1,7 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 import { Link } from 'react-router';
 import _ from 'lodash';
-import InputText from '../../elements/inputtext';
+import InputText from '../../common/input/inputtext';
 import InfluencerCardList from '../../influencers/list/CardList';
 import influencerStore from '../../../stores/InfluencerStore';
 
