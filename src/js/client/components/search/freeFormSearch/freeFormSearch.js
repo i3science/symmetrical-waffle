@@ -18,7 +18,7 @@ class SearchPage extends React.Component {
         this._reset = this._reset.bind(this);
         this._cancel = this._cancel.bind(this);
         this._handleChange = this._handleChange.bind(this);
-        this.compare = this.compare.bind(this);
+        this._compare = this._compare.bind(this);
     }
 
     componentWillMount() {
@@ -43,44 +43,44 @@ class SearchPage extends React.Component {
         });
     }
 
+
     _handleChange(event) {
-        var value = event.target.value;
-        if (event.target.id.indexOf('_') > -1) {
-            let drill = event.target.id.split('_');
-            var category = drill[0];
-            var item = drill[1];
-        } else {
-            item = event.target.id;
+        let value = event.target.value;
+        if (event.target.type === 'number') {
+            value = Number(value);
         }
         if (event.target.type === 'checkbox') {
-            value = (event.target.checked === true);
-        }
-        if (category) {
-            if ((category === 'verticals') || (category === 'mediums')) {
-                var isIn = this.state.filters[category].indexOf(event.target.name);
-                if ((isIn === -1) && value) {
-                    this.state.filters[category].push(event.target.name);
-                } else {
-                    this.state.filters[category].splice(isIn, 1);
-                }
+            let isIn = this.state.filters[event.target.dataset.parent].indexOf(event.target.name);
+            if ((isIn === -1) && value) {
+                this.state.filters[event.target.dataset.parent].push(event.target.name);
             } else {
-                this.state.filters[category][item] = value;
+                this.state.filters[event.target.dataset.parent].splice(isIn, 1);
             }
         } else {
-            this.state.filters[item] = value;
+            if (!event.target.dataset.parent) {
+                this.state.filters[event.target.id] = value;
+            } else {
+                this.state.filters[event.target.dataset.parent][event.target.id] = value;
+            }
         }
         this.setState({filters: this.state.filters});
         Actions.updateFilters(this.state.filters);
-        Actions.updateResults(this.compare(this.state.filters, this.state.influencers));
+        Actions.updateResults(this._compare(this.state.filters, this.state.influencers));
     }
 
     _reset(event) {
         event.preventDefault();
-        this.setState({filters : {
-            personal: {},
-            mediums: [],
-            verticals: []
-        }});
+
+        this.state.filters.personal = {};
+        this.state.filters.mediums = [];
+        this.state.filters.verticals = [];
+        this.setState({
+            filters: {
+                personal: this.state.filters.personal,
+                mediums: this.state.filters.mediums,
+                verticals: this.state.filters.verticals
+            }
+        });
         Actions.updateFilters(this.state.filters);
     }
 
@@ -90,54 +90,65 @@ class SearchPage extends React.Component {
         this.props.history.goBack();
     }
 
-    compare(fil, influencers) {
-        var filtered = influencers.filter(function(inf) {
+
+    _compare(filter, influencers) {
+        let compareRange = (prop, from, to) => {
+            return (
+                (from ? (prop >= Number(from)) : true) &&
+                (to ? (prop <= Number(to)) : true)
+            );
+        };
+        let findProperty = (target, prop) => {
+            if (target.hasOwnProperty(prop)) {
+                return target[prop];
+            } else {
+                for (var props in target) {
+                    if (target.hasOwnProperty(props) && target[props].hasOwnProperty(prop)) {
+                        if ((typeof target[props] === 'object') && !Array.isArray(target[props])) {
+                            return findProperty(target[props], prop);
+                        } else {
+                            return false;
+                        }
+                    }
+                }
+            }
+        };
+        let loopThrough = (fil, inf) => {
             for (var prop in fil) {
-                if (fil.hasOwnProperty(prop) && inf.hasOwnProperty(prop)) {
+                if(fil.hasOwnProperty(prop)) {
                     if (Array.isArray(fil[prop])) {
                         let isit = _.intersection(fil[prop], inf[prop]);
                         if (!(isit.length === fil[prop].length) && (fil[prop].length > 0)) {
                             return false;
                         }
                     } else if ((typeof fil[prop] === 'object') && !Array.isArray(fil[prop])) {
-                        for (var deep in fil[prop]) {
-                            if (fil[prop].hasOwnProperty(deep) && inf[prop].hasOwnProperty(deep)) {
-                                if (Array.isArray(fil[prop][deep])) {
-                                    let isit = _.intersection(fil[prop][deep], inf[prop][deep]);
-                                    if (!(isit.length === fil[prop].length) && (fil[prop].length > 0)) {
-                                        return false;
-                                    }
-                                } else if ((typeof fil[prop][deep] === 'object') && !Array.isArray(fil[prop][deep])) {
-                                    //console.log('not_array but is_object');
-                                } else {
-                                    let condition = _.isEqual(
-                                        (isNaN(inf[prop][deep]) ? inf[prop][deep].toLowerCase() : inf[prop][deep].toString()),
-                                        (isNaN(fil[prop][deep]) ? fil[prop][deep].toLowerCase() : fil[prop][deep].toString())
-                                    );
-                                    if (!condition && (fil[prop][deep] !== '')) {
-                                        return false;
-                                    }
-                                }
-                            }
-                        }
-                    } else {
-                        let condition = _.includes(
-                            (isNaN(inf[prop]) ? inf[prop].toLowerCase() : inf[prop].toString()),
-                            (isNaN(fil[prop]) ? fil[prop].toLowerCase() : fil[prop].toString())
-                        );
-                        if (!condition && (fil[prop] !== '')) {
+                        let innerFil = fil[prop],
+                            innerInf = inf[prop];
+                        if (!(loopThrough(innerFil, innerInf))) {
                             return false;
                         }
+                    } else {
+                        if (prop.indexOf('range') > -1) {
+                            let propRoot = prop.split('_')[0];
+                            if (!(compareRange(findProperty(inf, propRoot), fil[propRoot + '_range_from'], fil[propRoot + '_range_to']))) {
+                                return false;
+                            }
+                        } else {
+                            if (!(_.includes(_.lowerCase(findProperty(inf, prop)), _.lowerCase(fil[prop])))) {
+                                return false;
+                            }
+                        }
+
                     }
                 }
             }
             return true;
+        };
+
+        return influencers.filter(function(influencer) {
+            return loopThrough(filter, influencer);
         });
-        return filtered;
     }
-
-
-
 
     render() {
         return (

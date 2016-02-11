@@ -21,6 +21,7 @@ const InputSelect = (props) => {
                     className="browser-default"
                     style={props.val ? {} : {color: 'rgba(0,0,0,0.23)', fontWeight: '500'}}
                     defaultValue={props.val ? props.val : ''}
+                    data-parent={props.parent || null}
                     onChange={props.onChange.bind(this)}>
                     <option value="" disabled>{props.placeholder ? props.placeholder : ''}</option>
                     {selectOptions}

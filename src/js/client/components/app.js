@@ -9,6 +9,9 @@ import xhr from 'i18next-xhr-backend';
 import '../utils/fetch';
 import '../utils/String.js';
 import '../utils/Object.js';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
+injectTapEventPlugin();
 
 Actions.initialize();
 

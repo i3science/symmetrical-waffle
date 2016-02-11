@@ -1,5 +1,5 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
-import CheckBox from '../elements/checkbox';
+import CheckBox from '../../elements/checkbox';
 import _ from 'lodash';
 
 var verticalsCollection = [
@@ -101,8 +101,9 @@ const Verticals = (props) => {
                 return (
                     <CheckBox
                         key={child.id}
-                        id={'verticals_' + child.id}
+                        id={child.id}
                         label={child.label}
+                        parent={props.parent}
                         onChange={props.onChange}
                         checked={checked}
                     />

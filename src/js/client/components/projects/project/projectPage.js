@@ -7,10 +7,16 @@ import ProjectParams from './projectParams';
 import InfluencerCardList from '../../influencers/list/CardList';
 import SelectedInfluencers from '../../results/selectedInfluencers';
 
+import DatePicker from 'material-ui/lib/date-picker/date-picker';
+
+
+
+
 class ProjectPage extends React.Component {
     constructor() {
         super();
         this.state = {
+            controlledDate: null,
             project: {},
             checkpoints: {},
             influencers: [],
@@ -21,12 +27,14 @@ class ProjectPage extends React.Component {
         this._handleChange = this._handleChange.bind(this);
         this._addCheckpoint = this._addCheckpoint.bind(this);
         this._newDate = this._newDate.bind(this);
+
+        this.shandleChange = this.shandleChange.bind(this);
     }
     componentWillMount() {
         influencerStore.addChangeListener(this._onChange);
         Actions.refreshInfluencerList();
         this.state.project = projectStore.getProjectById(this.props.params.id);
-        this.setState({project: this.state.project});
+        this.setState({project: this.state.project, controlledDate: '11/11/1111'});
     }
     componentWillUnmount() {
         influencerStore.removeChangeListener(this._onChange);
@@ -45,7 +53,6 @@ class ProjectPage extends React.Component {
         }
     }
     _handleChange(event) {
-        console.log(event.target);
         let value = event.target.value;
         if (event.target.type === 'number') {
             value = Number(value);
@@ -59,7 +66,6 @@ class ProjectPage extends React.Component {
             this.state.project[event.target.dataset.parent][event.target.id] = value;
         }
         this.setState({project: this.state.project});
-        console.log(this.state.project);
     }
 
     _addCheckpoint(checkpoint, parent, event) {
@@ -75,12 +81,25 @@ class ProjectPage extends React.Component {
     _newDate(event) {
         this.state.checkpoints[event.target.id] = event.target.value;
         this.setState({checkpoints: this.state.checkpoints});
-        console.log(this.state);
+    }
+
+    shandleChange(event, date) {
+        this.setState({
+            controlledDate: date
+        });
     }
 
     render() {
         return (
             <div>
+                <div className="card-panel">
+                        <DatePicker
+                            defaultValue="11/11/1111"
+                            value={this.state.controlledDate}
+                            onChange={this.shandleChange}
+                            floatingLabelText="Floating Label Text"
+                        />
+                </div>
                 <ProjectParams
                     project={this.state.project}
                     onChange={this._handleChange}

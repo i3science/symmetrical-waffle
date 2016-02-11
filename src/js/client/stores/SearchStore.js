@@ -8,7 +8,8 @@ class SearchStore extends BaseStore {
         this.filters = {
             personal: {},
             mediums: [],
-            verticals: []
+            verticals: [],
+            children: []
         };
         this.results = [];
         this.colors = [

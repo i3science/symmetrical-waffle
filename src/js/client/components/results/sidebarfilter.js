@@ -1,7 +1,7 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
-import Verticals from '../search/verticals';
-import Personal from '../preferences/influencers/personal';
-import Medium from '../preferences/influencers/medium';
+import Verticals from '../search/components/verticals';
+import Personal from '../search/components/personal';
+import Medium from '../search/components/medium';
 
 class SidebarFilter extends React.Component {
     render() {
