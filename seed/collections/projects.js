@@ -75,6 +75,7 @@ module.exports = function(fixtures) {
                 client_approved: null,
                 influencer_approved: true
             }],
+            lists: [],
             approved: false,
             approved_date: moment().add(5, 'days'),
             active: true
@@ -148,6 +149,7 @@ module.exports = function(fixtures) {
                 client_approved: true,
                 influencer_approved: true
             }],
+            lists: [],
             approved: true,
             approved_date: moment().subtract(3, 'days'),
             active: true
@@ -221,6 +223,7 @@ module.exports = function(fixtures) {
                 client_approved: true,
                 influencer_approved: true
             }],
+            lists: [],
             approved: true,
             approved_date: moment().subtract(14, 'days'),
             active: true
@@ -294,6 +297,7 @@ module.exports = function(fixtures) {
                 client_approved: true,
                 influencer_approved: false
             }],
+            lists: [],
             approved: true,
             approved_date: moment().subtract(53, 'days'),
             active: true

@@ -10,9 +10,9 @@ class Personal extends React.Component {
             <table className="bordered grey-text text-darken-3">
                 <tbody>
                 <tr>
-                    <td style={{width: '33.3333%'}}><div style={{paddingRight: padit + '%'}}>Sex <span className="right teal-text text-lighten-2">{this.props.personal.sex}</span></div></td>
+                    <td style={{width: '33.3333%'}}><div style={{paddingRight: padit + '%'}}>Gender <span className="right teal-text text-lighten-2">{this.props.personal.sex}</span></div></td>
                     <td style={{width: '33.3333%'}}><div style={{padding: '0 ' + padit/2 + '%'}}>Language <span className="right teal-text text-lighten-2">{this.props.personal.language}</span></div></td>
-                    <td style={{width: '33.3333%'}}><div style={{paddingLeft: padit + '%'}}>Age <span className="right teal-text text-lighten-2">{this.props.personal.age && this.props.personal.age.start + ' - ' + this.props.personal.age.end}</span></div></td>
+                    <td style={{width: '33.3333%'}}><div style={{paddingLeft: padit + '%'}}>Age <span className="right teal-text text-lighten-2">{this.props.personal.age}</span></div></td>
                 </tr>
                 <tr>
                     <td style={{width: '33.3333%'}}><div style={{paddingRight: padit + '%'}}>Married <span className="right teal-text text-lighten-2">{this.props.personal.married?'Yes':'No'}</span></div></td>
@@ -30,7 +30,7 @@ class Personal extends React.Component {
                     <td style={{width: '33.3333%'}}><div style={{paddingLeft: padit + '%'}}>Pets <span className="right teal-text text-lighten-2">{this.props.personal.pets.length||0}</span></div></td>
                 </tr>
                 <tr>
-                    <td style={{width: '33.3333%'}}><div style={{paddingRight: padit + '%'}}>Types of Pets <span className="right teal-text text-lighten-2">{this.props.personal.pets.join(', ')||'-'}</span></div></td>
+                    <td style={{width: '33.3333%'}}><div style={{paddingRight: padit + '%'}}>Types of Pets <span className="right teal-text text-lighten-2">{this.props.personal.pets.join(', ') || '-'}</span></div></td>
                     <td style={{width: '33.3333%'}}><div style={{padding: '0 ' + padit/2 + '%'}}>Ethnicity <span className="right teal-text text-lighten-2">{this.props.personal.ethnicity}</span></div></td>
                     <td style={{width: '33.3333%'}}><div style={{paddingLeft: padit + '%'}}>&nbsp;</div></td>
                 </tr>

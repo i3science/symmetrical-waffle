@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { compare } from '../../../../shared/search.js';
 import influencerStore from '../../../stores/InfluencerStore';
 import searchStore from '../../../stores/SearchStore';
 import Actions from '../../../actions/UiActions';
 import Filters from './filters';
-import _ from 'lodash';
 
 class SearchPage extends React.Component {
     constructor() {
@@ -18,7 +18,6 @@ class SearchPage extends React.Component {
         this._reset = this._reset.bind(this);
         this._cancel = this._cancel.bind(this);
         this._handleChange = this._handleChange.bind(this);
-        this._compare = this._compare.bind(this);
     }
 
     componentWillMount() {
@@ -43,7 +42,6 @@ class SearchPage extends React.Component {
         });
     }
 
-
     _handleChange(event) {
         let value = event.target.value;
         if (event.target.type === 'number') {
@@ -65,7 +63,7 @@ class SearchPage extends React.Component {
         }
         this.setState({filters: this.state.filters});
         Actions.updateFilters(this.state.filters);
-        Actions.updateResults(this._compare(this.state.filters, this.state.influencers));
+        Actions.updateResults(compare(this.state.filters, this.state.influencers));
     }
 
     _reset(event) {
@@ -88,66 +86,6 @@ class SearchPage extends React.Component {
         event.preventDefault();
         //this.setState({influencer: {}});
         this.props.history.goBack();
-    }
-
-
-    _compare(filter, influencers) {
-        let compareRange = (prop, from, to) => {
-            return (
-                (from ? (prop >= Number(from)) : true) &&
-                (to ? (prop <= Number(to)) : true)
-            );
-        };
-        let findProperty = (target, prop) => {
-            if (target.hasOwnProperty(prop)) {
-                return target[prop];
-            } else {
-                for (var props in target) {
-                    if (target.hasOwnProperty(props) && target[props].hasOwnProperty(prop)) {
-                        if ((typeof target[props] === 'object') && !Array.isArray(target[props])) {
-                            return findProperty(target[props], prop);
-                        } else {
-                            return false;
-                        }
-                    }
-                }
-            }
-        };
-        let loopThrough = (fil, inf) => {
-            for (var prop in fil) {
-                if(fil.hasOwnProperty(prop)) {
-                    if (Array.isArray(fil[prop])) {
-                        let isit = _.intersection(fil[prop], inf[prop]);
-                        if (!(isit.length === fil[prop].length) && (fil[prop].length > 0)) {
-                            return false;
-                        }
-                    } else if ((typeof fil[prop] === 'object') && !Array.isArray(fil[prop])) {
-                        let innerFil = fil[prop],
-                            innerInf = inf[prop];
-                        if (!(loopThrough(innerFil, innerInf))) {
-                            return false;
-                        }
-                    } else {
-                        if (prop.indexOf('range') > -1) {
-                            let propRoot = prop.split('_')[0];
-                            if (!(compareRange(findProperty(inf, propRoot), fil[propRoot + '_range_from'], fil[propRoot + '_range_to']))) {
-                                return false;
-                            }
-                        } else {
-                            if (!(_.includes(_.lowerCase(findProperty(inf, prop)), _.lowerCase(fil[prop])))) {
-                                return false;
-                            }
-                        }
-
-                    }
-                }
-            }
-            return true;
-        };
-
-        return influencers.filter(function(influencer) {
-            return loopThrough(filter, influencer);
-        });
     }
 
     render() {

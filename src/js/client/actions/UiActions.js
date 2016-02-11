@@ -1,6 +1,8 @@
 import AppConstants from '../constants/constants';
 import { dispatch } from '../dispatcher/dispatcher';
 import influencerService from '../services/InfluencerService';
+import projectService from '../services/ProjectService';
+import listService from '../services/ListService';
 
 export default {
     initialize() {
@@ -8,6 +10,9 @@ export default {
             actionType: AppConstants.INITIALIZE
         });
     },
+
+    // Influencer Actions
+
     refreshInfluencerList() {
         influencerService
             .list()
@@ -58,16 +63,6 @@ export default {
                 });
             });
     },
-    addUser(user) {
-        dispatch({
-            actionType: AppConstants.ADD_USER, user
-        });
-    },
-    updateUser(user) {
-        dispatch({
-            actionType: AppConstants.UPDATE_USER, user
-        });
-    },
     addInfluencerToList(influencer) {
         dispatch({
             actionType: AppConstants.ADD_INFLUENCER_TO_LIST, influencer
@@ -81,6 +76,64 @@ export default {
     updateFilters(filters) {
         dispatch({
             actionType: AppConstants.UPDATE_FILTERS, filters
+        });
+    },
+
+     // Project Actions
+
+    updateProject(project) {
+        projectService.update(project)
+            .then((response) => {
+                if (response.status !== 204) {
+                    throw new Error('An error occurred while updating the project');
+                }
+                return projectService.find(project._id);
+            })
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                dispatch({
+                    actionType: AppConstants.UPDATE_PROJECT,
+                    project: data
+                });
+            });
+    },
+    setCurrentProject(id) {
+        dispatch({
+            actionType: AppConstants.SET_CURRENT_PROJECT, id
+        });
+    },
+    addListToProject(lid, pid) {
+        // TODO add action to DB, it's currently in the Project Store (as it's impacting project list)
+        dispatch({
+            actionType: AppConstants.ADD_LIST_TO_PROJECT, lid, pid
+        });
+    },
+
+    // List Actions
+
+    refreshLists() {
+        listService
+            .list()
+            .then((lists) => {
+                dispatch({
+                    actionType: AppConstants.REFRESH_LISTS,
+                    lists: lists
+                });
+            });
+    },
+
+    // User actions
+
+    addUser(user) {
+        dispatch({
+            actionType: AppConstants.ADD_USER, user
+        });
+    },
+    updateUser(user) {
+        dispatch({
+            actionType: AppConstants.UPDATE_USER, user
         });
     }
 };

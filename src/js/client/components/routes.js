@@ -9,8 +9,8 @@ import ProfilePage from './influencers/ProfilePage';
 import Login from './login';
 import ProjectSearchPage from './projects/projectSearch/projectSearchPage';
 import ProjectPage from './projects/project/projectPage';
-import Lists from './lists/listsSearchPage';
-import List from './lists/list';
+import ListSearchPage from './lists/listStart/listsSearchPage';
+import ListPage from './lists/list/listPage';
 import PreferencesPage from './preferences/PreferencesPage';
 import AccountEditPage from './preferences/accounts/AccountEditPage';
 import InfluencerPrefsPage from './preferences/influencers/influencerPrefsPage';
@@ -33,7 +33,6 @@ export default (
                 <Route path="projects" name="Projects">
 					<IndexRoute component={ProjectSearchPage} />
 					<Route path="project/:id" component={ProjectPage} name="Edit" />
-
 				</Route>
 				<Route path="search" name="Search">
 					<IndexRoute component={SearchStart} />
@@ -43,8 +42,10 @@ export default (
 						<Route path="profile/:id" component={ProfilePage} name="Profile" />
 					</Route>
 				</Route>
-				<Route path="lists" component={Lists} name="Lists" />
-				<Route path="list/:id" component={List} name="List" />
+				<Route path="lists" name="Lists">
+					<IndexRoute component={ListSearchPage} />
+					<Route path="list/:id" component={ListPage} name="List" />
+				</Route>
 				<Route path="preferences" component={PreferencesPage} name="Preferences">
 					<Route path="accounts" name="Account">
 						<IndexRoute component={AccountEditPage}/>

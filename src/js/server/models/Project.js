@@ -76,7 +76,7 @@ var Project = new Schema({
         date: Date
     }],
     /**
-     * The influencers who have been assigned to the project.
+     * The individual influencers who have been assigned to the project.
      */
     influencers: [{
         influencer: {
@@ -86,6 +86,10 @@ var Project = new Schema({
         client_approved: Boolean,
         influencer_approved: Boolean
     }],
+    /**
+     * The lists of influencers who have been assigned to the project.
+     */
+    lists: [String],
     /**
      * The approval status of the project.
      */
