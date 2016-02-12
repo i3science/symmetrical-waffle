@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import _ from 'lodash';
 
-import Actions from '../../../actions/UIActions';
+import Actions from '../../../actions/UiActions';
 import listStore from '../../../stores/ListStore';
 
 import ListResults from './listresults';
@@ -51,10 +51,8 @@ class ListPage extends React.Component {
                 let keyword = _.lowerCase(item.name);
                 return keyword.indexOf(_.lowerCase(this.state.filter.keyword)) > -1;
             }.bind(this));
-            console.log('found');
         } else {
             this.state.listResults = [];
-            console.log('emptied');
         }
         this.setState({listResults: this.state.listResults});
     }
@@ -68,7 +66,6 @@ class ListPage extends React.Component {
     }
 
     render() {
-        console.log(this.props);
         var keyword = this.state.filter.keyword;
         return (
             <div>

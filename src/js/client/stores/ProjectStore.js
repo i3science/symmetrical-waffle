@@ -26,10 +26,8 @@ class ProjectStore extends BaseStore {
                 break;
             case AppConstants.UPDATE_PROJECT:
                 if (_.find(this.projects, {_id: action.project._id})) {
-                    console.log(this.projects);
                     _.remove(this.projects, {_id: action.project._id});
                     this.projects.push(action.project);
-                    console.log(this.projects);
                 }
                 this.emitChange();
                 break;

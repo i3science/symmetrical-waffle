@@ -13,6 +13,7 @@ import InfluencerCardList from '../../influencers/list/CardList';
 import SelectedInfluencers from '../../results/selectedInfluencers';
 
 import DatePicker from 'material-ui/lib/date-picker/date-picker';
+//import Calendar from
 
 
 
@@ -64,7 +65,6 @@ class ProjectPage extends React.Component {
         }
         if (this.state.influencers.length === 0) {
             if (this.state.project.influencers.length > 0) {
-                console.log(this.state.project.influencers);
                 this.state.project.influencers.map(item => {
                     let influencer = influencerStore.getInfluencerById(item.influencer);
                     if (influencer && !_.find(this.state.influencers, influencer)) {
@@ -76,7 +76,6 @@ class ProjectPage extends React.Component {
         }
     }
     _handleChange(event) {
-        console.log(event.target);
         let value = event.target.value;
         let name = event.target.id;
         if (event.target.type === 'number') {
@@ -89,14 +88,12 @@ class ProjectPage extends React.Component {
             value = event.target.id;
             name = event.target.name;
         }
-        console.log(name);
         if (!event.target.dataset.parent) {
             this.state.project[name] = value;
         } else {
             this.state.project[event.target.dataset.parent][name] = value;
         }
         this.setState({project: this.state.project});
-        console.log(this.state.project);
     }
 
     _addCheckpoint(checkpoint, parent, event) {
@@ -122,8 +119,6 @@ class ProjectPage extends React.Component {
 
     _addList(event) {
         event.preventDefault();
-        //Actions.setCurrentProject(this.state.project._id);
-        //console.log(projectStore.getCurrentProject());
         this.props.history.pushState({project: this.state.project}, '/lists');
     }
 
@@ -131,6 +126,8 @@ class ProjectPage extends React.Component {
         return (
             <div>
                 <div className="card-panel">
+                    <Calendar
+                    />
                     <DatePicker
                         defaultValue="11/11/1111"
                         value={this.state.controlledDate}

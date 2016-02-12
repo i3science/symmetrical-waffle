@@ -40,7 +40,6 @@ class ListPage extends React.Component {
         }
     }
     render() {
-        console.log(this.state.influencers);
         return (
             <div>
                 <div className="card-panel z-depth-4">
