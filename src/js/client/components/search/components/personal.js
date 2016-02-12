@@ -12,19 +12,31 @@ const Personal = (props) => {
                 {props.minimal && !props.personal.sex ? null :
                 <div className={'col ' + (props.minimal ? 's12' : 's3')}>
                     <InputSelect
-                        id="personal_sex"
+                        id="sex"
                         label="Gender"
                         val={props.personal.sex}
+                        parent={props.parent}
                         options={['Male', 'Female', 'Vampire', 'Other']}
                         onChange={props.onChange}
                     />
                 </div>}
-                {props.minimal && !props.personal.age ? null :
+                {props.minimal && (!props.personal.age_range_from || !props.personal.age_range_to) ? null :
                 <div className={'col ' + (props.minimal ? 's12' : 's3')}>
                     <InputText
-                        id="personal_age"
-                        label="Age"
-                        val={props.personal.age}
+                        id="age_range_from"
+                        label="Age from"
+                        col="s6"
+                        val={props.personal.age_range_from}
+                        parent={props.parent}
+                        active={true}
+                        onChange={props.onChange}
+                    />
+                    <InputText
+                        id="age_range_to"
+                        label="to"
+                        col="s6"
+                        val={props.personal.age_range_to}
+                        parent={props.parent}
                         active={true}
                         onChange={props.onChange}
                     />
@@ -32,9 +44,10 @@ const Personal = (props) => {
                 {props.minimal && !props.personal.married ? null :
                 <div className={'col ' + (props.minimal ? 's12' : 's3')}>
                     <InputSelect
-                        id="personal_married"
+                        id="married"
                         label="Marital Status"
                         val={props.personal.married}
+                        parent={props.parent}
                         options={['Yes', 'No', 'Common Law']}
                         onChange={props.onChange}
                     />
@@ -42,9 +55,10 @@ const Personal = (props) => {
                 {props.minimal && !props.personal.language ? null :
                 <div className={'col ' + (props.minimal ? 's12' : 's3')}>
                     <InputSelect
-                        id="personal_language"
+                        id="language"
                         label="Primary Language"
                         val={props.personal.language}
+                        parent={props.parent}
                         options={['English', 'French', 'Spanish', 'Other']}
                         onChange={props.onChange}
                     />
@@ -52,9 +66,10 @@ const Personal = (props) => {
                 {props.minimal && !props.personal.employment ? null :
                 <div className={'col ' + (props.minimal ? 's12' : 's3')}>
                     <InputSelect
-                        id="personal_employment"
+                        id="employment"
                         label="Employment Status"
                         val={props.personal.employment}
+                        parent={props.parent}
                         options={['Employed', 'Unemployed']}
                         onChange={props.onChange}
                     />
@@ -62,9 +77,10 @@ const Personal = (props) => {
                 {props.minimal && !props.personal.householdIncome ? null :
                 <div className={'col ' + (props.minimal ? 's12' : 's3')}>
                     <InputText
-                        id="personal_householdIncome"
+                        id="householdIncome"
                         label="Household Income"
                         val={props.personal.householdIncome}
+                        parent={props.parent}
                         active={true}
                         onChange={props.onChange}
                     />
@@ -72,9 +88,10 @@ const Personal = (props) => {
                 {props.minimal && !props.personal.ethnicity ? null :
                 <div className={'col ' + (props.minimal ? 's12' : 's3')}>
                     <InputText
-                        id="personal_ethnicity"
+                        id="ethnicity"
                         label="Ethnicity"
                         val={props.personal.ethnicity}
+                        parent={props.parent}
                         active={true}
                         onChange={props.onChange}
                     />
@@ -82,9 +99,10 @@ const Personal = (props) => {
                 {props.minimal && !props.personal.residence ? null :
                 <div className={'col ' + (props.minimal ? 's12' : 's3')}>
                     <InputSelect
-                        id="personal_residence"
+                        id="residence"
                         label="Type of Residence"
                         val={props.personal.residence}
+                        parent={props.parent}
                         options={['House', 'Condo', 'Apartment', 'Other']}
                         onChange={props.onChange}
                     />
@@ -92,9 +110,10 @@ const Personal = (props) => {
                 {props.minimal && !props.personal.city ? null :
                 <div className={'col ' + (props.minimal ? 's12' : 's3')}>
                     <InputText
-                        id="personal_city"
+                        id="city"
                         label="City"
                         val={props.personal.city}
+                        parent={props.parent}
                         active={true}
                         onChange={props.onChange}
                     />
@@ -102,9 +121,10 @@ const Personal = (props) => {
                 {props.minimal && !props.personal.state ? null :
                 <div className={'col ' + (props.minimal ? 's12' : 's3')}>
                     <InputText
-                        id="personal_state"
+                        id="state"
                         label="State/Province"
                         val={props.personal.state}
+                        parent={props.parent}
                         active={true}
                         onChange={props.onChange}
                     />
@@ -112,9 +132,10 @@ const Personal = (props) => {
                 {props.minimal && !props.personal.country ? null :
                 <div className={'col ' + (props.minimal ? 's12' : 's3')}>
                     <InputText
-                        id="personal_country"
+                        id="country"
                         label="Country"
                         val={props.personal.country}
+                        parent={props.parent}
                         active={true}
                         onChange={props.onChange}
                     />

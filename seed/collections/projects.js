@@ -12,6 +12,7 @@ module.exports = function(fixtures) {
             client: fixtures.clients.ford,
             name: 'Ford Christmas Special',
             brief: 'Ford is looking for 8 bloggers to create content to promote their Christmas special.',
+            projectType: 'blogger',
             goals: {
                 engagement: false,
                 reach: true,
@@ -75,6 +76,7 @@ module.exports = function(fixtures) {
                 client_approved: null,
                 influencer_approved: true
             }],
+            lists: [],
             approved: false,
             approved_date: moment().add(5, 'days'),
             active: true
@@ -85,6 +87,7 @@ module.exports = function(fixtures) {
             client: fixtures.clients.ford,
             name: 'Pepsi Thanksgiving',
             brief: 'Ford is looking for 27 bloggers to create content to promote their Thanksgiving special.',
+            projectType: 'blogger',
             goals: {
                 engagement: false,
                 reach: true,
@@ -148,6 +151,7 @@ module.exports = function(fixtures) {
                 client_approved: true,
                 influencer_approved: true
             }],
+            lists: [],
             approved: true,
             approved_date: moment().subtract(3, 'days'),
             active: true
@@ -158,6 +162,7 @@ module.exports = function(fixtures) {
             client: fixtures.clients.crest,
             name: 'Crest Easter Campaign',
             brief: 'Crest is looking for 5 bloggers to promote their brand around Easter',
+            projectType: 'vlogger',
             goals: {
                 engagement: true,
                 reach: true,
@@ -221,6 +226,7 @@ module.exports = function(fixtures) {
                 client_approved: true,
                 influencer_approved: true
             }],
+            lists: [],
             approved: true,
             approved_date: moment().subtract(14, 'days'),
             active: true
@@ -231,6 +237,7 @@ module.exports = function(fixtures) {
             client: fixtures.clients.green_giant,
             name: 'Green Giant Beans',
             brief: 'Green Giant is looking for 182 individuals to engage the public with an uplifting message about beans.',
+            projectType: 'photo_blogger',
             goals: {
                 engagement: true,
                 reach: true,
@@ -294,6 +301,7 @@ module.exports = function(fixtures) {
                 client_approved: true,
                 influencer_approved: false
             }],
+            lists: [],
             approved: true,
             approved_date: moment().subtract(53, 'days'),
             active: true

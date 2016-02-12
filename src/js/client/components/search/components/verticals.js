@@ -1,5 +1,5 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
-import CheckBox from '../elements/checkbox';
+import CheckBox from '../../elements/checkbox';
 import _ from 'lodash';
 
 var verticalsCollection = [
@@ -81,12 +81,12 @@ var verticalsCollection = [
     }
 ];
 
-const Verticals = (props) => {
+const Verticals2 = (props) => {
     if (!props.verticals) {
         return <div></div>;
     }
-    let verticals = verticalsCollection.map(item => {
-        let children = item.verts.map(child => {
+    let verticals = verticalsCollection.map((item, index) => {
+        let children = item.verts.map((child, cindex) => {
             let checked = '';
             let filterIndex = _.includes(props.verticals, child.label);
             if (filterIndex) {
@@ -100,9 +100,10 @@ const Verticals = (props) => {
             } else {
                 return (
                     <CheckBox
-                        key={child.id}
-                        id={'verticals_' + child.id}
+                        key={cindex}
+                        id={child.id}
                         label={child.label}
+                        parent={props.parent}
                         onChange={props.onChange}
                         checked={checked}
                     />
@@ -113,7 +114,7 @@ const Verticals = (props) => {
         });
         if (props.minimal) {
             return (
-                <div key={item.name} className="col s12">
+                <div key={index} className="col s12">
                     <div className="col s12">
                         {children}
                     </div>
@@ -121,7 +122,7 @@ const Verticals = (props) => {
             );
         } else {
             return (
-                <div key={item.name} className="col s3">
+                <div key={index} className="col s3">
                     <h6 className="teal-text">{item.name}</h6>
                     {children}
                 </div>
@@ -137,4 +138,4 @@ const Verticals = (props) => {
     );
 };
 
-export default Verticals;
+export default Verticals2;

@@ -67,8 +67,7 @@ class SearchStart extends React.Component {
                     <div className="row center-align">
                         <h4 className="grey-text text-darken-2">Find an Influencer</h4>
                         <div className="col s6" style={{float: 'none', margin: '50px auto'}}>
-                            <Link to="search" className="waves-effect waves-light btn-large left"><i className="material-icons right">playlist_add</i>Start a Project</Link>
-                            <Link to="search/influencer" className="waves-effect waves-light btn-large right"><i className="material-icons right">search</i>Free Form Search</Link>
+                            <Link to="search/influencer" className="waves-effect waves-light btn-large"><i className="material-icons right">search</i>Free Form Search</Link>
                             <div className="clearfix"></div>
                             <div className="col s12" style={{marginTop: '50px'}}>
                                 <InputText

@@ -1,8 +1,8 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 import { Link } from 'react-router';
-import Personal from './personal';
+import Personal from './../../search/components/personal';
 import Audience from './audience';
-import Verticals from '../../search/verticals';
+import Verticals from '../../search/components/verticals';
 import InputText from '../../elements/inputtext';
 import CheckBox from '../../elements/checkbox';
 

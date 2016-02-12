@@ -5,9 +5,8 @@ import InputText from '../../elements/inputtext';
 import CheckBox from '../../elements/checkbox';
 import projectActions from '../../../actions/ProjectActions';
 import projectStore from '../../../stores/ProjectStore';
-import moment from 'moment';
 import { list_filter } from '../../../../shared/projects.js';
-import ProjectResults from './projectResults'
+import ProjectResults from './projectResults';
 
 class ProjectPage extends React.Component {
     constructor() {
@@ -73,7 +72,9 @@ class ProjectPage extends React.Component {
                 <div className="card-panel z-depth-4">
                     <div className="row center-align">
                         <h4 className="grey-text text-darken-2">Find a Project</h4>
-                        <div className="col s10" style={{margin: '0 auto', float: 'none'}}>
+                        <div className="col s10" style={{margin: '50px auto', float: 'none'}}>
+                            <Link to="search" className="waves-effect waves-light btn-large"><i className="material-icons right">playlist_add</i>Start a Project</Link>
+                            <div className="clearfix"></div>
                             <div className="row" style={{marginTop: '50px'}}>
                                 <div className="col s6">
                                     <InputText
