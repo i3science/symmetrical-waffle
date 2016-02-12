@@ -3,6 +3,7 @@ import CampaignElementActions from '../../actions/CampaignElementActions';
 import campaignElementStore from '../../stores/CampaignElementStore';
 import Card from '../common/Card';
 import Tasks from './Tasks';
+import Comments from './Comments';
 
 export default class ElementPage extends React.Component {
     constructor() {
@@ -56,8 +57,7 @@ export default class ElementPage extends React.Component {
 
                 {this.renderElementContent()}
 
-                <Card title="Chat Log">
-                </Card>
+                <Comments project={this.props.params.id} element={this.state.element} />
             </div>
         );
     }

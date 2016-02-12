@@ -2,11 +2,11 @@ import taskService from '../services/TaskService.js';
 import ErrorUtils from '../utils/ErrorUtils';
 
 /**
- * The CampaignElementController is responsible for interpreting client requests
+ * The TaskController is responsible for interpreting client requests
  * and formatting a response back to the client, often delegating to an
  * CampaignElementService instance.
  */
-export default class CampaignElementController {
+export default class TaskController {
     /**
      * Retrieves zero or more entities that adhere to the given criteria.
      */

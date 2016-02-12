@@ -1,6 +1,7 @@
 import projectController from '../../controllers/ProjectController';
 import campaignElementController from '../../controllers/CampaignElementController';
 import taskController from '../../controllers/TaskController';
+import commentController from '../../controllers/CommentController';
 import authenticationController from '../../controllers/AuthenticationController';
 
 module.exports = function(app) {
@@ -32,6 +33,14 @@ module.exports = function(app) {
 
     app.route('/api/projects/:projectId/elements/:elementId/assignees')
         .get(authenticationController.hasRole(['organizer','client']), campaignElementController.listAssignees);
+
+    app.route('/api/projects/:projectId/elements/:elementId/comments')
+        .get(authenticationController.hasRole(['organizer','client']), commentController.list)
+        .post(authenticationController.hasRole(['organizer','client']), commentController.create);
+    app.route('/api/projects/:projectId/elements/:elementId/comments/:commentId')
+        .get(authenticationController.hasRole(['organizer','client']), commentController.read)
+        .put(authenticationController.hasRole(['organizer']), commentController.update)
+        .delete(authenticationController.hasRole(['organizer']), commentController.delete);
 
     app.param('projectId', projectController.findById);
     app.param('elementId', campaignElementController.findById);
