@@ -62,6 +62,10 @@ module.exports = exports = function auditingPlugin(schema) {
         next();
     });
 
+    schema.post('init', function(){
+        this._original = this;
+    });
+
     schema.post('save', function(doc, next){
         var ignoreList = ['__v','__id'];
 

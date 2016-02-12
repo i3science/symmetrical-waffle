@@ -9,17 +9,11 @@ let History = mongoose.model('History');
 export default class HistoryService {
     /**
      * Retrieve a list of audit events for the given entity type and id.
-     * @param type The type of entity history is being requested for
-     * @param id The id of the entity history is being requested for
-     * @param children Whether or not to return history for children of the
-     *         entity as well
+     * @param opts
      */
-    static list(type, id/*, children*/) {
+    static list(opts) {
         return History
-            .find({
-                'eventable.type': type,
-                'eventable.id': id
-            })
+            .find(opts || {})
             .populate('created_by')
             .populateHistoryTarget()
             .exec();

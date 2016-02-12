@@ -9,12 +9,12 @@ let Task = mongoose.model('Task');
 export default class TaskService {
     /**
      * Retrieve zero or more tasks that match the given options.
-     * @param element The element to find tasks for
+     * @param opts 
      * @todo Document available options
      */
-    static list(element) {
+    static list(opts) {
         return Task
-            .find({ element: element })
+            .find(opts || {})
             .populate('assignee')
             .exec();
     }

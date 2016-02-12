@@ -12,7 +12,7 @@ export default class TaskController {
      */
     static list(req, res) {
         return taskService
-            .list(req.element._id)
+            .list({ element: req.element._id })
             .then((tasks) => {
                 return res.json(tasks);
             })

@@ -30,7 +30,7 @@ export default class History extends React.Component {
     renderChildren() {
         return this.state.history.map((item) => {
             return (
-                <tr>
+                <tr key={item._id}>
                     <td className="right-align">{ moment(item.created_at).format('DD-MMM-YYYY') }</td>
                     <td><strong>{ item.created_by.name.first } { item.created_by.name.last }:</strong> { item.action } { item.eventable.type } { item.target }</td>
                 </tr>
@@ -43,7 +43,9 @@ export default class History extends React.Component {
         }
         return (
             <table style={{borderWidth: 0}}>
-                { this.renderChildren() }
+                <tbody>
+                    { this.renderChildren() }
+                </tbody>
             </table>
         );
     }
