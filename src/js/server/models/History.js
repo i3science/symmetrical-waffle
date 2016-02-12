@@ -28,14 +28,25 @@ var History = new Schema({
         type: String,
         required: true
     },
-    target_id: {
-        type: Schema.Types.ObjectId,
-        index: true
-    },
-    target_type: {
+    summary: {
         type: String,
-        required: true,
-        index: true
+        required: true
+    },
+    target: {
+        type: String,
+        required: true
+    },
+    eventable: {
+        id: {
+            type: Schema.Types.ObjectId,
+            required: true,
+            index: true
+        },
+        type: {
+            type: String,
+            required: true,
+            index: true
+        }
     },
     changes: [{
         field: {
@@ -49,7 +60,7 @@ var History = new Schema({
         before: Schema.Types.Mixed,
         after: Schema.Types.Mixed
     }]
-});
+}, { strict: false });
 
 mongoose.model('History', History);
 module.exports = History;

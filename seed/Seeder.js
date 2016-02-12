@@ -5,14 +5,6 @@ var
     extend = require('mongoose-schema-extend'),
     domain = require('domain'),
     context = require('request-context'),
-    organizationService = require('./../src/js/server/services/OrganizationService.js').default,
-    organizerService = require('./../src/js/server/services/OrganizerService.js').default,
-    userService = require('./../src/js/server/services/UserService.js').default,
-    influencerService = require('./../src/js/server/services/InfluencerService.js').default,
-    projectService = require('./../src/js/server/services/ProjectService.js').default,
-    listService = require('./../src/js/server/services/ListService.js').default,
-    clientService = require('./../src/js/server/services/ClientService.js').default,
-    representativeService = require('./../src/js/server/services/RepresentativeService.js').default,
     async = require('async'),
     chalk = require('chalk'),
     glob = require('glob'),
@@ -67,6 +59,7 @@ let _populate = () => {
         'influencers',
         'clients',
         'projects',
+        'campaign-elements',
         'lists'
     ]
         .forEach((type) => {

@@ -3,7 +3,7 @@ var context = require('request-context'),
     mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
-module.exports = exports = function auditingPlugin(schema, options) {
+module.exports = exports = function auditingPlugin(schema) {
 
     function action(before, after) {
         if (!before && after) {
@@ -56,9 +56,14 @@ module.exports = exports = function auditingPlugin(schema, options) {
                 this._original = doc;
             }.bind(this));
         }
+        this.organization = context.get('request:currentOrganization');
         this.updated = new Date();
         this.updated_by = context.get('request:currentUser');
         next();
+    });
+
+    schema.post('init', function(){
+        this._original = this;
     });
 
     schema.post('save', function(doc, next){
@@ -79,8 +84,12 @@ module.exports = exports = function auditingPlugin(schema, options) {
         var history = new History;
         history.created_by = context.get('request:currentUser');
         history.action = action(before, after);
-        history.target_id = this._id;
-        history.target_type = this.constructor.modelName;
+        history.summary = action(before, after);
+        history.target = this.name || this.text || this._id || 'invalid';
+        history.eventable = {
+            id: this._id,
+            type: this.constructor.modelName
+        };
         history.changes = [];
 
         diff.forEach(function(delta){
@@ -120,4 +129,4 @@ module.exports = exports = function auditingPlugin(schema, options) {
             next();
         });
     });
-}
+};

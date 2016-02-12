@@ -1,5 +1,5 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
-import CheckBox from '../../elements/checkbox';
+import CheckBox from '../../common/input/checkbox';
 import _ from 'lodash';
 
 var mediumCollection = [

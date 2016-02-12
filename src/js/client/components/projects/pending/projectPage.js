@@ -3,12 +3,10 @@ import { Link } from 'react-router';
 import _ from 'lodash';
 
 import Actions from '../../../actions/UiActions';
-import projectStore from '../../../stores/ProjectStore';
 import influencerStore from '../../../stores/InfluencerStore';
 import searchStore from '../../../stores/SearchStore';
 import listStore from '../../../stores/ListStore';
-
-import ProjectParams from './projectParams';
+import ProjectParams from './../common/ProjectParams';
 import InfluencerCardList from '../../influencers/list/CardList';
 import SelectedInfluencers from '../../results/selectedInfluencers';
 
@@ -23,9 +21,8 @@ class ProjectPage extends React.Component {
         super();
         this.state = {
             controlledDate: null,
-            project: {},
             checkpoints: {},
-            influencers: [],
+            influencers: null,
             exposures: 150000000,
             colors: searchStore.getColors()
         };
@@ -37,13 +34,12 @@ class ProjectPage extends React.Component {
 
         this.shandleChange = this.shandleChange.bind(this);
     }
-    componentWillMount() {
+    componentDidMount() {
         influencerStore.addChangeListener(this._onChange);
         listStore.addChangeListener(this._onChange);
         Actions.refreshInfluencerList();
         Actions.refreshLists();
-        this.state.project = projectStore.getProjectById(this.props.params.id);
-        this.setState({project: this.state.project, controlledDate: '11/11/1111'});
+        this.setState({ controlledDate: '11/11/1111' });
     }
     componentWillUnmount() {
         influencerStore.removeChangeListener(this._onChange);
@@ -51,8 +47,14 @@ class ProjectPage extends React.Component {
     }
 
     _onChange() {
-        if (this.state.project.lists) {
-            let listResults = listStore.getInfluencersFromList(this.state.project.lists);
+        this.setState({ 
+            influencers: influencerStore.getInfluencers()
+        });
+        if (!this.props.project) {
+            return;
+        }
+        if (this.props.project.lists) {
+            let listResults = listStore.getInfluencersFromList(this.props.project.lists);
             if (listResults) {
                 listResults.map(item => {
                     let influencer = influencerStore.getInfluencerById(item);
@@ -63,9 +65,12 @@ class ProjectPage extends React.Component {
                 this.setState({influencers: this.state.influencers});
             }
         }
+        if (!this.state.influencers) {
+            return;
+        }
         if (this.state.influencers.length === 0) {
-            if (this.state.project.influencers.length > 0) {
-                this.state.project.influencers.map(item => {
+            if (this.props.project.influencers.length > 0) {
+                this.props.project.influencers.map(item => {
                     let influencer = influencerStore.getInfluencerById(item.influencer);
                     if (influencer && !_.find(this.state.influencers, influencer)) {
                         this.state.influencers.push(influencer);
@@ -89,20 +94,18 @@ class ProjectPage extends React.Component {
             name = event.target.name;
         }
         if (!event.target.dataset.parent) {
-            this.state.project[name] = value;
+            this.props.project[name] = value;
         } else {
-            this.state.project[event.target.dataset.parent][name] = value;
+            this.props.project[event.target.dataset.parent][name] = value;
         }
-        this.setState({project: this.state.project});
     }
 
     _addCheckpoint(checkpoint, parent, event) {
         event.preventDefault();
         $('#' + parent + '_container').hide();
         $('#add-check, #add-check i').show();
-        this.state.project[parent].push(checkpoint);
+        this.props.project[parent].push(checkpoint);
         this.setState({
-            project: this.state.project,
             checkpoints: {}
         });
     }
@@ -119,15 +122,27 @@ class ProjectPage extends React.Component {
 
     _addList(event) {
         event.preventDefault();
-        this.props.history.pushState({project: this.state.project}, '/lists');
+        this.props.history.pushState({project: this.props.project}, '/lists');
+    }
+
+    getProjectInfluencers() {
+        let influencers = [];
+        this.props.project.influencers.map(item => {
+            if (influencerStore.getInfluencerById(item.influencer)) {
+                influencers.push(influencerStore.getInfluencerById(item.influencer));
+            }
+        });
+        return influencers;
     }
 
     render() {
+        if (!this.state.influencers) {
+            return (<p>Loading influencers...</p>);
+        }
+        let projectInfluencers = this.getProjectInfluencers();
         return (
             <div>
                 <div className="card-panel">
-                    <Calendar
-                    />
                     <DatePicker
                         defaultValue="11/11/1111"
                         value={this.state.controlledDate}
@@ -136,7 +151,7 @@ class ProjectPage extends React.Component {
                     />
                 </div>
                 <ProjectParams
-                    project={this.state.project}
+                    project={this.props.project}
                     onChange={this._handleChange}
                     addList={this._addList}
                     addCheckpoint={this._addCheckpoint}
@@ -144,15 +159,15 @@ class ProjectPage extends React.Component {
                     newCheckpoints={this.state.checkpoints}
                 />
                 <SelectedInfluencers
-                    selectedInfluencers={this.state.influencers}
+                    selectedInfluencers={projectInfluencers}
                     //addInfluencer={this.addInfluencerToList}
                     colors={this.state.colors}
-                    exposures={this.state.project.required_impressions}
+                    exposures={this.props.project.required_impressions}
                     resultNum={this.state.influencers.length} />
                 <Link to="" className="btn right" onClick={this._addList}>Add Lists</Link>
                 <div className="clearfix"></div>
                 <InfluencerCardList
-                    influencers={this.state.influencers}
+                    influencers={projectInfluencers}
                     //addToList={this.addToList}
                     //selectedInfluencers={this.state.influencers}
                     //onSelectionChanged={this._onSelectionChanged}

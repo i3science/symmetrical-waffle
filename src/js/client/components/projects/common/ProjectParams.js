@@ -1,12 +1,11 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
-import ProjectDates from './projectDates';
-import ProjectType from './projectType';
-import InputTextArea from '../../elements/inputtextarea';
-import CheckBox from '../../elements/checkbox';
-import InputText from '../../elements/inputtext';
+import ProjectDates from './ProjectDates';
+import ProjectType from './ProjectType';
+import InputTextArea from '../../common/input/inputtextarea';
+import CheckBox from '../../common/input/checkbox';
+import InputText from '../../common/input/inputtext';
 
-const Project = (props) => {
-
+export default (props) => {
     return (
         <div className="card-panel z-depth-4">
 
@@ -157,5 +156,3 @@ const Project = (props) => {
         </div>
     );
 };
-
-export default Project;

@@ -20,15 +20,15 @@ class ProjectStore extends BaseStore {
                 this.projects = action.projects;
                 this.emitChange();
                 break;
-            case AppConstants.SET_CURRENT_PROJECT:
-                this.currentProjectId = action.id;
-                this.emitChange();
-                break;
             case AppConstants.UPDATE_PROJECT:
                 if (_.find(this.projects, {_id: action.project._id})) {
                     _.remove(this.projects, {_id: action.project._id});
                     this.projects.push(action.project);
                 }
+                this.emitChange();
+                break;
+            case AppConstants.GET_PROJECT:
+                this.currentProject = action.project;
                 this.emitChange();
                 break;
         }
@@ -43,7 +43,7 @@ class ProjectStore extends BaseStore {
         return _.find(this.projects, { _id: id });
     }
     getCurrentProject() {
-        return this.currentProjectId;
+        return this.currentProject;
     }
 }
 

@@ -41,7 +41,7 @@ class ProjectService {
         project = new Project(project);
         return project
             .savePromise()
-            .spread((project) => {
+            .then((project) => {
                 return project;
             })
             .fail((err) => {
