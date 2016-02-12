@@ -30,6 +30,10 @@ var Project = new Schema({
      */
     brief: String,
     /**
+     * The type of campaign.
+     */
+    projectType: String,
+    /**
      * The intended effects of the campaign.
      */
     goals: {

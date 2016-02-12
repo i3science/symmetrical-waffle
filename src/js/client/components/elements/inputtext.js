@@ -28,7 +28,7 @@ const InputText = (props) => {
                 value={props.val ? props.val : ''}
                 data-parent={props.parent || null}
                 onChange={props.onChange ? props.onChange.bind(this) : null}
-                style={props.width ? {width: props.width} : null}
+                style={props.style || null}
             />
             {suffix || ''}
             <label

@@ -76,19 +76,27 @@ class ProjectPage extends React.Component {
         }
     }
     _handleChange(event) {
+        console.log(event.target);
         let value = event.target.value;
+        let name = event.target.id;
         if (event.target.type === 'number') {
             value = Number(value);
         }
         if (event.target.type === 'checkbox') {
             value = event.target.checked;
         }
+        if (event.target.type === 'radio') {
+            value = event.target.id;
+            name = event.target.name;
+        }
+        console.log(name);
         if (!event.target.dataset.parent) {
-            this.state.project[event.target.id] = value;
+            this.state.project[name] = value;
         } else {
-            this.state.project[event.target.dataset.parent][event.target.id] = value;
+            this.state.project[event.target.dataset.parent][name] = value;
         }
         this.setState({project: this.state.project});
+        console.log(this.state.project);
     }
 
     _addCheckpoint(checkpoint, parent, event) {

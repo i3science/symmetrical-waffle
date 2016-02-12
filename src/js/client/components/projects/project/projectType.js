@@ -1,7 +1,7 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
-import _ from 'lodash';
+import Radio from '../../elements/radio';
 
-var mediumCollection = [
+var projectTypeCollection = [
     {
         id: 'blogger',
         label: 'Blogger'
@@ -11,7 +11,7 @@ var mediumCollection = [
         label: 'Vlogger'
     },
     {
-        id: 'photoblogger',
+        id: 'photo_blogger',
         label: 'Photo Blogger'
     },
     {
@@ -21,35 +21,25 @@ var mediumCollection = [
 ];
 
 const ProjectType = (props) => {
-    if (!props.mediums) {
+    if (!props.val) {
         return <div></div>;
     }
-    let mediums = mediumCollection.map(item => {
-        let checked = '';
-        let filterIndex = _.includes(props.mediums, item.label);
-        if (filterIndex) {
-            checked = 'checked';
-        } else {
-            checked = '';
-        }
+    let projectType = projectTypeCollection.map(item => {
         return (
-            <div key={item.id} className={'col ' + (props.minimal ? 's12' : 's3')}>
-                {props.minimal && !checked ? null :
-                    <CheckBox
-                        id={item.id}
-                        label={item.label}
-                        parent={props.parent}
-                        onChange={props.onChange}
-                        checked={checked}
-                    />}
-            </div>
+            <Radio
+                key={item.id}
+                id={item.id}
+                name="projectType"
+                label={item.label}
+                parent={props.parent}
+                onChange={props.onChange}
+                checked={item.id === props.val}
+            />
         );
     });
     return (
-        <div className="row">
-            <div className={props.minimal ? 'col s12' : ''}>
-                {mediums}
-            </div>
+        <div className={props.minimal ? 'col s12' : ''}>
+            {projectType}
         </div>
     );
 };
