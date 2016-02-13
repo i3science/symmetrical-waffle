@@ -1,5 +1,5 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
-import Radio from '../../elements/radio';
+import Radio from '../../common/input/radio';
 
 var projectTypeCollection = [
     {
