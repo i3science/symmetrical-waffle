@@ -9,8 +9,8 @@ import projectController from '../../controllers/ProjectController';
  * history controller to understand where to grab comments from.
  */
 export default(/*name*/) => {
-    let router = express.Router();
-    router.route('/')
-        .get(authenticationController.hasRole(['organizer','client']), projectController.history);
-    return router;
+   let router = express.Router();
+   router.route('/')
+       .get(authenticationController.hasRole(['organizer','client']), projectController.history);
+   return router;
 };
