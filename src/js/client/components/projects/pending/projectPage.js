@@ -125,21 +125,11 @@ class ProjectPage extends React.Component {
         this.props.history.pushState({project: this.props.project}, '/lists');
     }
 
-    getProjectInfluencers() {
-        let influencers = [];
-        this.props.project.influencers.map(item => {
-            if (influencerStore.getInfluencerById(item.influencer)) {
-                influencers.push(influencerStore.getInfluencerById(item.influencer));
-            }
-        });
-        return influencers;
-    }
-
     render() {
+        console.log(this.props.project);
         if (!this.state.influencers) {
             return (<p>Loading influencers...</p>);
         }
-        let projectInfluencers = this.getProjectInfluencers();
         return (
             <div>
                 <div className="card-panel">
@@ -159,7 +149,7 @@ class ProjectPage extends React.Component {
                     newCheckpoints={this.state.checkpoints}
                 />
                 <SelectedInfluencers
-                    selectedInfluencers={projectInfluencers}
+                    selectedInfluencers={this.state.influencers}
                     //addInfluencer={this.addInfluencerToList}
                     colors={this.state.colors}
                     exposures={this.props.project.required_impressions}
@@ -167,7 +157,7 @@ class ProjectPage extends React.Component {
                 <Link to="" className="btn right" onClick={this._addList}>Add Lists</Link>
                 <div className="clearfix"></div>
                 <InfluencerCardList
-                    influencers={projectInfluencers}
+                    influencers={this.state.influencers}
                     //addToList={this.addToList}
                     //selectedInfluencers={this.state.influencers}
                     //onSelectionChanged={this._onSelectionChanged}

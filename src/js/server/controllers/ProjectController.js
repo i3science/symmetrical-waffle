@@ -11,26 +11,26 @@ export default base_controller(projectService, 'project', {
      * Return the history of modifications for an existing project.
      */
     history(req, res) {
-        let history = [];
+        let historyArray = [];
         let elementIds = [];
         return historyService
             .list({ 'eventable.type': 'Project', 'eventable.id': req.project._id })
             .then((projectHistory) => {
-                history = history.concat(projectHistory);
+                historyArray = historyArray.concat(projectHistory);
                 return campaignElementService
                     .list({ project: req.project._id });
             })
-            // Get element history
+            // Get element historyArray
             .then((elements) => {
                 elementIds = elements.map((el) => { return el._id; });
                 return historyService
                     .list({ 'eventable.type': 'CampaignElement', 'eventable.id': { $in: elementIds } });
             })
             .then((elementHistory) => {
-                history = history.concat(elementHistory);
+                historyArray = historyArray.concat(elementHistory);
                 return true;
             })
-            // Get task history
+            // Get task historyArray
             .then(() => {
                 return taskService
                     .list({ element: elementIds });
@@ -41,7 +41,7 @@ export default base_controller(projectService, 'project', {
                     .list({ 'eventable.type': 'Task', 'eventable.id': { $in: ids } });
             })
             .then((taskHistory) => {
-                history = history.concat(taskHistory);
+                historyArray = historyArray.concat(taskHistory);
                 return commentService
                     .list({ target_type: 'CampaignElement', target_id: { $in: elementIds }});
             })
@@ -51,9 +51,9 @@ export default base_controller(projectService, 'project', {
                     .list({ 'eventable.type': 'Comment', 'eventable.id': { $in: ids }});
             })
             .then((commentHistory) => {
-                history = history.concat(commentHistory);
-                history = _.sortBy(history, (val) => { return new Date(val.created_at); });
-                return res.jsonp(history);
+                historyArray = historyArray.concat(commentHistory);
+                historyArray = _.sortBy(historyArray, (val) => { return new Date(val.created_at); });
+                return res.jsonp(historyArray);
             });
     }
 });

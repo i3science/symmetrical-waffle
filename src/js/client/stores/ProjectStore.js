@@ -40,7 +40,7 @@ class ProjectStore extends BaseStore {
     getProjectById(id) {
         // TODO If the influencer doesn't exist, attempt to get it from the
         // server
-        return _.find(this.projects, { _id: id });
+        return _.find(this.projects, {_id: id});
     }
     getCurrentProject() {
         return this.currentProject;
