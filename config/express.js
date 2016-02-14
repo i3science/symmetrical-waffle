@@ -170,7 +170,7 @@ module.exports = function(db) {
     });
 
     // Globbing routing files
-    config.getGlobbedFiles('./src/js/server/routes/**/*.js').forEach(function(routePath) {
+    config.getGlobbedFiles('./src/js/server/routes/**/*Routes.js').forEach(function(routePath) {
         require(path.resolve(routePath))(app);
     });
 
