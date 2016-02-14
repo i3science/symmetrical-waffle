@@ -1,7 +1,9 @@
+import config from '../../../../../config/config';
 import projectController from '../../controllers/ProjectController';
 import campaignElementController from '../../controllers/CampaignElementController';
 import taskController from '../../controllers/TaskController';
 import commentController from '../../controllers/CommentController';
+import assetController from '../../controllers/AssetController';
 import authenticationController from '../../controllers/AuthenticationController';
 
 module.exports = function(app) {
@@ -42,7 +44,16 @@ module.exports = function(app) {
         .put(authenticationController.hasRole(['organizer']), commentController.update)
         .delete(authenticationController.hasRole(['organizer']), commentController.delete);
 
+    app.route('/api/projects/:projectId/assets')
+        .get(authenticationController.hasRole(['organizer','client']), assetController.list)
+        .post(authenticationController.hasRole(['organizer','client']), config.uploader.single('file'), assetController.create);
+    app.route('/api/projects/:projectId/assets/:assetId')
+        .get(authenticationController.hasRole(['organizer','client']), assetController.read)
+        .put(authenticationController.hasRole(['organizer']), config.uploader.single('file'), assetController.update)
+        .delete(authenticationController.hasRole(['organizer']), assetController.delete);
+
     app.param('projectId', projectController.findById);
     app.param('elementId', campaignElementController.findById);
     app.param('taskId', taskController.findById);
+    app.param('assetId', assetController.findById);
 };

@@ -1,5 +1,7 @@
 'use strict';
 
+var multer = require('multer');
+
 module.exports = {
   db: {
     uri: (process.env.MONGO_BASE || 'mongodb://localhost/') + 'smp',
@@ -23,5 +25,15 @@ module.exports = {
   },
   app: {
     title: 'Social Marketplace - Development Edition'
-  }
+  },
+  tmpDir: path.resolve('/tmp/'),
+  filesDir: path.resolve(__dirname, '../../tmp/files'),
+  uploadsDir: path.resolve('/tmp/uploads'),
+  uploader: multer({
+    dest: path.resolve('/tmp/uploads/'),
+    limits: {
+        fileSize: 10000000,
+        files: 1
+    }
+  })
 };

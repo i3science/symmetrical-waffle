@@ -3,6 +3,7 @@ import { dispatch } from '../dispatcher/dispatcher';
 import influencerService from '../services/InfluencerService';
 import projectService from '../services/ProjectService';
 import listService from '../services/ListService';
+import assetService from '../services/AssetService';
 
 export default {
     initialize() {
@@ -135,5 +136,18 @@ export default {
         dispatch({
             actionType: AppConstants.UPDATE_USER, user
         });
+    },
+
+    // Asset actions
+
+    findAssetsForProject(project) {
+        assetService
+            .list(project)
+            .then((assets) => {
+                dispatch({
+                    actionType: AppConstants.REFRESH_ASSETS,
+                    assets: assets
+                });
+            });
     }
 };

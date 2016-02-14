@@ -1,5 +1,7 @@
 import React from 'react';
 
+import ProjectAssets from './ProjectAssets';
+
 import ProjectParams from './../common/ProjectParams';
 import CampaignElements from './../common/CampaignElements';
 
@@ -8,9 +10,6 @@ import History from '../../common/History';
 
 const ProjectCalendar = () => {
     return (<Card><p>Loading calendar...</p></Card>);
-};
-const ProjectAssets = () => {
-    return (<Card title="Digital Assets"><p>Loading assets...</p></Card>);
 };
 
 class ActiveProjectPage extends React.Component {

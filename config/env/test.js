@@ -2,7 +2,8 @@
 
 var pickupTransport = require('nodemailer-pickup-transport'),
     fs = require('fs'),
-    path = require('path');
+    path = require('path'),
+    multer = require('multer');
 
 var mailPath = path.resolve(__dirname, '../../tmp/mail');
 fs.access(mailPath, fs.F_OK, function(err) {
@@ -36,5 +37,15 @@ module.exports = {
   },
   app: {
     title: 'Social Marketplace - Development Edition'
-  }
+  },
+  tmpDir: path.resolve(__dirname, '../../tmp'),
+  filesDir: path.resolve(__dirname, '../../tmp/files'),
+  uploadsDir: path.resolve(__dirname, '../../tmp/uploads'),
+  uploader: multer({
+    dest: path.resolve(__dirname, '../../tmp/uploads/'),
+    limits: {
+        fileSize: 10000000,
+        files: 1
+    }
+  })
 };
