@@ -49,6 +49,9 @@ export default {
     // History
     GET_HISTORY: 'GET_HISTORY',
 
+    // Assets
+    REFRESH_ASSETS: 'REFRESH_ASSETS',
+
     // Security-specific
     PASSWORD_RESET_REQUESTED: 'PASSWORD_RESET_REQUESTED',
     USER_FOUND_BY_RESET: 'USER_FOUND_BY_RESET'
