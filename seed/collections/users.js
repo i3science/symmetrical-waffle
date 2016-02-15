@@ -13,6 +13,24 @@ module.exports = function(fixtures) {
             email: 'admin@smp.com',
             password: 'admin123',
             roles: ['admin']
+        }),
+        thomas: new User({
+            name: {
+                first: 'Thomas',
+                last: 'Wilson'
+            },
+            email: 'thomas@thomaspwilson.com',
+            password: 'twilson123',
+            roles: ['admin']
+        }),
+        derek: new User({
+            name: {
+                first: 'Derek',
+                last: 'Bois'
+            },
+            email: 'derekabois@gmail.com',
+            password: 'derek123',
+            roles: ['admin']
         })
     };
 

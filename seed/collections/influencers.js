@@ -375,6 +375,95 @@ module.exports = function(fixtures) {
                 ethnicity: 'Caucasion'
             },
             mediums: ['Blogger', 'Photo Blogger', 'Amplifier']
+        }),
+
+        //
+        // Cornelius Elias
+        //
+        cornelius: new Influencer({
+            amplifier: false,
+            hasImage: false,
+            name: {
+                first: 'Cornelius',
+                last: 'Elias'
+            },
+            email: 'celias@example.com',
+            reach: [{
+                medium: 'facebook',
+                value: 282658
+            }, {
+                medium: 'twitter',
+                value: 7824468
+            }, {
+                medium: 'pinterest',
+                value: 0
+            }, {
+                medium: 'instagram',
+                value: 435562
+            }, {
+                medium: 'youtube',
+                value: 88526
+            }, {
+                medium: 'blog',
+                value: 2465894
+            }, {
+                medium: 'googleplus',
+                value: 32466
+            }],
+            mediaKit: [{
+                name: 'Creator - Vlog',
+                price: 20000
+            }, {
+                name: 'Creator - Blog',
+                price: 5000
+            }, {
+                name: 'Blog Post',
+                price: 2000
+            }, {
+                name: 'Instagram Post',
+                price: 500
+            }, {
+                name: 'Twitter Post',
+                price: 500
+            }, {
+                name: 'Facebook Post',
+                price: 500
+            }, {
+                name: 'Pinterest Post',
+                price: 500
+            }, {
+                name: 'Social Amplification Post',
+                price: 500
+            }],
+            verticals: ['Art & Culture', 'Fitness'],
+            audience: {
+                male: 90,
+                female: 10,
+                language: 'Norwegian',
+                ageFrom: 18,
+                ageTo: 35,
+                married: true,
+                country: 'Norway',
+                state: 'Svalbard',
+                city: 'Longyearbyen',
+                residence: 'House',
+                householdIncome: 50000,
+                ethnicity: 'Caucasian'
+            },
+            personal: {
+                sex: 'Male',
+                language: 'Norwegian',
+                age: 28,
+                married: 'Yes',
+                kids: [],
+                country: 'Norway',
+                state: 'Svalbard',
+                city: 'Longyearbyen',
+                residence: 'House',
+                householdIncome: 50000,
+                ethnicity: 'Caucasian'
+            },
+            mediums: ['Blogger', 'Photo Blogger', 'Amplifier']
         })
     };
 
