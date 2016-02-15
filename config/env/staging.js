@@ -1,6 +1,7 @@
 'use strict';
 
-var multer = require('multer');
+var path = require('path'),
+    multer = require('multer');
 
 module.exports = {
   db: {
