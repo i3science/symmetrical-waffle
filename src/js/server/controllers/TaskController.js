@@ -10,5 +10,13 @@ export default base_controller(taskService, 'task', {
                 return res.json(tasks);
             })
             .fail(ErrorUtils.failureHandler(req, res));
+    },
+    create(req, res) {
+        return taskService
+            .create(req.element, req.body)
+            .spread((task) => {
+                return res.status(201).send({ id: task._id });
+            })
+            .fail(ErrorUtils.failureHandler(req, res));
     }
 });

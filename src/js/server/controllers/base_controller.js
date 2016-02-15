@@ -17,12 +17,12 @@ import ErrorUtils from '../utils/ErrorUtils';
  *         extending methods to add to the newly-created controller.
  * @returns {Object} The controller implementation including extensions.
  */
-export default (service, middleware_name, extensions) => {
+export default function(service, middleware_name, extensions) {
     return _.extend({
         /**
          * Retrieves zero or more entities that adhere to the given criteria.
          */
-        list(req, res) {
+        list: function(req, res) {
             return service
                 .list({})
                 .then((entities) => {
@@ -31,15 +31,22 @@ export default (service, middleware_name, extensions) => {
                 .fail(ErrorUtils.failureHandler(req, res));
         },
         /**
+         * Perform any sanitization on incoming data. Useful for preventing
+         * folks from overriding roles, user auth data, etc.
+         */
+        sanitize: function(obj) {
+            return obj;
+        },
+        /**
          * Retrieves the entitiy indicated by the clientId request parameter.
          */
-        read(req, res) {
+        read: function(req, res) {
             return res.json(req[middleware_name]);
         },
         /**
          * Creates a new client account with the given information.
          */
-        create(req, res) {
+        create: function(req, res) {
             let obj = this.sanitize(req.body);
             return service
                 .create(obj)
@@ -51,7 +58,7 @@ export default (service, middleware_name, extensions) => {
         /**
          * Updates an existing client account with the given modifications.
          */
-        update(req, res) {
+        update: function(req, res) {
             let obj = this.sanitize(req.body);
             return service
                 .update(req[middleware_name], obj)
@@ -63,7 +70,7 @@ export default (service, middleware_name, extensions) => {
         /**
          * Delete an existing client account.
          */
-        delete(req, res) {
+        delete: function(req, res) {
             return service
                 .remove(req[middleware_name])
                 .spread(() => {
@@ -75,7 +82,7 @@ export default (service, middleware_name, extensions) => {
         /**
          * Client middleware
          */
-        findById(req, res, next, id) {
+        findById: function(req, res, next, id) {
             service
                 .findOne({ _id: id })
                 .then((entity) => {
@@ -85,14 +92,6 @@ export default (service, middleware_name, extensions) => {
                 .fail((err) => {
                     return next(err);
                 });
-        },
-
-        /**
-         * Perform any sanitization on incoming data. Useful for preventing
-         * folks from overriding roles, user auth data, etc.
-         */
-        sanitize(obj) {
-            return obj;
         }
     }, extensions);
-};
+}

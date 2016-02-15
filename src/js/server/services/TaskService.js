@@ -11,7 +11,7 @@ export default base_service(Task, {
     },
     create(element, task) {
         task = new Task(task);
-        task.element = element;
+        task.element = element._id || element;
         return task.savePromise();
     }
 });
