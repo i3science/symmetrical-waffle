@@ -8,25 +8,22 @@ const InputSelect = (props) => {
         return <option key={item} value={item}>{item}</option>;
     });
     return (
-        <div className={'col '+ (props.col ? props.col : 's12')}>
-
-            <div style={{
-                    borderBottom: '1px solid #9e9e9e',
-                    margin: '0 0 15px 0'
-                    }}>
-                <label htmlFor={props.id} className={props.color ? props.color + '-text' : 'teal-text'}>{props.label}</label>
-                <select
-                    id={props.id}
-                    name={props.label}
-                    className="browser-default"
-                    style={props.val ? {} : {color: 'rgba(0,0,0,0.23)', fontWeight: '500'}}
-                    defaultValue={props.val ? props.val : ''}
-                    data-parent={props.parent || null}
-                    onChange={props.onChange.bind(this)}>
-                    <option value="" disabled>{props.placeholder ? props.placeholder : ''}</option>
-                    {selectOptions}
-                </select>
-            </div>
+        <div style={{
+                borderBottom: '1px solid #9e9e9e',
+                margin: '0 0 15px 0'
+                }}>
+            <label htmlFor={props.id} className={props.color ? props.color + '-text' : 'teal-text'}>{props.label}</label>
+            <select
+                id={props.id}
+                name={props.label}
+                className="browser-default"
+                style={props.val ? {} : {color: 'rgba(0,0,0,0.23)', fontWeight: '500'}}
+                defaultValue={props.val ? props.val : ''}
+                data-parent={props.parent || null}
+                onChange={props.onChange.bind(this)}>
+                <option value="" disabled={props.placeholder ? 'disabled' : ''}>{props.placeholder ? props.placeholder : ''}</option>
+                {selectOptions}
+            </select>
         </div>
     );
 };

@@ -3,6 +3,7 @@ export default {
 
     // Filter-specific
     UPDATE_FILTERS: 'UPDATE_FILTERS',
+    RESET_FILTERS: 'RESET_FILTERS',
 
     // User-specific
     ADD_USER: 'ADD_USER',

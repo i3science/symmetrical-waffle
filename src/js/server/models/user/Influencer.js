@@ -14,10 +14,15 @@ require('mongoose-schema-extend'); // This should not need to be here, but seedi
 var Influencer = User.extend({
     amplifier: Boolean,
     hasImage: Boolean,
-    reach: [{
-        medium: String,
-        value: Number
-    }],
+    channels: {
+        facebook: Number,
+        twitter: Number,
+        pinterest: Number,
+        instagram: Number,
+        youtube: Number,
+        blog: Number,
+        googleplus: Number
+    },
     mediaKit: [{
         name: String,
         price: Number

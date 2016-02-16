@@ -2,7 +2,7 @@ import React from 'react'; // eslint-disable-line no-unused-vars
 import { Link } from 'react-router';
 import _ from 'lodash';
 
-import Reach from './reach';
+import Channels from './channels';
 import Verticals from './verticals';
 import Score from './score';
 import Work from './work';
@@ -160,8 +160,8 @@ const Profile = (props) => {
                         </div>
                         <div className="row">
                             <div className="col s9">
-                                <Reach
-                                    reach={influencer.reach}
+                                <Channels
+                                    channels={influencer.channels}
                                     col="s4"
                                 />
                             </div>

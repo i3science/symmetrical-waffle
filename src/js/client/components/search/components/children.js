@@ -38,7 +38,7 @@ const Children = (props) => {
             checked = '';
         }
         return (
-            <div key={item.id} className={'col ' + (props.minimal ? 's12' : 's3')}>
+            <div key={item.id} className={'col ' + (props.minimal ? 's12' : 's2')}>
                 {props.minimal && !checked ? null :
                     <CheckBox
                         id={item.id}

@@ -48,9 +48,7 @@ const Medium = (props) => {
     });
     return (
         <div className="row">
-            <div className={props.minimal ? 'col s12' : ''}>
-                {mediums}
-            </div>
+            {mediums}
         </div>
     );
 };

@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import Score from '../profile/score';
 import MediaKit from '../profile/mediakit';
 import Audience from '../profile/audience';
-import Reach from '../profile/reach';
+import Channels from '../profile/channels';
 import Verticals from '../profile/verticals';
 
 /**
@@ -92,8 +92,8 @@ class InfluencerCard extends React.Component {
                                 </div>
                                 <div className="row" style={{marginBottom:'0',marginTop:'20px'}}>
                                     <div className="col s12">
-                                        <Reach
-                                            reach={influencer.reach}
+                                        <Channels
+                                            channels={influencer.channels}
                                         />
                                     </div>
                                 </div>

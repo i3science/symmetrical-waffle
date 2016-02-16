@@ -1,5 +1,4 @@
 import React from 'react';
-import Verticals from './../components/verticals';
 import Personal from '../components/personal';
 import Medium from '../components/medium';
 import Children from '../components/children';
@@ -15,6 +14,7 @@ class Filters extends React.Component {
                 <Personal
                     onChange={this.props.onChange}
                     personal={this.props.filters.personal}
+                    verticals={this.props.filters.verticals}
                     parent="personal"
                     minimal={this.props.minimal || false}
                 />
@@ -34,12 +34,7 @@ class Filters extends React.Component {
                 />
                 <hr />
                 <h5 className="teal-text">Verticals</h5>
-                <Verticals
-                    onChange={this.props.onChange}
-                    verticals={this.props.filters.verticals}
-                    parent="verticals"
-                    minimal={this.props.minimal || false}
-                />
+
             </div>
         );
     }

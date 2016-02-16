@@ -17,28 +17,15 @@ module.exports = function(fixtures) {
                 last: 'O\'Brien'
             },
             email: 'sob@something.com',
-            reach: [{
-                medium: 'facebook',
-                value: 673875
-            }, {
-                medium: 'twitter',
-                value: 234765
-            }, {
-                medium: 'pinterest',
-                value: 123500
-            }, {
-                medium: 'instagram',
-                value: 35480
-            }, {
-                medium: 'youtube',
-                value: 4563345
-            }, {
-                medium: 'blog',
-                value: 13215321
-            }, {
-                medium: 'googleplus',
-                value: 7960
-            }],
+            channels: {
+                facebook: 673875,
+                twitter: 234765,
+                pinterest: 123500,
+                instagram: 35480,
+                youtube: 4563345,
+                blog: 13215321,
+                googleplus: 7960
+            },
             mediaKit: [{
                 name: 'Creator - Vlog',
                 price: 20000
@@ -113,28 +100,15 @@ module.exports = function(fixtures) {
                 last: 'Bois'
             },
             email: 'derekb@awesome.com',
-            reach: [{
-                medium: 'facebook',
-                value: 12673875
-            }, {
-                medium: 'twitter',
-                value: 1234765
-            }, {
-                medium: 'pinterest',
-                value: 123500
-            }, {
-                medium: 'instagram',
-                value: 315480
-            }, {
-                medium: 'youtube',
-                value: 4563345
-            }, {
-                medium: 'blog',
-                value: 13215321
-            }, {
-                medium: 'googleplus',
-                value: 7960
-            }],
+            channels: {
+                facebook: 673875,
+                twitter: 234765,
+                pinterest: 123500,
+                instagram: 35480,
+                youtube: 4563345,
+                blog: 13215321,
+                googleplus: 7960
+            },
             mediaKit: [{
                 name: 'Creator - Vlog',
                 price: 20000
@@ -203,28 +177,15 @@ module.exports = function(fixtures) {
                 last: 'Greene'
             },
             email: 'ava@example.com',
-            reach: [{
-                medium: 'facebook',
-                value: 654635
-            }, {
-                medium: 'twitter',
-                value: 76545
-            }, {
-                medium: 'pinterest',
-                value: 9888
-            }, {
-                medium: 'instagram',
-                value: 76856
-            }, {
-                medium: 'youtube',
-                value: 987788
-            }, {
-                medium: 'blog',
-                value: 13276321
-            }, {
-                medium: 'googleplus',
-                value: 8888
-            }],
+            channels: {
+                facebook: 673875,
+                twitter: 234765,
+                pinterest: 123500,
+                instagram: 35480,
+                youtube: 4563345,
+                blog: 13215321,
+                googleplus: 7960
+            },
             mediaKit: [{
                 name: 'Creator - Vlog',
                 price: 20000
@@ -299,28 +260,15 @@ module.exports = function(fixtures) {
                 last: 'Stone'
             },
             email: 'jordan@example.com',
-            reach: [{
-                medium: 'facebook',
-                value: 573875
-            }, {
-                medium: 'twitter',
-                value: 534765
-            }, {
-                medium: 'pinterest',
-                value: 23500
-            }, {
-                medium: 'instagram',
-                value: 95480
-            }, {
-                medium: 'youtube',
-                value: 563345
-            }, {
-                medium: 'blog',
-                value: 3215321
-            }, {
-                medium: 'googleplus',
-                value: 97960
-            }],
+            channels: {
+                facebook: 673875,
+                twitter: 234765,
+                pinterest: 123500,
+                instagram: 35480,
+                youtube: 4563345,
+                blog: 13215321,
+                googleplus: 7960
+            },
             mediaKit: [{
                 name: 'Creator - Vlog',
                 price: 20000
@@ -388,28 +336,15 @@ module.exports = function(fixtures) {
                 last: 'Elias'
             },
             email: 'celias@example.com',
-            reach: [{
-                medium: 'facebook',
-                value: 282658
-            }, {
-                medium: 'twitter',
-                value: 7824468
-            }, {
-                medium: 'pinterest',
-                value: 0
-            }, {
-                medium: 'instagram',
-                value: 435562
-            }, {
-                medium: 'youtube',
-                value: 88526
-            }, {
-                medium: 'blog',
-                value: 2465894
-            }, {
-                medium: 'googleplus',
-                value: 32466
-            }],
+            channels: {
+                facebook: 673875,
+                twitter: 234765,
+                pinterest: 123500,
+                instagram: 35480,
+                youtube: 4563345,
+                blog: 13215321,
+                googleplus: 7960
+            },
             mediaKit: [{
                 name: 'Creator - Vlog',
                 price: 20000

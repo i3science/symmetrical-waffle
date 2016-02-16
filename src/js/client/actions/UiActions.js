@@ -79,6 +79,11 @@ export default {
             actionType: AppConstants.UPDATE_FILTERS, filters
         });
     },
+    resetFilters() {
+        dispatch({
+            actionType: AppConstants.RESET_FILTERS
+        });
+    },
 
      // Project Actions
 

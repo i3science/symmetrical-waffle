@@ -1,7 +1,7 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 import { Link } from 'react-router';
 import InputText from '../../common/input/inputtext';
-import ProjectCheckpoint from './projectCheckpoint';
+import ProjectCheckpoint from '../common/ProjectCheckpoint';
 import moment from 'moment';
 
 const ProjectCheckpoints = (props) => {

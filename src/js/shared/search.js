@@ -10,14 +10,13 @@ export function compare(filter, item) {
     let findProperty = (target, prop) => {
         if (target.hasOwnProperty(prop)) {
             return target[prop];
-        } else {
-            for (var props in target) {
-                if (target.hasOwnProperty(props) && target[props].hasOwnProperty(prop)) {
-                    if ((typeof target[props] === 'object') && !Array.isArray(target[props])) {
-                        return findProperty(target[props], prop);
-                    } else {
-                        return false;
-                    }
+        }
+        for (var props in target) {
+            if (target.hasOwnProperty(props) && target[props].hasOwnProperty(prop)) {
+                if ((typeof target[props] === 'object') && !Array.isArray(target[props])) {
+                    return findProperty(target[props], prop);
+                } else {
+                    return false;
                 }
             }
         }
@@ -42,8 +41,12 @@ export function compare(filter, item) {
                         if (!(compareRange(findProperty(inf, propRoot), fil[propRoot + '_range_from'], fil[propRoot + '_range_to']))) {
                             return false;
                         }
+                    } else if (['sex','employment'].indexOf(prop) !== -1) {
+                        if (!(findProperty(inf, prop) === fil[prop]) && (fil[prop] !== '')) {
+                            return false;
+                        }
                     } else {
-                        if (!(_.includes(_.lowerCase(findProperty(inf, prop)), _.lowerCase(fil[prop])))) {
+                        if (!(prop === 'type') && !(_.includes(_.lowerCase(findProperty(inf, prop)), _.lowerCase(fil[prop])))) {
                             return false;
                         }
                     }
