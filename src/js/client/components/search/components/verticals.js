@@ -81,7 +81,7 @@ var verticalsCollection = [
     }
 ];
 
-const Verticals2 = (props) => {
+const Verticals = (props) => {
     if (!props.verticals) {
         return <div></div>;
     }
@@ -109,27 +109,15 @@ const Verticals2 = (props) => {
                     />
                 );
             }
-
-
         });
-        if (props.minimal) {
-            return (
-                <div key={index} className="col s12">
-                    <div className="col s12">
-                        {children}
-                    </div>
-                </div>
-            );
-        } else {
-            return (
-                <div key={index} className="col s3">
-                    <h6 className="teal-text">{item.name}</h6>
-                    {children}
-                </div>
-            );
-        }
-
-
+        return (
+            <div key={index} className={'col ' + (props.minimal ? 's12' : 's3')}>
+                {props.minimal ? null :
+                    <p className="teal-text">{item.name}</p>
+                }
+                {children}
+            </div>
+        );
     });
     return (
         <div className="row">
@@ -138,4 +126,4 @@ const Verticals2 = (props) => {
     );
 };
 
-export default Verticals2;
+export default Verticals;

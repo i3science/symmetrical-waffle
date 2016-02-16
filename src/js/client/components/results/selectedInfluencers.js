@@ -54,7 +54,7 @@ class SelectedInfluencers extends React.Component {
                 numIndex = Number(numIndex.substr(numIndex.length - 1));
             }
             let val = Number();
-            item.reach.map(i => {
+            item.channels.map(i => {
                 val += i.value;
             });
             pieces.push({

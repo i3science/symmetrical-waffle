@@ -7,9 +7,12 @@ class SearchStore extends BaseStore {
         super();
         this.filters = {
             personal: {},
+            audience: {},
             mediums: [],
             verticals: [],
-            children: []
+            children: [],
+            channels: {},
+            type: 'influencer'
         };
         this.results = [];
         this.colors = [
@@ -38,6 +41,17 @@ class SearchStore extends BaseStore {
                 break;
             case AppConstants.UPDATE_FILTERS:
                 this.filters = action.filters;
+                this.emitChange();
+                break;
+            case AppConstants.RESET_FILTERS:
+                this.filters = {
+                    personal: {},
+                    audience: {},
+                    mediums: [],
+                    verticals: [],
+                    children: [],
+                    channels: {}
+                };
                 this.emitChange();
                 break;
         }

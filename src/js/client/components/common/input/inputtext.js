@@ -17,7 +17,8 @@ const InputText = (props) => {
         >{props.suffix}</div>;
     }
     return (
-        <div className={'input-field' + ((props.col === false) ? '' : (props.col ? (' col ' + props.col) : ' col s12'))}>
+        <div className="input-field row" style={{marginBottom: '0'}}>
+            <div className="col s12">
             {prefix || ''}
             <input
                 type={props.type ? props.type : 'text'}
@@ -35,6 +36,7 @@ const InputText = (props) => {
                 htmlFor={props.id}
                 className={((props.val || props.active) ? 'active ' : '') + (props.color ? props.color + '-text' : 'teal-text')}
             >{props.label}</label>
+                </div>
         </div>
     );
 };

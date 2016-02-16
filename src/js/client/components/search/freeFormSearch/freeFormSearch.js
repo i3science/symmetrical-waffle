@@ -4,7 +4,9 @@ import { compare } from '../../../../shared/search.js';
 import influencerStore from '../../../stores/InfluencerStore';
 import searchStore from '../../../stores/SearchStore';
 import Actions from '../../../actions/UiActions';
-import Filters from './filters';
+import Personal from '../components/personal';
+import Audience from '../components/audience';
+import Radio from '../../common/input/radio';
 
 class SearchPage extends React.Component {
     constructor() {
@@ -14,10 +16,12 @@ class SearchPage extends React.Component {
             filters: searchStore.getFilters(),
             results: searchStore.getResults()
         };
-        this._onChange = this._onChange.bind(this);
-        this._reset = this._reset.bind(this);
-        this._cancel = this._cancel.bind(this);
         this._handleChange = this._handleChange.bind(this);
+        this._changeType = this._changeType.bind(this);
+        this._onChange = this._onChange.bind(this);
+        this._cancel = this._cancel.bind(this);
+        this._expand = this._expand.bind(this);
+        this._reset = this._reset.bind(this);
     }
 
     componentWillMount() {
@@ -63,23 +67,16 @@ class SearchPage extends React.Component {
         }
         this.setState({filters: this.state.filters});
         Actions.updateFilters(this.state.filters);
+        console.log(this.state.filters);
         Actions.updateResults(compare(this.state.filters, this.state.influencers));
     }
 
     _reset(event) {
-        event.preventDefault();
+        if (event) {
+            event.preventDefault();
+        }
 
-        this.state.filters.personal = {};
-        this.state.filters.mediums = [];
-        this.state.filters.verticals = [];
-        this.setState({
-            filters: {
-                personal: this.state.filters.personal,
-                mediums: this.state.filters.mediums,
-                verticals: this.state.filters.verticals
-            }
-        });
-        Actions.updateFilters(this.state.filters);
+        Actions.resetFilters();
     }
 
     _cancel(event) {
@@ -88,13 +85,69 @@ class SearchPage extends React.Component {
         this.props.history.goBack();
     }
 
+    _expand(event) {
+        var advanced = document.getElementById('advanced-collapse');
+        if (event.target.checked) {
+            advanced.style.maxHeight = '1000px';
+        } else {
+            advanced.style.maxHeight = '0';
+        }
+    }
+    _changeType(event) {
+        this._reset();
+        this.state.filters.type = event.target.id;
+        this.setState({filters: this.state.filters});
+        Actions.updateFilters(this.state.filters);
+    }
+
     render() {
+        console.log(this.state.results);
         return (
             <div className="card-panel z-depth-4">
-                <Filters
-                    filters={this.state.filters}
-                    onChange={this._handleChange}
-                />
+                <h4>Search Criteria</h4>
+                <div className="left" style={{marginRight: '30px'}}>
+                    <Radio
+                        id="influencer"
+                        name="type"
+                        label="Influencer"
+                        onChange={this._changeType}
+                        checked={this.state.filters.type === 'influencer'}
+                    />
+                </div>
+                <div className="left">
+                    <Radio
+                        id="audience"
+                        name="type"
+                        label="Audience"
+                        onChange={this._changeType}
+                        checked={this.state.filters.type === 'audience'}
+                    />
+                </div>
+                <div className="clearfix"></div>
+                <h6 className="teal-text">I am looking for an {this.state.type}...</h6>
+                <hr />
+                    {(!this.state.filters.type || (this.state.filters.type === 'influencer')) ?
+                        <Personal
+                            onChange={this._handleChange}
+                            expand={this._expand}
+                            personal={this.state.filters.personal}
+                            verticals={this.state.filters.verticals}
+                            mediums={this.state.filters.mediums}
+                            children={this.state.filters.children}
+                            channels={this.state.filters.channels}
+                            parent="personal"
+                        /> :
+                        <Audience
+                            onChange={this._handleChange}
+                            expand={this._expand}
+                            audience={this.state.filters.audience}
+                            verticals={this.state.filters.verticals}
+                            mediums={this.state.filters.mediums}
+                            children={this.state.filters.children}
+                            parent="audience"
+                        />}
+
+
                 <Link to="" className="blue-grey lighten-3 waves-effect waves-light btn btn-flat white-text right"  onClick={this._reset}>Reset</Link>
                 <div className="clearfix"></div>
                 <hr />

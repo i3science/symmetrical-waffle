@@ -2,7 +2,7 @@ import React from 'react';
 import projectActions from '../../actions/ProjectActions';
 import projectStore from '../../stores/ProjectStore';
 
-import PendingProjectPage from './pending/projectPage';
+import PendingProjectPage from './pending/PendingProjectPage';
 import ActiveProjectPage from './active/ActiveProjectPage';
 
 export default class ProjectPage extends React.Component {
