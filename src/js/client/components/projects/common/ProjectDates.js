@@ -2,6 +2,7 @@ import React from 'react'; // eslint-disable-line no-unused-vars
 import { Link } from 'react-router';
 import InputText from '../../common/input/inputtext';
 import ProjectCheckpoint from './ProjectCheckpoint';
+import moment from 'moment';
 
 const ProjectCheckpoints = (props) => {
     if (!props.checkpoints) {
@@ -13,7 +14,8 @@ const ProjectCheckpoints = (props) => {
                 key={index}
                 id={'checkpoints_' + props.phase + '_' + index}
                 label={item.name}
-                val={item.date}
+                parent={'checkpoints_' + props.phase}
+                val={moment(item.date).format('DD/MM/YYYY') || null}
                 onChange={props.onChange}
             />
         );
@@ -34,7 +36,7 @@ const ProjectCheckpoints = (props) => {
                         label={'New '+ props.phase.capitalize() +' Task'}
                         col="s6"
                         val={props.newCheckpoints['checkpoints_' + props.phase + '_newname'] || null}
-                        active={true}
+                        active
                         onChange={props.newDate}
                     />
                     <InputText
@@ -42,7 +44,7 @@ const ProjectCheckpoints = (props) => {
                         label="Date"
                         col="s6"
                         val={props.newCheckpoints['checkpoints_' + props.phase + '_newdate'] || null}
-                        active={true}
+                        active
                         onChange={props.newDate}
                     />
                 </div>

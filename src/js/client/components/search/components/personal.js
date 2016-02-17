@@ -33,7 +33,7 @@ const Personal = (props) => {
                                 label="Age from"
                                 val={props.personal.age_range_from}
                                 parent={props.parent}
-                                active={true}
+                                active
                                 onChange={props.onChange}
                             />
                         </div>
@@ -43,7 +43,7 @@ const Personal = (props) => {
                                 label="to"
                                 val={props.personal.age_range_to}
                                 parent={props.parent}
-                                active={true}
+                                active
                                 onChange={props.onChange}
                             />
                         </div>
@@ -75,7 +75,7 @@ const Personal = (props) => {
                         label="City"
                         val={props.personal.city}
                         parent={props.parent}
-                        active={true}
+                        active
                         onChange={props.onChange}
                     />
                 </div>
@@ -85,7 +85,7 @@ const Personal = (props) => {
                         label="State/Province"
                         val={props.personal.state}
                         parent={props.parent}
-                        active={true}
+                        active
                         onChange={props.onChange}
                     />
                 </div>
@@ -95,7 +95,7 @@ const Personal = (props) => {
                         label="Country"
                         val={props.personal.country}
                         parent={props.parent}
-                        active={true}
+                        active
                         onChange={props.onChange}
                     />
                 </div>
@@ -143,7 +143,7 @@ const Personal = (props) => {
                             label="Household Income"
                             val={props.personal.householdIncome}
                             parent={props.parent}
-                            active={true}
+                            active
                             onChange={props.onChange}
                         />
                     </div>
@@ -153,7 +153,7 @@ const Personal = (props) => {
                             label="Ethnicity"
                             val={props.personal.ethnicity}
                             parent={props.parent}
-                            active={true}
+                            active
                             onChange={props.onChange}
                         />
                     </div>

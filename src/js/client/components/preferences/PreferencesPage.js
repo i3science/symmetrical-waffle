@@ -40,9 +40,9 @@ class PreferencesPage extends React.Component {
                         />
                         <Calendar
                             id="profileDates3"
-                            full={true}
+                            full
                             dates={this.state.dates}
-                            disabled={true}
+                            disabled
                             onChange={this._handleDates}
                         />
                         <Calendar
@@ -54,7 +54,7 @@ class PreferencesPage extends React.Component {
                         <Calendar
                             id="profileDates4"
                             panels="2"
-                            full={true}
+                            full
                             dates={this.state.dates}
                             onChange={this._handleDates}
                         />

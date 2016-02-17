@@ -21,7 +21,7 @@ const Audience = (props) => {
                                 label="Age from"
                                 val={props.audience.ageFrom_range_from}
                                 parent={props.parent}
-                                active={true}
+                                active
                                 onChange={props.onChange}
                             />
                         </div>
@@ -31,7 +31,7 @@ const Audience = (props) => {
                                 label="to"
                                 val={props.audience.ageTo_range_to}
                                 parent={props.parent}
-                                active={true}
+                                active
                                 onChange={props.onChange}
                             />
                         </div>
@@ -65,7 +65,7 @@ const Audience = (props) => {
                         label="City"
                         val={props.audience.city}
                         parent={props.parent}
-                        active={true}
+                        active
                         onChange={props.onChange}
                     />
                 </div>
@@ -75,7 +75,7 @@ const Audience = (props) => {
                         label="State/Province"
                         val={props.audience.state}
                         parent={props.parent}
-                        active={true}
+                        active
                         onChange={props.onChange}
                     />
                 </div>
@@ -85,7 +85,7 @@ const Audience = (props) => {
                         label="Country"
                         val={props.audience.country}
                         parent={props.parent}
-                        active={true}
+                        active
                         onChange={props.onChange}
                     />
                 </div>
@@ -126,7 +126,7 @@ const Audience = (props) => {
                             label="Household Income"
                             val={props.audience.householdIncome}
                             parent={props.parent}
-                            active={true}
+                            active
                             onChange={props.onChange}
                         />
                     </div>

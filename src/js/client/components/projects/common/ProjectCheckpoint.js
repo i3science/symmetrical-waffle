@@ -12,8 +12,7 @@ const ProjectCheckpoint = (props) => {
                 <InputText
                     id={props.id}
                     val={moment(props.val).format('DD/MM/YYYY') || null}
-                    col={false}
-                    active={true}
+                    active
                     onChange={props.onChange}
                 />
             </div>

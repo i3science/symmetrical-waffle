@@ -227,8 +227,8 @@ const Profile = (props) => {
             <div className="card-panel">
                 <Calendar
                     id="profile"
-                    full={true}
-                    disabled={true}
+                    full
+                    disabled
                     dates={influencer.availability}
                 />
             </div>

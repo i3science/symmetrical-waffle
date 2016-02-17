@@ -77,7 +77,7 @@ class SearchStart extends React.Component {
                                     placeholder={__('search.placeholder')}
                                     col="s12"
                                     val={value}
-                                    active={true}
+                                    active
                                     onChange={this.handleChange} />
                                 <h6 id="result-count">{__('search.results_count', {count: this.state.results.length})}</h6>
                                 <Link to="" className="amber accent-3 waves-effect waves-light btn-large center" style={{marginTop: '20px'}} onClick={this.onClick}>{__('search.button')}</Link>

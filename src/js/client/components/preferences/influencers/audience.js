@@ -17,7 +17,7 @@ const Audience = (props) => {
                         class="center-align"
                         col="s6"
                         val={props.audience.male}
-                        active={true}
+                        active
                         onChange={props.onChange}
                     />
                     <InputText
@@ -27,7 +27,7 @@ const Audience = (props) => {
                         class="center-align"
                         col="s6"
                         val={props.audience.female}
-                        active={true}
+                        active
                         onChange={props.onChange}
                     />
                 </div>
@@ -39,7 +39,7 @@ const Audience = (props) => {
                         class="center-align"
                         col="s6"
                         val={props.audience.ageFrom}
-                        active={true}
+                        active
                         onChange={props.onChange}
                     />
                     <InputText
@@ -49,7 +49,7 @@ const Audience = (props) => {
                         class="center-align"
                         col="s6"
                         val={props.audience.ageTo}
-                        active={true}
+                        active
                         onChange={props.onChange}
                     />
                 </div>
@@ -89,7 +89,7 @@ const Audience = (props) => {
                         label="Household Income"
                         prefix="$"
                         val={props.audience.householdIncome}
-                        active={true}
+                        active
                         onChange={props.onChange}
                     />
                 </div>
@@ -98,7 +98,7 @@ const Audience = (props) => {
                         id="audience_ethnicity"
                         label="Ethnicity"
                         val={props.audience.ethnicity}
-                        active={true}
+                        active
                         onChange={props.onChange}
                     />
                 </div>
@@ -118,7 +118,7 @@ const Audience = (props) => {
                         id="audience_city"
                         label="City"
                         val={props.audience.city}
-                        active={true}
+                        active
                         onChange={props.onChange}
                     />
                 </div>
@@ -127,7 +127,7 @@ const Audience = (props) => {
                         id="audience_state"
                         label="State/Province"
                         val={props.audience.state}
-                        active={true}
+                        active
                         onChange={props.onChange}
                     />
                 </div>
@@ -136,7 +136,7 @@ const Audience = (props) => {
                         id="audience_country"
                         label="Country"
                         val={props.audience.country}
-                        active={true}
+                        active
                         onChange={props.onChange}
                     />
                 </div>

@@ -25,28 +25,24 @@ export default class History extends React.Component {
     _onHistoryChange() {
         this.setState({ history: historyStore.getHistory() });
     }
-
-
-    renderChildren() {
-        return this.state.history.map((item) => {
-            return (
-                <tr key={item._id}>
-                    <td className="right-align">{ moment(item.created_at).format('MMM DD, YYYY - h:mma') }</td>
-                    <td><strong>{ item.created_by.name.first } { item.created_by.name.last }:</strong> { item.action } { item.eventable.type } { item.target }</td>
-                </tr>
-            );
-        });
-    }
     render() {
         if (!this.state.history) {
             return (<p>Loading history...</p>);
         }
+        let renderChildren = this.state.history.map((item) => {
+            return (
+                <div key={item._id} className="row">
+                    <div className="col s3 right-align">{ moment(item.created_at).format('MMM DD, YYYY - h:mma') }</div>
+                    <div className="col s9"><strong>{ item.created_by.name.first } { item.created_by.name.last }:</strong> { item.action } { item.eventable.type } { item.target }</div>
+                </div>
+            );
+        });
         return (
-            <table style={{borderWidth: 0}}>
-                <tbody>
-                    { this.renderChildren() }
-                </tbody>
-            </table>
+            <div className="row">
+                <div className="col s12">
+                    {renderChildren}
+                </div>
+            </div>
         );
     }
 }
