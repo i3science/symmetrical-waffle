@@ -1,33 +1,22 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 
-import InputText from '../../common/input/inputtext';
-
 const Channel = (props) => {
     if (!props.channel) {
         return <div></div>;
     }
     return (
-        //        <div key={item.medium} className={'valign-wrapper col ' + (props.col ? props.col : 's3')} style={{height:'40px',marginBottom:'10px'}}>
-        //            <h6 className="valign teal-text">
-        //                <i className="material-icons circle teal lighten-3 white-text"
-        //                   style={{
-        //                       padding:'4px',
-        //                       border:'2px solid #009688',
-        //                       margin:'0 10px'
-        //                   }}>{icon}</i>
-        //                {item.value}
-        //            </h6>
-        //        </div>
-        <div className="col s3" style={{position: 'relative'}}>
+        <div className={'col ' + (props.col ? props.col : 's3')} style={{position: 'relative'}}>
             <div style={{
-                width: '40px',
+                width: '35px',
                 height: '50px',
-                padding: '10px 10px 10px 0',
+                padding: '7px 0',
                 position: 'absolute'
-            }}><img src={'/assets/images/social/' + props.channel + '.png'} style={{width: '100%', opacity: '.4'}} />
+            }}><img src={'/assets/images/social/' + props.channel + '.png'} style={{width: '100%', opacity: '.3'}} />
             </div>
             <div style={{
-                paddingLeft: '40px'
+                paddingLeft: '45px',
+                fontSize: '17px',
+                lineHeight: '1'
             }}><p>{props.channels[props.channel]}</p>
             </div>
         </div>

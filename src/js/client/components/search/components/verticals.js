@@ -96,7 +96,7 @@ const Verticals = (props) => {
             }
 
             if (props.minimal && !checked) {
-                return <div></div>;
+                return <div key={cindex}></div>;
             } else {
                 return (
                     <CheckBox

@@ -7,7 +7,6 @@ import searchStore from '../../stores/SearchStore';
 import Actions from '../../actions/UiActions';
 import InfluencerCardList from '../influencers/list/CardList';
 import SelectedInfluencers from './selectedInfluencers';
-import _ from 'lodash';
 
 class Serp extends React.Component {
     constructor() {
@@ -68,7 +67,6 @@ class Serp extends React.Component {
         }
         this.setState({filters: this.state.filters});
         Actions.updateFilters(this.state.filters);
-        console.log(this.state.filters);
         Actions.updateResults(compare(this.state.filters, this.state.influencers));
     }
 

@@ -9,7 +9,6 @@ const Audience = (props) => {
     if (!props.audience) {
         return <div></div>;
     }
-    console.log(props);
     return (
         <div className="">
             <h5 className="teal-text">Audience</h5>

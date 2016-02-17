@@ -60,7 +60,7 @@ var Influencer = User.extend({
         employment: String
     },
     mediums: [String],
-
+    availability: [String],
     roles: {
         type: Array,
         default: ['influencer']

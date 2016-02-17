@@ -9,6 +9,7 @@ import Work from './work';
 import MediaKit from './mediakit';
 import Personal from './personal';
 import Audience from './audience';
+import Calendar from './calendar';
 
 
 let influencerExtended = {
@@ -141,7 +142,7 @@ const Reviews = (props) => {
 
 const Profile = (props) => {
 
-    // until the influencer object is complete
+    // TODO -- until the influencer object is complete
     let influencer = _.merge(props.influencer, influencerExtended);
 
     return (
@@ -149,26 +150,26 @@ const Profile = (props) => {
             <div className="card-panel z-depth-4">
                 <div className="row" style={{marginBottom: '0'}}>
                     <div className="col s9">
-                        <div className="row">
+                        <div className="row" style={{marginBottom: '0'}}>
                             <div className="col s3">
                                 <img className="circle responsive-img" src={'/assets/images/' + (props.influencer.hasImage ? props.influencer._id : 'default') +'.jpg'} />
                             </div>
                             <div className="col s9">
                                 <h4 className="teal-text" style={{margin: 0}}>{influencer.name.first} {influencer.name.last}</h4>
                                 <h6 className="teal-text">CREATOR{influencer.amplifier ? ' / AMPLIFIER' : ''}</h6>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col s9">
+                                <br />
                                 <Channels
                                     channels={influencer.channels}
                                     col="s4"
                                 />
                             </div>
-                            <div className="col s3" style={{marginTop: '-10px'}}>
-                                <Verticals
-                                    verticals={influencer.verticals}
-                                />
+                        </div>
+                        <div className="row">
+                            <div className="col s12">
+                                <h5>Bio</h5>
+                                <p style={{
+                                border: '1px solid rgba(0,0,0,0.1)',
+                                padding: '10px'}}>{influencer.bio}</p>
                             </div>
                         </div>
                     </div>
@@ -179,23 +180,29 @@ const Profile = (props) => {
                             size="200"
                         />
                         <p className="center teal-text">INFLUENCER SCORE</p>
+                        <Verticals
+                            verticals={influencer.verticals}
+                        />
                     </div>
                 </div>
-
-
             </div>
             <div className="card-panel">
+                <h5>Audience</h5>
+                <br />
                 <div className="row">
-                    <div className="col s8">
-                        <h5>Bio</h5>
-                        <div style={{padding: '0 2%'}}>
-                            <h6 className="grey-text darken-2" style={{margin: '30px 0'}}><i className="material-icons">email</i><span className="teal-text" style={{marginLeft: '10px'}}>{influencer.email}</span></h6>
-                            <h6 className="grey-text darken-2" style={{margin: '30px 0'}}><i className="material-icons">location_on</i><span className="teal-text" style={{marginLeft: '10px'}}>{influencer.personal.city}, {influencer.personal.region}, {influencer.personal.country}</span></h6>
-                            <p>{influencer.bio}</p>
-                        </div>
+                    <div className="col s12">
+                        <Audience
+                            audience={influencer.audience}
+                        />
                     </div>
-                    <div className="col s4 teal white-text" style={{height: '500px'}}>
-                        Calendar
+                </div>
+                <h5>Personal</h5>
+                <br />
+                <div className="row">
+                    <div className="col s12">
+                        <Personal
+                            personal={influencer.personal}
+                        />
                     </div>
                 </div>
             </div>
@@ -218,20 +225,13 @@ const Profile = (props) => {
                 </div>
             </div>
             <div className="card-panel">
-                <h5 style={{marginBottom: '30px'}}>Audience</h5>
-                <div style={{padding: '0 2% 20px'}}>
-                    <Audience
-                        audience={influencer.audience}
-                    />
-                </div>
-                <h5 style={{marginBottom: '30px'}}>Personal</h5>
-                <div style={{padding: '0 2%'}}>
-                    <Personal
-                        personal={influencer.personal}
-                    />
-                </div>
+                <Calendar
+                    id="profile"
+                    full={true}
+                    disabled={true}
+                    dates={influencer.availability}
+                />
             </div>
-
             <div className="card-panel">
                 <h5 style={{marginBottom: '30px'}}>Reviews</h5>
                 <div style={{padding: '0 2%'}}>
