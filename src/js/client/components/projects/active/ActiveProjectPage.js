@@ -60,18 +60,16 @@ class ActiveProjectPage extends React.Component {
                         newDate={this._newDate}
                         newCheckpoints={this.state.checkpoints} />
                 </Card>
-
                 <Card title="Recent Activities">
                     <History type="projects" id={this.props.project._id} children />
                 </Card>
                 <Card title="Dates">
                     <ProjectCalendar project={this.props.project} />
                 </Card>
-
-                <CampaignElements
-                    project={this.props.project} />
-
-
+                <Card title="Campaign Elements">
+                    <CampaignElements
+                        project={this.props.project} />
+                </Card>
                 <Card title="Digital Assets">
                     <ProjectAssets project={this.props.project} />
                 </Card>
