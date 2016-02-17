@@ -156,6 +156,90 @@ select option:disabled {
     height: 2rem;
 }
 
+
+
+
+
+/* <Calendar */
+
+.ui-datepicker-calendar,
+.ui-datepicker-calendar, thead {
+    border: 0;
+}
+.ui-datepicker-header {
+    padding: 5px 0 20px;
+}
+.ui-datepicker-title {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 20px;
+}
+.ui-datepicker-prev span,
+.ui-datepicker-next span {
+    display: none;
+}
+.ui-datepicker-prev {
+    float: left;
+    border: 8px solid transparent;
+    border-right: 12px solid #676767;
+    cursor: pointer;
+}
+.ui-datepicker-next {
+    float: right;
+    border: 8px solid transparent;
+    border-left: 12px solid #676767;
+    cursor: pointer;
+}
+.ui-datepicker-calendar td, th {
+    text-align: center;
+    font-size: 14px;
+    padding: 2% 1px;
+}
+.ui-datepicker-calendar td a,
+.ui-datepicker-calendar td span {
+    text-decoration: none;
+    border-radius: 50%;
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: .60rem 0;
+    width: 40px;
+}
+.ui-datepicker-calendar td span {
+    cursor: default;
+}
+.ui-datepicker-calendar th span {
+    color: rgba(0,0,0,0.3);
+}
+.ui-datepicker-calendar a.ui-state-hover {
+    color: #000;
+}
+.ui-datepicker-calendar td.ui-datepicker-today a {
+    color: #00bfa5;
+    font-weight: 500;
+}
+.ui-datepicker-calendar td.ui-state-highlight a,
+.ui-datepicker-calendar td.ui-state-highlight span {
+    color: rgba(0,0,0,0.4);
+    font-weight: 500;
+    background: #ffca28;
+}
+.ui-datepicker-group {
+    width: 50%;
+    display: inline-block;
+}
+.ui-datepicker-group-first {
+    border-right: 1px solid rgba(0,0,0,0.2);
+    padding-right: 10px;
+}
+.ui-datepicker-group-last {
+    padding-left: 10px;
+}
+.ui-datepicker-multi {
+    width: auto !important;
+}
+/* </Calendar */
+
 @media only screen and (min-width: 993px) {
     .container {
         width: 90%;

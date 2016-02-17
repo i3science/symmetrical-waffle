@@ -138,6 +138,7 @@ gulp.task('package', ['build'], function(){
 gulp.task('watch', function(){
   livereload.listen();
   gulp.watch(config.watch.html, ['start']);
+  gulp.watch(config.watch.css, ['start']);
   gulp.watch(config.watch.js, ['start']);
 });
 

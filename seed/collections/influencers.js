@@ -85,7 +85,17 @@ module.exports = function(fixtures) {
                 pets: [ 'Dog' ],
                 ethnicity: 'Caucasion'
             },
-            mediums: ['Blogger', 'Vlogger', 'Amplifier']
+            mediums: ['Blogger', 'Vlogger', 'Amplifier'],
+            availability: [
+                "02/10/2016",
+                "02/11/2016",
+                "02/12/2016",
+                "02/18/2016",
+                "02/19/2016",
+                "02/22/2016",
+                "02/23/2016",
+                "02/24/2016"
+            ]
         }),
 
         //
@@ -162,7 +172,14 @@ module.exports = function(fixtures) {
                 householdIncome: 90000,
                 ethnicity: 'Caucasion'
             },
-            mediums: ['Blogger', 'Vlogger', 'Amplifier']
+            mediums: ['Blogger', 'Vlogger', 'Amplifier'],
+            availability: [
+                "02/10/2016",
+                "02/11/2016",
+                "02/12/2016",
+                "02/18/2016",
+                "02/19/2016"
+            ]
         }),
 
         //
@@ -245,7 +262,17 @@ module.exports = function(fixtures) {
                 pets: [ 'Dog' ],
                 ethnicity: 'Caucasion'
             },
-            mediums: ['Blogger', 'Vlogger', 'Photo Blogger']
+            mediums: ['Blogger', 'Vlogger', 'Photo Blogger'],
+            availability: [
+                "02/10/2016",
+                "02/11/2016",
+                "02/12/2016",
+                "02/18/2016",
+                "02/19/2016",
+                "02/22/2016",
+                "02/23/2016",
+                "02/24/2016"
+            ]
         }),
 
         //
@@ -322,7 +349,14 @@ module.exports = function(fixtures) {
                 householdIncome: 90000,
                 ethnicity: 'Caucasion'
             },
-            mediums: ['Blogger', 'Photo Blogger', 'Amplifier']
+            mediums: ['Blogger', 'Photo Blogger', 'Amplifier'],
+            availability: [
+                "02/10/2016",
+                "02/11/2016",
+                "02/12/2016",
+                "02/18/2016",
+                "02/19/2016"
+            ]
         }),
 
         //
@@ -398,7 +432,17 @@ module.exports = function(fixtures) {
                 householdIncome: 50000,
                 ethnicity: 'Caucasian'
             },
-            mediums: ['Blogger', 'Photo Blogger', 'Amplifier']
+            mediums: ['Blogger', 'Photo Blogger', 'Amplifier'],
+            availability: [
+                "02/10/2016",
+                "02/11/2016",
+                "02/12/2016",
+                "02/18/2016",
+                "02/19/2016",
+                "02/22/2016",
+                "02/23/2016",
+                "02/24/2016"
+            ]
         })
     };
 

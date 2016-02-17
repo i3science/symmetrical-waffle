@@ -1,12 +1,9 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
-import Verticals from '../search/components/verticals';
 import Personal from '../search/components/personal';
 import Audience from '../search/components/audience';
-import Medium from '../search/components/medium';
 
 class SidebarFilter extends React.Component {
     render() {
-        console.log(this.props);
         return (
             <div>
                 <header className='teal lighten-1 white-text valign-wrapper' style={{height: '40px', marginBottom: '30px'}}>
@@ -24,7 +21,7 @@ class SidebarFilter extends React.Component {
                         minimal={true}
                         parent="personal"
                     /> :
-                        <Audience
+                    <Audience
                         onChange={this.props.onChange}
                         audience={this.props.filters.audience}
                         verticals={this.props.filters.verticals}

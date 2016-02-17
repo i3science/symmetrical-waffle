@@ -67,7 +67,6 @@ class SearchPage extends React.Component {
         }
         this.setState({filters: this.state.filters});
         Actions.updateFilters(this.state.filters);
-        console.log(this.state.filters);
         Actions.updateResults(compare(this.state.filters, this.state.influencers));
     }
 
@@ -101,7 +100,6 @@ class SearchPage extends React.Component {
     }
 
     render() {
-        console.log(this.state.results);
         return (
             <div className="card-panel z-depth-4">
                 <h4>Search Criteria</h4>

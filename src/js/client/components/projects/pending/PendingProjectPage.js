@@ -126,7 +126,6 @@ class ProjectPage extends React.Component {
     }
 
     render() {
-        console.log(this.props.project);
         if (!this.state.influencers) {
             return (<p>Loading influencers...</p>);
         }
