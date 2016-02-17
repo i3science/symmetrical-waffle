@@ -52,43 +52,43 @@ class AccountEditPage extends React.Component {
                                 id="firstname"
                                 label="First Name"
                                 color="teal"
-                                active={true}
+                                active
                             />
                             <InputText
                                 id="lastname"
                                 label="Last Name"
                                 color="teal"
-                                active={true}
+                                active
                             />
                             <InputText
                                 id="email"
                                 label="Email Address"
                                 color="teal"
-                                active={true}
+                                active
                             />
                             <InputText
                                 id="timezone"
                                 label="Time Zone"
                                 color="teal"
-                                active={true}
+                                active
                             />
                             <InputText
                                 id="username"
                                 label="Username"
                                 color="teal"
-                                active={true}
+                                active
                             />
                             <InputText
                                 id="password"
                                 label="Password"
                                 color="teal"
-                                active={true}
+                                active
                             />
                             <InputText
                                 id="confirm"
                                 label="Confirm Password"
                                 color="teal"
-                                active={true}
+                                active
                             />
                             <div className="col 12" style={{float: 'none'}}>
                                 <Link to="" className="blue-grey lighten-3 waves-effect waves-light btn-large">Cancel</Link>

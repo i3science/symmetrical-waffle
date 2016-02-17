@@ -17,23 +17,25 @@ const InputTextArea = (props) => {
         >{props.suffix}</div>;
     }
     return (
-        <div className={'input-field' + ((props.col === false) ? '' : (props.col ? (' col ' + props.col) : ' col s12'))}>
-            {prefix || ''}
-            <textarea
-                type={props.type ? props.type : 'text'}
-                id={props.id}
-                name={props.label}
-                className={(props.class || '') + ' materialize-textarea'}
-                placeholder={props.placeholder ? props.placeholder : ''}
-                value={props.val ? props.val : ''}
-                data-parent={props.parent || null}
-                onChange={props.onChange ? props.onChange.bind(this) : null}>
-            </textarea>
-            {suffix || ''}
-            <label
-                htmlFor={props.id}
-                className={((props.val || props.active) ? 'active ' : '') + (props.color ? props.color + '-text' : 'teal-text')}
-            >{props.label}</label>
+        <div className="input-field row" style={{marginBottom: '0'}}>
+            <div className="col s12">
+                {prefix || ''}
+                <textarea
+                    type={props.type ? props.type : 'text'}
+                    id={props.id}
+                    name={props.label}
+                    className={(props.class || '') + ' materialize-textarea'}
+                    placeholder={props.placeholder ? props.placeholder : ''}
+                    value={props.val ? props.val : ''}
+                    data-parent={props.parent || null}
+                    onChange={props.onChange ? props.onChange.bind(this) : null}>
+                </textarea>
+                {suffix || ''}
+                <label
+                    htmlFor={props.id}
+                    className={((props.val || props.active) ? 'active ' : '') + (props.color ? props.color + '-text' : 'teal-text')}
+                >{props.label}</label>
+            </div>
         </div>
     );
 };

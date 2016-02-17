@@ -15,14 +15,14 @@ const InfluencerManageForm = (props) => {
                         id="name_first"
                         label="First Name"
                         val={props.influencer.name.first}
-                        active={true}
+                        active
                         onChange={props.onChange}
                     />
                     <InputText
                         id="name_last"
                         label="Last Name"
                         val={props.influencer.name.last}
-                        active={true}
+                        active
                         onChange={props.onChange}
                     />
                     <InputText
@@ -30,7 +30,7 @@ const InfluencerManageForm = (props) => {
                         label="Email Address"
                         type="email"
                         val={props.influencer.email}
-                        active={true}
+                        active
                         onChange={props.onChange}
                     />
                     <div className="col s12 right-align">

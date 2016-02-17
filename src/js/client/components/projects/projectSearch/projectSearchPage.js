@@ -83,7 +83,7 @@ class ProjectPage extends React.Component {
                                         color="teal"
                                         placeholder="Start typing a client name"
                                         val={client}
-                                        active={true}
+                                        active
                                         onChange={this._handleChange}
                                     />
                                 </div>
@@ -94,7 +94,7 @@ class ProjectPage extends React.Component {
                                         color="teal"
                                         placeholder="Start typing a keyword"
                                         val={keyword}
-                                        active={true}
+                                        active
                                         onChange={this._handleChange}
                                     />
                                 </div>

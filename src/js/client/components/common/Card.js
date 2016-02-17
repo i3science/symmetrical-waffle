@@ -1,13 +1,14 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 
 export default (props) => {
-    let classes = ['card-panel'];
-    if (props.deep) {
-        classes.push('z-depth-4');
-    }
     return (
-        <div className={classes}>
-            { props.title && (<h5 className="grey-text text-darken-2" style={{marginBottom: '30px'}}>{ props.title }</h5>) }
+        <div className={'card-panel' + (props.deep ? ' z-depth-4' : '')}>
+            { props.title && (
+                <div>
+                    <h5 className="grey-text text-darken-2" style={{marginTop: '0'}}>{ props.title }</h5>
+                    <div className="row" style={{marginBottom: '0'}}><hr style={{marginTop: '20px'}}/></div>
+                </div>
+            )}
             { props.children }
         </div>
     );

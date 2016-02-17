@@ -84,7 +84,7 @@ class ListPage extends React.Component {
                                         color="teal"
                                         placeholder="Start typing a keyword"
                                         val={keyword}
-                                        active={true}
+                                        active
                                         onChange={this._handleChange}
                                     />
                                 </div>

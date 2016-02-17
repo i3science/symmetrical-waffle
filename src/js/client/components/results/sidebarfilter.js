@@ -18,7 +18,7 @@ class SidebarFilter extends React.Component {
                         mediums={this.props.filters.mediums}
                         children={this.props.filters.children}
                         channels={this.props.filters.channels}
-                        minimal={true}
+                        minimal
                         parent="personal"
                     /> :
                     <Audience
@@ -27,7 +27,7 @@ class SidebarFilter extends React.Component {
                         verticals={this.props.filters.verticals}
                         mediums={this.props.filters.mediums}
                         children={this.props.filters.children}
-                        minimal={true}
+                        minimal
                         parent="audience"
                     />}
                 </div>

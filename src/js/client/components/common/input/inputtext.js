@@ -19,24 +19,24 @@ const InputText = (props) => {
     return (
         <div className="input-field row" style={{marginBottom: '0'}}>
             <div className="col s12">
-            {prefix || ''}
-            <input
-                type={props.type ? props.type : 'text'}
-                id={props.id}
-                name={props.label}
-                className={props.class || ''}
-                placeholder={props.placeholder ? props.placeholder : ''}
-                value={props.val ? props.val : ''}
-                data-parent={props.parent || null}
-                onChange={props.onChange ? props.onChange.bind(this) : null}
-                style={props.style || null}
-            />
-            {suffix || ''}
-            <label
-                htmlFor={props.id}
-                className={((props.val || props.active) ? 'active ' : '') + (props.color ? props.color + '-text' : 'teal-text')}
-            >{props.label}</label>
-                </div>
+                {prefix || ''}
+                <input
+                    type={props.type ? props.type : 'text'}
+                    id={props.id}
+                    name={props.label}
+                    className={props.class || ''}
+                    placeholder={props.placeholder ? props.placeholder : ''}
+                    value={props.val ? props.val : ''}
+                    data-parent={props.parent || null}
+                    onChange={props.onChange ? props.onChange.bind(this) : null}
+                    style={props.style || null}
+                />
+                {suffix || ''}
+                <label
+                    htmlFor={props.id}
+                    className={((props.val || props.active) ? 'active ' : '') + (props.color ? props.color + '-text' : 'teal-text')}
+                >{props.label}</label>
+            </div>
         </div>
     );
 };

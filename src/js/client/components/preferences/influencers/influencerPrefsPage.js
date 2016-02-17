@@ -73,7 +73,7 @@ class InfluencerPrefsPage extends React.Component {
                                     color="teal"
                                     placeholder="Start typing a first or last name"
                                     val={value}
-                                    active={true}
+                                    active
                                     onChange={this.handleChange}
                                 />
                             </div>

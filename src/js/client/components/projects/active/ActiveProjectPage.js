@@ -1,16 +1,11 @@
 import React from 'react';
 
-import ProjectAssets from './ProjectAssets';
-
+import ProjectAssets from './../common/ProjectAssets';
 import ProjectParams from './../common/ProjectParams';
+import ProjectCalendar from './../common/ProjectCalendar';
 import CampaignElements from './../common/CampaignElements';
-
 import Card from '../../common/Card';
 import History from '../../common/History';
-
-const ProjectCalendar = () => {
-    return (<Card><p>Loading calendar...</p></Card>);
-};
 
 class ActiveProjectPage extends React.Component {
     constructor() {
@@ -57,25 +52,29 @@ class ActiveProjectPage extends React.Component {
     render() {
         return (
             <div>
-                <ProjectParams
-                    project={this.props.project}
-                    onChange={this._handleChange}
-                    addCheckpoint={this._addCheckpoint}
-                    newDate={this._newDate}
-                    newCheckpoints={this.state.checkpoints} />
+                <Card title={this.props.project.name} deep>
+                    <ProjectParams
+                        project={this.props.project}
+                        onChange={this._handleChange}
+                        addCheckpoint={this._addCheckpoint}
+                        newDate={this._newDate}
+                        newCheckpoints={this.state.checkpoints} />
+                </Card>
 
                 <Card title="Recent Activities">
                     <History type="projects" id={this.props.project._id} children />
                 </Card>
-
-                <ProjectCalendar
-                    project={this.props.project} />
+                <Card title="Dates">
+                    <ProjectCalendar project={this.props.project} />
+                </Card>
 
                 <CampaignElements
                     project={this.props.project} />
 
-                <ProjectAssets
-                    project={this.props.project} />
+
+                <Card title="Digital Assets">
+                    <ProjectAssets project={this.props.project} />
+                </Card>
 
             </div>
         );

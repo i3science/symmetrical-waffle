@@ -28,7 +28,7 @@ const FullPersonal = (props) => {
                             col="s6"
                             val={props.personal.age_range_from}
                             parent={props.parent}
-                            active={true}
+                            active
                             onChange={props.onChange}
                         />
                         <InputText
@@ -37,7 +37,7 @@ const FullPersonal = (props) => {
                             col="s6"
                             val={props.personal.age_range_to}
                             parent={props.parent}
-                            active={true}
+                            active
                             onChange={props.onChange}
                         />
                     </div>}
@@ -81,7 +81,7 @@ const FullPersonal = (props) => {
                             label="Household Income"
                             val={props.personal.householdIncome}
                             parent={props.parent}
-                            active={true}
+                            active
                             onChange={props.onChange}
                         />
                     </div>}
@@ -92,7 +92,7 @@ const FullPersonal = (props) => {
                             label="Ethnicity"
                             val={props.personal.ethnicity}
                             parent={props.parent}
-                            active={true}
+                            active
                             onChange={props.onChange}
                         />
                     </div>}
@@ -114,7 +114,7 @@ const FullPersonal = (props) => {
                             label="City"
                             val={props.personal.city}
                             parent={props.parent}
-                            active={true}
+                            active
                             onChange={props.onChange}
                         />
                     </div>}
@@ -125,7 +125,7 @@ const FullPersonal = (props) => {
                             label="State/Province"
                             val={props.personal.state}
                             parent={props.parent}
-                            active={true}
+                            active
                             onChange={props.onChange}
                         />
                     </div>}
@@ -136,7 +136,7 @@ const FullPersonal = (props) => {
                             label="Country"
                             val={props.personal.country}
                             parent={props.parent}
-                            active={true}
+                            active
                             onChange={props.onChange}
                         />
                     </div>}
