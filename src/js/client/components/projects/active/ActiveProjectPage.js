@@ -1,21 +1,20 @@
 import React from 'react';
-
 import ProjectAssets from './../common/ProjectAssets';
 import ProjectParams from './../common/ProjectParams';
 import ProjectCalendar from './../common/ProjectCalendar';
 import CampaignElements from './../common/CampaignElements';
 import Card from '../../common/Card';
 import History from '../../common/History';
+import Actions from '../../../actions/UiActions';
 
 class ActiveProjectPage extends React.Component {
-    constructor() {
+    constructor(props) {
         super();
         this.state = {
-            checkpoints: {}
+            project: props.project
         };
         this._handleChange = this._handleChange.bind(this);
-        this._addCheckpoint = this._addCheckpoint.bind(this);
-        this._newDate = this._newDate.bind(this);
+        this._handleDate = this._handleDate.bind(this);
     }
 
     _handleChange(event) {
@@ -27,26 +26,16 @@ class ActiveProjectPage extends React.Component {
             value = event.target.checked;
         }
         if (!event.target.dataset.parent) {
-            this.props.project[event.target.id] = value;
+            this.state.project[event.target.id] = value;
         } else {
-            this.props.project[event.target.dataset.parent][event.target.id] = value;
+            this.state.project[event.target.dataset.parent][event.target.id] = value;
         }
-        this.setState({project: this.props.project});
+        this.setState({project: this.state.project});
     }
-
-    _addCheckpoint(checkpoint, parent, event) {
-        event.preventDefault();
-        $('#' + parent + '_container').hide();
-        $('#add-check, #add-check i').show();
-        this.props.project[parent].push(checkpoint);
-        this.setState({
-            project: this.props.project,
-            checkpoints: {}
-        });
-    }
-    _newDate(event) {
-        this.state.checkpoints[event.target.id] = event.target.value;
-        this.setState({checkpoints: this.state.checkpoints});
+    _handleDate(name, date, parent){
+        this.state.project[parent].push({name: name, date: date});
+        this.setState({project: this.state.project});
+        Actions.updateProject(this.state.project);
     }
 
     render() {
@@ -56,9 +45,8 @@ class ActiveProjectPage extends React.Component {
                     <ProjectParams
                         project={this.props.project}
                         onChange={this._handleChange}
-                        addCheckpoint={this._addCheckpoint}
-                        newDate={this._newDate}
-                        newCheckpoints={this.state.checkpoints} />
+                        handleDate={this._handleDate}
+                    />
                 </Card>
                 <Card title="Recent Activities">
                     <History type="projects" id={this.props.project._id} children />

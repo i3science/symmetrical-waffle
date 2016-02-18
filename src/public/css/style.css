@@ -55,6 +55,14 @@ select option {
 select option:disabled {
     color: rgba(0,0,0,0.4);
 }
+.btn-flat.tiny {
+    padding: 0;
+    font-size: 12px;
+}
+.btn-flat.tiny i {
+    margin-left: 6px;
+    font-size: 18px;
+}
 .breadcrumb:last-child {
     color: rgba(255,255,255,0.7);
 }
@@ -239,6 +247,21 @@ select option:disabled {
 .ui-datepicker-multi {
     width: auto !important;
 }
+#ui-datepicker-div {
+    position: fixed !important;
+    background: #fff;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    box-shadow: 0 0 0 1286px rgba(0,0,0,0.5);
+    padding: 10px;
+    display: none;
+}
+.hasDatepicker {
+    cursor: pointer;
+}
+
 /* </Calendar */
 
 @media only screen and (min-width: 993px) {

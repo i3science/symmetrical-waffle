@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router';
 import CampaignElementActions from '../../../actions/CampaignElementActions';
 import campaignElementStore from '../../../stores/CampaignElementStore';
-import Card from '../../common/Card';
 import CheckBox from '../../common/input/checkbox';
 
 export default class CampaignElements extends React.Component {
@@ -33,7 +32,6 @@ export default class CampaignElements extends React.Component {
             return (<p>Loading campaign elements...</p>);
         }
         let renderElements = this.state.elements.map((el) => {
-            console.log(el);
             return (
                 <div className="col s2" key={el._id}>
                     <div className="card">

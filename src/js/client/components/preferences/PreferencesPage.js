@@ -2,6 +2,7 @@ import React from 'react'; // eslint-disable-line no-unused-vars
 import { Link } from 'react-router';
 import Sidebar from '../sidebar';
 import Calendar from '../influencers/profile/calendar';
+import InputDate from '../common/input/inputdate';
 
 const PreferencesSidebar = (props) => {
     return (
@@ -20,12 +21,19 @@ class PreferencesPage extends React.Component {
     constructor() {
         super();
         this.state = {
-            dates: ['02/10/2016', '02/11/2016']
+            dates: [],
+            inputDate: {}
         };
         this._handleDates = this._handleDates.bind(this);
+        this._handleDate = this._handleDate.bind(this);
     }
-    _handleDates(dates){
-        this.setState({dates: dates});
+    _handleDates(dates, id){
+        this.state.dates[id] = dates;
+        this.setState({dates: this.state.dates});
+    }
+    _handleDate(date, id){
+        this.state.inputDate[id] = date;
+        this.setState({inputDate: this.state.inputDate});
     }
 
     render() {
@@ -33,6 +41,11 @@ class PreferencesPage extends React.Component {
             <div>
                 <div className="card-panel">
                     <div>
+                        <InputDate
+                            id="profileDates"
+                            propdate={this.state.inputDate.profileDates || ''}
+                            onChange={this._handleDate}
+                        />
                         <Calendar
                             id="profileDates"
                             dates={this.state.dates}
