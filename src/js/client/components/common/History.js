@@ -20,7 +20,7 @@ export default class History extends React.Component {
         HistoryActions.findForEntity(this.props.type, this.props.id, !!this.props.children);
     }
     componentWillUnmount() {
-        historyStore.addChangeListener(this._onHistoryChange);
+        historyStore.removeChangeListener(this._onHistoryChange);
     }
     _onHistoryChange() {
         this.setState({ history: historyStore.getHistory() });

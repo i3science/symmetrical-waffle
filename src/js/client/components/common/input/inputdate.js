@@ -21,7 +21,12 @@ class InputDate extends React.Component {
     render() {
         return (
             <div>
-                <input ref={this.props.id} type="text" id={this.props.id} readOnly value={this.props.date || ''} />
+                <input
+                    ref={this.props.id}
+                    type="text" id={this.props.id}
+                    readOnly value={this.props.date || ''}
+                    placeholder={this.props.placeholder || null}
+                />
             </div>
         );
     }

@@ -26,7 +26,7 @@ const InputTextArea = (props) => {
                     name={props.label}
                     className={(props.class || '') + ' materialize-textarea'}
                     placeholder={props.placeholder ? props.placeholder : ''}
-                    value={props.val ? props.val : ''}
+                    value={props.val ? props.val : null}
                     data-parent={props.parent || null}
                     onChange={props.onChange ? props.onChange.bind(this) : null}>
                 </textarea>

@@ -36,11 +36,14 @@ export default class Tasks extends React.Component {
     }
 
     renderComments() {
+
         return this.state.comments.map((comment) => {
             return (
                 <div key={comment._id}>
-                    <p><strong>{comment.author.name.first} {comment.author.name.last} - {moment(comment.created).format('MMM DD, YYYY - h:mma')}</strong></p>
+                    <p><span className="teal-text">{comment.author.name.first} {comment.author.name.last}</span><br />
+                        <span style={{fontSize: '12px'}}>{moment(comment.created).format('MMM DD, YYYY - h:mma')}</span></p>
                     <p>{comment.text}</p>
+                    <hr style={{margin: '5px 0'}} />
                 </div>
             );
         });
