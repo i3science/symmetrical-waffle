@@ -1,4 +1,5 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
+import InputText from '../../common/input/inputtext';
 
 const Channel = (props) => {
     if (!props.channel ||

@@ -9,12 +9,7 @@ import listStore from '../../../stores/ListStore';
 import ProjectParams from './../common/ProjectParams';
 import InfluencerCardList from '../../influencers/list/CardList';
 import SelectedInfluencers from '../../results/selectedInfluencers';
-
-import DatePicker from 'material-ui/lib/date-picker/date-picker';
-//import Calendar from
-
-
-
+import Card from '../../common/Card';
 
 class ProjectPage extends React.Component {
     constructor() {
@@ -28,18 +23,16 @@ class ProjectPage extends React.Component {
         };
         this._onChange = this._onChange.bind(this);
         this._handleChange = this._handleChange.bind(this);
+        this._handleDate = this._handleDate.bind(this);
         this._addCheckpoint = this._addCheckpoint.bind(this);
-        this._newDate = this._newDate.bind(this);
         this._addList = this._addList.bind(this);
 
-        this.shandleChange = this.shandleChange.bind(this);
     }
-    componentDidMount() {
+    componentWillMount() {
         influencerStore.addChangeListener(this._onChange);
         listStore.addChangeListener(this._onChange);
         Actions.refreshInfluencerList();
         Actions.refreshLists();
-        this.setState({ controlledDate: '11/11/1111' });
     }
     componentWillUnmount() {
         influencerStore.removeChangeListener(this._onChange);
@@ -47,7 +40,7 @@ class ProjectPage extends React.Component {
     }
 
     _onChange() {
-        this.setState({ 
+        this.setState({
             influencers: influencerStore.getInfluencers()
         });
         if (!this.props.project) {
@@ -82,22 +75,23 @@ class ProjectPage extends React.Component {
     }
     _handleChange(event) {
         let value = event.target.value;
-        let name = event.target.id;
         if (event.target.type === 'number') {
             value = Number(value);
         }
         if (event.target.type === 'checkbox') {
             value = event.target.checked;
         }
-        if (event.target.type === 'radio') {
-            value = event.target.id;
-            name = event.target.name;
-        }
         if (!event.target.dataset.parent) {
-            this.props.project[name] = value;
+            this.state.project[event.target.id] = value;
         } else {
-            this.props.project[event.target.dataset.parent][name] = value;
+            this.state.project[event.target.dataset.parent][event.target.id] = value;
         }
+        this.setState({project: this.state.project});
+    }
+    _handleDate(name, date, parent){
+        this.state.project[parent].push({name: name, date: date});
+        this.setState({project: this.state.project});
+        Actions.updateProject(this.state.project);
     }
 
     _addCheckpoint(checkpoint, parent, event) {
@@ -109,16 +103,7 @@ class ProjectPage extends React.Component {
             checkpoints: {}
         });
     }
-    _newDate(event) {
-        this.state.checkpoints[event.target.id] = event.target.value;
-        this.setState({checkpoints: this.state.checkpoints});
-    }
 
-    shandleChange(event, date) {
-        this.setState({
-            controlledDate: date
-        });
-    }
 
     _addList(event) {
         event.preventDefault();
@@ -126,27 +111,17 @@ class ProjectPage extends React.Component {
     }
 
     render() {
-        if (!this.state.influencers) {
-            return (<p>Loading influencers...</p>);
-        }
         return (
             <div>
-                <div className="card-panel">
-                    <DatePicker
-                        defaultValue="11/11/1111"
-                        value={this.state.controlledDate}
-                        onChange={this.shandleChange}
-                        floatingLabelText="Floating Label Text"
+                <Card title={this.props.project.name} deep>
+                    <ProjectParams
+                        project={this.props.project}
+                        onChange={this._handleChange}
+                        handleDate={this._handleDate}
+                        addList={this._addList}
                     />
-                </div>
-                <ProjectParams
-                    project={this.props.project}
-                    onChange={this._handleChange}
-                    addList={this._addList}
-                    addCheckpoint={this._addCheckpoint}
-                    newDate={this._newDate}
-                    newCheckpoints={this.state.checkpoints}
-                />
+                </Card>
+                {this.state.influencers ? <div>
                 <SelectedInfluencers
                     selectedInfluencers={this.state.influencers}
                     //addInfluencer={this.addInfluencerToList}
@@ -160,7 +135,9 @@ class ProjectPage extends React.Component {
                     //addToList={this.addToList}
                     //selectedInfluencers={this.state.influencers}
                     //onSelectionChanged={this._onSelectionChanged}
-                    />
+                />
+                    </div>
+                    : null}
 
             </div>
         );

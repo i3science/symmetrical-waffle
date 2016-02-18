@@ -54,9 +54,11 @@ class SelectedInfluencers extends React.Component {
                 numIndex = Number(numIndex.substr(numIndex.length - 1));
             }
             let val = Number();
-            item.channels.map(i => {
-                val += i.value;
-            });
+            for (let prop in item.channels) {
+                if (item.channels.hasOwnProperty(prop)) {
+                    val += Number(item.channels[prop]);
+                }
+            }
             pieces.push({
                 color: this.props.colors[numIndex],
                 value: val
@@ -81,22 +83,22 @@ class SelectedInfluencers extends React.Component {
                                 <table className="search-stats">
                                     <thead></thead>
                                     <tbody>
-                                        <tr>
-                                            <td>
-                                                <h6>Number of results:</h6>
-                                            </td>
-                                            <td>
-                                                <h6 className="blue-text">{this.props.resultNum}</h6>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <h6>Total Exposures:</h6>
-                                            </td>
-                                            <td>
-                                                <h6 className="blue-text">{this.props.exposures}</h6>
-                                            </td>
-                                        </tr>
+                                    <tr>
+                                        <td>
+                                            <h6>Number of results:</h6>
+                                        </td>
+                                        <td>
+                                            <h6 className="blue-text">{this.props.resultNum}</h6>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <h6>Total Exposures:</h6>
+                                        </td>
+                                        <td>
+                                            <h6 className="blue-text">{this.props.exposures}</h6>
+                                        </td>
+                                    </tr>
                                     </tbody>
                                 </table>
                             </div>

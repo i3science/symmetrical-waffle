@@ -25,37 +25,31 @@ export default class ElementPage extends React.Component {
         this.setState({ element: campaignElementStore.getElement() });
     }
 
-    renderElementContent() {
-        return (
-            <div className="row">
-                <div className="col s8">
-                    <Card title={this.state.element.name}>
-                        Sara Blog Article
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    </Card>
-                </div>
-                <div className="col s4">
-                    <Card title="Revision History">
 
-                    </Card>
-                </div>
-            </div>
-        );
-    }
 
     render() {
         if (!this.state.element) {
             return (
-                <Card>
                     <p>Loading element...</p>
-                </Card>
             );
         }
         return (
             <div>
                 <Tasks project={this.props.params.id} element={this.state.element} />
 
-                {this.renderElementContent()}
+                <div className="row">
+                    <div className="col s8">
+                        <Card title={this.state.element.name}>
+                            Sara Blog Article
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        </Card>
+                    </div>
+                    <div className="col s4">
+                        <Card title="Revision History">
+
+                        </Card>
+                    </div>
+                </div>
 
                 <Comments project={this.props.params.id} element={this.state.element} />
             </div>

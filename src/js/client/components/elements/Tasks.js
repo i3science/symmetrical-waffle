@@ -5,6 +5,10 @@ import CampaignElementActions from '../../actions/CampaignElementActions';
 import taskStore from '../../stores/TaskStore';
 import campaignElementStore from '../../stores/CampaignElementStore';
 import Card from '../common/Card';
+import CheckBox from '../common/input/checkbox';
+import InputDate from '../common/input/inputdate';
+import InputText from '../common/input/inputtext';
+import { Link } from 'react-router';
 
 export default class Tasks extends React.Component {
     constructor() {
@@ -56,72 +60,74 @@ export default class Tasks extends React.Component {
             .catch(() => {});
     }
 
-    renderTasks() {
-        return this.state.tasks.map((task) => {
-            return (
-                <div key={task._id}>
-                    <input
-                        type="checkbox"
-                        id={task._id}
-                        name={task._id}
-                        checked={task.done}
-                        className="filled-in"
-                        onChange={this._onCheckTask(task)} />
-                    <label htmlFor={task._id}>
-                        {task.name}
-
-                        <div className="chip">
-                            <img src=""/>
-                            {task.assignee.name.first} {task.assignee.name.last}
-                        </div>
-                        <div className="chip">
-                            {moment(task.due).format('MMM. DD/YY @ h:mma')}
-                        </div>
-                    </label>
-                </div>
-            );
-        });
-    }
 
     renderAdder() {
         if (!this.state.adding) {
-            return null;
+            return (
+                <Link to="" onClick={(e) => {e.preventDefault();this.setState({ adding:true });}} className="green-text">
+                    <div className="btn-flat tiny white teal-text" style={{padding: '0', fontSize: '12px'}}>
+                        <i className="material-icons right">add</i>Add a Task
+                    </div>
+                </Link>
+            );
         }
         return (
-            <div className="row">
-                <form onSubmit={this._onAddTask}>
-                    <div className="col s7">
-                        <input
-                            type="text"
+            <form onSubmit={this._onAddTask}>
+                <div className="row">
+                    <div className="col s6">
+                        <InputText
                             id="task_text"
-                            name="task_text" />
+                            label="Task"
+                            active
+                        />
                     </div>
-                    <div className="col s2">
-                        <select
-                            id="task_assignee"
-                            name="task_assignee"
-                            style={{display: 'block'}}>
-                            {
-                                this.state.assignees.map((assignee) => {
+                    <div className="col s3">
+                        <div className="input-field" style={{borderBottom: ' 1px solid #9e9e9e'}}>
+                            <select
+                                id="task_assignee"
+                                name="task_assignee"
+                                className="browser-default"
+                                style={{display: 'block', height: '3rem'}}>
+                                {this.state.assignees.map((assignee) => {
                                     return (<option value={assignee._id} key={assignee._id}>{assignee.name.first} {assignee.name.last}</option>);
-                                })
-                            }
-                        </select>
+                                })}
+                            </select>
+                        </div>
                     </div>
-                    <div className="col s2">
-                        <input
-                            type="date"
-                            id="task_due"
-                            name="task_due" />
+                    <div className="col s3">
+                        <div className="input-field">
+                            <InputDate
+                                id="task_due"
+                                placeholder="Due Date"
+                                active
+                            />
+                        </div>
                     </div>
-                    <div className="col s1">
-                        <input type="button" value="Cancel" onClick={() => {this.setState({ adding:false });}}/>
-                        <input type="submit" value="Save"/>
-                    </div>
-                </form>
-            </div>
+                </div>
+                <div className="col s12 right-align">
+                    <button
+                        className="btn-flat tiny white green-text"
+                        type="submit"
+                        style={{marginRight: '40px'}}>
+                        <i className="material-icons right">done</i>
+                        Save
+                    </button>
+                    <button
+                        className="btn-flat tiny white red-text"
+                        type="button"
+                        onClick={(e) => {e.preventDefault();this.setState({ adding:false });}}>
+                        <i className="material-icons right">clear</i>
+                        Cancel
+                    </button>
+                </div>
+            </form>
         );
     }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return nextState.assignees ? true : false;
+    }
+
 
     render() {
         if (!this.props.project
@@ -134,11 +140,34 @@ export default class Tasks extends React.Component {
                 </Card>
             );
         }
+        let tasks =  this.state.tasks.map((task) => {
+            return (
+                <div key={task._id} className="row" style={{padding: '10px 0px', borderBottom: '1px solid rgba(0,0,0,0.1)'}}>
+                    <div className="col s3">
+                        <div className="chip">
+                            <img src={'/assets/images/' + (task.assignee.hasImage ? task.assignee._id : 'default') +'.jpg'} />
+                            {task.assignee.name.first} {task.assignee.name.last}
+                        </div>
+                        <p style={{margin: '5px 0', fontSize: '12px'}}>
+                            <span className="teal-text"><strong>Due: </strong></span> {moment(task.due).format('MMM. DD/YY')}
+                        </p>
+                    </div>
+                    <div className="col s9">
+                        <CheckBox
+                            id={task._id}
+                            style={{marginTop: '0'}}
+                            label={task.name}
+                            checked={task.done}
+                            onChange={this._onCheckTask(task)}
+                        />
+                    </div>
+                </div>
+            );
+        });
         return (
             <Card title="Tasks & Deadlines">
-                {this.renderTasks()}
+                {tasks}
                 {this.renderAdder()}
-                <span onClick={() => {this.setState({ adding:true });}}>+ Add Another Task</span>
             </Card>
         );
     }
