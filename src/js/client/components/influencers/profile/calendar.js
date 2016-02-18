@@ -21,7 +21,7 @@ class Calendar extends React.Component {
 
     _handleChange() {
         if (!this.props.disabled && this.props.onChange) {
-            this.props.onChange($(this.refs[this.props.id]).multiDatesPicker('getDates'));
+            this.props.onChange($(this.refs[this.props.id]).multiDatesPicker('getDates'), this.props.id);
         }
     }
 

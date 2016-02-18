@@ -2,7 +2,7 @@ import React from 'react'; // eslint-disable-line no-unused-vars
 
 const CheckBox = (props) => {
     return (
-        <p className={props.class || ''}>
+        <p className={props.class || ''} style={props.style || {}}>
             <input
                 type="checkbox"
                 id={props.id}
@@ -10,7 +10,7 @@ const CheckBox = (props) => {
                 data-parent={props.parent || null}
                 checked={props.checked}
                 className="filled-in"
-                onChange={props.onChange.bind(this)}
+                onChange={props.onChange ? props.onChange.bind(this) : null}
             />
             <label htmlFor={props.id}>{props.label}</label>
         </p>

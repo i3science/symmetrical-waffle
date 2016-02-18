@@ -1,18 +1,18 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
-import InputText from '../../common/input/inputtext';
+import InputDate from '../../common/input/inputdate';
 import moment from 'moment';
 
-const ProjectCheckpoint = (props) => {
+const ProjectStatusDate = (props) => {
     return (
         <div className="row">
             <div className="col s6">
                 <p>{props.label}</p>
             </div>
             <div className="col s6">
-                <InputText
+                <InputDate
                     id={props.id}
-                    val={moment(props.val).format('DD/MM/YYYY') || null}
-                    active
+                    parent={props.parent || null}
+                    date={moment(props.val).format('MM/DD/YYYY') || null}
                     onChange={props.onChange}
                 />
             </div>
@@ -20,4 +20,4 @@ const ProjectCheckpoint = (props) => {
     );
 };
 
-export default ProjectCheckpoint;
+export default ProjectStatusDate;
