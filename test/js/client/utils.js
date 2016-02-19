@@ -64,7 +64,7 @@ export function login(email, password) {
             return $('#login-form').submit();
         })
         .then(() => {
-            return wait(until.uriEquals('/'), 10000);
+            return wait(until.uriEquals('/projects'), 10000);
         });
 };
 
