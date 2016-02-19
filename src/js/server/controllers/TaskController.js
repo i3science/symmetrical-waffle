@@ -12,8 +12,9 @@ export default base_controller(taskService, 'task', {
             .fail(ErrorUtils.failureHandler(req, res));
     },
     create(req, res) {
+        let obj = this.sanitize(req.body);
         return taskService
-            .create(req.element, req.body)
+            .create(req.element, obj)
             .spread((task) => {
                 return res.status(201).send({ id: task._id });
             })

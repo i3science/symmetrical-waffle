@@ -18,7 +18,7 @@ import ErrorUtils from '../utils/ErrorUtils';
  * @returns {Object} The controller implementation including extensions.
  */
 export default function(service, middleware_name, extensions) {
-    return _.extend({
+    let controller = _.extend({
         /**
          * Retrieves zero or more entities that adhere to the given criteria.
          */
@@ -94,4 +94,8 @@ export default function(service, middleware_name, extensions) {
                 });
         }
     }, extensions);
+    Object.keys(controller).forEach(function(key){
+        controller[key] = controller[key].bind(controller);
+    });
+    return controller;
 }
