@@ -52,6 +52,7 @@ export default {
 
     // Assets
     REFRESH_ASSETS: 'REFRESH_ASSETS',
+    CREATED_ASSET: 'CREATED_ASSET',
 
     // Security-specific
     PASSWORD_RESET_REQUESTED: 'PASSWORD_RESET_REQUESTED',

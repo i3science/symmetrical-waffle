@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import AppConstants from '../constants/constants';
 import { dispatch } from '../dispatcher/dispatcher';
 import influencerService from '../services/InfluencerService';
@@ -153,6 +154,20 @@ export default {
                     actionType: AppConstants.REFRESH_ASSETS,
                     assets: assets
                 });
+            });
+    },
+    uploadAsset(project, asset, uri) {
+        assetService
+            .create(project, asset)
+            .then((result) => {
+                if (result.id) {
+                    dispatch({
+                        actionType: AppConstants.CREATED_ASSET,
+                        asset: _.extend(asset, {_id: result.id, datauri:uri})
+                    });
+                } else {
+                    // TODO Message about failure
+                }
             });
     }
 };

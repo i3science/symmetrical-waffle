@@ -10,17 +10,26 @@ export default class AssetService {
     }
     static find(project, id) {
         return fetch('/api/projects/'+(project._id || project)+'/assets/'+id)
+            .then((response) => {
+                return response.json();
+            })
             .catch(() => {});
     }
     static create(project, asset) {
+        let headers = {
+            'Accept': 'application/json'
+        };
+        if (!(asset instanceof FormData)) {
+            headers['Content-Type'] = 'application/json';
+        }
         return fetch('/api/projects/'+(project._id || project)+'/assets', {
             method: 'post',
-            body: JSON.stringify(asset),
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
+            body: asset instanceof FormData ? asset : JSON.stringify(asset),
+            headers: headers
         })
+            .then((response) => {
+                return response.json();
+            })
             .catch(() => {});
     }
     static update(project, asset) {
