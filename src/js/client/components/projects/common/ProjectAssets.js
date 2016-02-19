@@ -10,6 +10,7 @@ export default class ProjectAssets extends React.Component {
             assets: null
         };
         this._onAssetsChange = this._onAssetsChange.bind(this);
+        this._onSubmit = this._onSubmit.bind(this);
     }
 
     componentWillMount() {
@@ -24,38 +25,8 @@ export default class ProjectAssets extends React.Component {
     _onAssetsChange() {
         this.setState({ assets: assetStore.getAssets() });
     }
-
-    renderAssets() {
-        return (
-            <div className="row">
-            {
-                this.state.assets.map((asset) => {
-                    return (
-                        <div className="col s2" key={asset._id}>
-                            <Card>
-                                <div className="center-align">
-                                    <i className="large material-icons">description</i>
-                                </div>
-                                <p className="center-align"><strong><a href={'/projects/'+this.props.project._id+'/assets/'+asset._id+'/file'}>{asset.name}</a></strong></p>
-                            </Card>
-                        </div>
-                    );
-                })
-            }
-            </div>
-        );
-    }
-
-    renderAdder() {
-        return (
-            <form action={'/projects/'+this.props.project._id+'/assets'} method="post" encType="multipart/form-data">
-                <label htmlFor="file">
-                    File
-                    <input type="file" name="file" id="file"/>
-                </label>
-                <input type="submit" value="Upload"/>
-            </form>
-        );
+    _onSubmit(event) {
+        event.preventDefault();
     }
 
     render() {
@@ -65,17 +36,23 @@ export default class ProjectAssets extends React.Component {
         let renderAssets = this.state.assets.map((asset) => {
             return (
                 <div className="col s2" key={asset._id}>
-                    <div className="center-align" style={{
-                        background: 'url('+asset.datauri+')',
-                        backgroundSize: '100% auto',
-                        width: '100%',
-                        height: '200px'
-                    }}>
-
+                    <div className="card">
+                        <div className="center-align" style={{
+                            background: 'url('+ asset.datauri +') no-repeat rgba(0,0,0,0.3) 50%',
+                            backgroundSize: 'cover',
+                            width: '100%',
+                            padding: '50%'
+                        }}>
+                        </div>
+                        <div style={{
+                            padding: '10px',
+                            borderTop: '1px solid rgba(0,0,0,0.1)'
+                        }}>
+                            <p style={{margin: '0'}}><strong>
+                                <a className="grey-text text-darken-2" href={'/projects/'+this.props.project._id+'/assets/'+asset._id+'/file'}>{asset.name}</a>
+                            </strong></p>
+                        </div>
                     </div>
-                    <p><strong>
-                        <a href={'/projects/'+this.props.project._id+'/assets/'+asset._id+'/file'}>{asset.name}</a>
-                    </strong></p>
                 </div>
             );
         });
@@ -85,8 +62,13 @@ export default class ProjectAssets extends React.Component {
                 <div className="row">
                     {renderAssets}
                 </div>
-
-                {this.renderAdder()}
+                <form name="myform" id="myform" action={'/projects/'+this.props.project._id+'/assets'} onSubmit={this._onSubmit} method="post" encType="multipart/form-data">
+                    <label htmlFor="file">
+                        File
+                        <input type="file" name="file" id="file"/>
+                    </label>
+                    <input type="submit" value="Upload"/>
+                </form>
             </div>
         );
     }
