@@ -2,6 +2,7 @@ import Q from 'q';
 import fs from 'fs';
 import path from 'path';
 import mkdirp from 'mkdirp';
+import Datauri from 'datauri';
 import config from '../../../../config/config';
 import assetService from '../services/AssetService.js';
 import ErrorUtils from '../utils/ErrorUtils';
@@ -52,6 +53,26 @@ export default class AssetController {
         return assetService
             .list({})
             .then((assets) => {
+
+                assets = assets.map((asset) => {
+                    if (!asset.mime) {
+                        return asset;
+                    }
+
+                    let _path = asset._id.toString().match(/.{1,3}/g).join('/');
+                    let fullpath = path.resolve(config.filesDir, _path);
+                    fullpath = path.resolve(fullpath, asset._id.toString());
+
+                    let datauri = null;
+                    if (asset.mime.indexOf('jpg') > -1 || asset.mime.indexOf('jpeg') > -1
+                            || asset.mime.indexOf('png') > -1) {
+                        datauri = new Datauri(fullpath);
+                        datauri.mimetype = asset.mime;
+                    }
+                    asset.datauri = 'data:'+asset.mime+';base64,'+datauri.base64;
+                    return asset;
+                });
+
                 return res.json(assets);
             })
             .fail(ErrorUtils.failureHandler(req, res));
@@ -84,7 +105,7 @@ export default class AssetController {
         return assetService
             .create({
                 name: req.file.originalname,
-                mime: 'application/pdf'
+                mime: req.file.mimetype || 'application/octet-stream'
             })
             .spread((_asset) => {
                 asset = _asset;
