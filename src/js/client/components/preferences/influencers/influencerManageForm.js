@@ -1,10 +1,17 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 import { Link } from 'react-router';
 import Personal from './../../search/components/personal';
-import Audience from './audience';
+import PersonalAdvanced from './../../search/components/personaladvanced';
+import Audience from './../../search/components/audience';
+import AudienceAdvanced from './../../search/components/audienceadvanced';
 import Verticals from '../../search/components/verticals';
+import Mediums from '../../search/components/mediums';
+import Children from '../../search/components/children';
+import Channels from '../../search/components/channels';
 import InputText from '../../common/input/inputtext';
 import CheckBox from '../../common/input/checkbox';
+import Switch from '../../common/input/switch';
+
 
 const InfluencerManageForm = (props) => {
     return (
@@ -34,7 +41,7 @@ const InfluencerManageForm = (props) => {
                         onChange={props.onChange}
                     />
                     <div className="col s12 right-align">
-                        <CheckBox
+                        <Switch
                             id="advanced"
                             label="Advanced"
                             onChange={props.expand}
@@ -53,26 +60,51 @@ const InfluencerManageForm = (props) => {
             </div>
             <div id="advanced-collapse" style={{maxHeight: '0', transition: 'max-height .5s', overflow: 'hidden'}}>
                 <h5 className="teal-text">Personal</h5>
-                <div className="row">
-                    <Personal
-                        personal={props.influencer.personal}
-                        onChange={props.onChange}
-                    />
-                </div>
-                <h5 className="teal-text">Verticals</h5>
-                <div className="row">
-                    <Verticals
-                        verticals={props.influencer.verticals}
-                        onChange={props.onChange}
-                    />
-                </div>
+                <Personal
+                    personal={props.influencer.personal}
+                    onChange={props.onChange}
+                    parent="personal"
+                />
+                <PersonalAdvanced
+                    personal={props.influencer.personal}
+                    onChange={props.onChange}
+                    parent="personal"
+                />
+                <h6 className="teal-text">Mediums</h6>
+                <Mediums
+                    mediums={props.influencer.mediums}
+                    onChange={props.onChange}
+                    parent="mediums"
+                />
+                <h6 className="teal-text">Verticals</h6>
+                <Verticals
+                    verticals={props.influencer.verticals}
+                    onChange={props.onChange}
+                    parent="verticals"
+                />
+                <h6 className="teal-text">Children</h6>
+                <Children
+                    children={props.influencer.children}
+                    onChange={props.onChange}
+                    parent="children"
+                />
+                <h6 className="teal-text">Media Channels</h6>
+                <Channels
+                    channels={props.influencer.channels}
+                    onChange={props.onChange}
+                    parent="channels"
+                />
                 <h5 className="teal-text">Audience</h5>
-                <div className="row">
-                    <Audience
-                        audience={props.influencer.audience}
-                        onChange={props.onChange}
-                    />
-                </div>
+                <Audience
+                    audience={props.influencer.audience}
+                    onChange={props.onChange}
+                    parent="audience"
+                />
+                <AudienceAdvanced
+                    audience={props.influencer.audience}
+                    onChange={props.onChange}
+                    parent="audience"
+                />
             </div>
             <hr />
             <div className="col 12" style={{float: 'none'}}>

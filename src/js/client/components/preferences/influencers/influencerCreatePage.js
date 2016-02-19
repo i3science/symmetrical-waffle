@@ -11,11 +11,14 @@ class InfluencerCreatePage extends React.Component {
                 name: {},
                 personal: {},
                 audience: {},
-                verticals: []
+                verticals: [],
+                mediums: [],
+                children: [],
+                channels: []
             }
         };
         this._onChange = this._onChange.bind(this);
-        this.handleChange = this.handleChange.bind(this);
+        this._handleChange = this._handleChange.bind(this);
         this._onSubmit = this._onSubmit.bind(this);
         this._cancel = this._cancel.bind(this);
         this._expand = this._expand.bind(this);
@@ -35,35 +38,33 @@ class InfluencerCreatePage extends React.Component {
             this.setState({influencer: currentInfluencer});
         }
     }
-
-    handleChange(event) {
-        var value = event.target.value;
-        if (event.target.id.indexOf('_') > -1) {
-            let drill = event.target.id.split('_');
-            var category = drill[0];
-            var item = drill[1];
-        } else {
-            item = event.target.id;
+    _handleChange(event) {
+        console.log(event);
+        let value = event.target.value;
+        if (event.target.id.indexOf('_range_')) {
+            console.log(event.target.id.split('_')[0]);
+        }
+        if (event.target.type === 'number') {
+            value = Number(value);
         }
         if (event.target.type === 'checkbox') {
-            value = (event.target.checked === true);
-        }
-        if (category) {
-            if (category === 'verticals') {
-                var isIn = this.state.influencer[category].indexOf(event.target.name);
-                if ((isIn === -1) && value) {
-                    this.state.influencer[category].push(event.target.name);
-                } else {
-                    this.state.influencer[category].splice(isIn, 1);
-                }
+            let isIn = this.state.influencer[event.target.dataset.parent].indexOf(event.target.name);
+            if ((isIn === -1) && value) {
+                this.state.influencer[event.target.dataset.parent].push(event.target.name);
             } else {
-                this.state.influencer[category][item] = value;
+                this.state.influencer[event.target.dataset.parent].splice(isIn, 1);
             }
         } else {
-            this.state.influencer[item] = value;
+            if (!event.target.dataset.parent) {
+                this.state.influencer[event.target.id] = value;
+            } else {
+                this.state.influencer[event.target.dataset.parent][event.target.id] = value;
+            }
         }
         this.setState({influencer: this.state.influencer});
+        console.log(this.state.influencer);
     }
+
     _cancel() {
         this.setState({influencer: {}});
         this.props.history.goBack();
@@ -81,7 +82,7 @@ class InfluencerCreatePage extends React.Component {
     _expand(event) {
         var advanced = document.getElementById('advanced-collapse');
         if (event.target.checked) {
-            advanced.style.maxHeight = '1000px';
+            advanced.style.maxHeight = '1500px';
         } else {
             advanced.style.maxHeight = '0';
         }
@@ -95,7 +96,7 @@ class InfluencerCreatePage extends React.Component {
                     <InfluencerManageForm
                         influencer={this.state.influencer}
                         expand={this._expand}
-                        onChange={this.handleChange}
+                        onChange={this._handleChange}
                         onSubmit={this._onSubmit}
                         cancel={this._cancel}
                     />
