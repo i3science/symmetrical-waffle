@@ -7,6 +7,7 @@ import Actions from '../../../actions/UiActions';
 import Personal from '../components/personal';
 import Audience from '../components/audience';
 import Radio from '../../common/input/radio';
+import Filters from './filters';
 
 class SearchPage extends React.Component {
     constructor() {
@@ -103,6 +104,7 @@ class SearchPage extends React.Component {
         return (
             <div className="card-panel z-depth-4">
                 <h4>Search Criteria</h4>
+                <h6 className="teal-text">I am looking for an {this.state.type}...</h6>
                 <div className="left" style={{marginRight: '30px'}}>
                     <Radio
                         id="influencer"
@@ -122,28 +124,40 @@ class SearchPage extends React.Component {
                     />
                 </div>
                 <div className="clearfix"></div>
-                <h6 className="teal-text">I am looking for an {this.state.type}...</h6>
                 <hr />
+
+                <Filters
+                    filters={this.state.filters}
+                    onChange={this._handleChange}
+                    expand={this._expand}
+                />
+
+
+
+
                     {(!this.state.filters.type || (this.state.filters.type === 'influencer')) ?
                         <Personal
-                            onChange={this._handleChange}
-                            expand={this._expand}
-                            personal={this.state.filters.personal}
-                            verticals={this.state.filters.verticals}
-                            mediums={this.state.filters.mediums}
-                            children={this.state.filters.children}
-                            channels={this.state.filters.channels}
-                            parent="personal"
+                            //onChange={this._handleChange}
+                            //expand={this._expand}
+                            //personal={this.state.filters.personal}
+                            //verticals={this.state.filters.verticals}
+                            //mediums={this.state.filters.mediums}
+                            //children={this.state.filters.children}
+                            //channels={this.state.filters.channels}
+                            //parent="personal"
                         /> :
                         <Audience
-                            onChange={this._handleChange}
-                            expand={this._expand}
-                            audience={this.state.filters.audience}
-                            verticals={this.state.filters.verticals}
-                            mediums={this.state.filters.mediums}
-                            children={this.state.filters.children}
-                            parent="audience"
+                            //onChange={this._handleChange}
+                            //expand={this._expand}
+                            //audience={this.state.filters.audience}
+                            //verticals={this.state.filters.verticals}
+                            //mediums={this.state.filters.mediums}
+                            //children={this.state.filters.children}
+                            //parent="audience"
                         />}
+
+
+
 
 
                 <Link to="" className="blue-grey lighten-3 waves-effect waves-light btn btn-flat white-text right"  onClick={this._reset}>Reset</Link>

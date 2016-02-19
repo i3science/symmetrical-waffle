@@ -1,5 +1,5 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
-import { Route, IndexRoute } from 'react-router';
+import { Route, IndexRoute, Redirect } from 'react-router';
 import Template from './template';
 import Full from './FullScreen';
 import SearchStart from './search/searchStart/searchStartPage';
@@ -29,6 +29,7 @@ import '../utils/Object.js';
 
 export default (
 		<div>
+			<Redirect from='/' to='projects' />
 			<Route path="/" component={Template} name="Home">
 				<IndexRoute component={ProjectSearchPage} name="Projects"/>
                 <Route path="projects" name="Projects">
@@ -50,10 +51,9 @@ export default (
 					<IndexRoute component={ListSearchPage} />
 					<Route path="list/:id" component={ListPage} name="List" />
 				</Route>
-				<Route path="preferences" component={PreferencesPage} name="Preferences">
-					<Route path="accounts" name="Account">
-						<IndexRoute component={AccountEditPage}/>
-						<Route path="edit/:id" component={AccountEditPage} name="Edit" />
+				<Redirect from='preferences' to='preferences/myaccount' />
+				<Route path="preferences" component={PreferencesPage}>
+					<Route path="myaccount" component={AccountEditPage} name="Account">
 					</Route>
 					<Route path="influencers" name="Influencers">
 						<IndexRoute component={InfluencerPrefsPage}/>
@@ -62,6 +62,7 @@ export default (
 						<Route path="edit/:id" component={InfluencerEditPage} service={influencerService} name="Edit" />
 					</Route>
 				</Route>
+
 			</Route>
 			<Route path="login" component={Full}>
 				<IndexRoute component={Login} />

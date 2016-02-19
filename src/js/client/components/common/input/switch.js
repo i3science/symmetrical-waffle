@@ -11,7 +11,7 @@ const Switch = (props) => {
                     name={props.label}
                     data-parent={props.parent || null}
                     checked={props.checked}
-                    onChange={props.onChange.bind(this)}
+                    onChange={props.onChange ? props.onChange.bind(this) : null}
                 />
                 <span className="lever"></span>
             </label>

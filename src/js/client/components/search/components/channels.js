@@ -6,6 +6,7 @@ const Channel = (props) => {
         (props.minimal && !props.channels[props.channel + '_range_from'])) {
         return <div></div>;
     }
+    console.log(props);
     return (
         <div className={'col ' + (props.minimal ? 's12' : 's3')}
              style={{position: 'relative'}}>
@@ -23,12 +24,21 @@ const Channel = (props) => {
             <div style={{
                 paddingLeft: '40px'
             }}>
+                {props.channel.indexOf('_range_') !== -1 ?
                 <InputText
+                    type="number"
                     id={props.channel + '_range_from'}
                     val={props.channels[props.channel + '_range_from']}
                     parent={props.parent || ''}
                     onChange={props.onChange}
-                />
+                /> :
+                <InputText
+                    type="number"
+                    id={props.channel}
+                    val={props.channels[props.channel]}
+                    parent={props.parent || ''}
+                    onChange={props.onChange}
+                />}
             </div>
         </div>
     );
@@ -61,7 +71,7 @@ const Channels = (props) => {
                 {...props}
             />
             <Channel
-                channel="blogger"
+                channel="blog"
                 {...props}
             />
             <Channel

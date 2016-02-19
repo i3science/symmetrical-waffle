@@ -28,7 +28,8 @@ export default class Tasks extends React.Component {
         CampaignElementActions.listAssignees(this.props.project, this.props.element._id);
     }
     componentWillUnmount() {
-        taskStore.removeChangeListener(this._onElementChange);
+        taskStore.removeChangeListener(this._onStoreChange);
+        campaignElementStore.removeChangeListener(this._onStoreChange);
     }
     _onStoreChange() {
         this.setState({

@@ -20,7 +20,7 @@ const InputSelect = (props) => {
                 id={props.id}
                 name={props.label}
                 className="browser-default"
-                style={props.val ? {} : {color: 'rgba(0,0,0,0.23)', fontWeight: '500'}}
+                style={props.val ? {} : {fontWeight: '500'}}
                 defaultValue={props.val ? props.val : null}
                 data-parent={props.parent || null}
                 onChange={props.onChange ? props.onChange.bind(this) : null}>

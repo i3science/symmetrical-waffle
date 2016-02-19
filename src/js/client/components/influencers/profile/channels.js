@@ -54,9 +54,9 @@ const Channels = (props) => {
                 channel="googleplus"
                 {...props}
             /> : null}
-            {props.channels.blogger > 0 ?
+            {props.channels.blog > 0 ?
             <Channel
-                channel="blogger"
+                channel="blog"
                 {...props}
             /> : null}
             {props.channels.youtube > 0 ?

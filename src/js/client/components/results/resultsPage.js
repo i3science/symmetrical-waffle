@@ -76,36 +76,52 @@ class Serp extends React.Component {
     }
 
     render() {
-        if (this.state.results) {
-            return (
-                <div>
-                    <Sidebar>
-                        <SidebarFilter
-                            filters={this.state.filters}
-                            onChange={this._handleChange}
-                        />
-                    </Sidebar>
-                    <SelectedInfluencers
-                        selectedInfluencers={this.state.selectedInfluencers}
-                        addInfluencer={this.addInfluencerToList}
-                        colors={this.state.colors}
-                        exposures={this.state.exposures}
-                        resultNum={this.state.results.length} />
-                    <InfluencerCardList
-                        influencers={this.state.results}
-                        addToList={this.addToList}
-                        selectedInfluencers={this.state.selectedInfluencers}
-                        onSelectionChanged={this._onSelectionChanged} />
-                </div>
-            );
-        } else {
+        if (!this.state.results) {
             return (
                 <div>
                     <h3>Sorry, there were no results</h3>
                 </div>
             );
         }
-
+        console.log(this.state.results[0]);
+        let exposuresGroup = this.state.results.map(item => {
+            let total = Number();
+            console.log(item.name.first, '-------------------------');
+            for (let channel in item.channels) {
+                if (item.channels.hasOwnProperty(channel)) {
+                    console.log(item.channels[channel]);
+                    total += Number(item.channels[channel]);
+                }
+            }
+            return total;
+        });
+        let exposures = Number();
+        for (let item in exposuresGroup) {
+            console.log(exposuresGroup[item]);
+            exposures += exposuresGroup[item];
+        }
+        console.log(exposures);
+        return (
+            <div>
+                <Sidebar>
+                    <SidebarFilter
+                        filters={this.state.filters}
+                        onChange={this._handleChange}
+                    />
+                </Sidebar>
+                <SelectedInfluencers
+                    selectedInfluencers={this.state.selectedInfluencers}
+                    addInfluencer={this.addInfluencerToList}
+                    colors={this.state.colors}
+                    exposures={exposures}
+                    resultNum={this.state.results.length} />
+                <InfluencerCardList
+                    influencers={this.state.results}
+                    addToList={this.addToList}
+                    selectedInfluencers={this.state.selectedInfluencers}
+                    onSelectionChanged={this._onSelectionChanged} />
+            </div>
+        );
     }
 }
 
