@@ -17,8 +17,11 @@ var Asset = new Schema({
     },
     mime: {
         type: String
+    },
+    datauri: {
+        type: String
     }
-});
+}, {strict: false});
 
 Asset.plugin(require('./_tenancy.js'));
 Asset.plugin(require('./_auditing.js'));

@@ -66,7 +66,8 @@ export default class ProjectAssets extends React.Component {
             return (
                 <div className="col s2" key={asset._id}>
                     <div className="center-align" style={{
-                        background: '#ff00ff', //'url(/projects/' + this.props.project._id + '/assets/' + asset._id + '/file)',
+                        background: 'url('+asset.datauri+')',
+                        backgroundSize: '100% auto',
                         width: '100%',
                         height: '200px'
                     }}>
