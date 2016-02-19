@@ -89,17 +89,15 @@ gulp.task('test', ['compile'], function(){
  if (node) {
    node.kill();
  }
- node = spawn('node', ['server.js']);
+ node = spawn('node', ['--harmony_proxies','server.js']);
  node.stdout.pipe(process.stdout);
  node.stderr.pipe(process.stderr);
  node.stdin.pause();
  node.on('end', function(){
-   console.log('test-server done ======');
    node.kill();
    process.env.NODE_ENV = old;
  })
  .on('error', function(e){
-   console.log('test-server done ======');
    node.kill();
    process.env.NODE_ENV = old;
    throw e;
@@ -112,12 +110,10 @@ gulp.task('test', ['compile'], function(){
      debug: false
    }))
    .on('end', function(){
-     console.log('e2e done ======');
      node.kill();
      process.env.NODE_ENV = old;
    })
    .on('error', function(e){
-     console.log('e2e done ======');
      node.kill();
      process.env.NODE_ENV = old;
      throw e;
@@ -150,7 +146,7 @@ gulp.task('start', ['build'], function(){
   if (node) {
     node.kill();
   }
-  node = spawn('node', ['server.js'], {stdio: 'inherit'});
+  node = spawn('node', ['--harmony_proxies', 'server.js'], {stdio: 'inherit'});
   return node;
 });
 
