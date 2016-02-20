@@ -129,7 +129,7 @@ const ProjectDates = (props) => {
                     <ProjectStatusDate
                         id="project_start"
                         label="Project Start:"
-                        val={props.project.project_start || null}
+                        val={props.project.project_start}
                         onChange={props.handleDate}
                     />
                     <ProjectCheckpoints
@@ -144,12 +144,12 @@ const ProjectDates = (props) => {
                     <ProjectStatusDate
                         id="project_live"
                         label="Project Live:"
-                        val={props.project.project_live || null}
+                        val={props.project.project_live}
                         onChange={props.handleDate}
                     />
                     <ProjectCheckpoints
                         checkpoints={props.project.checkpoints_live || null}
-                        phase="start"
+                        phase="live"
                         onChange={props.handleDate}
                     />
                 </div>
@@ -159,12 +159,12 @@ const ProjectDates = (props) => {
                     <ProjectStatusDate
                         id="project_end"
                         label="Project End:"
-                        val={props.project.project_end || null}
+                        val={props.project.project_end}
                         onChange={props.handleDate}
                     />
                     <ProjectCheckpoints
                         checkpoints={props.project.checkpoints_end || null}
-                        phase="start"
+                        phase="end"
                         onChange={props.handleDate}
                     />
                 </div>

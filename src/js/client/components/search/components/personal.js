@@ -19,8 +19,7 @@ const Personal = (props) => {
                 />
             </div>
             <div className={'col ' + (props.minimal ? 's12' : 's3')}>
-
-                {props.personal.search ?
+                {props.search ?
                 <div className="row" style={{marginBottom: '0'}}>
                     <div className="col s6">
                         <InputText

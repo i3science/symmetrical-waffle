@@ -5,7 +5,7 @@ class HistoryStore extends BaseStore {
 
     constructor() {
         super();
-        this.history;
+        this.history = null;
     }
 
     _listener(action) {

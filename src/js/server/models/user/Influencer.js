@@ -55,9 +55,14 @@ var Influencer = User.extend({
         city: String,
         residence: String,
         householdIncome: Number,
-        pets: [String],
+        pets: String,
         ethnicity: String,
         employment: String
+    },
+    vehicle: {
+        year: [String],
+        make: [String],
+        model: [String]
     },
     mediums: [String],
     availability: [String],

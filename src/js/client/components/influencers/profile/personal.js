@@ -17,7 +17,7 @@ class Personal extends React.Component {
                 <tr>
                     <td style={{width: '33.3333%'}}><div style={{paddingRight: padit + '%'}}>Married <span className="right teal-text text-lighten-2">{this.props.personal.married?'Yes':'No'}</span></div></td>
                     <td style={{width: '33.3333%'}}><div style={{padding: '0 ' + padit/2 + '%'}}>Number of Kids <span className="right teal-text text-lighten-2">{this.props.personal.kids.length||0}</span></div></td>
-                    <td style={{width: '33.3333%'}}><div style={{paddingLeft: padit + '%'}}>Kids Ages <span className="right teal-text text-lighten-2">{this.props.personal.kids.join(', ')||'-'}</span></div></td>
+                    <td style={{width: '33.3333%'}}><div style={{paddingLeft: padit + '%'}}>Kids Ages <span className="right teal-text text-lighten-2">{this.props.personal.kids}</span></div></td>
                 </tr>
                 <tr>
                     <td style={{width: '33.3333%'}}><div style={{paddingRight: padit + '%'}}>Country <span className="right teal-text text-lighten-2">{this.props.personal.country}</span></div></td>
@@ -30,7 +30,7 @@ class Personal extends React.Component {
                     <td style={{width: '33.3333%'}}><div style={{paddingLeft: padit + '%'}}>Pets <span className="right teal-text text-lighten-2">{this.props.personal.pets.length||0}</span></div></td>
                 </tr>
                 <tr>
-                    <td style={{width: '33.3333%'}}><div style={{paddingRight: padit + '%'}}>Types of Pets <span className="right teal-text text-lighten-2">{this.props.personal.pets.join(', ') || '-'}</span></div></td>
+                    <td style={{width: '33.3333%'}}><div style={{paddingRight: padit + '%'}}>Types of Pets <span className="right teal-text text-lighten-2">{this.props.personal.pets}</span></div></td>
                     <td style={{width: '33.3333%'}}><div style={{padding: '0 ' + padit/2 + '%'}}>Ethnicity <span className="right teal-text text-lighten-2">{this.props.personal.ethnicity}</span></div></td>
                     <td style={{width: '33.3333%'}}><div style={{paddingLeft: padit + '%'}}>&nbsp;</div></td>
                 </tr>

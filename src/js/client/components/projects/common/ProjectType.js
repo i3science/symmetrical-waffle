@@ -31,7 +31,7 @@ const ProjectType = (props) => {
                 id={item.id}
                 name="projectType"
                 label={item.label}
-                parent={props.parent}
+                parent={props.parent || null}
                 onChange={props.onChange}
                 checked={item.id === props.val}
             />

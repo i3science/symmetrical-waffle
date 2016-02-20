@@ -6,26 +6,26 @@ import Actions from '../../../actions/UiActions';
 import influencerStore from '../../../stores/InfluencerStore';
 import searchStore from '../../../stores/SearchStore';
 import listStore from '../../../stores/ListStore';
+import projectStore from '../../../stores/ProjectStore';
 import ProjectParams from './../common/ProjectParams';
 import InfluencerCardList from '../../influencers/list/CardList';
 import SelectedInfluencers from '../../results/selectedInfluencers';
 import Card from '../../common/Card';
 
-class PendingProjectPage extends React.Component {
-    constructor(props) {
+class NewProjectPage extends React.Component {
+    constructor() {
         super();
         this.state = {
-            project: props.project,
-            controlledDate: null,
-            checkpoints: {},
+            project: projectStore.resetProject(),
             influencers: null,
-            exposures: 150000000,
             colors: searchStore.getColors()
         };
         this._onChange = this._onChange.bind(this);
         this._handleChange = this._handleChange.bind(this);
         this._handleDate = this._handleDate.bind(this);
         this._addList = this._addList.bind(this);
+        this._onSave = this._onSave.bind(this);
+        this._cancel = this._cancel.bind(this);
 
     }
     componentWillMount() {
@@ -33,6 +33,9 @@ class PendingProjectPage extends React.Component {
         listStore.addChangeListener(this._onChange);
         Actions.refreshInfluencerList();
         Actions.refreshLists();
+        if (this.state.project._id) {
+            this.props.history.pushState(null, '/projects/' + this.state.project._id);
+        }
     }
     componentWillUnmount() {
         influencerStore.removeChangeListener(this._onChange);
@@ -46,8 +49,9 @@ class PendingProjectPage extends React.Component {
         if (!this.state.project) {
             return;
         }
-        if (this.props.project.lists) {
-            let listResults = listStore.getInfluencersFromList(this.props.project.lists);
+        console.log(this.state);
+        if (this.state.project.lists) {
+            let listResults = listStore.getInfluencersFromList(this.state.project.lists);
             if (listResults) {
                 listResults.map(item => {
                     let influencer = influencerStore.getInfluencerById(item);
@@ -62,8 +66,8 @@ class PendingProjectPage extends React.Component {
             return;
         }
         if (this.state.influencers.length === 0) {
-            if (this.props.project.influencers.length > 0) {
-                this.props.project.influencers.map(item => {
+            if (this.state.project.influencers.length > 0) {
+                this.state.project.influencers.map(item => {
                     let influencer = influencerStore.getInfluencerById(item.influencer);
                     if (influencer && !_.find(this.state.influencers, influencer)) {
                         this.state.influencers.push(influencer);
@@ -94,13 +98,11 @@ class PendingProjectPage extends React.Component {
             this.state.project[event.target.dataset.parent][id] = value;
         }
         this.setState({project: this.state.project});
-        Actions.updateProject(this.state.project);
     }
 
     _handleDate(name, date, parent){
         this.state.project[parent].push({name: name, date: date});
         this.setState({project: this.state.project});
-        Actions.updateProject(this.state.project);
     }
 
     _addList(event) {
@@ -108,38 +110,41 @@ class PendingProjectPage extends React.Component {
         this.props.history.pushState({project: this.props.project}, '/lists');
     }
 
+    _onSave(event) {
+        event.preventDefault();
+        if (!this.state.project._id) {
+            Actions.createProject(this.state.project);
+            this.props.history.pushState(null, '/projects/' + projectStore.getCurrentProjectId());
+        }
+    }
+
+    _cancel(event) {
+        event.preventDefault();
+        this.setState({project: projectStore.resetProject()});
+        this.props.history.goBack();
+    }
+
     render() {
+        console.log(this.props.history);
+        this.props.history.createPath('fdfdsdsa');
         return (
             <div>
-                <Card title={this.props.project.name} deep>
+                <Card title={this.state.project.name || 'New Project'} deep>
                     <ProjectParams
-                        project={this.props.project}
+                        project={this.state.project}
                         onChange={this._handleChange}
                         handleDate={this._handleDate}
                         addList={this._addList}
                     />
-                </Card>
-                {this.state.influencers ? <div>
-                <SelectedInfluencers
-                    selectedInfluencers={this.state.influencers}
-                    //addInfluencer={this.addInfluencerToList}
-                    colors={this.state.colors}
-                    exposures={this.props.project.required_impressions}
-                    resultNum={this.state.influencers.length} />
-                <Link to="" className="btn right" onClick={this._addList}>Add Lists</Link>
-                <div className="clearfix"></div>
-                <InfluencerCardList
-                    influencers={this.state.influencers}
-                    //addToList={this.addToList}
-                    //selectedInfluencers={this.state.influencers}
-                    //onSelectionChanged={this._onSelectionChanged}
-                />
+                    <hr />
+                    <div className="col 12" style={{float: 'none'}}>
+                        <Link to="" className="blue-grey lighten-5 waves-effect waves-light btn-large btn-flat" onClick={this._cancel}>Cancel</Link>
+                        <Link to="" className="teal waves-effect waves-light btn-large right" onClick={this._onSave}>Save Changes</Link>
                     </div>
-                    : null}
-
+                </Card>
             </div>
         );
     }
 }
 
-export default PendingProjectPage;
+export default NewProjectPage;

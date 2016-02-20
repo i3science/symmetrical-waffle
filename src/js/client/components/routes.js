@@ -9,6 +9,7 @@ import ProfilePage from './influencers/ProfilePage';
 import Login from './login';
 import ProjectSearchPage from './projects/projectSearch/projectSearchPage';
 import ProjectPage from './projects/ProjectPage';
+import NewProjectPage from './projects/new/CreateProjectPage';
 import ListSearchPage from './lists/listStart/listsSearchPage';
 import ListPage from './lists/list/listPage';
 import PreferencesPage from './preferences/PreferencesPage';
@@ -34,14 +35,15 @@ export default (
 				<IndexRoute component={ProjectSearchPage} name="Projects"/>
                 <Route path="projects" name="Projects">
 					<IndexRoute component={ProjectSearchPage} />
+					<Route path="create" component={NewProjectPage} name="Create" />
 					<Route path=":id" name="Project">
 						<IndexRoute component={ProjectPage} name="Edit" />
-						<Route path="elements/:elementId" component={ElementPage} name="Campaign Element" />
+						<Route path="elements/:elementId" component={ElementPage} name="Element" />
 					</Route>
 				</Route>
 				<Route path="search" name="Search">
 					<IndexRoute component={SearchStart} />
-					<Route path="influencer" component={SearchInfluencer} name="Influencers" />
+					<Route path="influencer" component={SearchInfluencer} name="Freeform" />
 					<Route path="results" name="Results">
 						<IndexRoute component={Results} />
 						<Route path="profile/:id" component={ProfilePage} name="Profile" />

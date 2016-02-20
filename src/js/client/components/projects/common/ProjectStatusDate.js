@@ -12,7 +12,7 @@ const ProjectStatusDate = (props) => {
                 <InputDate
                     id={props.id}
                     parent={props.parent || null}
-                    date={moment(props.val).format('MM/DD/YYYY') || null}
+                    date={moment(props.val).format('MM/DD/YYYY') || ''}
                     onChange={props.onChange}
                 />
             </div>

@@ -19,21 +19,33 @@ class ActiveProjectPage extends React.Component {
 
     _handleChange(event) {
         let value = event.target.value;
+        let id = event.target.id;
+
         if (event.target.type === 'number') {
             value = Number(value);
         }
         if (event.target.type === 'checkbox') {
             value = event.target.checked;
         }
+        if (event.target.type === 'radio') {
+            id = event.target.name;
+            value = event.target.id;
+        }
         if (!event.target.dataset.parent) {
-            this.state.project[event.target.id] = value;
+            this.state.project[id] = value;
         } else {
-            this.state.project[event.target.dataset.parent][event.target.id] = value;
+            this.state.project[event.target.dataset.parent][id] = value;
         }
         this.setState({project: this.state.project});
+        Actions.updateProject(this.state.project);
     }
+
     _handleDate(name, date, parent){
-        this.state.project[parent].push({name: name, date: date});
+        if (parent) {
+            this.state.project[parent].push({name: name, date: date});
+        } else {
+            this.state.project[name] = date;
+        }
         this.setState({project: this.state.project});
         Actions.updateProject(this.state.project);
     }

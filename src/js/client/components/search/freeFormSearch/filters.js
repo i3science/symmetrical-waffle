@@ -57,6 +57,7 @@ const Filters = (props) => {
                     <PersonalAdvanced
                         onChange={props.onChange}
                         personal={props.filters.personal}
+                        vehicle={props.filters.vehicle}
                         parent="personal"
                     />
                     <h6 className="teal-text">Minimum Followers</h6>
@@ -72,8 +73,6 @@ const Filters = (props) => {
                     onChange={props.onChange}
                     parent="audience"
                 /> : null }
-
-
                 <h6 className="teal-text">Children</h6>
                 <Children
                     onChange={props.onChange}
