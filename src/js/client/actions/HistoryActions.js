@@ -12,5 +12,15 @@ export default {
                     history: history
                 });
             });
+    },
+    findForElement(project, element) {
+        historyService
+            .listForElement(project, element)
+            .then((history) => {
+                dispatch({
+                    actionType: AppConstants.GET_HISTORY,
+                    history: history
+                });
+            });
     }
 };
