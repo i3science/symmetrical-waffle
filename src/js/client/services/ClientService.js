@@ -1,25 +1,25 @@
 import 'isomorphic-fetch';
 import Q from 'q';
 
-export default class TaskService {
-    static list(project, element) {
-        return fetch('/api/projects/'+project+'/elements/'+element+'/tasks')
+export default class ClientService {
+    static list() {
+        return fetch('/api/clients')
             .then((response) => {
                 return Q(response.json());
             })
             .fail(() => {});
     }
-    static find(project, element, task) {
-        return fetch('/api/projects/'+project+'/elements/'+element+'/tasks/'+task)
+    static find(id) {
+        return fetch('/api/clients/'+id)
             .then((response) => {
                 return Q(response.json());
             })
             .fail(() => {});
     }
-    static create(project, element, task) {
-        return fetch('/api/projects/'+project+'/elements/'+element+'/tasks', {
+    static create(client) {
+        return fetch('/api/clients', {
             method: 'post',
-            body: JSON.stringify(task),
+            body: JSON.stringify(client),
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -30,10 +30,10 @@ export default class TaskService {
             })
             .fail(() => {});
     }
-    static update(project, element, task) {
-        return fetch('/api/projects/'+project+'/elements/'+element+'/tasks/'+task._id, {
+    static update(client) {
+        return fetch('/api/clients/'+client._id, {
             method: 'put',
-            body: JSON.stringify(task),
+            body: JSON.stringify(client),
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'

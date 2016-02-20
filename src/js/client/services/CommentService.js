@@ -1,19 +1,20 @@
 import 'isomorphic-fetch';
+import Q from 'q';
 
 export default class CommentService {
     static list(project, element) {
         return fetch('/api/projects/'+project+'/elements/'+element+'/comments')
             .then((response) => {
-                return response.json();
+                return Q(response.json());
             })
-            .catch(() => {});
+            .fail(() => {});
     }
     static find(project, element, comment) {
         return fetch('/api/projects/'+project+'/elements/'+element+'/comments/'+comment)
             .then((response) => {
-                return response.json();
+                return Q(response.json());
             })
-            .catch(() => {});
+            .fail(() => {});
     }
     static create(project, element, comment) {
         return fetch('/api/projects/'+project+'/elements/'+element+'/comments', {
@@ -25,9 +26,9 @@ export default class CommentService {
             }
         })
             .then((response) => {
-                return response.json();
+                return Q(response.json());
             })
-            .catch(() => {});
+            .fail(() => {});
     }
     static update(project, element, comment) {
         return fetch('/api/projects/'+project+'/elements/'+element+'/comments/'+comment._id, {
@@ -41,6 +42,6 @@ export default class CommentService {
             .then(() => {
                 return true;
             })
-            .catch(() => {});
+            .fail(() => {});
     }
 }

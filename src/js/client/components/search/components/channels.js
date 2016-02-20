@@ -6,7 +6,6 @@ const Channel = (props) => {
         (props.minimal && !props.channels[props.channel + '_range_from'])) {
         return <div></div>;
     }
-    console.log(props);
     return (
         <div className={'col ' + (props.minimal ? 's12' : 's3')}
              style={{position: 'relative'}}>

@@ -1,19 +1,20 @@
 import 'isomorphic-fetch';
+import Q from 'q';
 
 export default class AssetService {
     static list(project) {
         return fetch('/api/projects/'+(project._id || project)+'/assets')
             .then((response) => {
-                return response.json();
+                return Q(response.json());
             })
-            .catch(() => {});
+            .fail(() => {});
     }
     static find(project, id) {
         return fetch('/api/projects/'+(project._id || project)+'/assets/'+id)
             .then((response) => {
-                return response.json();
+                return Q(response.json());
             })
-            .catch(() => {});
+            .fail(() => {});
     }
     static create(project, asset) {
         let headers = {
@@ -28,9 +29,9 @@ export default class AssetService {
             headers: headers
         })
             .then((response) => {
-                return response.json();
+                return Q(response.json());
             })
-            .catch(() => {});
+            .fail(() => {});
     }
     static update(project, asset) {
         return fetch('/api/projects/'+(project._id || project)+'/assets/'+asset._id, {
@@ -41,6 +42,6 @@ export default class AssetService {
                 'Content-Type': 'application/json'
             }
         })
-            .catch(() => {});
+            .fail(() => {});
     }
 }

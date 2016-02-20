@@ -11,7 +11,7 @@ class UserMenu extends React.Component {
 
     componentDidMount() {
         authenticationStore.addChangeListener(this._onChange);
-        authenticationStore.getCurrentUser();
+        this.setState({ user: authenticationStore.getCurrentUser() });
     }
 
     componentWillUnmount() {
@@ -20,7 +20,7 @@ class UserMenu extends React.Component {
 
     _onChange() {
         this.setState({
-            user: authenticationStore.user
+            user: authenticationStore.getCurrentUser()
         });
     }
 

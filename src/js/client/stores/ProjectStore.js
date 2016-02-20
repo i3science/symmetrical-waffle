@@ -19,7 +19,7 @@ class ProjectStore extends BaseStore {
             checkpoints_end: [],
             influencers: [],
             lists: []
-        }
+        };
     }
 
     _listener(action) {

@@ -6,6 +6,7 @@ import projectService from '../services/ProjectService';
 import listService from '../services/ListService';
 import assetService from '../services/AssetService';
 import reviewService from '../services/ReviewService';
+import clientService from '../services/ClientService';
 
 export default {
     initialize() {
@@ -90,11 +91,8 @@ export default {
      // Project Actions
 
     createProject(project) {
-        projectService.create(project)
+        return projectService.create(project)
             .then((response) => {
-                if (response.status !== 201) {
-                    throw new Error('An error occurred while updating the project');
-                }
                 return projectService.find(response.id);
             })
             .then((data) => {
@@ -102,6 +100,7 @@ export default {
                     actionType: AppConstants.UPDATE_PROJECT,
                     project: data
                 });
+                return true;
             });
     },
 
@@ -194,6 +193,19 @@ export default {
                 dispatch({
                     actionType: AppConstants.REFRESH_REVIEWS,
                     reviews: reviews
+                });
+            });
+    },
+
+    // Client actions
+
+    listClients() {
+        clientService
+            .list()
+            .then((clients) => {
+                dispatch({
+                    actionType: AppConstants.REFRESH_CLIENTS,
+                    clients: clients
                 });
             });
     }

@@ -10,7 +10,6 @@ module.exports = function(fixtures) {
         ford_christmas: new Project({
             organization: fixtures.organizations.jones,
             client: fixtures.clients.ford,
-            agency: 'Jones Media',
             name: 'Ford Christmas Special',
             brief: 'Ford is looking for 8 bloggers to create content to promote their Christmas special.',
             projectType: 'blogger',
@@ -20,10 +19,7 @@ module.exports = function(fixtures) {
                 general: false
             },
             required_influencers: {
-                bloggers: 2,
-                photo_bloggers: 2,
-                vloggers: 2,
-                amplifiers: 2
+                bloggers: 2
             },
             required_impressions: 2000000,
             budget: 10000,
@@ -86,7 +82,6 @@ module.exports = function(fixtures) {
         pepsi_thanksgiving: new Project({
             organization: fixtures.organizations.jones,
             client: fixtures.clients.ford,
-            agency: 'Jones Media',
             name: 'Pepsi Thanksgiving',
             brief: 'Ford is looking for 27 bloggers to create content to promote their Thanksgiving special.',
             projectType: 'blogger',
@@ -96,10 +91,7 @@ module.exports = function(fixtures) {
                 general: true
             },
             required_influencers: {
-                bloggers: 7,
-                photo_bloggers: 7,
-                vloggers: 7,
-                amplifiers: 6
+                bloggers: 7
             },
             required_impressions: 14000000,
             budget: 70000,
@@ -162,7 +154,6 @@ module.exports = function(fixtures) {
         crest_easter: new Project({
             organization: fixtures.organizations.jones,
             client: fixtures.clients.crest,
-            agency: 'Jones Media',
             name: 'Crest Easter Campaign',
             brief: 'Crest is looking for 5 bloggers to promote their brand around Easter',
             projectType: 'vlogger',
@@ -172,10 +163,7 @@ module.exports = function(fixtures) {
                 general: true
             },
             required_influencers: {
-                bloggers: 1,
-                photo_bloggers: 2,
-                vloggers: 1,
-                amplifiers: 1
+                vloggers: 1
             },
             required_impressions: 1250000,
             budget: 7500,
@@ -238,7 +226,6 @@ module.exports = function(fixtures) {
         green_giant: new Project({
             organization: fixtures.organizations.jones,
             client: fixtures.clients.green_giant,
-            agency: 'Jones Media',
             name: 'Green Giant Beans',
             brief: 'Green Giant is looking for 182 individuals to engage the public with an uplifting message about beans.',
             projectType: 'photo_blogger',
@@ -248,10 +235,7 @@ module.exports = function(fixtures) {
                 general: true
             },
             required_influencers: {
-                bloggers: 37,
-                photo_bloggers: 70,
-                vloggers: 40,
-                amplifiers: 35
+                photo_bloggers: 70
             },
             required_impressions: 50000000,
             budget: 500000,

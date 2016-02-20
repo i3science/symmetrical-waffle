@@ -1,9 +1,6 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 import { Link } from 'react-router';
 import Sidebar from '../sidebar';
-import Calendar from '../influencers/profile/calendar';
-import InputDate from '../common/input/inputdate';
-//import AuthenticationStore from '';
 
 const PreferencesSidebar = (props) => {
     return (

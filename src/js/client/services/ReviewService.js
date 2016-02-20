@@ -1,16 +1,20 @@
 import 'isomorphic-fetch';
+import Q from 'q';
 
 export default class ReviewService {
     static list(influencer) {
         return fetch('/api/influencers/'+(influencer._id || influencer)+'/reviews')
             .then((response) => {
-                return response.json();
+                return Q(response.json());
             })
-            .catch(() => {});
+            .fail(() => {});
     }
     static find(influencer, id) {
         return fetch('/api/influencers/'+(influencer._id || influencer)+'/reviews/'+id)
-            .catch(() => {});
+            .then((response) => {
+                return Q(response.json());
+            })
+            .fail(() => {});
     }
     static create(influencer, review) {
         return fetch('/api/influencers/'+(influencer._id || influencer)+'/reviews', {
@@ -21,7 +25,7 @@ export default class ReviewService {
                 'Content-Type': 'application/json'
             }
         })
-            .catch(() => {});
+            .fail(() => {});
     }
     static update(influencer, review) {
         return fetch('/api/influencers/'+(influencer._id || influencer)+'/reviews/'+influencer._id, {
@@ -32,6 +36,6 @@ export default class ReviewService {
                 'Content-Type': 'application/json'
             }
         })
-            .catch(() => {});
+            .fail(() => {});
     }
 }

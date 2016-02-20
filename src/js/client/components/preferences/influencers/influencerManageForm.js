@@ -9,7 +9,6 @@ import Mediums from '../../search/components/mediums';
 import Children from '../../search/components/children';
 import Channels from '../../search/components/channels';
 import InputText from '../../common/input/inputtext';
-import CheckBox from '../../common/input/checkbox';
 import Switch from '../../common/input/switch';
 
 const InfluencerManageForm = (props) => {

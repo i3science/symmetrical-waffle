@@ -13,6 +13,7 @@ export default base_service(Project, {
         return Project
             .findOne(opts || {})
             .populate('client')
+            .populate('organization', 'name')
             .exec();
     }
 });

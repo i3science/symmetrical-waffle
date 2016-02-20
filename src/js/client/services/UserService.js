@@ -1,4 +1,5 @@
 import 'isomorphic-fetch';
+import Q from 'q';
 
 class UserService {
     list(opts) {
@@ -9,21 +10,24 @@ class UserService {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         })
-            .catch(() => {});
+            .then((response) => {
+                return Q(response.json());
+            })
+            .fail(() => {});
     }
     find(id) {
         return fetch('/api/users/'+id)
             .then((response) => {
-                return response.json();
+                return Q(response.json());
             })
-            .catch(() => {});
+            .fail(() => {});
     }
     getCurrentUser() {
         return fetch('/api/users/me')
             .then((response) => {
-                return response.json();
+                return Q(response.json());
             })
-            .catch(() => {});
+            .fail(() => {});
     }
     create(user) {
         return fetch('/api/users/', {
@@ -34,7 +38,7 @@ class UserService {
                 'Content-Type': 'application/json'
             }
         })
-            .catch(() => {});
+            .fail(() => {});
     }
     update(user) {
         return fetch('/api/users/'+user._id, {
@@ -45,11 +49,11 @@ class UserService {
                 'Content-Type': 'application/json'
             }
         })
-            .catch(() => {});
+            .fail(() => {});
     }
     save(user) {
         return (user._id ? this.update(user) : this.create(user))
-            .catch(() => {});
+            .fail(() => {});
     }
 }
 

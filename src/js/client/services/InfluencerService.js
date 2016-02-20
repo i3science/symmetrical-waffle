@@ -6,7 +6,7 @@ class InfluencerService {
     }
     find(id) {
         return fetch('/api/influencers/'+id)
-            .catch(() => {});
+            .fail(() => {});
     }
     create(influencer) {
         return fetch('/api/influencers/', {
@@ -17,7 +17,7 @@ class InfluencerService {
                 'Content-Type': 'application/json'
             }
         })
-            .catch(() => {});
+            .fail(() => {});
     }
     update(influencer) {
         return fetch('/api/influencers/'+influencer._id, {
@@ -28,11 +28,11 @@ class InfluencerService {
                 'Content-Type': 'application/json'
             }
         })
-            .catch(() => {});
+            .fail(() => {});
     }
     save(influencer) {
         return (influencer._id ? this.update(influencer) : this.create(influencer))
-            .catch(() => {});
+            .fail(() => {});
     }
 }
 

@@ -30,6 +30,8 @@ const InputText = (props) => {
                     data-parent={props.parent || null}
                     onChange={props.onChange ? props.onChange.bind(this) : null}
                     style={props.style || null}
+                    readOnly={props.readOnly}
+                    disabled={props.readOnly || props.disabled}
                 />
                 {suffix || ''}
                 <label

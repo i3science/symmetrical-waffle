@@ -8,8 +8,6 @@ import searchStore from '../../../stores/SearchStore';
 import listStore from '../../../stores/ListStore';
 import projectStore from '../../../stores/ProjectStore';
 import ProjectParams from './../common/ProjectParams';
-import InfluencerCardList from '../../influencers/list/CardList';
-import SelectedInfluencers from '../../results/selectedInfluencers';
 import Card from '../../common/Card';
 
 class NewProjectPage extends React.Component {
@@ -49,7 +47,6 @@ class NewProjectPage extends React.Component {
         if (!this.state.project) {
             return;
         }
-        console.log(this.state);
         if (this.state.project.lists) {
             let listResults = listStore.getInfluencersFromList(this.state.project.lists);
             if (listResults) {
@@ -111,10 +108,14 @@ class NewProjectPage extends React.Component {
     }
 
     _onSave(event) {
+
         event.preventDefault();
         if (!this.state.project._id) {
-            Actions.createProject(this.state.project);
-            this.props.history.pushState(null, '/projects/' + projectStore.getCurrentProjectId());
+            Actions
+                .createProject(this.state.project)
+                .then(() => {
+                    this.props.history.pushState(null, '/projects/' + projectStore.getCurrentProjectId());
+                });
         }
     }
 
@@ -125,7 +126,6 @@ class NewProjectPage extends React.Component {
     }
 
     render() {
-        console.log(this.props.history);
         this.props.history.createPath('fdfdsdsa');
         return (
             <div>

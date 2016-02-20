@@ -1,26 +1,27 @@
 import 'isomorphic-fetch';
+import Q from 'q';
 
 export default class CampaignElementService {
     static list(project) {
         return fetch('/api/projects/'+project._id+'/elements')
             .then((response) => {
-                return response.json();
+                return Q(response.json());
             })
-            .catch(() => {});
+            .fail(() => {});
     }
     static find(project, element) {
         return fetch('/api/projects/'+project+'/elements/'+element)
             .then((response) => {
-                return response.json();
+                return Q(response.json());
             })
-            .catch(() => {});
+            .fail(() => {});
     }
     static listAssignees(project, element) {
         return fetch('/api/projects/'+project+'/elements/'+element+'/assignees')
             .then((response) => {
-                return response.json();
+                return Q(response.json());
             })
-            .catch(() => {});
+            .fail(() => {});
     }
     static update(project, element) {
         return fetch('/api/projects/'+project+'/elements/'+element._id, {
@@ -37,6 +38,6 @@ export default class CampaignElementService {
                 }
                 return response;
             })
-            .catch(() => {});
+            .fail(() => {});
     }
 }

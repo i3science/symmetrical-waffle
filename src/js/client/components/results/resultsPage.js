@@ -83,13 +83,10 @@ class Serp extends React.Component {
                 </div>
             );
         }
-        console.log(this.state.results[0]);
         let exposuresGroup = this.state.results.map(item => {
             let total = Number();
-            console.log(item.name.first, '-------------------------');
             for (let channel in item.channels) {
                 if (item.channels.hasOwnProperty(channel)) {
-                    console.log(item.channels[channel]);
                     total += Number(item.channels[channel]);
                 }
             }
@@ -97,10 +94,8 @@ class Serp extends React.Component {
         });
         let exposures = Number();
         for (let item in exposuresGroup) {
-            console.log(exposuresGroup[item]);
             exposures += exposuresGroup[item];
         }
-        console.log(exposures);
         return (
             <div>
                 <Sidebar>

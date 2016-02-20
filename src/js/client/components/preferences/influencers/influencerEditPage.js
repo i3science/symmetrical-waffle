@@ -65,7 +65,6 @@ class InfluencerEditPage extends React.Component {
             }
         }
         this.setState({influencer: this.state.influencer});
-        console.log(this.state.influencer);
     }
     _cancel() {
         this.setState({influencer: {}});
