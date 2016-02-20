@@ -17,12 +17,8 @@ var Project = new Schema({
     client: {
         type: Schema.Types.ObjectId,
         ref: 'Client',
-        required: false
+        required: true
     },
-    /**
-     * The agency for whom the campaign is intended. For example, Jones Media.
-     */
-    agency: String,
     /**
      * The name of the campaign.
      */

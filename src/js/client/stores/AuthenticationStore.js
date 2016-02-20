@@ -1,7 +1,5 @@
-import Q from 'q';
 import BaseStore from './BaseStore';
 import AuthenticationConstants from '../constants/authentication';
-import userService from '../services/UserService';
 
 class AuthenticationStore extends BaseStore {
 
@@ -10,6 +8,10 @@ class AuthenticationStore extends BaseStore {
         this._user = null;
         this._jwt = null;
         this._redirectLocation = null;
+
+        if (typeof window !== 'undefined' && window.initial_data.user) {
+            this._user = window.initial_data.user;
+        }
     }
 
     _listener(action) {
@@ -43,18 +45,8 @@ class AuthenticationStore extends BaseStore {
     get redirectLocation() {
         return this._redirectLocation;
     }
-
     getCurrentUser() {
-        if (self._user) {
-            return Q.all(self._user);
-        }
-        return userService
-            .getCurrentUser()
-            .then((data) => {
-                self._user = data;
-                this.emitChange();
-                return data;
-            });
+        return this._user;
     }
 }
 

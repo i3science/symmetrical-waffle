@@ -189,14 +189,16 @@ module.exports = function(db) {
             } else if (redirectLocation) {
                 return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
             } else if (renderProps) {
-                // return res.status(200).sendFile(path.resolve(__dirname, '../src/public/index.swig'));
-
-                // var App = require('../src/js/client/components/app').default;
-                // console.log('App: ', App);
-                // var ReactApp = React.createFactory(App);
-                // var content = ReactDOMServer.renderToString(ReactApp({}));
                 var content = renderToString(<RoutingContext {...renderProps} />);
-                return res.render('index', {content: content, translations: JSON.stringify(i18next.store.data)});
+                return res.render('index', {
+                    request: req,
+                    content: content,
+                    translations: JSON.stringify(i18next.store.data),
+                    initial_data: JSON.stringify({
+                        user: req.loggedInUser,
+                        org: req.currentOrganization
+                    })
+                });
             }
         });
     });

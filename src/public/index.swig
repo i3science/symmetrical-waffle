@@ -12,6 +12,7 @@
     <div id="main">{% autoescape false %}{{ content }}{% endautoescape %}</div>
     <script type="text/javascript">
         window.translations = {% autoescape false %}{{ translations }}{% endautoescape %};
+        window.initial_data = {% autoescape false %}{{ initial_data }}{% endautoescape %};
     </script>
     <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
