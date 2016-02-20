@@ -41,12 +41,12 @@ const ProjectResults = (props) => {
         return (
             <ProjectResult
                 key={index}
-                project={item}
-            />
+                project={item} />
         );
     });
     return (
         <div className="">
+            <h5 className="center-align teal-text">{(props.projects && props.projects.length > 0) ? props.projects.length + ' results' : ''}</h5>
             <div className="row">
                 {results}
             </div>
