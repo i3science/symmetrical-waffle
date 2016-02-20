@@ -19,7 +19,7 @@ export default class Tasks extends React.Component {
         CommentActions.findForElement(this.props.project, this.props.element._id);
     }
     componentWillUnmount() {
-        commentStore.removeChangeListener(this._onElementChange);
+        commentStore.removeChangeListener(this._onStoreChange);
     }
     _onStoreChange() {
         this.setState({
