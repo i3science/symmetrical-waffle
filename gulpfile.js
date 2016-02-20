@@ -84,49 +84,46 @@ gulp.task('test', ['compile'], function(){
     console.log('Skipping Tests');
     return;
   }
- var old = process.env.NODE_ENV;
- process.env.NODE_ENV = 'test';
- if (node) {
-   node.kill();
- }
- node = spawn('node', ['--harmony_proxies','server.js']);
- node.stdout.pipe(process.stdout);
- node.stderr.pipe(process.stderr);
- node.stdin.pause();
- node.on('end', function(){
-   node.kill();
-   process.env.NODE_ENV = old;
- })
- .on('error', function(e){
-   node.kill();
-   process.env.NODE_ENV = old;
-   throw e;
- });
+  var old = process.env.NODE_ENV;
+  process.env.NODE_ENV = 'test';
 
- // Start protractor
- return gulp.src('test/js/client/components/*.ee.js')
-   .pipe(protractor({
+  if (node) {
+    node.kill();
+  }
+  node = spawn('node', ['server.js'], {stdio: 'inherit'});
+  node.on('end', function(){
+    node.kill();
+    process.env.NODE_ENV = old;
+  })
+  .on('error', function(e){
+    node.kill();
+    process.env.NODE_ENV = old;
+    throw e;
+  });
+
+  // Start protractor
+  return gulp.src('test/js/client/components/*.ee.js')
+  .pipe(protractor({
+     args: ['--harmony_proxies'],
      configFile: 'protractor.conf.js',
      debug: false
-   }))
-   .on('end', function(){
+  }))
+  .on('end', function(){
      node.kill();
      process.env.NODE_ENV = old;
-   })
-   .on('error', function(e){
+  })
+  .on('error', function(e){
      node.kill();
      process.env.NODE_ENV = old;
      throw e;
-   });
+  });
 });
 
 //----
 // STEP 4 - Building & packaging
 //----
 gulp.task('build', ['compile','test']);
-gulp.task('package', ['build'], function(){
-
-});
+gulp.task('package', ['build']);
 
 //----
 // STEP 5 - Watches
@@ -146,7 +143,7 @@ gulp.task('start', ['build'], function(){
   if (node) {
     node.kill();
   }
-  node = spawn('node', ['--harmony_proxies', 'server.js'], {stdio: 'inherit'});
+  node = spawn('node', ['server.js'], {stdio: 'inherit'});
   return node;
 });
 

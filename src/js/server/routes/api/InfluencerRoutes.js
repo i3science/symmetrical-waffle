@@ -1,5 +1,6 @@
 import influencerController  from '../../controllers/InfluencerController';
 import authenticationController from '../../controllers/AuthenticationController';
+import reviewRouter from './ReviewRouter.js';
 
 module.exports = function(app) {
     app.route('/api/influencers')
@@ -10,4 +11,6 @@ module.exports = function(app) {
         .put(authenticationController.hasRole(['organizer']), influencerController.update)
         .delete(authenticationController.hasRole(['organizer']), influencerController.delete);
     app.param('influencerId', influencerController.findById);
+
+    app.use('/api/influencers/:influencerId/reviews', reviewRouter());
 };

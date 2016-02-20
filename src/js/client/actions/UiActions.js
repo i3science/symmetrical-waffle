@@ -5,6 +5,7 @@ import influencerService from '../services/InfluencerService';
 import projectService from '../services/ProjectService';
 import listService from '../services/ListService';
 import assetService from '../services/AssetService';
+import reviewService from '../services/ReviewService';
 
 export default {
     initialize() {
@@ -168,6 +169,19 @@ export default {
                 } else {
                     // TODO Message about failure
                 }
+            });
+    },
+
+    // Review actions
+
+    findReviewsForInfluencer(influencer) {
+        reviewService
+            .list(influencer)
+            .then((reviews) => {
+                dispatch({
+                    actionType: AppConstants.REFRESH_REVIEWS,
+                    reviews: reviews
+                });
             });
     }
 };

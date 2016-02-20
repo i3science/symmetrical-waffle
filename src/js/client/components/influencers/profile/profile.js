@@ -1,5 +1,4 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
-import { Link } from 'react-router';
 import _ from 'lodash';
 
 import Channels from './channels';
@@ -10,6 +9,7 @@ import MediaKit from './mediakit';
 import Personal from './personal';
 import Audience from './audience';
 import Calendar from './calendar';
+import Reviews from './reviews';
 
 
 let influencerExtended = {
@@ -34,110 +34,34 @@ let influencerExtended = {
             name: 'Blog 4',
             path: 'whoknows'
         }
-    ],
-    reviews: [
-        {
-            id: '12345',
-            image: '',
-            body: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae',
-            stars: 3
-        },
-        {
-            id: '23456',
-            image: '',
-            body: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae',
-            stars: 5
-        },
-        {
-            id: '34567',
-            image: '',
-            body: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae',
-            stars: 4
-        },
-        {
-            id: '45678',
-            image: '',
-            body: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae',
-            stars: 1
-        }
     ]
+    // reviews: [
+    //     {
+    //         id: '12345',
+    //         image: '',
+    //         body: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae',
+    //         stars: 3
+    //     },
+    //     {
+    //         id: '23456',
+    //         image: '',
+    //         body: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae',
+    //         stars: 5
+    //     },
+    //     {
+    //         id: '34567',
+    //         image: '',
+    //         body: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae',
+    //         stars: 4
+    //     },
+    //     {
+    //         id: '45678',
+    //         image: '',
+    //         body: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae',
+    //         stars: 1
+    //     }
+    // ]
 
-};
-
-const Star = (props) => {
-    return (
-        <i className={'material-icons' + (props.color ? ' ' + props.color + '-text' : ' teal-text') + (props.disabled ? ' ' + props.disabled : '')} style={{fontSize: '35px'}}>star</i>
-    );
-};
-
-const Rating = (props) => {
-
-    let rating = [];
-
-    for (var i=0; i < 5; i++) {
-        if (i < props.stars) {
-            rating.push(<Star key={i} />);
-        } else {
-            rating.push(<Star key={i} disabled="text-lighten-5" />);
-        }
-    }
-    return (
-        <div className="center-align">
-            {rating}
-        </div>
-    );
-};
-
-const Review = (props) => {
-    return (
-        <div className="row">
-            <div className="col s6">
-                <img className="circle responsive-img left" style={{width: '80px', marginRight: '30px', boxShadow: '0px 0px 1px 0px rgba(0,0,0,0.5)'}} src="/assets/images/default.jpg" />
-                <div style={{overflow: 'hidden', height: '90px', position: 'relative'}}>
-                    <p style={{fontSize: '15px', margin: '0'}}>{props.review.body}</p>
-                    <div style={{
-                        height: '20px',
-                        width: '100%',
-                        position: 'absolute',
-                        bottom: '0',
-                        marginLeft: '-12px',
-                        boxShadow: '0px -23px 12px -7px #fff inset'
-                    }}></div>
-                </div>
-            </div>
-            <div className="col s3">
-                <Rating
-                    stars={props.review.stars}
-                />
-            </div>
-            <div className="col s3 center-align">
-                <Link
-                    to="/search"
-                    className="amber accent-3 waves-effect waves-light btn center">
-                    <i className="material-icons right">subject</i>Read More
-                </Link>
-            </div>
-        </div>
-    );
-};
-
-const Reviews = (props) => {
-    if (!props.reviews) {
-        return <div></div>;
-    }
-    let reviews = props.reviews.map((item, index) => {
-        return (
-            <Review
-                key={index}
-                review={item}
-            />
-        );
-    });
-    return (
-        <div>
-            {reviews}
-        </div>
-    );
 };
 
 const Profile = (props) => {
@@ -236,7 +160,7 @@ const Profile = (props) => {
                 <h5 style={{marginBottom: '30px'}}>Reviews</h5>
                 <div style={{padding: '0 2%'}}>
                     <Reviews
-                        reviews={influencer.reviews}
+                        influencer={influencer}
                     />
                 </div>
 
