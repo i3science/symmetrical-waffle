@@ -28,6 +28,9 @@ var CampaignElement = new Schema({
     name: {
         type: String,
         required: true
+    },
+    content: {
+        type: String
     }
 });
 

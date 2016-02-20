@@ -15,6 +15,9 @@ module.exports = function(app) {
     app.route('/api/projects/:projectId/elements/:elementId/assignees')
         .get(authenticationController.hasRole(['organizer','client']), campaignElementController.listAssignees);
 
+    app.route('/api/projects/:projectId/elements/:elementId/history')
+        .get(authenticationController.hasRole(['organizer','client']), campaignElementController.history);
+
     app.use('/api/projects/:projectId/elements/:elementId/tasks', taskRouter);
     app.use('/api/projects/:projectId/elements/:elementId/comments', commentRouter('element'));
 

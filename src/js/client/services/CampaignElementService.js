@@ -22,4 +22,21 @@ export default class CampaignElementService {
             })
             .catch(() => {});
     }
+    static update(project, element) {
+        return fetch('/api/projects/'+project+'/elements/'+element._id, {
+            method: 'put',
+            body: JSON.stringify(element),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+            .then((response) => {
+                if (response.status !== 201) {
+                    throw response;
+                }
+                return response;
+            })
+            .catch(() => {});
+    }
 }

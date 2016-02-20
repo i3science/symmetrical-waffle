@@ -7,5 +7,12 @@ export default {
                 return response.json();
             })
             .catch(() => {});
+    },
+    listForElement(project, element) {
+        return fetch('/api/projects/'+(project._id || project)+'/elements/'+(element._id || element)+'/history')
+            .then((response) => {
+                return response.json();
+            })
+            .catch(() => {});
     }
 };

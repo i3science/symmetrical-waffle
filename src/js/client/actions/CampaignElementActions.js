@@ -32,5 +32,15 @@ export default {
                     assignees: assignees
                 });
             });
+    },
+    update(project, element) {
+        campaignElementService
+            .update(project, element)
+            .then(() => {
+                dispatch({
+                    actionType: AppConstants.UPDATE_ELEMENT,
+                    element: element
+                });
+            });
     }
 };
