@@ -48,7 +48,7 @@
     "moment": "^2.10.6",
     "mongoose": "^4.3.5",
     "mongoose-moment": "^0.1.0",
-    "mongoose-schema-extend": "^0.2.0",
+    "mongoose-schema-extend": "0.2.0",
     "morgan": "~1.6.1",
     "multer": "^1.1.0",
     "node-uuid": "^1.4.7",
@@ -62,7 +62,6 @@
     "react-loader": "^2.0.0",
     "react-router": "~1.0.3",
     "request-context": "^0.1.6",
-    "restful.js": "git+https://github.com/thomas-p-wilson/restful.js.git",
     "swig": "^1.4.2"
   },
   "devDependencies": {
