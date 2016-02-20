@@ -3,17 +3,29 @@ import { Link } from 'react-router';
 import moment from 'moment';
 
 const ProjectResult = (props) => {
-    let amplifiers = Object.keys(props.project.required_influencers).reduce((obj, val) => {
-        obj += props.project.required_influencers[val];
-        return obj;
-    }, 0);
+    let type = '';
+    switch (props.project.projectType) {
+        case 'blogger':
+            type = 'Bloggers';
+            break;
+        case 'vlogger':
+            type = 'Vloggers';
+            break;
+        case 'photo_blogger':
+            type = 'Photo bloggers';
+            break;
+        case 'amplifier':
+            type = 'Amplifiers';
+            break;
+    }
     return (
         <div className="col m3 s2">
             <div className="card">
                 <div className="card-content">
                     <span className="card-title teal-text text-darken-1">{props.project.client.name}</span>
                     <p><strong>{props.project.name}</strong></p>
-                    <p>Amplifiers: {amplifiers}</p>
+
+                    <p>{type}: {props.project.required_influencers[props.project.projectType + 's']}</p>
                     <p>Live Date: {moment(props.project.project_live).format('DD/MM/YYYY')}</p>
                 </div>
                 <div className="card-action grey lighten-5">

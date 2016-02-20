@@ -10,6 +10,7 @@ module.exports = function(fixtures) {
         ford_christmas: new Project({
             organization: fixtures.organizations.jones,
             client: fixtures.clients.ford,
+            agency: 'Jones Media',
             name: 'Ford Christmas Special',
             brief: 'Ford is looking for 8 bloggers to create content to promote their Christmas special.',
             projectType: 'blogger',
@@ -85,6 +86,7 @@ module.exports = function(fixtures) {
         pepsi_thanksgiving: new Project({
             organization: fixtures.organizations.jones,
             client: fixtures.clients.ford,
+            agency: 'Jones Media',
             name: 'Pepsi Thanksgiving',
             brief: 'Ford is looking for 27 bloggers to create content to promote their Thanksgiving special.',
             projectType: 'blogger',
@@ -160,6 +162,7 @@ module.exports = function(fixtures) {
         crest_easter: new Project({
             organization: fixtures.organizations.jones,
             client: fixtures.clients.crest,
+            agency: 'Jones Media',
             name: 'Crest Easter Campaign',
             brief: 'Crest is looking for 5 bloggers to promote their brand around Easter',
             projectType: 'vlogger',
@@ -235,6 +238,7 @@ module.exports = function(fixtures) {
         green_giant: new Project({
             organization: fixtures.organizations.jones,
             client: fixtures.clients.green_giant,
+            agency: 'Jones Media',
             name: 'Green Giant Beans',
             brief: 'Green Giant is looking for 182 individuals to engage the public with an uplifting message about beans.',
             projectType: 'photo_blogger',

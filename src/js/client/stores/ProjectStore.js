@@ -8,6 +8,18 @@ class ProjectStore extends BaseStore {
         super();
         this.currentProjectId = null;
         this.projects = [];
+        this.newProject = {
+            client: {},
+            brief: '',
+            projectType: '',
+            goals: {},
+            required_influencers: {},
+            checkpoints_start: [],
+            checkpoints_live: [],
+            checkpoints_end: [],
+            influencers: [],
+            lists: []
+        }
     }
 
     _listener(action) {
@@ -23,8 +35,8 @@ class ProjectStore extends BaseStore {
             case AppConstants.UPDATE_PROJECT:
                 if (_.find(this.projects, {_id: action.project._id})) {
                     _.remove(this.projects, {_id: action.project._id});
-                    this.projects.push(action.project);
                 }
+                this.projects.push(action.project);
                 this.emitChange();
                 break;
             case AppConstants.GET_PROJECT:
@@ -32,6 +44,10 @@ class ProjectStore extends BaseStore {
                 this.emitChange();
                 break;
         }
+    }
+
+    resetProject() {
+        return this.newProject;
     }
 
     getProjects() {

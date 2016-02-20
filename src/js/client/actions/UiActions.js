@@ -88,6 +88,25 @@ export default {
 
      // Project Actions
 
+    createProject(project) {
+        projectService.create(project)
+            .then((response) => {
+                if (response.status !== 204) {
+                    throw new Error('An error occurred while updating the project');
+                }
+                return projectService.find(project._id);
+            })
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                dispatch({
+                    actionType: AppConstants.UPDATE_PROJECT,
+                    project: data
+                });
+            });
+    },
+
     updateProject(project) {
         projectService.update(project)
             .then((response) => {

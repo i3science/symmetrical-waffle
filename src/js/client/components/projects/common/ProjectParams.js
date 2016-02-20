@@ -25,9 +25,9 @@ export default (props) => {
                         onChange={props.onChange}
                     />
                     <InputText
-                        id="advertiser"
-                        label="Advertiser Name"
-                        val="NEED ADVERTISER NAME"
+                        id="agency"
+                        label="Agency Name"
+                        val={props.project.agency}
                         active
                         onChange={props.onChange}
                     />
@@ -65,7 +65,7 @@ export default (props) => {
                                         active
                                         onChange={props.onChange}
                                     /> : null}
-                                {props.project.projectType === 'vloggers' ?
+                                {props.project.projectType === 'vlogger' ?
                                     <InputText
                                         type="number"
                                         id="vloggers"
@@ -76,7 +76,7 @@ export default (props) => {
                                         active
                                         onChange={props.onChange}
                                     /> : null}
-                                {props.project.projectType === 'photo_bloggers' ?
+                                {props.project.projectType === 'photo_blogger' ?
                                     <InputText
                                         type="number"
                                         id="photo_bloggers"
@@ -150,6 +150,7 @@ export default (props) => {
             <ProjectDates
                 {...props}
             />
+            <button type="button" onClick={props.onSave}>Save</button>
         </div>
     );
 };

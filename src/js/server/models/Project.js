@@ -19,6 +19,10 @@ var Project = new Schema({
         ref: 'Client'
     },
     /**
+     * The agency for whom the campaign is intended. For example, Jones Media.
+     */
+    agency: String,
+    /**
      * The name of the campaign.
      */
     name: {
