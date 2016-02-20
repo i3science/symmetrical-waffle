@@ -1,7 +1,6 @@
 import React from 'react';
 import Actions from '../../../actions/UiActions';
 import assetStore from '../../../stores/AssetStore';
-import Card from '../../common/Card';
 
 export default class ProjectAssets extends React.Component {
     constructor() {
@@ -27,6 +26,20 @@ export default class ProjectAssets extends React.Component {
     }
     _onSubmit(event) {
         event.preventDefault();
+
+        let file = $(event.target).find('input[type="file"]')[0].files[0];
+        if (!file) {
+            // TODO Error no file given
+            return;
+        }
+
+        let reader = new FileReader();
+        reader.addEventListener('load', function(){
+            let data = new FormData();
+            data.append('file', file);
+            Actions.uploadAsset(this.props.project, data, reader.result);
+        }.bind(this), false);
+        reader.readAsDataURL(file);
     }
 
     render() {

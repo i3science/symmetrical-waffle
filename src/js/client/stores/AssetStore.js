@@ -17,6 +17,11 @@ class AssetStore extends BaseStore {
             case AppConstants.REFRESH_ASSETS:
                 this.assets = action.assets;
                 this.emitChange();
+                break;
+            case AppConstants.CREATED_ASSET:
+                this.assets.push(action.asset);
+                this.emitChange();
+                break;
         }
     }
 

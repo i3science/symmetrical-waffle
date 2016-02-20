@@ -60,7 +60,8 @@ let _populate = () => {
         'clients',
         'projects',
         'campaign-elements',
-        'lists'
+        'lists',
+        'assets'
     ]
         .forEach((type) => {
             promise = promise
