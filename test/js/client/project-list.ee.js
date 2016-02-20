@@ -18,7 +18,7 @@ let waitForStart = () => {
             return element.all(By.className('card')).count();
         })
         .then((count) => {
-            expect(count).toEqual(4);
+            expect(count).toEqual(2);
             return true;
         })
 }
@@ -49,7 +49,7 @@ describe('project list', () => {
                 return element.all(By.className('card')).count();
             })
             .then((count) => {
-                expect(count).toEqual(2);
+                expect(count).toEqual(1);
             });
     });
 
@@ -60,7 +60,7 @@ describe('project list', () => {
                 return $('#keyword').clear();
             })
             .then(() => {
-                return $('#keyword').sendKeys('b')
+                return $('#keyword').sendKeys('d')
             })
             .then(() => {
                 return element.all(By.className('card')).count();
@@ -71,7 +71,7 @@ describe('project list', () => {
     });
 
     // Hiding pending should display 3 reuslts
-    it('should hide pending campaigns', () => {
+    it('should show pending campaigns', () => {
         return waitForStart()
             .then(() => {
                 return $('#pending').element(By.xpath('following-sibling::label')).click();
@@ -94,7 +94,7 @@ describe('project list', () => {
                 return element.all(By.className('card')).count();
             })
             .then((count) => {
-                expect(count).toEqual(3);
+                expect(count).toEqual(1);
             });
     });
 
@@ -108,12 +108,12 @@ describe('project list', () => {
                 return element.all(By.className('card')).count();
             })
             .then((count) => {
-                expect(count).toEqual(3);
+                expect(count).toEqual(1);
             });
     });
 
     // Hiding closed should display 3 results
-    it('should hide closed campaigns', () => {
+    it('should show closed campaigns', () => {
         return waitForStart()
             .then(() => {
                 return $('#closed').element(By.xpath('following-sibling::label')).click();
