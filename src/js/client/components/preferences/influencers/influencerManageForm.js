@@ -12,7 +12,6 @@ import InputText from '../../common/input/inputtext';
 import CheckBox from '../../common/input/checkbox';
 import Switch from '../../common/input/switch';
 
-
 const InfluencerManageForm = (props) => {
     return (
         <div>

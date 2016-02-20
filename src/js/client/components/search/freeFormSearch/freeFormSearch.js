@@ -125,41 +125,11 @@ class SearchPage extends React.Component {
                 </div>
                 <div className="clearfix"></div>
                 <hr />
-
                 <Filters
                     filters={this.state.filters}
                     onChange={this._handleChange}
                     expand={this._expand}
                 />
-
-
-
-
-                    {(!this.state.filters.type || (this.state.filters.type === 'influencer')) ?
-                        <Personal
-                            //onChange={this._handleChange}
-                            //expand={this._expand}
-                            //personal={this.state.filters.personal}
-                            //verticals={this.state.filters.verticals}
-                            //mediums={this.state.filters.mediums}
-                            //children={this.state.filters.children}
-                            //channels={this.state.filters.channels}
-                            //parent="personal"
-                        /> :
-                        <Audience
-                            //onChange={this._handleChange}
-                            //expand={this._expand}
-                            //audience={this.state.filters.audience}
-                            //verticals={this.state.filters.verticals}
-                            //mediums={this.state.filters.mediums}
-                            //children={this.state.filters.children}
-                            //parent="audience"
-                        />}
-
-
-
-
-
                 <Link to="" className="blue-grey lighten-3 waves-effect waves-light btn btn-flat white-text right"  onClick={this._reset}>Reset</Link>
                 <div className="clearfix"></div>
                 <hr />

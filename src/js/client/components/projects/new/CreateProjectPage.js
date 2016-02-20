@@ -25,6 +25,7 @@ class NewProjectPage extends React.Component {
         this._handleDate = this._handleDate.bind(this);
         this._addList = this._addList.bind(this);
         this._onSave = this._onSave.bind(this);
+        this._cancel = this._cancel.bind(this);
 
     }
     componentWillMount() {
@@ -32,6 +33,9 @@ class NewProjectPage extends React.Component {
         listStore.addChangeListener(this._onChange);
         Actions.refreshInfluencerList();
         Actions.refreshLists();
+        if (this.state.project._id) {
+            this.props.history.pushState(null, '/projects/' + this.state.project._id);
+        }
     }
     componentWillUnmount() {
         influencerStore.removeChangeListener(this._onChange);
@@ -75,7 +79,6 @@ class NewProjectPage extends React.Component {
     }
 
     _handleChange(event) {
-        console.log(event.target.id, event.target.value);
         let value = event.target.value;
         let id = event.target.id;
 
@@ -107,16 +110,23 @@ class NewProjectPage extends React.Component {
         this.props.history.pushState({project: this.props.project}, '/lists');
     }
 
-    _onSave() {
-        if (this.state.project._id) {
+    _onSave(event) {
+        event.preventDefault();
+        if (!this.state.project._id) {
             Actions.createProject(this.state.project);
-        } else {
-            Actions.updateProject(this.state.project);
+            this.props.history.pushState(null, '/projects/' + projectStore.getCurrentProjectId());
         }
+    }
 
+    _cancel(event) {
+        event.preventDefault();
+        this.setState({project: projectStore.resetProject()});
+        this.props.history.goBack();
     }
 
     render() {
+        console.log(this.props.history);
+        this.props.history.createPath('fdfdsdsa');
         return (
             <div>
                 <Card title={this.state.project.name || 'New Project'} deep>
@@ -125,27 +135,13 @@ class NewProjectPage extends React.Component {
                         onChange={this._handleChange}
                         handleDate={this._handleDate}
                         addList={this._addList}
-                        onSave={this._onSave}
                     />
+                    <hr />
+                    <div className="col 12" style={{float: 'none'}}>
+                        <Link to="" className="blue-grey lighten-5 waves-effect waves-light btn-large btn-flat" onClick={this._cancel}>Cancel</Link>
+                        <Link to="" className="teal waves-effect waves-light btn-large right" onClick={this._onSave}>Save Changes</Link>
+                    </div>
                 </Card>
-                {this.state.influencers ? <div>
-                    <SelectedInfluencers
-                        selectedInfluencers={this.state.influencers}
-                        //addInfluencer={this.addInfluencerToList}
-                        colors={this.state.colors}
-                        exposures={this.state.project.required_impressions}
-                        resultNum={this.state.influencers.length} />
-                    <Link to="" className="btn right" onClick={this._addList}>Add Lists</Link>
-                    <div className="clearfix"></div>
-                    <InfluencerCardList
-                        influencers={this.state.influencers}
-                        //addToList={this.addToList}
-                        //selectedInfluencers={this.state.influencers}
-                        //onSelectionChanged={this._onSelectionChanged}
-                    />
-                </div>
-                    : null}
-
             </div>
         );
     }

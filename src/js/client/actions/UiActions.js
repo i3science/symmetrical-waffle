@@ -91,13 +91,10 @@ export default {
     createProject(project) {
         projectService.create(project)
             .then((response) => {
-                if (response.status !== 204) {
+                if (response.status !== 201) {
                     throw new Error('An error occurred while updating the project');
                 }
-                return projectService.find(project._id);
-            })
-            .then((response) => {
-                return response.json();
+                return projectService.find(response.id);
             })
             .then((data) => {
                 dispatch({
@@ -114,9 +111,6 @@ export default {
                     throw new Error('An error occurred while updating the project');
                 }
                 return projectService.find(project._id);
-            })
-            .then((response) => {
-                return response.json();
             })
             .then((data) => {
                 dispatch({

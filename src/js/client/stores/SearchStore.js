@@ -12,6 +12,8 @@ class SearchStore extends BaseStore {
             verticals: [],
             children: [],
             channels: {},
+            vehicle: {},
+            pets: [],
             type: 'influencer'
         };
         this.results = [];

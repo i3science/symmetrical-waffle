@@ -94,6 +94,7 @@ class PendingProjectPage extends React.Component {
             this.state.project[event.target.dataset.parent][id] = value;
         }
         this.setState({project: this.state.project});
+        Actions.updateProject(this.state.project);
     }
 
     _handleDate(name, date, parent){

@@ -37,10 +37,15 @@ class ActiveProjectPage extends React.Component {
             this.state.project[event.target.dataset.parent][id] = value;
         }
         this.setState({project: this.state.project});
+        Actions.updateProject(this.state.project);
     }
 
     _handleDate(name, date, parent){
-        this.state.project[parent].push({name: name, date: date});
+        if (parent) {
+            this.state.project[parent].push({name: name, date: date});
+        } else {
+            this.state.project[name] = date;
+        }
         this.setState({project: this.state.project});
         Actions.updateProject(this.state.project);
     }

@@ -68,8 +68,8 @@ module.exports = function(fixtures) {
                 city: 'Hamilton',
                 residence: 'House',
                 householdIncome: 80000,
-                pets: [ 'Dog' ],
-                ethnicity: 'Caucasion'
+                ethnicity: 'Caucasion',
+                pets: 'Dog'
             },
             personal: {
                 sex: 'Female',
@@ -84,6 +84,11 @@ module.exports = function(fixtures) {
                 householdIncome: 100000,
                 pets: [ 'Dog' ],
                 ethnicity: 'Caucasion'
+            },
+            vehicle: {
+                year: '1999',
+                make: 'Mazda',
+                model: 'Miata'
             },
             mediums: ['Blogger', 'Vlogger', 'Amplifier'],
             availability: [
@@ -170,7 +175,13 @@ module.exports = function(fixtures) {
                 city: 'Toronto',
                 residence: 'House',
                 householdIncome: 90000,
-                ethnicity: 'Caucasion'
+                ethnicity: 'Caucasion',
+                pets: ''
+            },
+            vehicle: {
+                year: '2005',
+                make: 'Chrysler',
+                model: '300'
             },
             mediums: ['Blogger', 'Vlogger', 'Amplifier'],
             availability: [
@@ -259,8 +270,13 @@ module.exports = function(fixtures) {
                 city: 'Toronto',
                 residence: 'Condo',
                 householdIncome: 100000,
-                pets: [ 'Dog' ],
-                ethnicity: 'Caucasion'
+                ethnicity: 'Caucasion',
+                pets: ''
+            },
+            vehicle: {
+                year: '1998',
+                make: 'Ferrari',
+                model: 'Testarossa'
             },
             mediums: ['Blogger', 'Vlogger', 'Photo Blogger'],
             availability: [
@@ -347,7 +363,13 @@ module.exports = function(fixtures) {
                 city: 'Toronto',
                 residence: 'House',
                 householdIncome: 90000,
-                ethnicity: 'Caucasion'
+                ethnicity: 'Caucasion',
+                pets: 'Alligator, Rat, Opossum'
+            },
+            vehicle: {
+                year: '2016',
+                make: 'Toyota',
+                model: 'Tercel'
             },
             mediums: ['Blogger', 'Photo Blogger', 'Amplifier'],
             availability: [
@@ -430,7 +452,13 @@ module.exports = function(fixtures) {
                 city: 'Longyearbyen',
                 residence: 'House',
                 householdIncome: 50000,
-                ethnicity: 'Caucasian'
+                ethnicity: 'Caucasian',
+                pets: 'Dog, Cat, Fish'
+            },
+            vehicle: {
+                year: '1972',
+                make: 'Monte Carlo',
+                model: 'SS'
             },
             mediums: ['Blogger', 'Photo Blogger', 'Amplifier'],
             availability: [

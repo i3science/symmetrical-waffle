@@ -150,7 +150,6 @@ export default (props) => {
             <ProjectDates
                 {...props}
             />
-            <button type="button" onClick={props.onSave}>Save</button>
         </div>
     );
 };

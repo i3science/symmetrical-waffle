@@ -6,7 +6,7 @@ class ProjectStore extends BaseStore {
 
     constructor() {
         super();
-        this.currentProjectId = null;
+        this.currentProject = null;
         this.projects = [];
         this.newProject = {
             client: {},
@@ -37,6 +37,7 @@ class ProjectStore extends BaseStore {
                     _.remove(this.projects, {_id: action.project._id});
                 }
                 this.projects.push(action.project);
+                this.currentProject = action.project;
                 this.emitChange();
                 break;
             case AppConstants.GET_PROJECT:
@@ -57,6 +58,9 @@ class ProjectStore extends BaseStore {
         // TODO If the influencer doesn't exist, attempt to get it from the
         // server
         return _.find(this.projects, {_id: id});
+    }
+    getCurrentProjectId() {
+        return this.currentProject._id;
     }
     getCurrentProject() {
         return this.currentProject;

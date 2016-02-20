@@ -42,8 +42,6 @@ class InfluencerEditPage extends React.Component {
     }
 
     _handleChange(event) {
-        console.log(event);
-
         let value = event.target.value;
         let id = event.target.id;
         if (id.indexOf('_range_') !== -1) {
