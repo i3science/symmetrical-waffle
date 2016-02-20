@@ -108,10 +108,15 @@ class NewProjectPage extends React.Component {
     }
 
     _onSave(event) {
+
         event.preventDefault();
         if (!this.state.project._id) {
-            Actions.createProject(this.state.project);
-            this.props.history.pushState(null, '/projects/' + projectStore.getCurrentProjectId());
+            Actions
+                .createProject(this.state.project)
+                .then(() => {
+                    console.log('Here');
+                    this.props.history.pushState(null, '/projects/' + projectStore.getCurrentProjectId());
+                });
         }
     }
 

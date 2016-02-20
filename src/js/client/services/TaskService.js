@@ -1,19 +1,20 @@
 import 'isomorphic-fetch';
+import Q from 'q';
 
 export default class TaskService {
     static list(project, element) {
         return fetch('/api/projects/'+project+'/elements/'+element+'/tasks')
             .then((response) => {
-                return response.json();
+                return Q(response.json());
             })
-            .catch(() => {});
+            .fail(() => {});
     }
     static find(project, element, task) {
         return fetch('/api/projects/'+project+'/elements/'+element+'/tasks/'+task)
             .then((response) => {
-                return response.json();
+                return Q(response.json());
             })
-            .catch(() => {});
+            .fail(() => {});
     }
     static create(project, element, task) {
         return fetch('/api/projects/'+project+'/elements/'+element+'/tasks', {
@@ -25,9 +26,9 @@ export default class TaskService {
             }
         })
             .then((response) => {
-                return response.json();
+                return Q(response.json());
             })
-            .catch(() => {});
+            .fail(() => {});
     }
     static update(project, element, task) {
         return fetch('/api/projects/'+project+'/elements/'+element+'/tasks/'+task._id, {
@@ -41,6 +42,6 @@ export default class TaskService {
             .then(() => {
                 return true;
             })
-            .catch(() => {});
+            .fail(() => {});
     }
 }

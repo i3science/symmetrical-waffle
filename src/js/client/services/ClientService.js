@@ -1,19 +1,20 @@
 import 'isomorphic-fetch';
+import Q from 'q';
 
 export default class ClientService {
     static list() {
         return fetch('/api/clients')
             .then((response) => {
-                return response.json();
+                return Q(response.json());
             })
-            .catch(() => {});
+            .fail(() => {});
     }
     static find(id) {
         return fetch('/api/clients/'+id)
             .then((response) => {
-                return response.json();
+                return Q(response.json());
             })
-            .catch(() => {});
+            .fail(() => {});
     }
     static create(client) {
         return fetch('/api/clients', {
@@ -25,9 +26,9 @@ export default class ClientService {
             }
         })
             .then((response) => {
-                return response.json();
+                return Q(response.json());
             })
-            .catch(() => {});
+            .fail(() => {});
     }
     static update(client) {
         return fetch('/api/clients/'+client._id, {
@@ -41,6 +42,6 @@ export default class ClientService {
             .then(() => {
                 return true;
             })
-            .catch(() => {});
+            .fail(() => {});
     }
 }

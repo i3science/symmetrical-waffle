@@ -58,7 +58,7 @@ export default class Tasks extends React.Component {
             .then(() => {
                 this.setState({ adding:false });
             })
-            .catch(() => {});
+            .fail(() => {});
     }
 
 

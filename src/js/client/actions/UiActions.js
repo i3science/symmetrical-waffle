@@ -91,11 +91,8 @@ export default {
      // Project Actions
 
     createProject(project) {
-        projectService.create(project)
+        return projectService.create(project)
             .then((response) => {
-                if (response.status !== 201) {
-                    throw new Error('An error occurred while updating the project');
-                }
                 return projectService.find(response.id);
             })
             .then((data) => {
@@ -103,6 +100,7 @@ export default {
                     actionType: AppConstants.UPDATE_PROJECT,
                     project: data
                 });
+                return true;
             });
     },
 
