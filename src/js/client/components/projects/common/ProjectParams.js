@@ -4,16 +4,17 @@ import ProjectType from './ProjectType';
 import InputTextArea from '../../common/input/inputtextarea';
 import CheckBox from '../../common/input/checkbox';
 import InputText from '../../common/input/inputtext';
+import ClientDropdown from '../../common/input/stateful/ClientDropdown';
 
 export default (props) => {
     return (
         <div>
             <div className="row">
                 <div className="col s6 separate-right">
-                    <InputText
+                    <ClientDropdown
                         id="client"
                         label="Client Name"
-                        val={props.project.client.name}
+                        val={(props.project.client._id || props.project.client) + ''}
                         active
                         onChange={props.onChange}
                     />

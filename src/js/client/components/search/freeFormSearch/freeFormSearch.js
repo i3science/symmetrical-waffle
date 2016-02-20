@@ -4,8 +4,6 @@ import { compare } from '../../../../shared/search.js';
 import influencerStore from '../../../stores/InfluencerStore';
 import searchStore from '../../../stores/SearchStore';
 import Actions from '../../../actions/UiActions';
-import Personal from '../components/personal';
-import Audience from '../components/audience';
 import Radio from '../../common/input/radio';
 import Filters from './filters';
 

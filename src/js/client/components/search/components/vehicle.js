@@ -1,6 +1,5 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 import InputText from '../../common/input/inputtext';
-import InputSelect from '../../common/input/inputselect';
 
 const Vehicle = (props) => {
     if (!props.vehicle) {

@@ -57,6 +57,9 @@ export default {
     // Reviews
     REFRESH_REVIEWS: 'REFRESH_REVIEWS',
 
+    // Clients
+    REFRESH_CLIENTS: 'REFRESH_CLIENTS',
+
     // Security-specific
     PASSWORD_RESET_REQUESTED: 'PASSWORD_RESET_REQUESTED',
     USER_FOUND_BY_RESET: 'USER_FOUND_BY_RESET'

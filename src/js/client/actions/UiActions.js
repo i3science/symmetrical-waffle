@@ -6,6 +6,7 @@ import projectService from '../services/ProjectService';
 import listService from '../services/ListService';
 import assetService from '../services/AssetService';
 import reviewService from '../services/ReviewService';
+import clientService from '../services/ClientService';
 
 export default {
     initialize() {
@@ -194,6 +195,19 @@ export default {
                 dispatch({
                     actionType: AppConstants.REFRESH_REVIEWS,
                     reviews: reviews
+                });
+            });
+    },
+
+    // Client actions
+
+    listClients() {
+        clientService
+            .list()
+            .then((clients) => {
+                dispatch({
+                    actionType: AppConstants.REFRESH_CLIENTS,
+                    clients: clients
                 });
             });
     }

@@ -1,6 +1,5 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 import { Link } from 'react-router';
-import Input from '../../common/input/input';
 import InputText from '../../common/input/inputtext';
 
 var fakeUser = {
@@ -40,7 +39,6 @@ class AccountEditPage extends React.Component {
     }
 
     render() {
-        console.log(this.state.user);
         return (
             <div className="card-panel z-depth-4">
                 <h4 className="center-align">Edit Your Account</h4><br />

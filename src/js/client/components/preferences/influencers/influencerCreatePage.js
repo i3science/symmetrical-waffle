@@ -39,10 +39,9 @@ class InfluencerCreatePage extends React.Component {
         }
     }
     _handleChange(event) {
-        console.log(event);
         let value = event.target.value;
         if (event.target.id.indexOf('_range_')) {
-            console.log(event.target.id.split('_')[0]);
+            // console.log(event.target.id.split('_')[0]);
         }
         if (event.target.type === 'number') {
             value = Number(value);
