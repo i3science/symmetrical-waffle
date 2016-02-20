@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router';
 import _ from 'lodash';
-import InputText from '../../common/input/inputtext';
-import CheckBox from '../../common/input/checkbox';
-import projectActions from '../../../actions/ProjectActions';
-import projectStore from '../../../stores/ProjectStore';
-import { list_filter } from '../../../../shared/projects.js';
-import ProjectResults from './projectResults';
+import InputText from './common/input/inputtext';
+import CheckBox from './common/input/checkbox';
+import projectActions from '../actions/ProjectActions';
+import projectStore from '../stores/ProjectStore';
+import { list_filter } from '../../shared/projects.js';
+import ProjectResults from './projects/projectSearch/projectResults';
 
-class ProjectPage extends React.Component {
+export default class ClientDashboard extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -143,5 +143,3 @@ class ProjectPage extends React.Component {
         );
     }
 }
-
-export default ProjectPage;

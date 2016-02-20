@@ -17,6 +17,7 @@ module.exports = function(fixtures) {
                 last: 'O\'Brien'
             },
             email: 'sob@something.com',
+            password: 'shawna123',
             channels: {
                 facebook: 673875,
                 twitter: 234765,
@@ -115,6 +116,7 @@ module.exports = function(fixtures) {
                 last: 'Bois'
             },
             email: 'derekb@awesome.com',
+            password: 'derek123',
             channels: {
                 facebook: 673875,
                 twitter: 234765,

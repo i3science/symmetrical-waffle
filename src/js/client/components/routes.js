@@ -7,7 +7,7 @@ import SearchInfluencer from './search/freeFormSearch/freeFormSearch';
 import Results from './results/resultsPage';
 import ProfilePage from './influencers/ProfilePage';
 import Login from './login';
-import ProjectSearchPage from './projects/projectSearch/projectSearchPage';
+import ProjectSearchPage from './projects/search/SearchPage';
 import ProjectPage from './projects/ProjectPage';
 import NewProjectPage from './projects/new/CreateProjectPage';
 import ListSearchPage from './lists/listStart/listsSearchPage';
@@ -32,7 +32,6 @@ export default (
 		<div>
 			<Redirect from='/' to='projects' />
 			<Route path="/" component={Template} name="Home">
-				<IndexRoute component={ProjectSearchPage} name="Projects"/>
                 <Route path="projects" name="Projects">
 					<IndexRoute component={ProjectSearchPage} />
 					<Route path="create" component={NewProjectPage} name="Create" />
