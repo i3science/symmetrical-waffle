@@ -28,7 +28,6 @@ export default class ProjectPage extends React.Component {
         if (!this.state.project) {
             return (<p>Loading project...</p>);
         }
-        console.log('Project: ', this.state.project);
 
         if (!this.state.project.approved) {
             return (<PendingProjectPage project={this.state.project} history={this.props.history} />);

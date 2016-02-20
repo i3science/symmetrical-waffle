@@ -38,18 +38,29 @@ var Project = new Schema({
      * The intended effects of the campaign.
      */
     goals: {
-        engagement: Boolean,
-        reach: Boolean,
-        general: Boolean
+        engagement: {
+            type: Boolean,
+            default: false
+        },
+        reach: {
+            type: Boolean,
+            default: false
+        },
+        general: {
+            type: Boolean,
+            default: false
+        }
     },
     /**
      * The number of influencers required in specific categories.
      */
     required_influencers: {
-        bloggers: Number,
-        photo_bloggers: Number,
-        vloggers: Number,
-        amplifiers: Number
+        type: {
+            bloggers: Number,
+            photo_bloggers: Number,
+            vloggers: Number,
+            amplifiers: Number
+        }
     },
     /**
      * The number of impressions required for campaign success.
@@ -107,6 +118,15 @@ var Project = new Schema({
         default: true
     }
 });
+/*
+ * Ensure we've been given a required number of influencers
+ */
+Project.path('required_influencers').validate(function(value, respond){
+    if (Object.keys(value).length !== 1) {
+        respond(false);
+    }
+    respond(true);
+}, 'Number of influencers required');
 
 Project.plugin(require('./_tenancy.js'));
 Project.plugin(require('./_auditing.js'));
