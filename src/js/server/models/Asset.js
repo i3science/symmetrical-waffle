@@ -23,7 +23,7 @@ var Asset = new Schema({
     }
 }, {strict: false});
 
-Asset.plugin(require('./_tenancy.js'));
+Asset.plugin(require('./_tenancy.js')());
 Asset.plugin(require('./_auditing.js'));
 mongoose.model('Asset', Asset);
 module.exports = Asset;

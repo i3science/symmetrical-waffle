@@ -31,7 +31,7 @@ var List = new Schema({
     }
 });
 
-List.plugin(require('./_tenancy.js'));
+List.plugin(require('./_tenancy.js')());
 List.plugin(require('./_auditing.js'));
 mongoose.model('List', List);
 module.exports = List;

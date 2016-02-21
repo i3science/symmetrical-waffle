@@ -5,10 +5,10 @@ import historyRouter from './HistoryRouter';
 
 module.exports = function(app) {
     app.route('/api/projects')
-        .get(authenticationController.hasRole(['organizer','client']), projectController.list)
+        .get(authenticationController.isLoggedIn, projectController.list)
         .post(authenticationController.hasRole(['organizer','client']), projectController.create);
     app.route('/api/projects/:projectId')
-        .get(authenticationController.hasRole(['organizer','client']), projectController.read)
+        .get(authenticationController.isLoggedIn, projectController.read)
         .put(authenticationController.hasRole(['organizer']), projectController.update)
         .delete(authenticationController.hasRole(['organizer']), projectController.delete);
 

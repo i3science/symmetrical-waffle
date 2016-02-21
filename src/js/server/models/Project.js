@@ -3,7 +3,8 @@
 /**
  * Module dependencies.
  */
-var mongoose = require('mongoose'),
+var context = require('request-context'),
+    mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 /**
@@ -128,7 +129,28 @@ Project.path('required_influencers').validate(function(value, respond){
     respond(true);
 }, 'Number of influencers required');
 
-Project.plugin(require('./_tenancy.js'));
+/**
+ * Additional security constraints to prevent clients/influencers from seeing
+ * campaigns that don't belong to them.
+ */
+var limits = function(next) {
+    var user = context.get('request:currentUser');
+    if (user.roles.indexOf('admin') > -1 || user.roles.indexOf('organizer') > -1) {
+        return next();
+    }
+    if (user.roles.indexOf('influencer') > -1) {
+        this.where({'influencers.influencer': user._id});
+        return next();
+    }
+    if (user.roles.indexOf('rep') > -1) {
+        this.where({'client':user.client._id||user.client});
+        return next();
+    }
+    this.where({'organizer':null});
+    return next();
+};
+
+Project.plugin(require('./_tenancy.js')(limits));
 Project.plugin(require('./_auditing.js'));
 mongoose.model('Project', Project);
 module.exports = Project;

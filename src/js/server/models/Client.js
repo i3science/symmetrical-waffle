@@ -19,7 +19,7 @@ var Client = new Schema({
     }
 });
 
-Client.plugin(require('./_tenancy.js'));
+Client.plugin(require('./_tenancy.js')());
 Client.plugin(require('./_auditing.js'));
 mongoose.model('Client', Client);
 module.exports = Client;

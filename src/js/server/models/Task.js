@@ -34,7 +34,7 @@ var Task = new Schema({
     }
 });
 
-Task.plugin(require('./_tenancy.js'));
+Task.plugin(require('./_tenancy.js')());
 Task.plugin(require('./_auditing.js'));
 mongoose.model('Task', Task);
 module.exports = Task;
