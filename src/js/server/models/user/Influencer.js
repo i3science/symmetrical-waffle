@@ -66,10 +66,18 @@ var Influencer = User.extend({
     },
     mediums: [String],
     availability: [String],
+    score: Number,
+    bio: String,
+    work: [{
+        name: String,
+        path: String
+    }],
     roles: {
         type: Array,
         default: ['influencer']
     }
+
+
 });
 
 function findInfluencers(next) {
