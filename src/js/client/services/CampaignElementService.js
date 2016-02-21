@@ -3,7 +3,7 @@ import Q from 'q';
 
 export default class CampaignElementService {
     static list(project) {
-        return fetch('/api/projects/'+project._id+'/elements')
+        return fetch('/api/projects/'+(project._id||project)+'/elements')
             .then((response) => {
                 return Q(response.json());
             })

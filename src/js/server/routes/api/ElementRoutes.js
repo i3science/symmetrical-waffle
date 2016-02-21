@@ -5,18 +5,18 @@ import commentRouter from './CommentRouter';
 
 module.exports = function(app) {
     app.route('/api/projects/:projectId/elements')
-        .get(authenticationController.hasRole(['organizer','client']), campaignElementController.list)
+        .get(authenticationController.isLoggedIn, campaignElementController.list)
         .post(authenticationController.hasRole(['organizer','client']), campaignElementController.create);
     app.route('/api/projects/:projectId/elements/:elementId')
         .get(authenticationController.hasRole(['organizer','client']), campaignElementController.read)
-        .put(authenticationController.hasRole(['organizer']), campaignElementController.update)
+        .put(authenticationController.isLoggedIn, campaignElementController.update)
         .delete(authenticationController.hasRole(['organizer']), campaignElementController.delete);
 
     app.route('/api/projects/:projectId/elements/:elementId/assignees')
-        .get(authenticationController.hasRole(['organizer','client']), campaignElementController.listAssignees);
+        .get(authenticationController.isLoggedIn, campaignElementController.listAssignees);
 
     app.route('/api/projects/:projectId/elements/:elementId/history')
-        .get(authenticationController.hasRole(['organizer','client']), campaignElementController.history);
+        .get(authenticationController.isLoggedIn, campaignElementController.history);
 
     app.use('/api/projects/:projectId/elements/:elementId/tasks', taskRouter);
     app.use('/api/projects/:projectId/elements/:elementId/comments', commentRouter('element'));

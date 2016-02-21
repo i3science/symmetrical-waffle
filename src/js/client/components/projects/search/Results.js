@@ -1,6 +1,7 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 import { Link } from 'react-router';
 import moment from 'moment';
+import authenticationStore from '../../../stores/AuthenticationStore';
 
 const ProjectResult = (props) => {
     let type = '';
@@ -18,6 +19,10 @@ const ProjectResult = (props) => {
             type = 'Amplifiers';
             break;
     }
+    let link = '/projects/' + props.project._id;
+    if (authenticationStore.getCurrentUser() && authenticationStore.getCurrentUser().roles.indexOf('influencer') > -1) {
+        link = '/projects/'+props.project._id+'/element';
+    }
     return (
         <div className="col m3 s2">
             <div className="card">
@@ -29,7 +34,7 @@ const ProjectResult = (props) => {
                     <p>Live Date: {moment(props.project.project_live).format('DD/MM/YYYY')}</p>
                 </div>
                 <div className="card-action grey lighten-5">
-                    <Link to={'/projects/' + props.project._id}>More Info...</Link>
+                    <Link to={link}>More Info...</Link>
                 </div>
             </div>
         </div>

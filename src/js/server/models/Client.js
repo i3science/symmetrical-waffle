@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 var context = require('request-context'),
-	mongoose = require('mongoose'),
+    mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 /**
@@ -30,25 +30,25 @@ var limits = function(next) {
         next();
     }
     else if (user.roles.indexOf('rep') > -1) {
-        this.where({'_id': rep.client});
+        this.where({'_id': user.client});
         next();
     }
     else if (user.roles.indexOf('influencer') > -1) {
-    	// Only show clients for whom the influencer is assigned to a campaign
-    	var self = this;
-    	mongoose.models['Project']
-    		.find({'influencers.influencer':user._id}, function(err, projects){
-    			var clients = projects.map(function(project){
-    				return project.client._id || project.client;
-    			});
-    			self.where({'_id': {$in: clients}});
-    			return next();
-    		});
+        // Only show clients for whom the influencer is assigned to a campaign
+        var self = this;
+        mongoose.models['Project']
+            .find({'influencers.influencer':user._id}, function(err, projects){
+                var clients = projects.map(function(project){
+                    return project.client._id || project.client;
+                });
+                self.where({'_id': {$in: clients}});
+                return next();
+            });
     }
     else {
-	    this.where({'organizer':null});
-	    next();
-	}
+        this.where({'organizer':null});
+        next();
+    }
 };
 
 Client.plugin(require('./_tenancy.js')(limits));

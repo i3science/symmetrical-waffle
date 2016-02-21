@@ -20,6 +20,7 @@ import InfluencerEditPage from './preferences/influencers/influencerEditPage';
 import ForgotPasswordPage from './auth/ForgotPasswordPage';
 import ResetPasswordPage from './auth/ResetPasswordPage';
 import ElementPage from './elements/ElementPage';
+import InfluencerElementPage from './elements/InfluencerElementPage';
 
 import influencerService from '../services/InfluencerService';
 
@@ -37,6 +38,7 @@ export default (
 					<Route path="create" component={NewProjectPage} name="Create" />
 					<Route path=":id" name="Project">
 						<IndexRoute component={ProjectPage} name="Edit" />
+						<Route path="element" component={InfluencerElementPage} name="Element" />
 						<Route path="elements/:elementId" component={ElementPage} name="Element" />
 					</Route>
 				</Route>
