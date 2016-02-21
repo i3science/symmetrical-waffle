@@ -4,6 +4,7 @@ import projectStore from '../../../stores/ProjectStore';
 import { list_filter } from '../../../../shared/projects.js';
 import ProjectResults from './Results';
 import ProjectListFilters from './Filters';
+import authenticationStore from '../../../stores/AuthenticationStore';
 
 export default class SearchPage extends React.Component {
     constructor() {
@@ -50,9 +51,11 @@ export default class SearchPage extends React.Component {
     }
 
     render() {
+        let user = authenticationStore.getCurrentUser();
+        let filterClient = user && (user.roles.indexOf('admin') > -1 || user.roles.indexOf('organizer') > -1);
         return (
             <div>
-                <ProjectListFilters onChange={this._onFilterChange} />
+                <ProjectListFilters onChange={this._onFilterChange} filterClient={filterClient} />
                 <ProjectResults projects={this.state.projectResults} />
             </div>
         );
