@@ -11,6 +11,6 @@ import projectController from '../../controllers/ProjectController';
 export default(/*name*/) => {
    let router = express.Router();
    router.route('/')
-       .get(authenticationController.hasRole(['organizer','client']), projectController.history);
+       .get(authenticationController.isLoggedIn, projectController.history);
    return router;
 };

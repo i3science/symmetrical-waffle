@@ -34,7 +34,7 @@ var Review = new Schema({
     }
 });
 
-Review.plugin(require('./_tenancy.js'));
+Review.plugin(require('./_tenancy.js')());
 Review.plugin(require('./_auditing.js'));
 mongoose.model('Review', Review);
 module.exports = Review;

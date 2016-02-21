@@ -58,6 +58,7 @@ let _populate = () => {
         'organizers',
         'influencers',
         'clients',
+        'representatives',
         'projects',
         'campaign-elements',
         'lists',

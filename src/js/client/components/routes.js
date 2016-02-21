@@ -7,7 +7,7 @@ import SearchInfluencer from './search/freeFormSearch/freeFormSearch';
 import Results from './results/resultsPage';
 import ProfilePage from './influencers/ProfilePage';
 import Login from './login';
-import ProjectSearchPage from './projects/projectSearch/projectSearchPage';
+import ProjectSearchPage from './projects/search/SearchPage';
 import ProjectPage from './projects/ProjectPage';
 import NewProjectPage from './projects/new/CreateProjectPage';
 import ListSearchPage from './lists/listStart/listsSearchPage';
@@ -20,6 +20,7 @@ import InfluencerEditPage from './preferences/influencers/influencerEditPage';
 import ForgotPasswordPage from './auth/ForgotPasswordPage';
 import ResetPasswordPage from './auth/ResetPasswordPage';
 import ElementPage from './elements/ElementPage';
+import InfluencerElementPage from './elements/InfluencerElementPage';
 
 import influencerService from '../services/InfluencerService';
 
@@ -32,12 +33,12 @@ export default (
 		<div>
 			<Redirect from='/' to='projects' />
 			<Route path="/" component={Template} name="Home">
-				<IndexRoute component={ProjectSearchPage} name="Projects"/>
                 <Route path="projects" name="Projects">
 					<IndexRoute component={ProjectSearchPage} />
 					<Route path="create" component={NewProjectPage} name="Create" />
 					<Route path=":id" name="Project">
 						<IndexRoute component={ProjectPage} name="Edit" />
+						<Route path="element" component={InfluencerElementPage} name="Element" />
 						<Route path="elements/:elementId" component={ElementPage} name="Element" />
 					</Route>
 				</Route>

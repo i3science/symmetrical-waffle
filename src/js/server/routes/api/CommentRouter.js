@@ -11,8 +11,8 @@ import commentController from '../../controllers/CommentController';
 export default (/*name*/) => {
     let router = express.Router();
     router.route('/')
-        .get(authenticationController.hasRole(['organizer','client']), commentController.list)
-        .post(authenticationController.hasRole(['organizer','client']), commentController.create);
+        .get(authenticationController.isLoggedIn, commentController.list)
+        .post(authenticationController.isLoggedIn, commentController.create);
     router.route('/:commentId')
         .get(authenticationController.hasRole(['organizer','client']), commentController.read)
         .put(authenticationController.hasRole(['organizer']), commentController.update)

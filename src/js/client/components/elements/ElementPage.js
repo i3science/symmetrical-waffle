@@ -9,11 +9,11 @@ import Tasks from './Tasks';
 import Comments from './Comments';
 
 export default class ElementPage extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            element: null,
-            content: null
+            element: props.element || null,
+            content: props.element ? props.element.content : null
         };
         this._onElementChange = this._onElementChange.bind(this);
         this._onHistoryChange = this._onHistoryChange.bind(this);
@@ -22,9 +22,11 @@ export default class ElementPage extends React.Component {
         this._onCancel = this._onCancel.bind(this);
     }
 
-    componentWillMount() {
-        campaignElementStore.addChangeListener(this._onElementChange);
-        CampaignElementActions.findForProjectAndId(this.props.params.id, this.props.params.elementId);
+    componentDidMount() {
+        if (!this.state.element) {
+            campaignElementStore.addChangeListener(this._onElementChange);
+            CampaignElementActions.findForProjectAndId(this.props.params.id, this.props.params.elementId);
+        }
         historyStore.addChangeListener(this._onHistoryChange);
         HistoryActions.findForElement(this.props.params.id, this.props.params.elementId);
     }
@@ -128,7 +130,7 @@ export default class ElementPage extends React.Component {
 
         return this.state.history.map((obj) => {
             return (
-                <div>
+                <div key={obj._id}>
                     {obj.created_by.name.first} {obj.created_by.name.last} - {moment(obj.created_at).format('MMM DD, YYYY h:mma')}
                 </div>
             );

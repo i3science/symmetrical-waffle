@@ -21,7 +21,7 @@ export default class Tasks extends React.Component {
         this._onCheckTask = this._onCheckTask.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         taskStore.addChangeListener(this._onStoreChange);
         campaignElementStore.addChangeListener(this._onStoreChange);
         TaskActions.findForElement(this.props.project, this.props.element._id);

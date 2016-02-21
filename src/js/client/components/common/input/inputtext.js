@@ -28,7 +28,7 @@ const InputText = (props) => {
                     placeholder={props.placeholder ? props.placeholder : ''}
                     value={props.val ? props.val : null}
                     data-parent={props.parent || null}
-                    onChange={props.onChange ? props.onChange.bind(this) : null}
+                    onChange={props.onChange}
                     style={props.style || null}
                     readOnly={props.readOnly}
                     disabled={props.readOnly || props.disabled}

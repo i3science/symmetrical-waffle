@@ -10,7 +10,7 @@ const CheckBox = (props) => {
                 data-parent={props.parent || null}
                 checked={props.checked}
                 className="filled-in"
-                onChange={props.onChange ? props.onChange.bind(this) : null}
+                onChange={props.onChange}
             />
             <label htmlFor={props.id}>{props.label}</label>
         </p>

@@ -13,10 +13,10 @@ require('mongoose-schema-extend'); // This should not need to be here, but seedi
  * of a client.
  */
 var Representative = User.extend({
-    clients: [{
+    client: {
         type: Schema.Types.ObjectId,
         ref: 'Client'
-    }],
+    },
     roles: {
         type: Array,
         default: ['rep']
