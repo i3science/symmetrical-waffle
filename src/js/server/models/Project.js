@@ -123,7 +123,7 @@ var Project = new Schema({
  * Ensure we've been given a required number of influencers
  */
 Project.path('required_influencers').validate(function(value, respond){
-    if (Object.keys(value).length !== 1) {
+    if (Object.keys(value).length === 0) {
         respond(false);
     }
     respond(true);
