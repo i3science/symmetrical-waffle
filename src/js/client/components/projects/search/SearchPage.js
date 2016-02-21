@@ -55,7 +55,7 @@ export default class SearchPage extends React.Component {
         let filterClient = user && (user.roles.indexOf('admin') > -1 || user.roles.indexOf('organizer') > -1);
         return (
             <div>
-                <ProjectListFilters onChange={this._onFilterChange} filterClient={filterClient} />
+                <ProjectListFilters onChange={this._onFilterChange} filterClient={filterClient} filter={this.state.filter} />
                 <ProjectResults projects={this.state.projectResults} />
             </div>
         );

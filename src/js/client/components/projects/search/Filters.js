@@ -8,19 +8,13 @@ export default React.createClass({
 
     propTypes: {
         filterClient: React.PropTypes.bool,
-        onChange: React.PropTypes.func.isRequired
+        onChange: React.PropTypes.func.isRequired,
+        filter: React.PropTypes.object
     },
 
     getDefaultProps: function() {
         return {
-            filterClient: true
-        };
-    },
-
-    getInitialState: function() {
-        return {
-            projectResults: [],
-            projects: [],
+            filterClient: true,
             filter: {
                 client: '',
                 keyword: '',
@@ -32,27 +26,34 @@ export default React.createClass({
         };
     },
 
+    getInitialState: function() {
+        return {
+            projectResults: [],
+            projects: []
+        };
+    },
+
     _handleChange: function(event) {
+        let filter = this.props.filter;
         if (event.target.type === 'checkbox') {
             if (event.target.checked) {
-                this.state.filter.state.push(event.target.id);
+                filter.state.push(event.target.id);
             } else {
-                _.pull(this.state.filter.state, event.target.id);
+                _.pull(filter.state, event.target.id);
             }
         } else {
-            this.state.filter[event.target.id] = event.target.value;
+            filter[event.target.id] = event.target.value;
         }
-        this.setState({filter: this.state.filter});
-        this.props.onChange(this.state.filter);
+        this.props.onChange(filter);
     },
 
     render() {
-        var keyword = this.state.filter.keyword,
-            client = this.state.filter.client,
-            active = _.includes(this.state.filter.state, 'active'),
-            pending = _.includes(this.state.filter.state, 'pending'),
-            inmarket = _.includes(this.state.filter.state, 'inmarket'),
-            closed = _.includes(this.state.filter.state, 'closed');
+        var keyword = this.props.filter.keyword,
+            client = this.props.filter.client,
+            active = _.includes(this.props.filter.state, 'active'),
+            pending = _.includes(this.props.filter.state, 'pending'),
+            inmarket = _.includes(this.props.filter.state, 'inmarket'),
+            closed = _.includes(this.props.filter.state, 'closed');
         return (
             <div className="card-panel z-depth-4">
                 <div className="row center-align">
