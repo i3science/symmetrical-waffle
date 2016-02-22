@@ -108,13 +108,16 @@ export default class ElementPage extends React.Component {
             }
 
             let id = this.getYoutubeId(content);
+            let _content = null;
             if (!id) {
-                return (<div>Invalid Youtube video link: {content}</div>);
+                _content = (<div>Invalid Youtube video link: {content}</div>);
+            } else {
+                _content = (<iframe width="560" height="315" src={'//www.youtube.com/embed/' + id} frameborder="0" allowfullscreen></iframe>);
             }
             return (
                 <div>
                     <div>
-                    {<iframe width="560" height="315" src={'//www.youtube.com/embed/' + id} frameborder="0" allowfullscreen></iframe>}
+                    {_content}
                     </div>
                     <button type="button" onClick={() => {this.setState({edit:true});}}>Change</button>
                 </div>

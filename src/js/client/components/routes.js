@@ -22,6 +22,10 @@ import ResetPasswordPage from './auth/ResetPasswordPage';
 import ElementPage from './elements/ElementPage';
 import InfluencerElementPage from './elements/InfluencerElementPage';
 
+import ClientPrefsPage from './preferences/clients/ClientPrefsPage';
+import ClientEditPage from './preferences/clients/ClientEditPage';
+import clientService from '../services/ClientService';
+
 import influencerService from '../services/InfluencerService';
 
 // Import utilities to make them available
@@ -63,6 +67,13 @@ export default (
 						<Route path="create" component={InfluencerCreatePage} service={influencerService} name="Create" />
 						<Route path="profile/:id" component={ProfilePage} name="Profile" />
 						<Route path="edit/:id" component={InfluencerEditPage} service={influencerService} name="Edit" />
+					</Route>
+					<Route path="clients" name="Clients">
+						<IndexRoute component={ClientPrefsPage}/>
+						<Route path="create" component={ClientEditPage} service={clientService} name="Create" />
+						<Route path=":clientId" name="Client">
+							<Route path="edit" component={ClientEditPage} service={clientService} name="Edit" />
+						</Route>
 					</Route>
 				</Route>
 
