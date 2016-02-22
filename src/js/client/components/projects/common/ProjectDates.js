@@ -46,7 +46,7 @@ class NewCheckpoint extends React.Component {
         let submit = (event) => {
             event.preventDefault();
             if (!((this.refs[this.props.phase + '_name'].value && newDate) === '')) {
-                this.props.onChange(this.refs[this.props.phase + '_name'].value, newDate, ('checkpoints_' + this.props.id));
+                this.props.onChange(newDate, this.refs[this.props.phase + '_name'].value, ('checkpoints_' + this.props.id));
                 $(this.refs[this.props.phase + '_name']).val('');
                 this._cancel();
             }
@@ -99,13 +99,24 @@ const ProjectCheckpoints = (props) => {
     }
     let projectCheckpoints = props.checkpoints.map((item, index) => {
         return (
-            <div key={index} className="row">
+            <div key={index} className="row checkmarks" style={{position: 'relative'}}>
                 <div className="col s6">
                     <p>{item.name}</p>
                 </div>
-                <div className="col s6">
+                <div className="col s6" style={{marginRight: '-28px'}}>
                     <p style={{marginBottom: '12px'}}>{moment(item.date).format('MM/DD/YYYY')}</p>
                 </div>
+                <button
+                    style={{
+                        padding: '0',
+                        position: 'absolute',
+                        top: '0'
+                    }}
+                    onClick={props.removeCheckmark ? props.removeCheckmark.bind(null, index, props.phase) : null}
+                    type="button"
+                    className="btn-flat white red-text">
+                    <i className="material-icons">clear</i>
+                </button>
             </div>
         );
     });
@@ -135,6 +146,7 @@ const ProjectDates = (props) => {
                     <ProjectCheckpoints
                         checkpoints={props.project.checkpoints_start || null}
                         phase="start"
+                        removeCheckmark={props.removeCheckmark}
                         onChange={props.handleDate}
                     />
                 </div>
@@ -150,6 +162,7 @@ const ProjectDates = (props) => {
                     <ProjectCheckpoints
                         checkpoints={props.project.checkpoints_live || null}
                         phase="live"
+                        removeCheckmark={props.removeCheckmark}
                         onChange={props.handleDate}
                     />
                 </div>
@@ -165,6 +178,7 @@ const ProjectDates = (props) => {
                     <ProjectCheckpoints
                         checkpoints={props.project.checkpoints_end || null}
                         phase="end"
+                        removeCheckmark={props.removeCheckmark}
                         onChange={props.handleDate}
                     />
                 </div>

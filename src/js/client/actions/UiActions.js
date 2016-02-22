@@ -105,6 +105,7 @@ export default {
     },
 
     updateProject(project) {
+        console.log(project);
         projectService.update(project)
             .then((response) => {
                 if (response.status !== 204) {
@@ -180,14 +181,14 @@ export default {
                 });
             });
     },
-    uploadAsset(project, asset, uri) {
+    uploadAsset(project, asset, uri, name) {
         assetService
             .create(project, asset)
             .then((result) => {
                 if (result.id) {
                     dispatch({
                         actionType: AppConstants.CREATED_ASSET,
-                        asset: _.extend(asset, {_id: result.id, datauri:uri})
+                        asset: _.extend(asset, {_id: result.id, datauri:uri, name:name})
                     });
                 } else {
                     // TODO Message about failure

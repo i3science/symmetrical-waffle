@@ -37,7 +37,7 @@ export default class ProjectAssets extends React.Component {
         reader.addEventListener('load', function(){
             let data = new FormData();
             data.append('file', file);
-            Actions.uploadAsset(this.props.project, data, reader.result);
+            Actions.uploadAsset(this.props.project, data, reader.result, file.name);
         }.bind(this), false);
         reader.readAsDataURL(file);
     }
@@ -62,7 +62,7 @@ export default class ProjectAssets extends React.Component {
                             borderTop: '1px solid rgba(0,0,0,0.1)'
                         }}>
                             <p style={{margin: '0'}}><strong>
-                                <a className="grey-text text-darken-2" href={'/projects/'+this.props.project._id+'/assets/'+asset._id+'/file'}>{asset.name}</a>
+                                <a style={{wordWrap: 'break-word'}}  className="grey-text text-darken-2" href={'/projects/'+this.props.project._id+'/assets/'+asset._id+'/file'}>{asset.name}</a>
                             </strong></p>
                         </div>
                     </div>
@@ -75,12 +75,18 @@ export default class ProjectAssets extends React.Component {
                 <div className="row">
                     {renderAssets}
                 </div>
-                <form name="myform" id="myform" action={'/projects/'+this.props.project._id+'/assets'} onSubmit={this._onSubmit} method="post" encType="multipart/form-data">
-                    <label htmlFor="file">
-                        File
-                        <input type="file" name="file" id="file"/>
-                    </label>
-                    <input type="submit" value="Upload"/>
+
+                <form action={'/projects/'+this.props.project._id+'/assets'} onSubmit={this._onSubmit} method="post" encType="multipart/form-data">
+                    <div className="file-field input-field">
+                        <div className="btn">
+                            <span>File</span>
+                            <input type="file" name="file" id="file"/>
+                        </div>
+                        <div className="file-path-wrapper">
+                            <input className="file-path validate" type="text" />
+                        </div>
+                    </div>
+                    <button className="btn-large teal" type="submit">Upload</button>
                 </form>
             </div>
         );

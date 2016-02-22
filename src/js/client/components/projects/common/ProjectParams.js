@@ -58,7 +58,7 @@ export default (props) => {
                                 border: '1px solid rgba(0,0,0,0.1)'
                             }}>
                                 <h6>Number of Influencers</h6>
-                                {props.project.projectType === 'blogger' ?
+                                {(props.project.projectType === 'blogger') || !props.project.projectType ?
                                     <InputText
                                         type="number"
                                         id="bloggers"
