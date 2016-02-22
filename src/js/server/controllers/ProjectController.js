@@ -57,8 +57,12 @@ export default base_controller(projectService, 'project', {
             });
     },
     sanitize(obj) {
-        obj.organization = obj.organization._id || obj.organization;
-        obj.client = obj.client._id || obj.client;
+        if (obj.organization) {
+            obj.organization = obj.organization._id || obj.organization;
+        }
+        if (obj.client) {
+            obj.client = obj.client._id || obj.client;
+        }
         delete obj.__v;
         return obj;
     }
