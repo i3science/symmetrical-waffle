@@ -70,7 +70,6 @@ class SelectedInfluencers extends React.Component {
 
 
     render() {
-        console.log(this.props);
         var pieces = [];
         var selectedInfluencers = this.props.selectedInfluencers.map((item,index) => {
             var numIndex = String(index);
@@ -98,7 +97,6 @@ class SelectedInfluencers extends React.Component {
 
             );
         });
-        console.log(this.props);
         return (
             <div className="row">
                 <div className="col s12">

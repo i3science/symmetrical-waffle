@@ -1,5 +1,4 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
-import { Link } from 'react-router';
 import InputText from '../../common/input/inputtext';
 import authenticationStore from '../../../stores/AuthenticationStore';
 

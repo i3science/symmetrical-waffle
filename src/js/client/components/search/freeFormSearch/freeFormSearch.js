@@ -44,7 +44,7 @@ class SearchPage extends React.Component {
             results: searchStore.getResults()
         });
         if (this.state.results.length === 0) {
-            this.setState({results: this.state.influencers})
+            this.setState({results: this.state.influencers});
         }
     }
     _handleChange(event) {
@@ -70,8 +70,8 @@ class SearchPage extends React.Component {
         Actions.updateFilters(this.state.filters);
         Actions.updateResults(compare(this.state.filters, this.state.influencers));
     }
-    _search(event) {
-        this.props.history.pushState(null, '/search/results')
+    _search() {
+        this.props.history.pushState(null, '/search/results');
     }
     _reset(event) {
         if (event) {
@@ -98,7 +98,6 @@ class SearchPage extends React.Component {
         Actions.updateFilters(this.state.filters);
     }
     render() {
-        console.log(this.state.results);
         return (
             <div className="card-panel z-depth-4">
                 <h4>Search Criteria</h4>

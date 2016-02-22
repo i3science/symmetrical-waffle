@@ -105,7 +105,6 @@ export default {
     },
 
     updateProject(project) {
-        console.log(project);
         projectService.update(project)
             .then((response) => {
                 if (response.status !== 204) {
