@@ -4,6 +4,8 @@ import { createRoutes, match, RoutingContext, RouterContext } from 'react-router
 import Routes from '../src/js/client/components/routes';
 import a from '../src/js/client/components/app';
 import createLocation from 'history/lib/createLocation';
+import createHistory from 'history/lib/createMemoryHistory';
+import Router from 'react-router';
 
 
 'use strict';
@@ -35,7 +37,8 @@ var fs = require('fs'),
     middleware = require('i18next-express-middleware'),
     context = require('request-context'),
     _ = require('lodash'),
-    Organization = mongoose.model('Organization');
+    Organization = mongoose.model('Organization'),
+    routes = createRoutes(Routes);
 
 i18next
     .use(backend)
@@ -180,24 +183,25 @@ module.exports = function(db) {
             next();
         }
 
-        let r = createRoutes(Routes);
         let location = createLocation(req.url);
+        let history = createHistory({entries: [location]});
+        let router = (<Router history={history} children={routes}/>);
+        let initial_data = {
+            user: req.loggedInUser,
+            org: req.currentOrganization
+        };
 
-        match({ routes: r, location: location }, function(error, redirectLocation, renderProps){
+        match({ routes: routes, location: location }, function(error, redirectLocation, renderProps){
             if (error) {
                 return res.status(500).send(error.message);
             } else if (redirectLocation) {
                 return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
             } else if (renderProps) {
-                var content = renderToString(<RoutingContext {...renderProps} />);
                 return res.render('index', {
                     request: req,
-                    content: content,
+                    content: renderToString(router),
                     translations: JSON.stringify(i18next.store.data),
-                    initial_data: JSON.stringify({
-                        user: req.loggedInUser,
-                        org: req.currentOrganization
-                    })
+                    initial_data: JSON.stringify(initial_data)
                 });
             }
         });
