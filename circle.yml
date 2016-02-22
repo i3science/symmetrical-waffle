@@ -1,0 +1,35 @@
+machine:
+  java:
+    version: openjdk7
+  node:
+    version: 5.2.0
+
+dependencies:
+  cache_directories:
+    - "node_modules"
+    - "~/.npm"
+    - "~/mongodb-linux-x86_64-3.0.6"
+  pre:
+    - sudo apt-get install build-essential
+  override:
+    # Cache Mongo 3.x
+    - if [[ ! -d ~/mongodb-linux-x86_64-3.0.6 ]]; then cd ~; wget http://downloads.mongodb.org/linux/mongodb-linux-x86_64-3.0.6.tgz && tar xvzf ~/mongodb-linux-x86_64-3.0.6.tgz; fi
+    - sudo /etc/init.d/mongodb stop
+    - sudo cp ~/mongodb-linux-x86_64-3.0.6/bin/* /usr/bin
+    - sudo service mongodb start
+
+    - npm install -g gulp
+    - npm install
+    - node_modules/protractor/bin/webdriver-manager update
+
+test:
+  override:
+    - gulp build
+
+deployment:
+  deploy_staging:
+    branch: [develop, 'feature-circleci']
+    commands:
+      - tar -czf dist.tgz config/ dist/ seed/ src/ .babelrc docker-setup.sh init.js package.json seed.js server.js
+      - rsync -avz -e "ssh -p 9731" dist.tgz circleci@54.173.3.126:/home/circleci
+      - ssh circleci@54.173.3.126 -p 9731 "sudo /home/circleci/deploy.sh"

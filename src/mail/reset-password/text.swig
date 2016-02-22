@@ -1,0 +1,1 @@
+Reset your password by navigating to: {{ link }}

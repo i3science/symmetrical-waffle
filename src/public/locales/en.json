@@ -1,0 +1,32 @@
+{
+    "application": {
+        "title": "Social Marketplace Platform"
+    },
+    "login": {
+        "email": "Email",
+        "password": "Password",
+        "signin": "Sign In"
+    },
+    "forgotpassword": {
+        "email": "Email",
+        "request_reset": "Request Password Reset",
+        "reset": "Reset Password",
+        "password": "Password",
+        "confirm_password": "Confirm Password"
+    },
+    "search": {
+        "label": "Let's just search...",
+        "placeholder": "What are you looking for?",
+        "results_count": "{{count}} result",
+        "results_count_plural": "{{count}} results",
+        "button": "Go for it"
+    },
+    "legal": {
+        "privacy_policy": "Privacy Policy",
+        "terms_and_conditions": "Terms and Conditions",
+        "copyright": "Copyright &copy; 2016 JONES MEDIA INC.  All Rights Reserved."
+    },
+
+    "forgot_password": "Forgot your password?",
+    "sign_up": "Not a user? Contact us here!"
+}

@@ -1,5 +1,7 @@
 'use strict';
 
+var path = require('path');
+
 module.exports = {
   app: {
     title: 'SMP',
@@ -8,33 +10,39 @@ module.exports = {
   },
   debug: process.env.DEBUG || false,
   port: process.env.PORT || 3000,
-  templateEngine: 'jade',
-  // The secret should be set to a non-guessable string that
-  // is used to compute a session hash
-  sessionSecret: 'SMP',
-  // The name of the MongoDB collection to store sessions in
-  sessionCollection: 'sessions',
-  // The session cookie settings
-  sessionCookie: {
-    path: '/',
-    httpOnly: true,
-    // If secure is set to true then it will cause the cookie to be set
-    // only when SSL-enabled (HTTPS) is used, and otherwise it won't
-    // set a cookie. 'true' is recommended yet it requires the above
-    // mentioned pre-requisite.
-    secure: false,
-    // Only set the maxAge to null if the cookie shouldn't be expired
-    // at all. The cookie will expunge when the browser is closed.
-    maxAge: null,
-    // To set the cookie in a specific domain uncomment the following 
-    // setting:
-    // domain: 'yourdomain.com'
+  templateEngine: 'swig',
+  session: {
+    // The secret should be set to a non-guessable string that
+    // is used to compute a session hash
+    secret: 'SMP',
+    // The name of the MongoDB collection to store sessions in
+    collection: 'sessions',
+    name: 'smp',
+    // The session cookie settings
+    cookie: {
+      path: '/',
+      httpOnly: false,
+      // If secure is set to true then it will cause the cookie to be set
+      // only when SSL-enabled (HTTPS) is used, and otherwise it won't
+      // set a cookie. 'true' is recommended yet it requires the above
+      // mentioned pre-requisite.
+      secure: false,
+      // Only set the maxAge to null if the cookie shouldn't be expired
+      // at all. The cookie will expunge when the browser is closed.
+      maxAge: null,
+      // To set the cookie in a specific domain uncomment the following 
+      // setting:
+      // domain: 'yourdomain.com'
+
+    }
+  },
+  mail: {
+    disable: false,
+    transport: 'smtps://user%40gmail.com:pass@smtp.gmail.com'
   },
   ssl: {
     enabled: false
   },
-  // The session cookie name
-  sessionName: 'connect.sid',
   log: {
     // Can specify one of 'combined', 'common', 'dev', 'short', 'tiny'
     format: 'combined',
@@ -55,15 +63,16 @@ module.exports = {
       'public/modules/**/css/*.css'
     ],
     js: [
-      'public/config.js',
-      'public/application.js',
-      'public/modules/*/*.js',
-      'public/modules/*/*[!tests]*/*.js'
+      'dist/bundle.js'
     ],
     tests: [
-      'public/lib/angular-mocks/angular-mocks.js',
-      'scripts/mocks/*.js',
-      'public/modules/*/tests/*.js'
+      'test/js/client/*/*.js'
     ]
+  },
+  i18n: {
+    fallbackLng: 'en',
+    backend: {
+      loadPath: path.resolve(__dirname, '../../src/public/locales/{{lng}}.json')
+    }
   }
 };

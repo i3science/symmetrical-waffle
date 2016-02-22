@@ -1,9 +1,11 @@
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { createRoutes, match, RoutingContext } from 'react-router';
-import Routes from '../src/js/client/components/routes.jsx';
+import { createRoutes, match, RoutingContext, RouterContext } from 'react-router';
+import Routes from '../src/js/client/components/routes';
 import a from '../src/js/client/components/app';
 import createLocation from 'history/lib/createLocation';
+import createHistory from 'history/lib/createMemoryHistory';
+import Router from 'react-router';
 
 
 'use strict';
@@ -12,176 +14,234 @@ import createLocation from 'history/lib/createLocation';
  * Module dependencies.
  */
 var fs = require('fs'),
-	http = require('http'),
-	https = require('https'),
-	express = require('express'),
-	morgan = require('morgan'),
-	logger = require('./logger'),
-	bodyParser = require('body-parser'),
-	session = require('express-session'),
-	compression = require('compression'),
-	methodOverride = require('method-override'),
-	cookieParser = require('cookie-parser'),
-	helmet = require('helmet'),
-	passport = require('passport'),
-	MongoStore = require('connect-mongo')(session),
-	flash = require('connect-flash'),
-	config = require('./config'),
-	consolidate = require('consolidate'),
-	path = require('path'),
-	mongoose = require('mongoose');
+    http = require('http'),
+    https = require('https'),
+    express = require('express'),
+    morgan = require('morgan'),
+    logger = require('./logger'),
+    bodyParser = require('body-parser'),
+    session = require('express-session'),
+    compression = require('compression'),
+    methodOverride = require('method-override'),
+    cookieParser = require('cookie-parser'),
+    helmet = require('helmet'),
+    passport = require('passport'),
+    MongoStore = require('connect-mongo')(session),
+    flash = require('connect-flash'),
+    config = require('./config'),
+    consolidate = require('consolidate'),
+    path = require('path'),
+    mongoose = require('mongoose'),
+    i18next = require('i18next'),
+    backend = require('i18next-sync-fs-backend'),
+    middleware = require('i18next-express-middleware'),
+    context = require('request-context'),
+    _ = require('lodash'),
+    Organization = mongoose.model('Organization'),
+    routes = createRoutes(Routes);
+
+i18next
+    .use(backend)
+    .use(middleware.LanguageDetector)
+    .init(config.i18n);
 
 module.exports = function(db) {
-	// Initialize express app
-	var app = express();
+    // Initialize express app
+    var app = express();
 
-	// Setting application local variables
-	app.locals.title = config.app.title;
-	app.locals.description = config.app.description;
-	app.locals.keywords = config.app.keywords;
-	app.locals.facebookAppId = config.facebook && config.facebook.clientID;
-	app.locals.jsFiles = config.getJavaScriptAssets();
-	app.locals.cssFiles = config.getCSSAssets();
+    // Setting the app router and static folder
+    app.use('/assets', express.static(path.resolve('./src/public')));
+    app.use('/assets', express.static(path.resolve('./dist')));
 
-	// Passing the request url to environment locals
-	app.use(function(req, res, next) {
-		res.locals.url = req.protocol + '://' + req.headers.host + req.url;
-		next();
-	});
+    // Setting application local variables
+    app.locals.title = config.app.title;
+    app.locals.description = config.app.description;
+    app.locals.keywords = config.app.keywords;
+    app.locals.facebookAppId = config.facebook && config.facebook.clientID;
+    app.locals.jsFiles = config.getJavaScriptAssets();
+    app.locals.cssFiles = config.getCSSAssets();
 
-	// Should be placed before express.static
-	app.use(compression({
-		// only compress files for the following content types
-		filter: function(req, res) {
-			return (/json|text|javascript|css/).test(res.getHeader('Content-Type'));
-		},
-		// zlib option for compression level
-		level: 3
-	}));
+    // Passing the request url to environment locals
+    app.use(function(req, res, next) {
+        res.locals.url = req.protocol + '://' + req.headers.host + req.url;
+        req.basePath = req.protocol + '://' + req.headers.host;
+        next();
+    });
 
-	// Showing stack errors
-	app.set('showStackError', true);
+    // Find the organization for the current address
+    app.use(function(req, res, next) {
+        Organization
+            .find({ hostnames: req.hostname })
+            .exec()
+            .then((orgs) => {
+                if (orgs.length === 0) {
+                    console.log('No organization found for host: ', req.hostname);
+                    return next();
+                }
+                if (orgs.length > 1) {
+                    console.log('Multiple organizations found for host: ', req.hostname);
+                    return next();
+                }
+                req.currentOrganization = orgs[0];
+                return next();
+            });
+    });
 
-	// Enable logger (morgan)
-	app.use(morgan(logger.getLogFormat(), logger.getLogOptions()));
+    // Set up i18n
+    app.use(middleware.handle(i18next));
 
-	// Environment dependent middleware
-	if (process.env.NODE_ENV === 'development') {
-		// Disable views cache
-		app.set('view cache', false);
-	} else if (process.env.NODE_ENV === 'production') {
-		app.locals.cache = 'memory';
-	}
+    // Should be placed before express.static
+    app.use(compression({
+        // only compress files for the following content types
+        filter: function(req, res) {
+            return (/json|text|javascript|css/).test(res.getHeader('Content-Type'));
+        },
+        // zlib option for compression level
+        level: 3
+    }));
 
-	// Request body parsing middleware should be above methodOverride
-	app.use(bodyParser.urlencoded({
-		extended: true
-	}));
-	app.use(bodyParser.json({limit: '50mb'}));
-	app.use(methodOverride());
+    // Showing stack errors
+    app.set('showStackError', true);
 
-	// Use helmet to secure Express headers
-	app.use(helmet.xframe());
-	app.use(helmet.xssFilter());
-	app.use(helmet.nosniff());
-	app.use(helmet.ienoopen());
-	app.disable('x-powered-by');
+    // Set the template engine
+    app.engine('swig', consolidate[config.templateEngine]);
+    app.set('view engine', 'swig');
+    app.set('views', './src/public');
 
-	// Setting the app router and static folder
-	app.use(express.static(path.resolve('./public')));
-	app.use(express.static(path.resolve('./dist')));
+    // Enable logger (morgan)
+    app.use(morgan(logger.getLogFormat(), logger.getLogOptions()));
 
-	// CookieParser should be above session
-	app.use(cookieParser());
+    // Environment dependent middleware
+    if (process.env.NODE_ENV === 'development') {
+        // Disable views cache
+        app.set('view cache', false);
+    } else if (process.env.NODE_ENV === 'production') {
+        app.locals.cache = 'memory';
+    }
 
-	// Express MongoDB session storage
-	app.use(session({
-		saveUninitialized: true,
-		resave: true,
-		secret: config.sessionSecret,
-		store: new MongoStore({
-			mongooseConnection: mongoose.connection,
-			collection: config.sessionCollection
-		}),
-		cookie: config.sessionCookie,
-		name: config.sessionName
-	}));
+    // Request body parsing middleware should be above methodOverride
+    app.use(bodyParser.urlencoded({ extended: true }));
+    app.use(bodyParser.json({ limit: '50mb' }));
+    app.use(methodOverride());
 
-	// use passport session
-	app.use(passport.initialize());
-	app.use(passport.session());
+    // Use helmet to secure Express headers
+    app.use(helmet.xframe());
+    app.use(helmet.xssFilter());
+    app.use(helmet.nosniff());
+    app.use(helmet.ienoopen());
+    app.disable('x-powered-by');
 
-	// connect flash for flash messages
-	app.use(flash());
+    // CookieParser should be above session
+    app.use(cookieParser());
 
-	// Use helmet to secure Express headers
-	app.use(helmet.xframe());
-	app.use(helmet.xssFilter());
-	app.use(helmet.nosniff());
-	app.use(helmet.ienoopen());
-	app.disable('x-powered-by');
+    // Express MongoDB session storage
+    app.use(session({
+        name: config.session.name,
+        saveUninitialized: false,
+        resave: false,
+        secret: config.session.secret,
+        store: new MongoStore({
+            mongooseConnection: mongoose.connection,
+            collection: config.session.collection
+        }),
+        cookie: config.session.cookie
+    }));
 
-	// Setting the app router and static folder
-	app.use(express.static(path.resolve('./src/public')));
+    // use passport session
+    app.use(passport.initialize({
+        userProperty: 'loggedInUser'
+    }));
+    app.use(passport.session());
 
-	// Set up React-Router
-	app.use(function(req, res, next){
-		let r = createRoutes(Routes());
-		let location = createLocation(req.url);
+    // connect flash for flash messages
+    app.use(flash());
 
-		match({ routes: r, location: location }, function(error, redirectLocation, renderProps){
-			if (error) {
-				return res.status(500).send(error.message);
-			} else if (redirectLocation) {
-				return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
-			} else if (renderProps) {
-				return res.status(200).send(fs.readFileSync('./src/public/index.html').toString());
-			} else {
-				return res.status(404).send('Not found');
-			}
-		});
-	});
+    // Use helmet to secure Express headers
+    app.use(helmet.xframe());
+    app.use(helmet.xssFilter());
+    app.use(helmet.nosniff());
+    app.use(helmet.ienoopen());
+    app.disable('x-powered-by');
 
-	// Globbing routing files
-	config.getGlobbedFiles('./src/js/server/routes/**/*.js').forEach(function(routePath) {
-		require(path.resolve(routePath))(app);
-	});
+    // Set up request-scoped data
+    app.use(context.middleware('request'));
+    app.use(function(req, res, next){
+        context.set('request:currentUser', req.loggedInUser);
+        context.set('request:currentOrganization', req.currentOrganization);
+        context.set('request:currentIP', req.socket.remoteAddress);
+        next();
+    });
 
-	// Assume 'not found' in the error msgs is a 404. this is somewhat silly, but valid, you can do whatever you like, set properties, use instanceof etc.
-	app.use(function(err, req, res, next) {
-		// If the error object doesn't exists
-		if (!err) return next();
+    // Globbing routing files
+    config.getGlobbedFiles('./src/js/server/routes/**/*Routes.js').forEach(function(routePath) {
+        require(path.resolve(routePath))(app);
+    });
 
-		// Log it
-		console.error(err.stack);
+    // Set up React-Router
+    app.use(function(req, res, next){
+        if (req.url.indexOf('/assets') > -1) {
+            next();
+        }
 
-		// Error page
-		res.status(500).render('500.html');
-	});
+        let location = createLocation(req.url);
+        let history = createHistory({entries: [location]});
+        let router = (<Router history={history} children={routes}/>);
+        let initial_data = {
+            user: req.loggedInUser,
+            org: req.currentOrganization
+        };
 
-	// Assume 404 since no middleware responded
-	app.use(function(req, res) {
-		res.status(404).render('404.html');
-	});
+        match({ routes: routes, location: location }, function(error, redirectLocation, renderProps){
+            if (error) {
+                return res.status(500).send(error.message);
+            } else if (redirectLocation) {
+                return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
+            } else if (renderProps) {
+                return res.render('index', {
+                    request: req,
+                    content: renderToString(router),
+                    translations: JSON.stringify(i18next.store.data),
+                    initial_data: JSON.stringify(initial_data)
+                });
+            }
+        });
+    });
 
-	if (config.ssl && config.ssl.enabled) {
-		// Log SSL usage
-		console.log('Securely using https protocol');
+    // Assume 'not found' in the error msgs is a 404. this is somewhat silly, but valid, you can do whatever you like, set properties, use instanceof etc.
+    app.use(function(err, req, res, next) {
+        // If the error object doesn't exists
+        if (!err) return next();
 
-		// Load SSL key and certificate
-		var privateKey = fs.readFileSync(config.ssl.keyPath, 'utf8');
-		var certificate = fs.readFileSync(config.ssl.crtPath, 'utf8');
+        // Log it
+        console.error(err.stack);
 
-		// Create HTTPS Server
-		var httpsServer = https.createServer({
-			key: privateKey,
-			cert: certificate
-		}, app);
+        // Error page
+        res.status(500).sendFile(path.resolve(__dirname, '../src/public/500.html'));
+    });
 
-		// Return HTTPS server instance
-		return httpsServer;
-	}
+    // Assume 404 since no middleware responded
+    app.use(function(req, res) {
+        res.status(404).sendFile(path.resolve(__dirname, '../src/public/404.html'));
+    });
 
-	// Return Express server instance
-	return app;
+    if (config.ssl && config.ssl.enabled) {
+        // Log SSL usage
+        console.log('Securely using https protocol');
+
+        // Load SSL key and certificate
+        var privateKey = fs.readFileSync(config.ssl.keyPath, 'utf8');
+        var certificate = fs.readFileSync(config.ssl.crtPath, 'utf8');
+
+        // Create HTTPS Server
+        var httpsServer = https.createServer({
+            key: privateKey,
+            cert: certificate
+        }, app);
+
+        // Return HTTPS server instance
+        return httpsServer;
+    }
+
+    // Return Express server instance
+    return app;
 };

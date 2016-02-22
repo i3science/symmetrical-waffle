@@ -1,6 +1,10 @@
 'use strict';
 
+// Set up ES6/JSX support server-side
+require('babel-register');
+
 var gulp = require('gulp'),
+    gutil = require('gulp-util'),
     connect = require('gulp-connect'),
     open = require('gulp-open'),
     webpack = require('webpack-stream'),
@@ -9,7 +13,13 @@ var gulp = require('gulp'),
     csslint = require('gulp-csslint'),
     lint = require('gulp-eslint'),
     nodemon = require('gulp-nodemon'),
-    livereload = require('gulp-livereload');
+    livereload = require('gulp-livereload'),
+    mocha = require('gulp-mocha'),
+    protractor = require('gulp-protractor').protractor,
+    chalk = require('chalk'),
+    path = require('path'),
+    tar = require('gulp-tar'),
+    gzip = require('gulp-gzip');
 
 var config = {
   watch: {
@@ -27,9 +37,134 @@ var config = {
       './src/public/images/*'
     ],
     dist: './dist',
-    main: './src/js/server/main.js'
+    main: './src/js/server/main.js',
+
+    mocha: './test/js/server/**/*Test.js',
+    nightwatch: './test/js/client/**/*.ee.js'
   }
 };
+var spawn = require('child_process').spawn,
+  node;
+
+//----
+// STEP 1 - Asset consolidation & minification
+//----
+gulp.task('css', function(){
+  return gulp.src(config.watch.css)
+      .pipe(concat('bundle.css'))
+      .pipe(gulp.dest(config.watch.dist + '/css'));
+});
+gulp.task('js', function(){
+  return gulp.src('./src/js/client/main.jsx')
+      .pipe(webpack(require('./webpack.config.js')))
+      .pipe(gulp.dest('./dist'));
+});
+gulp.task('compile', ['css', 'js'])
+
+//----
+// STEP 2 - Asset validation & linting
+//----
+gulp.task('csslint', ['css'], function(){
+  return gulp.src('src/public/*.css')
+      .pipe(csslint()) 
+      .pipe(csslint.reporter());
+});
+gulp.task('jslint', ['js'], function(){
+  return gulp.src(config.watch.js)
+      .pipe(lint({config: '.eslintrc'}))
+      .pipe(lint.format());
+});
+gulp.task('lint', ['jslint','csslint']);
+
+gulp.task('compile', ['js','jslint','css','csslint']);
+
+//----
+// STEP 3 - Testing
+//----
+gulp.task('test', ['compile'], function(){
+  if (JSON.parse(process.env.SKIP_TESTS || '0')) {
+    console.log('Skipping Tests');
+    return;
+  }
+  var old = process.env.NODE_ENV;
+  process.env.NODE_ENV = 'test';
+
+  if (node) {
+    node.kill();
+  }
+  node = spawn('node', ['server.js'], {stdio: 'inherit'});
+  node.on('end', function(){
+    node.kill();
+    process.env.NODE_ENV = old;
+  })
+  .on('error', function(e){
+    node.kill();
+    process.env.NODE_ENV = old;
+    throw e;
+  });
+
+  // Start protractor
+  return gulp.src('test/js/client/components/*.ee.js')
+  .pipe(protractor({
+     args: ['--harmony_proxies'],
+     configFile: 'protractor.conf.js',
+     debug: false
+  }))
+  .on('end', function(){
+     node.kill();
+     process.env.NODE_ENV = old;
+  })
+  .on('error', function(e){
+     node.kill();
+     process.env.NODE_ENV = old;
+     throw e;
+  });
+});
+
+//----
+// STEP 4 - Building & packaging
+//----
+gulp.task('build', ['compile','test']);
+gulp.task('package', ['build'], function(){
+  var sources = [
+    'config/**/*',
+    'dist/**/*',
+    'src/**/*',
+    'seed/**/*',
+    '.babelrc',
+    'docker-setup.sh',
+    'init.js',
+    'package.json',
+    'seed.js',
+    'server.js'
+  ];
+  return gulp.src(sources, { base: '.' })
+    .pipe(tar('dist.tar'))
+    .pipe(gzip())
+    .pipe(gulp.dest('.'));
+});
+
+//----
+// STEP 5 - Watches
+//----
+gulp.task('watch', function(){
+  livereload.listen();
+  gulp.watch(config.watch.html, ['start']);
+  gulp.watch(config.watch.css, ['start']);
+  gulp.watch(config.watch.js, ['start']);
+});
+
+//----
+// STEP 6 - Run
+//----
+// Start local dev server
+gulp.task('start', ['build'], function(){
+  if (node) {
+    node.kill();
+  }
+  node = spawn('node', ['server.js'], {stdio: 'inherit'});
+  return node;
+});
 
 // Open the project in the default browser
 gulp.task('open', ['start'], function(){
@@ -37,104 +172,7 @@ gulp.task('open', ['start'], function(){
       .pipe(open({ uri: config.devBaseUrl + ':' + config.port + '/'}));
 });
 
-// Start local dev server
-gulp.task('start', function () {
-  nodemon({
-    exec: 'node',
-    script: 'server.js',
-    ext: 'js html',
-    ignore: ['.git/*', 'node_modules/*'],
-    env: { 'NODE_ENV': 'development' },
-    livereload: true,
-    stdout: false
-  }).on('readable', function() {
-    this.stdout.on('data', function(chunk) {
-      if (/^Listening/.test(chunk)) {
-        livereload.reload();
-      }
-      process.stdout.write(chunk);
-    });
-    this.stderr.pipe(process.stderr);
-  });
-});
-
-// Start local dev server and node-inspector
-gulp.task('debug', ['inspect'], function(){
-  nodemon({
-    exec: 'node-inspector & node --debug',
-    script: 'server.js',
-    ext: 'js html',
-    ignore: ['.git/*', 'node_modules/*'],
-    env: { 'NODE_ENV': 'development' },
-    stdout: false
-  }).on('restart', function () {
-    this.stdout.on('data', function(chunk) {
-      if (/^listening/.test(chunk)) {
-        livereload.reload();
-      }
-      process.stdout.write(chunk);
-    });
-    this.stderr.pipe(process.stderr);
-  });
-});
-
-// Start node-inspector
-gulp.task('inspect', function(){
-  gulp.src([]).pipe(nodeInspector({  // You'll need to tweak these settings per your setup
-    debugPort: 5859,
-    webHost: '0.0.0.0',
-    webPort: '8085',
-    preload: false
-  }));
-});
-
-// Lint javascript
-gulp.task('jslint', function(){
-  return gulp.src(config.watch.js)
-      .pipe(lint({config: '.eslintrc'}))
-      .pipe(lint.format());
-});
-
-// Lint css
-gulp.task('csslint', function(){
-  gulp.src('src/public/*.css')
-      .pipe(csslint()) 
-      .pipe(csslint.reporter());
-});
-
-// Lint tasks
-gulp.task('lint', ['jslint','csslint']);
-
-// Pack javascript
-gulp.task('js', function(){
-  return gulp.src('./src/js/client/main.jsx')
-      .pipe(webpack(require('./webpack.config.js')))
-      .pipe(gulp.dest('./dist'))
-      .pipe(connect.reload());
-});
-
-// Pack css
-gulp.task('css', function(){
-  return gulp.src(config.watch.css)
-      .pipe(concat('bundle.css'))
-      .pipe(gulp.dest(config.watch.dist + '/css'))
-      .pipe(connect.reload());
-});
-
-gulp.task('html', function(){
-  return gulp.src(config.watch.html)
-      .pipe(connect.reload());
-});
-
-// Build tasks
-gulp.task('build', ['lint','js','css']);
-
-// Watch files for changes
-gulp.task('watch', function(){
-  livereload.listen();
-  gulp.watch(config.watch.html, ['html']);
-  gulp.watch(config.watch.js, ['js', 'lint']);
-});
-
-// Default task
-gulp.task('default', ['css','js','lint','open','watch']);
+//----
+// Combined Tasks
+//----
+gulp.task('default', ['build','open','watch']);
