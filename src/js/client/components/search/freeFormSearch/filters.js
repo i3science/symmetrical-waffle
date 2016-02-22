@@ -18,6 +18,7 @@ const Filters = (props) => {
                 <Personal
                     personal={props.filters.personal}
                     onChange={props.onChange}
+                    minimal={props.minimal || null}
                     parent="personal"
                     search
                 />
@@ -25,6 +26,7 @@ const Filters = (props) => {
                 <Mediums
                     mediums={props.filters.mediums}
                     onChange={props.onChange}
+                    minimal={props.minimal || null}
                     parent="mediums"
                 />
             </div> : null}
@@ -34,36 +36,44 @@ const Filters = (props) => {
                 <Audience
                     audience={props.filters.audience}
                     onChange={props.onChange}
+                    minimal={props.minimal || null}
                     parent="audience"
                 />
             </div> : null}
             <h6 className="teal-text">Verticals</h6>
             <Verticals
                 verticals={props.filters.verticals}
+                minimal={props.minimal || null}
                 parent="verticals"
                 onChange={props.onChange}
             />
-            <Switch
-                id="advanced"
-                label="Advanced"
-                onChange={props.expand}
-            />
-
+            {!props.minimal ?
+                <Switch
+                    id="advanced"
+                    label="Advanced"
+                    onChange={props.expand}
+                />
+            : null}
             <div id="advanced-collapse" style={{maxHeight: (props.minimal ? 'auto' : '0'), transition: 'max-height .5s', overflow: 'hidden'}}>
-                <hr />
-                <h5>Advanced</h5>
+                {!props.minimal ?
+                    <div>
+                        <hr />
+                        <h5>Advanced</h5>
+                    </div> : null}
                 {props.filters.type === 'influencer' ?
                 <div>
                     <PersonalAdvanced
                         onChange={props.onChange}
                         personal={props.filters.personal}
                         vehicle={props.filters.vehicle}
+                        minimal={props.minimal || null}
                         parent="personal"
                     />
                     <h6 className="teal-text">Minimum Followers</h6>
                     <Channels
                         channels={props.filters.channels}
                         onChange={props.onChange}
+                        minimal={props.minimal || null}
                         parent="channels"
                         />
                 </div> : null}
@@ -71,12 +81,14 @@ const Filters = (props) => {
                 <AudienceAdvanced
                     audience={props.filters.audience}
                     onChange={props.onChange}
+                    minimal={props.minimal || null}
                     parent="audience"
                 /> : null }
                 <h6 className="teal-text">Children</h6>
                 <Children
                     onChange={props.onChange}
                     children={props.filters.children}
+                    minimal={props.minimal || null}
                     parent="children"
                 />
             </div>

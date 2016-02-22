@@ -22,8 +22,13 @@ class InfluencerStore extends BaseStore {
                 this.selectedInfluencers = action.selectedInfluencers;
                 this.emitChange();
                 break;
-            case AppConstants.ADD_INFLUENCER_TO_LIST:
-                this.selectedInfluencers.push(action.influencer);
+            case AppConstants.TOGGLE_INFLUENCER_TO_LIST:
+                if (action.selected) {
+                    this.selectedInfluencers.push(action.influencer);
+                } else {
+                    _.remove(this.selectedInfluencers, action.influencer)
+                }
+                console.log(this.selectedInfluencers);
                 this.emitChange();
                 break;
             case AppConstants.CREATE_INFLUENCER:

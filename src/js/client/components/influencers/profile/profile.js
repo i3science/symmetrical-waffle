@@ -1,5 +1,4 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
-import _ from 'lodash';
 
 import Channels from './channels';
 import Verticals from './verticals';
@@ -22,11 +21,11 @@ const Profile = (props) => {
                                 <img className="circle responsive-img" src={'/assets/images/' + (props.influencer.hasImage ? props.influencer._id : 'default') +'.jpg'} />
                             </div>
                             <div className="col s9">
-                                <h4 className="teal-text" style={{margin: 0}}>{influencer.name.first} {influencer.name.last}</h4>
-                                <h6 className="teal-text">CREATOR{influencer.amplifier ? ' / AMPLIFIER' : ''}</h6>
+                                <h4 className="teal-text" style={{margin: 0}}>{props.influencer.name.first} {props.influencer.name.last}</h4>
+                                <h6 className="teal-text">CREATOR{props.influencer.amplifier ? ' / AMPLIFIER' : ''}</h6>
                                 <br />
                                 <Channels
-                                    channels={influencer.channels}
+                                    channels={props.influencer.channels}
                                     col="s4"
                                 />
                             </div>
@@ -36,19 +35,19 @@ const Profile = (props) => {
                                 <h5>Bio</h5>
                                 <p style={{
                                 border: '1px solid rgba(0,0,0,0.1)',
-                                padding: '10px'}}>{influencer.bio}</p>
+                                padding: '10px'}}>{props.influencer.bio}</p>
                             </div>
                         </div>
                     </div>
                     <div className="col s3">
                         <Score
-                            id={influencer._id}
-                            score={influencer.score}
+                            id={props.influencer._id}
+                            score={props.influencer.score}
                             size="200"
                         />
                         <p className="center teal-text">INFLUENCER SCORE</p>
                         <Verticals
-                            verticals={influencer.verticals}
+                            verticals={props.influencer.verticals}
                         />
                     </div>
                 </div>
@@ -59,7 +58,7 @@ const Profile = (props) => {
                 <div className="row">
                     <div className="col s12">
                         <Audience
-                            audience={influencer.audience}
+                            audience={props.influencer.audience}
                         />
                     </div>
                 </div>
@@ -68,7 +67,7 @@ const Profile = (props) => {
                 <div className="row">
                     <div className="col s12">
                         <Personal
-                            personal={influencer.personal}
+                            personal={props.influencer.personal}
                         />
                     </div>
                 </div>
@@ -79,14 +78,14 @@ const Profile = (props) => {
                         <h5 style={{marginBottom: '30px'}}>Work Demonstration</h5>
                         <div style={{padding: '0 2%'}}>
                             <Work
-                                work={influencer.work}
+                                work={props.influencer.work}
                                 itemsize="200"
                             />
                         </div>
                     </div>
                     <div className="col s4">
                         <MediaKit
-                            mediakit={influencer.mediaKit}
+                            mediakit={props.influencer.mediaKit}
                         />
                     </div>
                 </div>
@@ -96,14 +95,14 @@ const Profile = (props) => {
                     id="profile"
                     full
                     disabled
-                    dates={influencer.availability}
+                    dates={props.influencer.availability}
                 />
             </div>
             <div className="card-panel">
                 <h5 style={{marginBottom: '30px'}}>Reviews</h5>
                 <div style={{padding: '0 2%'}}>
                     <Reviews
-                        influencer={influencer}
+                        influencer={props.influencer}
                     />
                 </div>
 

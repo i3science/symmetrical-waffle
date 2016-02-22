@@ -15,9 +15,14 @@ class ListStore extends BaseStore {
         }
 
         switch(action.actionType) {
+            case AppConstants.CREATE_LIST:
+                this.lists.push(action.list);
+                this.emitChange();
+                break;
             case AppConstants.REFRESH_LISTS:
                 this.lists = action.lists;
                 this.emitChange();
+                break;
         }
     }
 

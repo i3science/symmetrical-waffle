@@ -94,21 +94,16 @@ const Verticals = (props) => {
             } else {
                 checked = '';
             }
-
-            if (props.minimal && !checked) {
-                return <div key={cindex}></div>;
-            } else {
-                return (
-                    <CheckBox
-                        key={cindex}
-                        id={child.id}
-                        label={child.label}
-                        parent={props.parent}
-                        onChange={props.onChange}
-                        checked={checked}
-                    />
-                );
-            }
+            return (
+                <CheckBox
+                    key={cindex}
+                    id={child.id}
+                    label={child.label}
+                    parent={props.parent}
+                    onChange={props.onChange}
+                    checked={checked}
+                />
+            );
         });
         return (
             <div key={index} className={'col ' + (props.minimal ? 's12' : 's3')}>

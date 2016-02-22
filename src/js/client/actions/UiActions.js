@@ -67,9 +67,9 @@ export default {
                 });
             });
     },
-    addInfluencerToList(influencer) {
+    toggleInfluencerToList(influencer, selected) {
         dispatch({
-            actionType: AppConstants.ADD_INFLUENCER_TO_LIST, influencer
+            actionType: AppConstants.TOGGLE_INFLUENCER_TO_LIST, influencer, selected
         });
     },
     updateResults(influencers) {
@@ -132,6 +132,17 @@ export default {
     },
 
     // List Actions
+
+    createList(list) {
+        return listService.create(list)
+            .then((data) => {
+                dispatch({
+                    actionType: AppConstants.CREATE_LIST,
+                    project: data
+                });
+                return true;
+            });
+    },
 
     refreshLists() {
         listService

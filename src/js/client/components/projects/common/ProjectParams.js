@@ -9,11 +9,18 @@ import ClientDropdown from '../../common/input/stateful/ClientDropdown';
 export default (props) => {
     let org = props.project.organization
         ? props.project.organization.name
-        : (typeof window !== undefined ? window.initial_data.organization.name : '');
+        : (typeof window !== undefined ? window.initial_data.org.name : '');
     return (
         <div>
             <div className="row">
                 <div className="col s6 separate-right">
+                    <InputText
+                        id="agency"
+                        label="Agency Name"
+                        val={org}
+                        active
+                        readOnly={true}
+                    />
                     <ClientDropdown
                         id="client"
                         label="Client Name"
@@ -27,12 +34,6 @@ export default (props) => {
                         val={props.project.name}
                         active
                         onChange={props.onChange}
-                    />
-                    <InputText
-                        id="agency"
-                        label="Agency Name"
-                        val={org}
-                        readOnly={true}
                     />
                     <InputTextArea
                         id="brief"

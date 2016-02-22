@@ -24,9 +24,12 @@ class InfluencerCard extends React.Component {
     constructor() {
         super();
         this.state = {
-            selected: false
+            selected: false,
+            hovering: false
         };
         this.toggleSelection = this.toggleSelection.bind(this);
+        this.notHovering = this.notHovering.bind(this);
+        this.hovering = this.hovering.bind(this);
     }
 
     toggleSelection() {
@@ -35,6 +38,13 @@ class InfluencerCard extends React.Component {
         if (this.props.onSelectionChanged) {
             this.props.onSelectionChanged(this.props.influencer, newState);
         }
+        console.log(this.state);
+    }
+    hovering() {
+        this.setState({hovering: true})
+    }
+    notHovering() {
+        this.setState({hovering: false})
     }
 
     render() {
@@ -42,13 +52,13 @@ class InfluencerCard extends React.Component {
 
         influencer.score = Math.floor(Math.random() * (100 - 50 + 1)) + 50;
         var active = {
-            color: this.state.selected ? 'teal lighten-1' : 'yellow darken-2',
-            btn: this.state.selected ? 'check' : 'add'
+            color: (this.state.selected && this.state.hovering) ? 'red darken-2' : (this.state.selected ? 'teal lighten-1' : 'yellow darken-2'),
+            btn: (this.state.selected && this.state.hovering) ? 'remove' : (this.state.selected ? 'check' : 'add')
         };
         let select = '';
         if (this.props.onSelectionChanged) {
             select = (
-                <a onClick={this.toggleSelection}
+                <a onClick={this.toggleSelection} onMouseOver={this.hovering.bind(this)} onMouseOut={this.notHovering.bind(this)}
                    className={'btn-floating btn-large waves-effect waves-light results-add '+ active.color}>
                     <i className="material-icons">{active.btn}</i>
                 </a>

@@ -35,15 +35,18 @@ class Serp extends React.Component {
 
     _onChange() {
         this.setState({
-            //influencers: influencerStore.getInfluencers(),
+            influencers: influencerStore.getInfluencers(),
             filters: searchStore.getFilters(),
             results: searchStore.getResults(),
             selectedInfluencers: influencerStore.getSelectedInfluencers()
         });
+        if (this.state.results.length === 0) {
+            this.setState({results: this.state.influencers})
+        }
     }
 
-    _onSelectionChanged(influencer, selected) { // eslint-disable-line no-unused-vars
-        Actions.addInfluencerToList(influencer);
+    _onSelectionChanged(influencer, selected) {
+        Actions.toggleInfluencerToList(influencer, selected);
     }
 
     _handleChange(event) {
@@ -65,24 +68,20 @@ class Serp extends React.Component {
                 this.state.filters[event.target.dataset.parent][event.target.id] = value;
             }
         }
+        console.log(this.state.filters);
         this.setState({filters: this.state.filters});
         Actions.updateFilters(this.state.filters);
         Actions.updateResults(compare(this.state.filters, this.state.influencers));
     }
 
-    addToList(pass, event) {
+    _addToList(pass, event) {
         event.preventDefault();
         Actions.addInfluencerToList(pass);
     }
 
     render() {
-        if (!this.state.results) {
-            return (
-                <div>
-                    <h3>Sorry, there were no results</h3>
-                </div>
-            );
-        }
+
+        console.log(this.state);
         let exposuresGroup = this.state.results.map(item => {
             let total = Number();
             for (let channel in item.channels) {
@@ -96,7 +95,9 @@ class Serp extends React.Component {
         for (let item in exposuresGroup) {
             exposures += exposuresGroup[item];
         }
+        console.log(this.state.results);
         return (
+
             <div>
                 <Sidebar>
                     <SidebarFilter
@@ -106,13 +107,13 @@ class Serp extends React.Component {
                 </Sidebar>
                 <SelectedInfluencers
                     selectedInfluencers={this.state.selectedInfluencers}
-                    addInfluencer={this.addInfluencerToList}
                     colors={this.state.colors}
                     exposures={exposures}
-                    resultNum={this.state.results.length} />
+                    resultNum={this.state.results.length}
+                    onSelectionChanged={this._onSelectionChanged} />
                 <InfluencerCardList
                     influencers={this.state.results}
-                    addToList={this.addToList}
+                    //addToList={this._addToList}
                     selectedInfluencers={this.state.selectedInfluencers}
                     onSelectionChanged={this._onSelectionChanged} />
             </div>

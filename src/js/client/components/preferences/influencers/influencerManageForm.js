@@ -17,16 +17,18 @@ const InfluencerManageForm = (props) => {
             <div className="row">
                 <div className="col s8 separate-right">
                     <InputText
-                        id="name_first"
+                        id="first"
                         label="First Name"
                         val={props.influencer.name.first}
+                        parent="name"
                         active
                         onChange={props.onChange}
                     />
                     <InputText
-                        id="name_last"
+                        id="last"
                         label="Last Name"
                         val={props.influencer.name.last}
+                        parent="name"
                         active
                         onChange={props.onChange}
                     />

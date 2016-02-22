@@ -2,8 +2,7 @@ import React from 'react'; // eslint-disable-line no-unused-vars
 import InputText from '../../common/input/inputtext';
 
 const Channel = (props) => {
-    if (!props.channel ||
-        (props.minimal && !props.channels[props.channel + '_range_from'])) {
+    if (!props.channels) {
         return <div></div>;
     }
     return (
@@ -23,7 +22,7 @@ const Channel = (props) => {
             <div style={{
                 paddingLeft: '40px'
             }}>
-                {props.channel.indexOf('_range_') !== -1 ?
+                {props.channel.indexOf('_range_') === -1 ?
                 <InputText
                     type="number"
                     id={props.channel + '_range_from'}

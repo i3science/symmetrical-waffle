@@ -1,28 +1,13 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 import { Link } from 'react-router';
 import InputText from '../../common/input/inputtext';
-
-var fakeUser = {
-    _id: '56c548dc1159249c1d26b832',
-    active: true,
-    created: '2016-02-18T04:30:20.363Z',
-    email: 'admin@smp.com',
-    language: 'en_CA',
-    name: {
-        first: 'Administrative',
-        last: 'User'
-    },
-    roles: ['admin'],
-    0: 'admin',
-    length: 1,
-    updated: '2016-02-18T04:30:20.364Z'
-};
+import authenticationStore from '../../../stores/AuthenticationStore';
 
 class AccountEditPage extends React.Component {
     constructor() {
         super();
         this.state = {
-            user: fakeUser
+            user: authenticationStore.getCurrentUser()
         };
         this._handleChange = this._handleChange.bind(this);
         this._onSubmit = this._onSubmit.bind(this);
@@ -30,70 +15,108 @@ class AccountEditPage extends React.Component {
 
     componentWillMount() {
     }
-    _handleChange() {
+    _handleChange(event) {
+        let value = event.target.value;
+        let id = event.target.id;
 
+        if (event.target.type === 'number') {
+            value = Number(value);
+        }
+        if (event.target.type === 'checkbox') {
+            value = event.target.checked;
+        }
+        if (event.target.type === 'radio') {
+            id = event.target.name;
+            value = event.target.id;
+        }
+        if (!event.target.dataset.parent) {
+            this.state.user[id] = value;
+        } else {
+            this.state.user[event.target.dataset.parent][id] = value;
+        }
+        this.setState({user: this.state.user});
     }
     _onSubmit(event) {
         event.preventDefault();
 
     }
-
     render() {
         return (
             <div className="card-panel z-depth-4">
                 <h4 className="center-align">Edit Your Account</h4><br />
                 <div className="row">
                     <div className="col s8" style={{float: 'none', margin: '0 auto'}}>
-                        <form onSubmit={this._onSubmit}>
-                            <InputText
-                                id="firstname"
-                                label="First Name"
-                                active
-                            />
-                            <InputText
-                                id="lastname"
-                                label="Last Name"
-                                active
-                            />
-                            <InputText
-                                id="email"
-                                label="Email Address"
-                                active
-                            />
-                            <InputText
-                                id="timezone"
-                                label="Time Zone"
-                                active
-                            />
-                            <InputText
-                                id="username"
-                                label="Username"
-                                active
-                            />
-                            <InputText
-                                type="password"
-                                id="password"
-                                label="Password"
-                                active
-                            />
-                            <InputText
-                                id="confirm"
-                                label="Confirm Password"
-                                active
-                            />
-                            <div className="col 12" style={{float: 'none'}}>
-                                <button to="" onClick={this._onSubmit} className="teal waves-effect waves-light btn right">Save Changes</button>
+                        <div className="row">
+                            <div className="col s6">
+                                <InputText
+                                    id="first"
+                                    label="First Name"
+                                    val={this.state.user.name.first}
+                                    parent="name"
+                                    onChange={this._handleChange}
+                                    active
+                                />
                             </div>
-                        </form>
+                            <div className="col s6">
+                                <InputText
+                                    id="lastname"
+                                    label="Last Name"
+                                    val={this.state.user.name.last}
+                                    parent="name"
+                                    onChange={this._handleChange}
+                                    active
+                                />
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col s6">
+                                <InputText
+                                    id="email"
+                                    label="Email Address"
+                                    val={this.state.user.email}
+                                    onChange={this._handleChange}
+                                    active
+                                />
+                            </div>
+                            <div className="col s6">
+                                <InputText
+                                    id="timezone"
+                                    label="Time Zone"
+                                    val={this.state.user.timezone}
+                                    onChange={this._handleChange}
+                                    active
+                                />
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col s6">
+                                <InputText
+                                    type="password"
+                                    id="password"
+                                    label="Password"
+                                    val={this.state.user.password}
+                                    onChange={this._handleChange}
+                                    active
+                                />
+                            </div>
+                            <div className="col s6">
+                                <InputText
+                                    type="password"
+                                    id="confirm"
+                                    label="Confirm Password"
+                                    val={this.state.user.confirm}
+                                    onChange={this._handleChange}
+                                    active
+                                />
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <hr />
-                <div className="row center-align">
-                    <h6 className="teal-text" style={{marginBottom: '20px'}}>Send to influencer for them to complete</h6>
-                    <br />
-                    <Link to="" className="teal waves-effect waves-light btn-large center">
-                        <i className="material-icons right">send</i>Send
-                    </Link>
+                <div className="row">
+                    <div className="col 12" style={{float: 'none'}}>
+                        <button to="" onClick={this._onSubmit} className="teal waves-effect waves-light btn-large right">Save Changes</button>
+                    </div>
                 </div>
             </div>
         );

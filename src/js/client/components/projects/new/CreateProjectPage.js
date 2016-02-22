@@ -98,7 +98,11 @@ class NewProjectPage extends React.Component {
     }
 
     _handleDate(name, date, parent){
-        this.state.project[parent].push({name: name, date: date});
+        if (parent) {
+            this.state.project[parent].push({name: name, date: date});
+        } else {
+            this.state.project[name] = date;
+        }
         this.setState({project: this.state.project});
     }
 
@@ -108,7 +112,6 @@ class NewProjectPage extends React.Component {
     }
 
     _onSave(event) {
-
         event.preventDefault();
         if (!this.state.project._id) {
             Actions
@@ -126,7 +129,6 @@ class NewProjectPage extends React.Component {
     }
 
     render() {
-        this.props.history.createPath('fdfdsdsa');
         return (
             <div>
                 <Card title={this.state.project.name || 'New Project'} deep>

@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
+import InputText from '../common/input/inputtext';
+import Actions from '../../actions/UiActions';
 
 const Graph = (props) => {
     var selectedExposures = 0;
@@ -36,7 +38,7 @@ const Graph = (props) => {
 const Person = (props) => {
     return (
         <div className="collection-item">
-            <Link to={'/profile/'+props.influencer.id} className="grey-text text-darken-2">{props.influencer.name.first}
+            <Link to={'/search/results/profile/'+props.influencer._id} className="grey-text text-darken-2">{props.influencer.name.first}
                 <i className="secondary-content small material-icons" style={{color:props.color}}>account_circle</i>
             </Link>
             <br />
@@ -45,6 +47,25 @@ const Person = (props) => {
 };
 
 class SelectedInfluencers extends React.Component {
+    constructor() {
+        super();
+        this._toggleListCreate = this._toggleListCreate.bind(this);
+    }
+    _createList(inf, event) {
+        event.preventDefault();
+        if (event.target[0].value && (inf.length > 0)) {
+            let list = {
+                name: event.target[0].value,
+                influencers: inf
+            };
+            Actions.createList(list);
+            this._toggleListCreate();
+        }
+    }
+    _toggleListCreate() {
+        $(this.refs.listForm).toggle();
+        $(this.refs.listButton).toggle();
+    }
     render() {
         var pieces = [];
         var selectedInfluencers = this.props.selectedInfluencers.map((item,index) => {
@@ -110,11 +131,34 @@ class SelectedInfluencers extends React.Component {
                                 />
                             </div>
                             <div className="col s3 selected-influencers grey-text text-darken-3">
-
                                 <div className="collection">
                                     <h6 className="teal-text right-align collection-item">Influencers</h6>
                                     {selectedInfluencers}
                                 </div>
+                                <form ref="listForm"
+                                      style={{display: 'none'}}
+                                      onSubmit={this._createList.bind(this, this.props.selectedInfluencers)}>
+                                    <InputText
+                                        id="create"
+                                        label="List Name"
+                                        active
+                                    />
+                                    <button style={{padding: '0'}} type="button" className="btn-flat white red-text" onClick={this._toggleListCreate}>
+                                        <i className="material-icons">clear</i>
+                                    </button>
+                                    <button style={{padding: '0'}} type="submit" className="btn-flat white green-text right">
+                                        <i className="material-icons">done</i>
+                                    </button>
+                                    <div className="clearfix"></div>
+                                </form>
+                                {this.props.selectedInfluencers.length === 0 ? null :
+                                <button
+                                    type="submit" ref="listButton"
+                                    className="btn-flat tiny white teal-text right"
+                                    onClick={this._toggleListCreate}
+                                    style={{padding: '0', fontSize: '12px'}}>
+                                    <i className="material-icons right">add</i>Create List
+                                </button>}
                             </div>
                         </div>
                     </div>
