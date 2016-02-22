@@ -1,6 +1,7 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 import Personal from '../search/components/personal';
 import Audience from '../search/components/audience';
+import Filters from '../search/freeFormSearch/filters';
 
 class SidebarFilter extends React.Component {
     render() {
@@ -10,26 +11,11 @@ class SidebarFilter extends React.Component {
                     <h6 style={{width: '100%'}} className="center-align">FILTERS</h6>
                 </header>
                 <div style={{padding: '0 10px 10px'}}>
-                    {(!this.props.filters.type || (this.props.filters.type === 'influencer')) ?
-                    <Personal
+                    <Filters
+                        filters={this.props.filters}
                         onChange={this.props.onChange}
-                        personal={this.props.filters.personal}
-                        verticals={this.props.filters.verticals}
-                        mediums={this.props.filters.mediums}
-                        children={this.props.filters.children}
-                        channels={this.props.filters.channels}
                         minimal
-                        parent="personal"
-                    /> :
-                    <Audience
-                        onChange={this.props.onChange}
-                        audience={this.props.filters.audience}
-                        verticals={this.props.filters.verticals}
-                        mediums={this.props.filters.mediums}
-                        children={this.props.filters.children}
-                        minimal
-                        parent="audience"
-                    />}
+                    />
                 </div>
             </div>
         );

@@ -41,6 +41,7 @@ class ActiveProjectPage extends React.Component {
     }
 
     _handleDate(name, date, parent){
+        console.log(name, date, parent);
         if (parent) {
             this.state.project[parent].push({name: name, date: date});
         } else {

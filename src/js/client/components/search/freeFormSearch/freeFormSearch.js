@@ -20,7 +20,9 @@ class SearchPage extends React.Component {
         this._onChange = this._onChange.bind(this);
         this._cancel = this._cancel.bind(this);
         this._expand = this._expand.bind(this);
+        this._search = this._search.bind(this);
         this._reset = this._reset.bind(this);
+
     }
 
     componentWillMount() {
@@ -43,6 +45,9 @@ class SearchPage extends React.Component {
             filters: searchStore.getFilters(),
             results: searchStore.getResults()
         });
+        if (this.state.results.length === 0) {
+            this.setState({results: this.state.influencers})
+        }
     }
 
     _handleChange(event) {
@@ -67,6 +72,10 @@ class SearchPage extends React.Component {
         this.setState({filters: this.state.filters});
         Actions.updateFilters(this.state.filters);
         Actions.updateResults(compare(this.state.filters, this.state.influencers));
+    }
+
+    _search(event) {
+        this.props.history.pushState(null, '/search/results')
     }
 
     _reset(event) {
@@ -99,6 +108,7 @@ class SearchPage extends React.Component {
     }
 
     render() {
+        console.log(this.state.results);
         return (
             <div className="card-panel z-depth-4">
                 <h4>Search Criteria</h4>
@@ -132,8 +142,8 @@ class SearchPage extends React.Component {
                 <div className="clearfix"></div>
                 <hr />
                 <div className="col 12" style={{float: 'none'}}>
-                    <Link to="" className="blue-grey lighten-5 waves-effect waves-light btn-large btn-flat" onClick={this._cancel}>Cancel</Link>
-                    <Link to="/search/results" className="teal waves-effect waves-light btn-large right">Search</Link>
+                    <button type="button" className="blue-grey lighten-5 waves-effect waves-light btn-large btn-flat" onClick={this._cancel}>Cancel</button>
+                    <button type="button" className="teal waves-effect waves-light btn-large right" onClick={this._search}>Search</button>
                 </div>
             </div>
         );

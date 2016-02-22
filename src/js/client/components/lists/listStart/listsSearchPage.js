@@ -39,7 +39,8 @@ class ListPage extends React.Component {
     }
     _onChange() {
         this.setState({
-            lists: listStore.getLists()
+            lists: listStore.getLists(),
+            listResults: listStore.getLists()
         });
     }
     _handleChange(event) {
@@ -56,25 +57,24 @@ class ListPage extends React.Component {
         }
         this.setState({listResults: this.state.listResults});
     }
-
     _addList(lid, pid, event) {
         event.preventDefault();
         this.state.currentProject.lists.push(lid);
         this.setState({currentProject: this.state.currentProject});
         Actions.updateProject(this.state.currentProject);
         Materialize.toast('Added', 4000); // eslint-disable-line no-undef
+        this.props.history.pushState(null, '/projects/' + this.state.currentProject._id);
     }
-
     render() {
         var keyword = this.state.filter.keyword;
         return (
             <div>
                 <div className="card-panel z-depth-4">
                     <div className="row center-align">
-                        <h4 className="grey-text text-darken-2">Find a List</h4>
-                        {this.state.currentProject.name ? this.state.currentProject.name : 'noproj'}
-
-
+                        <h4 className="grey-text text-darken-2">Find a List {this.state.currentProject.name ? 'to add to ' : ''}</h4>
+                        {this.state.currentProject.name ?
+                            <h5 className="grey-text text-darken-2">{this.state.currentProject.name}</h5>
+                            : null}
                         <div className="col s10" style={{margin: '0 auto', float: 'none'}}>
                             <div className="row" style={{marginTop: '50px'}}>
                                 <div className="col s6" style={{margin: '0 auto', float: 'none'}}>

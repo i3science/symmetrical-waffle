@@ -35,14 +35,13 @@ const Medium = (props) => {
         }
         return (
             <div key={item.id} className={'col ' + (props.minimal ? 's12' : 's3')}>
-                {props.minimal && !checked ? null :
                 <CheckBox
                     id={item.id}
                     label={item.label}
                     parent={props.parent}
                     onChange={props.onChange}
                     checked={checked}
-                />}
+                />
             </div>
         );
     });

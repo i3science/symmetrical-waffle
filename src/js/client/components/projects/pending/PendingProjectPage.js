@@ -15,18 +15,21 @@ class PendingProjectPage extends React.Component {
     constructor(props) {
         super();
         this.state = {
+            colors: searchStore.getColors(),
+            projectInfluencers: [],
             project: props.project,
-            controlledDate: null,
-            checkpoints: {},
-            influencers: null,
             exposures: 150000000,
-            colors: searchStore.getColors()
+            controlledDate: null,
+            influencers: null,
+            checkpoints: {}
         };
-        this._onChange = this._onChange.bind(this);
+        this._addInfluencers = this._addInfluencers.bind(this);
         this._handleChange = this._handleChange.bind(this);
         this._handleDate = this._handleDate.bind(this);
+        this._onChange = this._onChange.bind(this);
         this._addList = this._addList.bind(this);
-
+        this._onSave = this._onSave.bind(this);
+        this._cancel = this._cancel.bind(this);
     }
     componentWillMount() {
         influencerStore.addChangeListener(this._onChange);
@@ -46,30 +49,30 @@ class PendingProjectPage extends React.Component {
         if (!this.state.project) {
             return;
         }
-        if (this.props.project.lists) {
-            let listResults = listStore.getInfluencersFromList(this.props.project.lists);
+        if (this.state.project.lists) {
+            let listResults = listStore.getInfluencersFromList(this.state.project.lists);
             if (listResults) {
                 listResults.map(item => {
                     let influencer = influencerStore.getInfluencerById(item);
-                    if (influencer && !_.find(this.state.influencers, influencer)) {
-                        this.state.influencers.push(influencer);
+                    if (influencer && !_.find(this.state.projectInfluencers, influencer)) {
+                        this.state.projectInfluencers.push(influencer);
                     }
                 });
-                this.setState({influencers: this.state.influencers});
+                this.setState({projectInfluencers: this.state.projectInfluencers});
             }
         }
         if (!this.state.influencers) {
             return;
         }
-        if (this.state.influencers.length === 0) {
-            if (this.props.project.influencers.length > 0) {
-                this.props.project.influencers.map(item => {
+        if (this.state.projectInfluencers.length === 0) {
+            if (this.state.project.influencers.length > 0) {
+                this.state.project.influencers.map(item => {
                     let influencer = influencerStore.getInfluencerById(item.influencer);
-                    if (influencer && !_.find(this.state.influencers, influencer)) {
-                        this.state.influencers.push(influencer);
+                    if (influencer && !_.find(this.state.projectInfluencers, influencer)) {
+                        this.state.projectInfluencers.push(influencer);
                     }
                 });
-                this.setState({influencers: this.state.influencers});
+                this.setState({projectInfluencers: this.state.projectInfluencers});
             }
         }
     }
@@ -94,42 +97,62 @@ class PendingProjectPage extends React.Component {
             this.state.project[event.target.dataset.parent][id] = value;
         }
         this.setState({project: this.state.project});
-        Actions.updateProject(this.state.project);
     }
 
     _handleDate(name, date, parent){
-        this.state.project[parent].push({name: name, date: date});
+        if (parent) {
+            this.state.project[parent].push({name: name, date: date});
+        } else {
+            this.state.project[name] = date;
+        }
         this.setState({project: this.state.project});
+    }
+
+    _addList() {
+        this.props.history.pushState({project: this.props.project}, '/lists');
+    }
+    _addInfluencers() {
+        this.props.history.pushState({project: this.props.project}, '/search');
+    }
+
+    _onSave(event) {
+        event.preventDefault();
         Actions.updateProject(this.state.project);
     }
 
-    _addList(event) {
+    _cancel(event) {
         event.preventDefault();
-        this.props.history.pushState({project: this.props.project}, '/lists');
+        this.props.history.goBack();
     }
 
     render() {
         return (
             <div>
-                <Card title={this.props.project.name} deep>
+                <Card title={this.state.project.name} deep>
                     <ProjectParams
-                        project={this.props.project}
+                        project={this.state.project}
                         onChange={this._handleChange}
                         handleDate={this._handleDate}
                         addList={this._addList}
                     />
+                    <hr />
+                    <div className="col 12" style={{float: 'none'}}>
+                        <Link to="" className="blue-grey lighten-5 waves-effect waves-light btn-large btn-flat" onClick={this._cancel}>Cancel</Link>
+                        <Link to="" className="teal waves-effect waves-light btn-large right" onClick={this._onSave}>Save Changes</Link>
+                    </div>
                 </Card>
-                {this.state.influencers ? <div>
+                {this.state.projectInfluencers ? <div>
+                    <button type="button" className="btn right" onClick={this._addList}>Add Lists</button>
+                    <button type="button" className="btn right" onClick={this._addInfluencers}>Add Influencers</button>
+                <div className="clearfix"></div>
                 <SelectedInfluencers
-                    selectedInfluencers={this.state.influencers}
+                    selectedInfluencers={this.state.projectInfluencers}
                     //addInfluencer={this.addInfluencerToList}
                     colors={this.state.colors}
-                    exposures={this.props.project.required_impressions}
-                    resultNum={this.state.influencers.length} />
-                <Link to="" className="btn right" onClick={this._addList}>Add Lists</Link>
-                <div className="clearfix"></div>
+                    exposures={this.state.project.required_impressions}
+                    resultNum={this.state.projectInfluencers.length} />
                 <InfluencerCardList
-                    influencers={this.state.influencers}
+                    influencers={this.state.projectInfluencers}
                     //addToList={this.addToList}
                     //selectedInfluencers={this.state.influencers}
                     //onSelectionChanged={this._onSelectionChanged}

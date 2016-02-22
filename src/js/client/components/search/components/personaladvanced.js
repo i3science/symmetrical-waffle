@@ -52,14 +52,15 @@ const PersonalAdvanced = (props) => {
                 </div>
             </div>
             <div className="row">
-                <div className="col s9">
+                <div className={'col ' + (props.minimal ? 's12' : 's9')}>
                     <Vehicle
                         onChange={props.onChange}
                         vehicle={props.vehicle}
+                        minimal={props.minimal || null}
                         parent="vehicle"
                     />
                 </div>
-                <div className="col s3">
+                <div className={'col ' + (props.minimal ? 's12' : 's3')}>
                     <InputText
                         id="pets"
                         label="Pets"

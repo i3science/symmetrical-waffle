@@ -38,6 +38,7 @@ export function compare(filter, item) {
                 } else {
                     if (prop.indexOf('range') > -1) {
                         let propRoot = prop.split('_')[0];
+                        console.log(findProperty(inf, propRoot), fil[propRoot + '_range_from'], fil[propRoot + '_range_to']);
                         if (!(compareRange(findProperty(inf, propRoot), fil[propRoot + '_range_from'], fil[propRoot + '_range_to']))) {
                             return false;
                         }
