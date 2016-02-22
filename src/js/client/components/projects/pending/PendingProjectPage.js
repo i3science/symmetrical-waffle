@@ -6,6 +6,7 @@ import Actions from '../../../actions/UiActions';
 import influencerStore from '../../../stores/InfluencerStore';
 import searchStore from '../../../stores/SearchStore';
 import listStore from '../../../stores/ListStore';
+import projectStore from '../../../stores/ProjectStore';
 import ProjectParams from './../common/ProjectParams';
 import InfluencerCardList from '../../influencers/list/CardList';
 import SelectedInfluencers from '../../results/selectedInfluencers';
@@ -17,12 +18,13 @@ class PendingProjectPage extends React.Component {
         this.state = {
             colors: searchStore.getColors(),
             projectInfluencers: [],
-            project: props.project,
+            project: projectStore.getCurrentProject(),
             exposures: 150000000,
             controlledDate: null,
             influencers: null,
             checkpoints: {}
         };
+        this._removeCheckmark = this._removeCheckmark.bind(this);
         this._addInfluencers = this._addInfluencers.bind(this);
         this._handleChange = this._handleChange.bind(this);
         this._handleDate = this._handleDate.bind(this);
@@ -32,16 +34,20 @@ class PendingProjectPage extends React.Component {
         this._cancel = this._cancel.bind(this);
     }
     componentWillMount() {
+        projectStore.addChangeListener(this._updateProjects);
         influencerStore.addChangeListener(this._onChange);
         listStore.addChangeListener(this._onChange);
         Actions.refreshInfluencerList();
         Actions.refreshLists();
     }
     componentWillUnmount() {
+        projectStore.removeChangeListener(this._updateProjects);
         influencerStore.removeChangeListener(this._onChange);
         listStore.removeChangeListener(this._onChange);
     }
-
+    _updateProjects() {
+        this.setState({project: projectStore.getCurrentProject()});
+    }
     _onChange() {
         this.setState({
             influencers: influencerStore.getInfluencers()
@@ -76,7 +82,6 @@ class PendingProjectPage extends React.Component {
             }
         }
     }
-
     _handleChange(event) {
         let value = event.target.value;
         let id = event.target.id;
@@ -98,31 +103,33 @@ class PendingProjectPage extends React.Component {
         }
         this.setState({project: this.state.project});
     }
-
-    _handleDate(name, date, parent){
+    _handleDate(date, name, parent) {
         if (parent) {
             this.state.project[parent].push({name: name, date: date});
         } else {
             this.state.project[name] = date;
         }
         this.setState({project: this.state.project});
+        Actions.updateProject(this.state.project);
     }
-
+    _removeCheckmark(index, phase) {
+        this.state.project['checkpoints_' + phase].splice(index, 1);
+        this.setState({project: this.state.project});
+        Actions.updateProject(this.state.project);
+    }
+    _onSave(event) {
+        event.preventDefault();
+        Actions.updateProject(this.state.project);
+    }
+    _cancel(event) {
+        event.preventDefault();
+        this.props.history.goBack();
+    }
     _addList() {
         this.props.history.pushState({project: this.props.project}, '/lists');
     }
     _addInfluencers() {
         this.props.history.pushState({project: this.props.project}, '/search');
-    }
-
-    _onSave(event) {
-        event.preventDefault();
-        Actions.updateProject(this.state.project);
-    }
-
-    _cancel(event) {
-        event.preventDefault();
-        this.props.history.goBack();
     }
 
     render() {
@@ -134,6 +141,7 @@ class PendingProjectPage extends React.Component {
                         onChange={this._handleChange}
                         handleDate={this._handleDate}
                         addList={this._addList}
+                        removeCheckmark={this._removeCheckmark}
                     />
                     <hr />
                     <div className="col 12" style={{float: 'none'}}>

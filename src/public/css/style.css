@@ -264,6 +264,16 @@ select option:disabled {
 
 /* </Calendar */
 
+.checkmarks p {
+    cursor: default;
+}
+.checkmarks button {
+    display: none;
+}
+.checkmarks:hover button {
+    display: inline-block;
+}
+
 @media only screen and (min-width: 993px) {
     .container {
         width: 90%;

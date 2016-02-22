@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import ProjectAssets from './../common/ProjectAssets';
 import ProjectParams from './../common/ProjectParams';
 import ProjectCalendar from './../common/ProjectCalendar';
@@ -13,8 +14,11 @@ class ActiveProjectPage extends React.Component {
         this.state = {
             project: props.project
         };
+        this._removeCheckmark = this._removeCheckmark.bind(this);
         this._handleChange = this._handleChange.bind(this);
         this._handleDate = this._handleDate.bind(this);
+        this._onSave = this._onSave.bind(this);
+        this._cancel = this._cancel.bind(this);
     }
 
     _handleChange(event) {
@@ -37,11 +41,9 @@ class ActiveProjectPage extends React.Component {
             this.state.project[event.target.dataset.parent][id] = value;
         }
         this.setState({project: this.state.project});
-        Actions.updateProject(this.state.project);
     }
 
-    _handleDate(name, date, parent){
-        console.log(name, date, parent);
+    _handleDate(date, name, parent) {
         if (parent) {
             this.state.project[parent].push({name: name, date: date});
         } else {
@@ -50,7 +52,19 @@ class ActiveProjectPage extends React.Component {
         this.setState({project: this.state.project});
         Actions.updateProject(this.state.project);
     }
-
+    _removeCheckmark(index, phase) {
+        this.state.project['checkpoints_' + phase].splice(index, 1);
+        this.setState({project: this.state.project});
+        Actions.updateProject(this.state.project);
+    }
+    _onSave(event) {
+        event.preventDefault();
+        Actions.updateProject(this.state.project);
+    }
+    _cancel(event) {
+        event.preventDefault();
+        this.props.history.goBack();
+    }
     render() {
         return (
             <div>
@@ -59,7 +73,13 @@ class ActiveProjectPage extends React.Component {
                         project={this.props.project}
                         onChange={this._handleChange}
                         handleDate={this._handleDate}
+                        removeCheckmark={this._removeCheckmark}
                     />
+                    <hr />
+                    <div className="col 12" style={{float: 'none'}}>
+                        <Link to="" className="blue-grey lighten-5 waves-effect waves-light btn-large btn-flat" onClick={this._cancel}>Cancel</Link>
+                        <Link to="" className="teal waves-effect waves-light btn-large right" onClick={this._onSave}>Save Changes</Link>
+                    </div>
                 </Card>
                 <Card title="Recent Activities">
                     <History type="projects" id={this.props.project._id} children />
