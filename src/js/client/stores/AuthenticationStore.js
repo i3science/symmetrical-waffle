@@ -1,5 +1,6 @@
 import BaseStore from './BaseStore';
 import AuthenticationConstants from '../constants/authentication';
+import context from 'request-context';
 
 class AuthenticationStore extends BaseStore {
 
@@ -33,20 +34,20 @@ class AuthenticationStore extends BaseStore {
         }
     }
 
-    get user() {
-        return this._user;
-    }
     get jwt() {
         return this._jwt;
     }
     isLoggedIn() {
-        return !!this._user;
+        return !!this.getCurrentUser();
     }
     get redirectLocation() {
         return this._redirectLocation;
     }
     getCurrentUser() {
-        return this._user;
+        if (this._user) {
+            return this._user;
+        }
+        return context.get('request:currentUser');
     }
 }
 

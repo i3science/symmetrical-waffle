@@ -17,7 +17,9 @@ var gulp = require('gulp'),
     mocha = require('gulp-mocha'),
     protractor = require('gulp-protractor').protractor,
     chalk = require('chalk'),
-    path = require('path');
+    path = require('path'),
+    tar = require('gulp-tar'),
+    gzip = require('gulp-gzip');
 
 var config = {
   watch: {
@@ -123,7 +125,24 @@ gulp.task('test', ['compile'], function(){
 // STEP 4 - Building & packaging
 //----
 gulp.task('build', ['compile','test']);
-gulp.task('package', ['build']);
+gulp.task('package', ['build'], function(){
+  var sources = [
+    'config/**/*',
+    'dist/**/*',
+    'src/**/*',
+    'seed/**/*',
+    '.babelrc',
+    'docker-setup.sh',
+    'init.js',
+    'package.json',
+    'seed.js',
+    'server.js'
+  ];
+  return gulp.src(sources, { base: '.' })
+    .pipe(tar('dist.tar'))
+    .pipe(gzip())
+    .pipe(gulp.dest('.'));
+});
 
 //----
 // STEP 5 - Watches

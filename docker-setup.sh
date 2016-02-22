@@ -23,6 +23,9 @@ then
     export PYTHON=$(which python2.7)
 fi
 
+
+npm install
+
 # If we're running in development mode, install headless chrome
 if [[ -z "$NODE_ENV" || "$NODE_ENV" == "development" ]];
 then
@@ -56,8 +59,7 @@ then
     #   echo "Xvfb $DISPLAY -ac -screen 0 $XVFB_WHD -nolisten tcp &" >> ~/.bashrc
     #   Xvfb $DISPLAY -ac -screen 0 $XVFB_WHD -nolisten tcp &
     # fi
-fi
 
-npm install -g gulp
-npm install
-./node_modules/protractor/bin/webdriver-manager update
+    npm install -g gulp
+    ./node_modules/protractor/bin/webdriver-manager update
+fi

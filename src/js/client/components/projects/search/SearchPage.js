@@ -5,6 +5,7 @@ import { list_filter } from '../../../../shared/projects.js';
 import ProjectResults from './Results';
 import ProjectListFilters from './Filters';
 import authenticationStore from '../../../stores/AuthenticationStore';
+import Calendar from '../../influencers/profile/calendar';
 
 export default class SearchPage extends React.Component {
     constructor() {
@@ -53,9 +54,19 @@ export default class SearchPage extends React.Component {
     render() {
         let user = authenticationStore.getCurrentUser();
         let filterClient = user && (user.roles.indexOf('admin') > -1 || user.roles.indexOf('organizer') > -1);
+        let calendar = user && user.roles.indexOf('influencer') > -1 ? (
+            <div className="card-panel">
+                <Calendar
+                    id="project_search_calendar"
+                    full
+                    disabled
+                    dates={user.availability} />
+            </div>
+        ) : '';
         return (
             <div>
                 <ProjectListFilters onChange={this._onFilterChange} filterClient={filterClient} filter={this.state.filter} />
+                {calendar}
                 <ProjectResults projects={this.state.projectResults} />
             </div>
         );
