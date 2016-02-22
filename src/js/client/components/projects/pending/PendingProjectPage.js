@@ -25,6 +25,7 @@ class PendingProjectPage extends React.Component {
             checkpoints: {}
         };
         this._removeCheckmark = this._removeCheckmark.bind(this);
+        this._updateProjects = this._updateProjects.bind(this);
         this._addInfluencers = this._addInfluencers.bind(this);
         this._handleChange = this._handleChange.bind(this);
         this._handleDate = this._handleDate.bind(this);
@@ -126,13 +127,17 @@ class PendingProjectPage extends React.Component {
         this.props.history.goBack();
     }
     _addList() {
-        this.props.history.pushState({project: this.props.project}, '/lists');
+        Actions.setCurrentProject(this.state.project);
+        this.props.history.pushState(null, '/lists');
     }
     _addInfluencers() {
-        this.props.history.pushState({project: this.props.project}, '/search');
+        Actions.setCurrentProject(this.state.project);
+        this.props.history.pushState(null, '/search');
     }
 
     render() {
+        console.log(this.state.project);
+
         return (
             <div>
                 <Card title={this.state.project.name} deep>

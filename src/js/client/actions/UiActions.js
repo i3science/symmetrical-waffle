@@ -120,9 +120,9 @@ export default {
                 });
             });
     },
-    setCurrentProject(id) {
+    setCurrentProject(project) {
         dispatch({
-            actionType: AppConstants.SET_CURRENT_PROJECT, id
+            actionType: AppConstants.SET_CURRENT_PROJECT, project
         });
     },
     addListToProject(lid, pid) {

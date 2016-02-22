@@ -66,7 +66,11 @@ class SelectedInfluencers extends React.Component {
         $(this.refs.listForm).toggle();
         $(this.refs.listButton).toggle();
     }
+
+
+
     render() {
+        console.log(this.props);
         var pieces = [];
         var selectedInfluencers = this.props.selectedInfluencers.map((item,index) => {
             var numIndex = String(index);
@@ -94,6 +98,7 @@ class SelectedInfluencers extends React.Component {
 
             );
         });
+        console.log(this.props);
         return (
             <div className="row">
                 <div className="col s12">
@@ -151,14 +156,22 @@ class SelectedInfluencers extends React.Component {
                                     </button>
                                     <div className="clearfix"></div>
                                 </form>
-                                {this.props.selectedInfluencers.length === 0 ? null :
+                                {this.props.addInfluencers && (this.props.selectedInfluencers.length !== 0) ?
+                                <button
+                                    type="submit" ref="listButton"
+                                    className="btn-flat tiny white teal-text right"
+                                    onClick={this.props.addInfluencers ? this.props.addInfluencers.bind(this, this.props.selectedInfluencers) : null}
+                                    style={{padding: '0', fontSize: '12px'}}>
+                                    <i className="material-icons right">add</i>Add to Project
+                                </button> :
+                                (this.props.selectedInfluencers.length !== 0 ?
                                 <button
                                     type="submit" ref="listButton"
                                     className="btn-flat tiny white teal-text right"
                                     onClick={this._toggleListCreate}
                                     style={{padding: '0', fontSize: '12px'}}>
                                     <i className="material-icons right">add</i>Create List
-                                </button>}
+                                </button> : null)}
                             </div>
                         </div>
                     </div>

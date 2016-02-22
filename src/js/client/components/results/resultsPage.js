@@ -4,6 +4,7 @@ import Sidebar from '../sidebar';
 import SidebarFilter from './sidebarfilter';
 import influencerStore from '../../stores/InfluencerStore';
 import searchStore from '../../stores/SearchStore';
+import projectStore from '../../stores/ProjectStore';
 import Actions from '../../actions/UiActions';
 import InfluencerCardList from '../influencers/list/CardList';
 import SelectedInfluencers from './selectedInfluencers';
@@ -17,10 +18,12 @@ class Serp extends React.Component {
             influencers: influencerStore.getInfluencers(),
             selectedInfluencers: influencerStore.getSelectedInfluencers(),
             exposures: 150000000,
-            colors: searchStore.getColors()
+            colors: searchStore.getColors(),
+            currentProject: projectStore.getCurrentProject()
         };
-        this._onChange = this._onChange.bind(this);
+        this._addInfluencers = this._addInfluencers.bind(this);
         this._handleChange = this._handleChange.bind(this);
+        this._onChange = this._onChange.bind(this);
     }
 
     componentWillMount() {
@@ -73,14 +76,20 @@ class Serp extends React.Component {
         Actions.updateFilters(this.state.filters);
         Actions.updateResults(compare(this.state.filters, this.state.influencers));
     }
-
-    _addToList(pass, event) {
+    _addInfluencers(iid, event) {
         event.preventDefault();
-        Actions.addInfluencerToList(pass);
+        for (let inf in iid) {
+            if (iid.hasOwnProperty(inf)) {
+                this.state.currentProject.influencers.push({influencer: iid[inf]._id});
+            }
+        }
+        this.setState({currentProject: this.state.currentProject});
+        Actions.updateProject(this.state.currentProject);
+        Materialize.toast('Added', 4000); // eslint-disable-line no-undef
+        this.props.history.pushState(null, '/projects/' + this.state.currentProject._id);
     }
 
     render() {
-
         console.log(this.state);
         let exposuresGroup = this.state.results.map(item => {
             let total = Number();
@@ -108,12 +117,14 @@ class Serp extends React.Component {
                 <SelectedInfluencers
                     selectedInfluencers={this.state.selectedInfluencers}
                     colors={this.state.colors}
+                    addInfluencers={this._addInfluencers}
                     exposures={exposures}
                     resultNum={this.state.results.length}
-                    onSelectionChanged={this._onSelectionChanged} />
+                    onSelectionChanged={this._onSelectionChanged}
+                    project={this.state.currentProject}
+                />
                 <InfluencerCardList
                     influencers={this.state.results}
-                    //addToList={this._addToList}
                     selectedInfluencers={this.state.selectedInfluencers}
                     onSelectionChanged={this._onSelectionChanged} />
             </div>

@@ -40,6 +40,10 @@ class ProjectStore extends BaseStore {
                 this.currentProject = action.project;
                 this.emitChange();
                 break;
+            case AppConstants.SET_CURRENT_PROJECT:
+                this.currentProject = action.project;
+                this.emitChange();
+                break;
             case AppConstants.GET_PROJECT:
                 this.currentProject = action.project;
                 this.emitChange();

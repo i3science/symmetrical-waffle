@@ -71,7 +71,7 @@ class InfluencerCard extends React.Component {
                         <div className="row" style={{marginBottom:'0'}}>
                             <div className="col s9">
                                 <div className="row">
-                                    <Link to={(this.props.edit ? this.props.edit : '/search/results/profile') + '/' + influencer._id}>
+                                    <Link to={'/search/results/profile/' + influencer._id}>
                                         <div className="col s3">
                                             <img className="circle responsive-img" src={'/assets/images/' + (influencer.hasImage ? influencer._id : 'default') +'.jpg'} />
                                         </div>
@@ -110,9 +110,15 @@ class InfluencerCard extends React.Component {
                             </div>
                             <div className="col s3">
                                 <a href={'#modal'}
-                                   className="btn-floating btn-large waves-effect waves-light teal right calendar modal-trigger">
+                                   className={'btn-floating btn-large waves-effect waves-light teal ' + (this.props.edit ? '' : 'right ') + 'calendar modal-trigger'}>
                                     <i className="material-icons">perm_contact_calendar</i>
                                 </a>
+                                {this.props.edit ?
+                                    <Link className="btn-floating waves-effect waves-light blue-grey right" to={this.props.edit + '/' + influencer._id}>
+                                        <i className="material-icons">mode_edit</i>
+                                    </Link> : null}
+
+
                                 <div id={'modal'} className="modal">
                                     <div className="modal-content">
                                         <h4>Modal Header</h4>
