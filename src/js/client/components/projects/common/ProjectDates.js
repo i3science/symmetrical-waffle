@@ -112,7 +112,7 @@ const ProjectCheckpoints = (props) => {
                         position: 'absolute',
                         top: '0'
                     }}
-                    onClick={props.removeCheckmark.bind(null, index, props.phase)}
+                    onClick={props.removeCheckmark ? props.removeCheckmark.bind(null, index, props.phase) : null}
                     type="button"
                     className="btn-flat white red-text">
                     <i className="material-icons">clear</i>
@@ -133,7 +133,6 @@ const ProjectCheckpoints = (props) => {
 };
 
 const ProjectDates = (props) => {
-    console.log(props);
     return (
         <div className="row project-dates">
             <div className="col s4">

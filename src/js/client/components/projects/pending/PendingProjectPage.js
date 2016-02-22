@@ -155,10 +155,10 @@ class PendingProjectPage extends React.Component {
                 <div className="clearfix"></div>
                 <SelectedInfluencers
                     selectedInfluencers={this.state.projectInfluencers}
-                    //addInfluencer={this.addInfluencerToList}
                     colors={this.state.colors}
                     exposures={this.state.project.required_impressions}
-                    resultNum={this.state.projectInfluencers.length} />
+                    resultNum={this.state.projectInfluencers.length}
+                />
                 <InfluencerCardList
                     influencers={this.state.projectInfluencers}
                     //addToList={this.addToList}

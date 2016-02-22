@@ -18,11 +18,10 @@ class NewProjectPage extends React.Component {
             influencers: null,
             colors: searchStore.getColors()
         };
-        this._removeCheckmark = this._removeCheckmark.bind(this);
+        //this._removeCheckmark = this._removeCheckmark.bind(this);
         this._handleChange = this._handleChange.bind(this);
         this._handleDate = this._handleDate.bind(this);
         this._onChange = this._onChange.bind(this);
-        this._addList = this._addList.bind(this);
         this._onSave = this._onSave.bind(this);
         this._cancel = this._cancel.bind(this);
     }
@@ -101,7 +100,6 @@ class NewProjectPage extends React.Component {
             this.state.project[name] = date;
         }
         this.setState({project: this.state.project});
-        Actions.updateProject(this.state.project);
     }
     _onSave(event) {
         event.preventDefault();
