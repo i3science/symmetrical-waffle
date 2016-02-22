@@ -7,6 +7,7 @@ import listService from '../services/ListService';
 import assetService from '../services/AssetService';
 import reviewService from '../services/ReviewService';
 import clientService from '../services/ClientService';
+import representativeService from '../services/RepresentativeService';
 
 export default {
     initialize() {
@@ -88,7 +89,7 @@ export default {
         });
     },
 
-     // Project Actions
+    // Project Actions
 
     createProject(project) {
         return projectService.create(project)
@@ -218,6 +219,58 @@ export default {
                     actionType: AppConstants.REFRESH_CLIENTS,
                     clients: clients
                 });
+            });
+    },
+
+    // Representative actions
+
+    refreshRepresentatives() {
+        representativeService
+            .list()
+            .then((reps) => {
+                dispatch({
+                    actionType: AppConstants.REFRESH_REPRESENTATIVES,
+                    representatives: reps
+                });
+            });
+    },
+    findRepresentative(id) {
+        representativeService
+            .find(id)
+            .then((rep) => {
+                dispatch({
+                    actionType: AppConstants.FIND_REPRESENTATIVE,
+                    representative: rep
+                });
+            });
+    },
+    createRepresentative(rep) {
+        return representativeService.create(rep)
+            .then((response) => {
+                return representativeService.find(response.id);
+            })
+            .then((data) => {
+                dispatch({
+                    actionType: AppConstants.UPDATE_REPRESENTATIVE,
+                    representative: data
+                });
+                return data;
+            });
+    },
+    updateRepresentative(representative) {
+        return representativeService.update(representative)
+            .then((response) => {
+                if (response.status !== 204) {
+                    throw new Error('An error occurred while updating the representative');
+                }
+                return representativeService.find(representative._id);
+            })
+            .then((data) => {
+                dispatch({
+                    actionType: AppConstants.UPDATE_REPRESENTATIVE,
+                    representative: data
+                });
+                return data;
             });
     }
 };
