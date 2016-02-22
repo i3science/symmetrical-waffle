@@ -38,13 +38,12 @@ class InfluencerCard extends React.Component {
         if (this.props.onSelectionChanged) {
             this.props.onSelectionChanged(this.props.influencer, newState);
         }
-        console.log(this.state);
     }
     hovering() {
-        this.setState({hovering: true})
+        this.setState({hovering: true});
     }
     notHovering() {
-        this.setState({hovering: false})
+        this.setState({hovering: false});
     }
 
     render() {

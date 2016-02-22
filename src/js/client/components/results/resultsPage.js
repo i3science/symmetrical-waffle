@@ -44,7 +44,7 @@ class Serp extends React.Component {
             selectedInfluencers: influencerStore.getSelectedInfluencers()
         });
         if (this.state.results.length === 0) {
-            this.setState({results: this.state.influencers})
+            this.setState({results: this.state.influencers});
         }
     }
 
@@ -71,7 +71,6 @@ class Serp extends React.Component {
                 this.state.filters[event.target.dataset.parent][event.target.id] = value;
             }
         }
-        console.log(this.state.filters);
         this.setState({filters: this.state.filters});
         Actions.updateFilters(this.state.filters);
         Actions.updateResults(compare(this.state.filters, this.state.influencers));
@@ -90,7 +89,6 @@ class Serp extends React.Component {
     }
 
     render() {
-        console.log(this.state);
         let exposuresGroup = this.state.results.map(item => {
             let total = Number();
             for (let channel in item.channels) {
@@ -104,7 +102,6 @@ class Serp extends React.Component {
         for (let item in exposuresGroup) {
             exposures += exposuresGroup[item];
         }
-        console.log(this.state.results);
         return (
 
             <div>

@@ -62,7 +62,6 @@ class SearchStart extends React.Component {
 
     render() {
         var value = this.state.filter.searchtag;
-        console.log(this.state);
         return (
             <div>
                 <div className="card-panel z-depth-4">

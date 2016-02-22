@@ -13,7 +13,7 @@ import SelectedInfluencers from '../../results/selectedInfluencers';
 import Card from '../../common/Card';
 
 class PendingProjectPage extends React.Component {
-    constructor(props) {
+    constructor() {
         super();
         this.state = {
             colors: searchStore.getColors(),
@@ -136,8 +136,6 @@ class PendingProjectPage extends React.Component {
     }
 
     render() {
-        console.log(this.state.project);
-
         return (
             <div>
                 <Card title={this.state.project.name} deep>

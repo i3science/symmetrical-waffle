@@ -1,6 +1,4 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
-import Personal from '../search/components/personal';
-import Audience from '../search/components/audience';
 import Filters from '../search/freeFormSearch/filters';
 
 class SidebarFilter extends React.Component {
