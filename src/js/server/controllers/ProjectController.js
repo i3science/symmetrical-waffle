@@ -55,5 +55,11 @@ export default base_controller(projectService, 'project', {
                 historyArray = _.sortBy(historyArray, (val) => { return new Date(val.created_at); });
                 return res.jsonp(historyArray);
             });
+    },
+    sanitize(obj) {
+        obj.organization = obj.organization._id || obj.organization;
+        obj.client = obj.client._id || obj.client;
+        delete obj.__v;
+        return obj;
     }
 });
