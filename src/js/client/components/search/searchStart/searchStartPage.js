@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import InputText from '../../common/input/inputtext';
 import influencerStore from '../../../stores/InfluencerStore';
-//import searchStore from '../../stores/SearchStore';
+import projectStore from '../../../stores/ProjectStore';
 import Actions from '../../../actions/UiActions';
 //import Filters from './filters';
 import _ from 'lodash';
@@ -16,7 +16,9 @@ class SearchStart extends React.Component {
                 searchtag: ''
             },
             influencers: influencerStore.getInfluencers(),
-            results: []
+            results: [],
+            currentProject: projectStore.getCurrentProject()
+
         };
         this.handleChange = this.handleChange.bind(this);
         this._onChange = this._onChange.bind(this);
@@ -26,7 +28,6 @@ class SearchStart extends React.Component {
         influencerStore.addChangeListener(this._onChange);
         Actions.refreshInfluencerList();
     }
-
     componentWillUnmount() {
         influencerStore.removeChangeListener(this._onChange);
     }
@@ -61,11 +62,17 @@ class SearchStart extends React.Component {
 
     render() {
         var value = this.state.filter.searchtag;
+        console.log(this.state);
         return (
             <div>
                 <div className="card-panel z-depth-4">
                     <div className="row center-align">
-                        <h4 className="grey-text text-darken-2">Find an Influencer</h4>
+                        {this.state.currentProject ?
+                            <div>
+                                <h4 className="grey-text text-darken-2">Find an Influencer {this.state.currentProject.name ? 'to add to ' : ''}</h4>
+                                <h5 className="grey-text text-darken-2">{this.state.currentProject.name}</h5>
+                            </div>
+                            : <h4 className="grey-text text-darken-2">Find an Influencer</h4>}
                         <div className="col s6" style={{float: 'none', margin: '50px auto'}}>
                             <Link to="search/influencer" className="waves-effect waves-light btn-large"><i className="material-icons right">search</i>Free Form Search</Link>
                             <div className="clearfix"></div>

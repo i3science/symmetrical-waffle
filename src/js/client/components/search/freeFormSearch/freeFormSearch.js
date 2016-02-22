@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import { compare } from '../../../../shared/search.js';
 import influencerStore from '../../../stores/InfluencerStore';
 import searchStore from '../../../stores/SearchStore';
+import projectStore from '../../../stores/ProjectStore';
 import Actions from '../../../actions/UiActions';
 import Radio from '../../common/input/radio';
 import Filters from './filters';
@@ -13,7 +14,8 @@ class SearchPage extends React.Component {
         this.state = {
             influencers: influencerStore.getInfluencers(),
             filters: searchStore.getFilters(),
-            results: searchStore.getResults()
+            results: searchStore.getResults(),
+            currentProject: projectStore.getCurrentProject()
         };
         this._handleChange = this._handleChange.bind(this);
         this._changeType = this._changeType.bind(this);
@@ -22,9 +24,7 @@ class SearchPage extends React.Component {
         this._expand = this._expand.bind(this);
         this._search = this._search.bind(this);
         this._reset = this._reset.bind(this);
-
     }
-
     componentWillMount() {
         influencerStore.addChangeListener(this._onChange);
         searchStore.addChangeListener(this._onChange);
@@ -33,12 +33,10 @@ class SearchPage extends React.Component {
             Actions.refreshInfluencerList();
         }
     }
-
     componentWillUnmount() {
         influencerStore.removeChangeListener(this._onChange);
         searchStore.removeChangeListener(this._onChange);
     }
-
     _onChange() {
         this.setState({
             influencers: influencerStore.getInfluencers(),
@@ -49,7 +47,6 @@ class SearchPage extends React.Component {
             this.setState({results: this.state.influencers})
         }
     }
-
     _handleChange(event) {
         let value = event.target.value;
         if (event.target.type === 'number') {
@@ -73,25 +70,19 @@ class SearchPage extends React.Component {
         Actions.updateFilters(this.state.filters);
         Actions.updateResults(compare(this.state.filters, this.state.influencers));
     }
-
     _search(event) {
         this.props.history.pushState(null, '/search/results')
     }
-
     _reset(event) {
         if (event) {
             event.preventDefault();
         }
-
         Actions.resetFilters();
     }
-
     _cancel(event) {
         event.preventDefault();
-        //this.setState({influencer: {}});
         this.props.history.goBack();
     }
-
     _expand(event) {
         var advanced = document.getElementById('advanced-collapse');
         if (event.target.checked) {
@@ -106,7 +97,6 @@ class SearchPage extends React.Component {
         this.setState({filters: this.state.filters});
         Actions.updateFilters(this.state.filters);
     }
-
     render() {
         console.log(this.state.results);
         return (
