@@ -34,7 +34,9 @@ class ListPage extends React.Component {
     }
     _onChange() {
         this.setState({
-            lists: listStore.getLists()
+            lists: listStore.getLists(),
+            listResults: listStore.getLists()
+
         });
     }
     _handleChange(event) {
@@ -47,8 +49,9 @@ class ListPage extends React.Component {
                 return keyword.indexOf(_.lowerCase(this.state.filter.keyword)) > -1;
             }.bind(this));
         } else {
-            this.state.listResults = [];
+            this.state.listResults = this.state.lists;
         }
+        console.log(this.state.lists);
         this.setState({listResults: this.state.listResults});
     }
 
@@ -97,7 +100,7 @@ class ListPage extends React.Component {
                 <h5 className="center-align teal-text">{(this.state.listResults && this.state.listResults.length > 0) ? this.state.listResults.length + ' results' : ''}</h5>
                 <ListResults
                     lists={this.state.listResults}
-                    project={this.state.currentProject._id || null}
+                    project={this.state.currentProject || null}
                     addList={this._addList}
                 />
 
