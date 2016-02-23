@@ -51,7 +51,6 @@ class ListPage extends React.Component {
         } else {
             this.state.listResults = this.state.lists;
         }
-        console.log(this.state.lists);
         this.setState({listResults: this.state.listResults});
     }
 
