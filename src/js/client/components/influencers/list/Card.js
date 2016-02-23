@@ -5,6 +5,7 @@ import MediaKit from '../profile/mediakit';
 import Audience from '../profile/audience';
 import Channels from '../profile/channels';
 import Verticals from '../profile/verticals';
+import Calendar from '../profile/calendar';
 
 /**
  * The InfluencerCard represents a single influencer as displayed in search
@@ -25,18 +26,43 @@ class InfluencerCard extends React.Component {
         super();
         this.state = {
             selected: false,
-            hovering: false
+            hovering: false,
+            calendarOpen: false,
+            sink: true
         };
         this.toggleSelection = this.toggleSelection.bind(this);
         this.notHovering = this.notHovering.bind(this);
+        this._slideIt = this._slideIt.bind(this);
+        this._animateIt = this._animateIt.bind(this);
         this.hovering = this.hovering.bind(this);
     }
-
     toggleSelection() {
         let newState = !this.state.selected;
         this.setState({selected:newState});
         if (this.props.onSelectionChanged) {
             this.props.onSelectionChanged(this.props.influencer, newState);
+        }
+    }
+    _slideIt(influencerId) {
+        this._animateIt(influencerId);
+        if (!this.state.calendarOpen) {
+            this.setState({
+                calendarOpen: true,
+                sink: false
+            });
+            return;
+        }
+        this.setState({calendarOpen: false});
+    }
+    _animateIt(influencerId) {
+        if (!this.state.calendarOpen) {
+            $(this.refs['card-' + influencerId]).animate({
+                left: '-90%'
+            }, 500, 'easeInOutQuad');
+        } else {
+            $(this.refs['card-' + influencerId]).animate({
+                left: '0'
+            }, 500, 'easeInOutQuad', () => {this.setState({sink: true});});
         }
     }
     hovering() {
@@ -45,7 +71,6 @@ class InfluencerCard extends React.Component {
     notHovering() {
         this.setState({hovering: false});
     }
-
     render() {
         let influencer = this.props.influencer;
 
@@ -66,7 +91,42 @@ class InfluencerCard extends React.Component {
         return (
             <div key={influencer._id} className="row" style={{position:'relative'}}>
                 <div className={'col ' + (this.props.onSelectionChanged ? 's11' : 's12')}>
-                    <div className='card-panel'>
+                    <div id="before" style={{
+                        position: 'absolute',
+                        top: '0',
+                        width: this.props.onSelectionChanged ? '91.6667%' : '100%',
+                        height: '100%',
+                        margin: '0 -10px',
+                        padding: '10px 10px 30px'
+                    }}>
+                        <div style={{
+                            background: '#fff',
+                            margin: '0 0 0 auto',
+                            width: '90%',
+                            height: '100%',
+                            boxShadow: '-3px 5px 13px -8px #000 inset'
+                        }}>
+                            <div style={{
+                                transform: 'translateY(-50%)',
+                                padding: '15px',
+                                position: 'relative',
+                                top: '50%'
+                            }}>
+                                <div style={{
+                                    width: '100%',
+                                    maxWidth: '920px'
+                                }}>
+                                    <Calendar
+                                        id={influencer._id}
+                                        panels="2"
+                                        full
+                                        disabled
+                                        dates={influencer.availability} />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ref={'card-' + influencer._id} className={'card-panel' + (!this.state.sink ? ' z-depth-4' : '')} style={{left: '0'}}>
                         <div className="row" style={{marginBottom:'0'}}>
                             <div className="col s9">
                                 <div className="row">
@@ -108,25 +168,14 @@ class InfluencerCard extends React.Component {
                                 </div>
                             </div>
                             <div className="col s3">
-                                <a href={'#modal'}
-                                   className={'btn-floating btn-large waves-effect waves-light teal ' + (this.props.edit ? '' : 'right ') + 'calendar modal-trigger'}>
-                                    <i className="material-icons">perm_contact_calendar</i>
-                                </a>
                                 {this.props.edit ?
-                                    <Link className="btn-floating waves-effect waves-light blue-grey right" to={this.props.edit + '/' + influencer._id}>
+                                    <button type="button" className="btn-floating waves-effect waves-light blue-grey" to={this.props.edit + '/' + influencer._id}>
                                         <i className="material-icons">mode_edit</i>
-                                    </Link> : null}
-
-
-                                <div id={'modal'} className="modal">
-                                    <div className="modal-content">
-                                        <h4>Modal Header</h4>
-                                        <p>A bunch of text</p>
-                                    </div>
-                                    <div className="modal-footer">
-                                        <a href="#!" className=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-                                    </div>
-                                </div>
+                                    </button> : null}
+                                <button type="button" onClick={this._slideIt.bind(null, influencer._id)}
+                                   className={'btn-floating btn-large waves-effect waves-light teal right ' + (this.props.edit ? '' : 'right ') + 'calendar modal-trigger'}>
+                                    <i className="material-icons">{this.state.calendarOpen ? 'forward' : 'perm_contact_calendar'} </i>
+                                </button>
                                 <br />
                                 <MediaKit
                                     mediakit={influencer.mediaKit}
