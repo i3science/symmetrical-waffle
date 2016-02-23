@@ -162,7 +162,7 @@ class SelectedInfluencers extends React.Component {
                                     style={{padding: '0', fontSize: '12px'}}>
                                     <i className="material-icons right">add</i>Add to Project
                                 </button> :
-                                (this.props.selectedInfluencers.length !== 0 ?
+                                ((this.props.selectedInfluencers.length !== 0) && !this.props.projectInfluencers ?
                                 <button
                                     type="submit" ref="listButton"
                                     className="btn-flat tiny white teal-text right"
@@ -174,6 +174,23 @@ class SelectedInfluencers extends React.Component {
                         </div>
                     </div>
                 </div>
+                {this.props.projectInfluencers ?
+                    <div className="col s12 right-align">
+                        <button
+                            type="submit" ref="listButton"
+                            className="btn-flat blue-grey lighten-2 white-text"
+                            onClick={this.props.addInfl}
+                            style={{padding: '0 15px', marginRight: '20px', fontSize: '12px'}}>
+                            <i className="material-icons right">person_add</i>Add Influencers
+                        </button>
+                        <button
+                            type="submit" ref="listButton"
+                            className="btn-flat blue-grey lighten-2 white-text"
+                            onClick={this.props.addList}
+                            style={{padding: '0 15px', fontSize: '12px'}}>
+                            <i className="material-icons right">playlist_add</i>Add a List
+                        </button>
+                    </div>: null}
             </div>
         );
     }

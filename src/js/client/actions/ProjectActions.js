@@ -19,7 +19,7 @@ export default {
         let cachedProject = projectStore.getProjectById(id);
         if (cachedProject) {
             dispatch({
-                actionType: AppConstants.GET_PROJECT,
+                actionType: AppConstants.SET_CURRENT_PROJECT,
                 project: cachedProject
             });
             return;
@@ -28,7 +28,7 @@ export default {
             .find(id)
             .then((project) => {
                 dispatch({
-                    actionType: AppConstants.GET_PROJECT,
+                    actionType: AppConstants.SET_CURRENT_PROJECT,
                     project: project
                 });
             });

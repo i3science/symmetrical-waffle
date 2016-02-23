@@ -16,6 +16,7 @@ class NewProjectPage extends React.Component {
         this.state = {
             project: projectStore.resetProject(),
             influencers: null,
+            list: listStore.getCurrentList(),
             colors: searchStore.getColors()
         };
         //this._removeCheckmark = this._removeCheckmark.bind(this);
@@ -37,6 +38,10 @@ class NewProjectPage extends React.Component {
     componentWillUnmount() {
         influencerStore.removeChangeListener(this._onChange);
         listStore.removeChangeListener(this._onChange);
+    }
+    componentDidMount() {
+        this.state.project.lists.push(this.state.list);
+        console.log(this.state);
     }
     _onChange() {
         this.setState({
@@ -104,6 +109,7 @@ class NewProjectPage extends React.Component {
     _onSave(event) {
         event.preventDefault();
         if (!this.state.project._id) {
+            Actions.clearCurrentList();
             Actions
                 .createProject(this.state.project)
                 .then(() => {
@@ -116,8 +122,11 @@ class NewProjectPage extends React.Component {
         this.setState({project: projectStore.resetProject()});
         this.props.history.goBack();
     }
+
     render() {
+
         return (
+
             <div>
                 <Card title={this.state.project.name || 'New Project'} deep>
                     <ProjectParams

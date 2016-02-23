@@ -71,7 +71,7 @@ export default class ClientDashboard extends React.Component {
                     <div className="row center-align">
                         <h4 className="grey-text text-darken-2">Find a Project</h4>
                         <div className="col s10" style={{margin: '50px auto', float: 'none'}}>
-                            <Link to="/projects/create" className="waves-effect waves-light btn-large"><i className="material-icons right">playlist_add</i>Start a Project</Link>
+                            <Link to="/projects/create" className="waves-effect waves-light btn-large"><i className="material-icons right">create_new_folder</i>Start a Project</Link>
                             <div className="clearfix"></div>
                             <div className="row" style={{marginTop: '50px'}}>
                                 <div className="col s6">
