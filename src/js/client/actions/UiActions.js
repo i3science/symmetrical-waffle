@@ -105,7 +105,7 @@ export default {
             });
     },
 
-    updateProject(project) {
+    updateProject(project, add) {
         projectService.update(project)
             .then((response) => {
                 if (response.status !== 204) {
@@ -115,20 +115,23 @@ export default {
             })
             .then((data) => {
                 dispatch({
-                    actionType: AppConstants.UPDATE_PROJECT,
+                    actionType: AppConstants.UPDATE_PROJECT, add,
                     project: data
                 });
             });
     },
-    setCurrentProject(project) {
+
+    // The 'add' parameter is to indicate if it's setting project to be
+    // used in conjunction with an adding action (lists or influencers)
+    setCurrentProject(project, add) {
         dispatch({
-            actionType: AppConstants.SET_CURRENT_PROJECT, project
+            actionType: AppConstants.SET_CURRENT_PROJECT, project, add
         });
     },
-    addListToProject(lid, pid) {
-        // TODO add action to DB, it's currently in the Project Store (as it's impacting project list)
+
+    clearCurrentProject() {
         dispatch({
-            actionType: AppConstants.ADD_LIST_TO_PROJECT, lid, pid
+            actionType: AppConstants.CLEAR_CURRENT_PROJECT
         });
     },
 
@@ -155,6 +158,17 @@ export default {
                 });
             });
     },
+    setCurrentList(list) {
+        dispatch({
+            actionType: AppConstants.SET_CURRENT_LIST, list
+        });
+    },
+    clearCurrentList() {
+        dispatch({
+            actionType: AppConstants.CLEAR_CURRENT_LIST
+        });
+    },
+
 
     // User actions
 

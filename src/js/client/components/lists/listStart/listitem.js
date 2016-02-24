@@ -10,7 +10,7 @@ const ListItem = (props) => {
                     <a
                         className="teal white-text z-depth-1"
                         style={{position: 'absolute', right: '0', cursor: 'pointer', padding: '4px'}}
-                        onClick={props.addList.bind(this, props.list._id, props.project)}
+                        onClick={props.addList.bind(this, props.list._id, props.project._id)}
                     ><i className="material-icons">add</i></a>
                 }
                 <div className="card-content">

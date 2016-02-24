@@ -19,7 +19,7 @@ class ListPage extends React.Component {
             filter: {
                 keyword: ''
             },
-            currentProject: projectStore.getCurrentProject()
+            currentProject: null
         };
         this._onChange = this._onChange.bind(this);
         this._handleChange = this._handleChange.bind(this);
@@ -33,9 +33,16 @@ class ListPage extends React.Component {
         listStore.removeChangeListener(this._onChange);
     }
     _onChange() {
+        if (projectStore.isAdding()) {
+            this.setState({
+                currentProject: projectStore.getCurrentProject()
+            });
+        }
         this.setState({
-            lists: listStore.getLists()
+            lists: listStore.getLists(),
+            listResults: listStore.getLists()
         });
+
     }
     _handleChange(event) {
         this.state.filter[event.target.id] = event.target.value;
@@ -47,7 +54,7 @@ class ListPage extends React.Component {
                 return keyword.indexOf(_.lowerCase(this.state.filter.keyword)) > -1;
             }.bind(this));
         } else {
-            this.state.listResults = [];
+            this.state.listResults = this.state.lists;
         }
         this.setState({listResults: this.state.listResults});
     }
@@ -55,10 +62,11 @@ class ListPage extends React.Component {
     _addList(lid, pid, event) {
         event.preventDefault();
         this.state.currentProject.lists.push(lid);
-        this.setState({currentProject: this.state.currentProject});
-        Actions.updateProject(this.state.currentProject);
+        let currentProject = this.state.currentProject;
+        this.setState({currentProject: null});
+        Actions.updateProject(currentProject, false);
         Materialize.toast('Added', 4000); // eslint-disable-line no-undef
-        this.props.history.pushState(null, '/projects/' + this.state.currentProject._id);
+        this.props.history.pushState(null, '/projects/' + currentProject._id);
     }
 
     render() {
@@ -73,10 +81,11 @@ class ListPage extends React.Component {
                                 <h5 className="grey-text text-darken-2">{this.state.currentProject.name}</h5>
                             </div>
                             : <h4 className="grey-text text-darken-2">Find an Influencer</h4>}
-                        <div className="col s10" style={{margin: '0 auto', float: 'none'}}>
-                            <div className="row" style={{marginTop: '50px'}}>
-                                <div className="col s6" style={{margin: '0 auto', float: 'none'}}>
-                                    <InputText
+                        <div className="col s6" style={{float: 'none', margin: '50px auto'}}>
+                            <Link to="/search" className="waves-effect waves-light btn-large center"><i className="material-icons right">playlist_add</i>Create a list</Link>
+                            <div className="clearfix"></div>
+                            <div className="col s12" style={{marginTop: '50px'}}>
+                                <InputText
                                         id="keyword"
                                         label="Keyword"
                                         color="teal"
@@ -85,19 +94,14 @@ class ListPage extends React.Component {
                                         active
                                         onChange={this._handleChange}
                                     />
-                                </div>
                             </div>
                         </div>
-                    </div>
-                    <br />
-                    <div className="row center-align">
-                        <Link to="/search" className="teal waves-effect waves-light btn-large center"><i className="material-icons right">list</i>Create a list</Link>
                     </div>
                 </div>
                 <h5 className="center-align teal-text">{(this.state.listResults && this.state.listResults.length > 0) ? this.state.listResults.length + ' results' : ''}</h5>
                 <ListResults
                     lists={this.state.listResults}
-                    project={this.state.currentProject._id || null}
+                    project={this.state.currentProject || null}
                     addList={this._addList}
                 />
 

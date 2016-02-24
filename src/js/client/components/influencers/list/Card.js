@@ -136,7 +136,7 @@ class InfluencerCard extends React.Component {
                                         </div>
                                         <div className="col s6" style={{marginTop:'5%'}}>
                                             <h4 className="teal-text" style={{margin: 0}}>{influencer.name.first} {influencer.name.last}</h4>
-                                            <h6 className="teal-text">CREATOR{influencer.amplifier ? ' / AMPLIFIER' : ''}</h6>
+                                            <h6 className="teal-text" style={{textTransform: 'uppercase'}}>{influencer.mediums.join(', ')}</h6>
                                             <Verticals
                                                 verticals={influencer.verticals}
                                             />

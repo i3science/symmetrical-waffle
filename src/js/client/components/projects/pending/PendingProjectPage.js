@@ -127,7 +127,7 @@ class PendingProjectPage extends React.Component {
         this.props.history.goBack();
     }
     _addList() {
-        Actions.setCurrentProject(this.state.project);
+        Actions.setCurrentProject(this.state.project, true);
         this.props.history.pushState(null, '/lists');
     }
     _addInfluencers() {
@@ -152,24 +152,25 @@ class PendingProjectPage extends React.Component {
                         <Link to="" className="teal waves-effect waves-light btn-large right" onClick={this._onSave}>Save Changes</Link>
                     </div>
                 </Card>
-                {this.state.projectInfluencers ? <div>
-                    <button type="button" className="btn right" onClick={this._addList}>Add Lists</button>
-                    <button type="button" className="btn right" onClick={this._addInfluencers}>Add Influencers</button>
-                <div className="clearfix"></div>
-                <SelectedInfluencers
-                    selectedInfluencers={this.state.projectInfluencers}
-                    colors={this.state.colors}
-                    exposures={this.state.project.required_impressions}
-                    resultNum={this.state.projectInfluencers.length}
-                />
-                <InfluencerCardList
-                    influencers={this.state.projectInfluencers}
-                    //addToList={this.addToList}
-                    //selectedInfluencers={this.state.influencers}
-                    //onSelectionChanged={this._onSelectionChanged}
-                />
+                {this.state.projectInfluencers ?
+                    <div>
+                        <SelectedInfluencers
+                            selectedInfluencers={this.state.projectInfluencers}
+                            colors={this.state.colors}
+                            exposures={this.state.project.required_impressions}
+                            resultNum={this.state.projectInfluencers.length}
+                            projectInfluencers={this.state.projectInfluencers}
+                            addList={this._addList}
+                            addInfl={this._addInfluencers}
+                        />
+                        <InfluencerCardList
+                            influencers={this.state.projectInfluencers}
+                            //addToList={this.addToList}
+                            //selectedInfluencers={this.state.influencers}
+                            //onSelectionChanged={this._onSelectionChanged}
+                        />
                     </div>
-                    : null}
+                : null}
 
             </div>
         );

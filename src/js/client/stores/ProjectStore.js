@@ -7,6 +7,7 @@ class ProjectStore extends BaseStore {
     constructor() {
         super();
         this.currentProject = null;
+        this.adding = false;
         this.projects = [];
         this.newProject = {
             client: {},
@@ -38,19 +39,24 @@ class ProjectStore extends BaseStore {
                 }
                 this.projects.push(action.project);
                 this.currentProject = action.project;
+                this.adding = action.add;
                 this.emitChange();
                 break;
             case AppConstants.SET_CURRENT_PROJECT:
                 this.currentProject = action.project;
+                this.adding = action.add;
                 this.emitChange();
                 break;
-            case AppConstants.GET_PROJECT:
-                this.currentProject = action.project;
+            case AppConstants.CLEAR_CURRENT_PROJECT:
+                this.currentProject = null;
                 this.emitChange();
                 break;
         }
     }
 
+    isAdding() {
+        return this.adding;
+    }
     resetProject() {
         return this.newProject;
     }

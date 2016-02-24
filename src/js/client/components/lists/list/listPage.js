@@ -4,6 +4,7 @@ import React from 'react';
 import Actions from '../../../actions/UiActions';
 import listStore from '../../../stores/ListStore';
 import influencerStore from '../../../stores/InfluencerStore';
+import Card from '../../common/Card';
 
 import InfluencerCardList from '../../influencers/list/CardList';
 
@@ -11,22 +12,23 @@ class ListPage extends React.Component {
     constructor() {
         super();
         this.state = {
-            list: {},
+            list: {
+                name: ''
+            },
             influencers: []
         };
         this._onChange = this._onChange.bind(this);
-
+        this._createProject = this._createProject.bind(this);
     }
     componentWillMount() {
         influencerStore.addChangeListener(this._onChange);
         Actions.refreshInfluencerList();
-        this.state.list = listStore.getListById(this.props.params.id);
-        this.setState({list: this.state.list});
+        var list = listStore.getListById(this.props.params.id);
+        this.setState({list: list});
     }
     componentWillUnmount() {
         influencerStore.removeChangeListener(this._onChange);
     }
-
     _onChange() {
         if (this.state.influencers.length === 0) {
             if (this.state.list.influencers.length > 0) {
@@ -39,15 +41,40 @@ class ListPage extends React.Component {
             }
         }
     }
+    _createProject() {
+        Actions.setCurrentList(this.state.list);
+        this.props.history.pushState(null, '/projects/create');
+    }
     render() {
         return (
             <div>
-                <div className="card-panel z-depth-4">
-                    <h5 className="grey-text text-darken-2" style={{marginBottom: '30px'}}>{this.state.list.name}</h5>
+                <Card title={this.state.list.name} deep>
                     <div className="row">
-
+                        <div className="col s6 separate-right">
+                            <div className="center-align">
+                                <h6 className="teal-text" style={{marginBottom: '20px'}}>Add influencers to this list</h6>
+                                <br />
+                                <button
+                                    type="button"
+                                    className="teal waves-effect waves-light btn-large center">
+                                    <i className="material-icons right">person_add</i>Add
+                                </button>
+                            </div>
+                        </div>
+                        <div className="col s6">
+                            <div className="center-align">
+                                <h6 className="teal-text" style={{marginBottom: '20px'}}>Create a project with this list</h6>
+                                <br />
+                                <button
+                                    type="button"
+                                    className="teal waves-effect waves-light btn-large center"
+                                    onClick={this._createProject.bind(this)}>
+                                    <i className="material-icons right">create_new_folder</i>Create
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </Card>
 
                 <InfluencerCardList
                     influencers={this.state.influencers}

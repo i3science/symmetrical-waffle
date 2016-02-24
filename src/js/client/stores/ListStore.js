@@ -6,6 +6,7 @@ class ListStore extends BaseStore {
 
     constructor() {
         super();
+        this.currentList = null;
         this.lists = [];
     }
 
@@ -23,11 +24,23 @@ class ListStore extends BaseStore {
                 this.lists = action.lists;
                 this.emitChange();
                 break;
+            case AppConstants.SET_CURRENT_LIST:
+                this.currentList = action.list;
+                this.emitChange();
+                break;
+            case AppConstants.CLEAR_CURRENT_LIST:
+                this.currentList = {};
+                console.log(this.currentList);
+                this.emitChange();
+                break;
         }
     }
 
     getLists() {
         return this.lists;
+    }
+    getCurrentList() {
+        return this.currentList;
     }
     getListById(id) {
         return _.find(this.lists, { _id: id });

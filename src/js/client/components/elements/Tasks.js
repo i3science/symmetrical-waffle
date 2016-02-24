@@ -65,11 +65,15 @@ export default class Tasks extends React.Component {
     renderAdder() {
         if (!this.state.adding) {
             return (
-                <Link to="" onClick={(e) => {e.preventDefault();this.setState({ adding:true });}} className="green-text">
-                    <div className="btn-flat tiny white teal-text" style={{padding: '0', fontSize: '12px'}}>
+                <div className="right-align">
+                    <button
+                        type="submit"
+                        className="btn-flat blue-grey lighten-2 white-text"
+                        onClick={(e) => {e.preventDefault();this.setState({ adding:true });}}
+                        style={{padding: '0 15px', fontSize: '12px'}}>
                         <i className="material-icons right">add</i>Add a Task
-                    </div>
-                </Link>
+                    </button>
+                </div>
             );
         }
         return (
@@ -110,7 +114,7 @@ export default class Tasks extends React.Component {
                         className="btn-flat tiny white green-text"
                         type="submit"
                         style={{marginRight: '40px'}}>
-                        <i className="material-icons right">done</i>
+                        <i className="material-icons right">save</i>
                         Save
                     </button>
                     <button
