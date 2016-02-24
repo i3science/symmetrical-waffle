@@ -27,7 +27,7 @@ class Personal extends React.Component {
                 <tr>
                     <td style={{width: '33.3333%'}}><div style={{paddingRight: padit + '%'}}>Home <span className="right teal-text text-lighten-2">{this.props.personal.residence}</span></div></td>
                     <td style={{width: '33.3333%'}}><div style={{padding: '0 ' + padit/2 + '%'}}>Household Income <span className="right teal-text text-lighten-2">{this.props.personal.householdIncome}</span></div></td>
-                    <td style={{width: '33.3333%'}}><div style={{paddingLeft: padit + '%'}}>Pets <span className="right teal-text text-lighten-2">{this.props.personal.pets.length||0}</span></div></td>
+                    <td style={{width: '33.3333%'}}><div style={{paddingLeft: padit + '%'}}>Pets <span className="right teal-text text-lighten-2">{(this.props.personal.pets || []).length||0}</span></div></td>
                 </tr>
                 <tr>
                     <td style={{width: '33.3333%'}}><div style={{paddingRight: padit + '%'}}>Types of Pets <span className="right teal-text text-lighten-2">{this.props.personal.pets}</span></div></td>
