@@ -6,7 +6,7 @@ class ListStore extends BaseStore {
 
     constructor() {
         super();
-        this.currentList = {};
+        this.currentList = null;
         this.lists = [];
     }
 

@@ -40,8 +40,9 @@ class NewProjectPage extends React.Component {
         listStore.removeChangeListener(this._onChange);
     }
     componentDidMount() {
-        this.state.project.lists.push(this.state.list);
-        console.log(this.state);
+        if (this.state.list) {
+            this.state.project.lists.push(this.state.list);
+        }
     }
     _onChange() {
         this.setState({
@@ -109,6 +110,7 @@ class NewProjectPage extends React.Component {
     _onSave(event) {
         event.preventDefault();
         if (!this.state.project._id) {
+            console.log(this.state.project);
             Actions.clearCurrentList();
             Actions
                 .createProject(this.state.project)

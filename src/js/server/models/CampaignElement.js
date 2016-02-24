@@ -21,6 +21,7 @@ var CampaignElement = new Schema({
         ref: 'Influencer',
         required: true
     },
+    approved: Boolean,
     type: {
         type: String,
         enum: ['blog', 'vlog', 'photo', 'amplification'],
