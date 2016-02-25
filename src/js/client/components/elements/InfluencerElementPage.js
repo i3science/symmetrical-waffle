@@ -14,7 +14,7 @@ export default class InfluencerElementPage extends React.Component {
 
     componentWillMount() {
         campaignElementStore.addChangeListener(this._onElementChange);
-        CampaignElementActions.findForProject(this.props.params.id);
+        CampaignElementActions.findForProject(this.props.project._id || this.props.project);
     }
     componentWillUnmount() {
         campaignElementStore.removeChangeListener(this._onElementChange);
@@ -34,7 +34,7 @@ export default class InfluencerElementPage extends React.Component {
             );
         }
         let params = {
-            id: this.props.params.id,
+            id: this.props.project._id || this.props.project,
             elementId: this.state.element._id
         };
         return (

@@ -30,7 +30,6 @@ class ListStore extends BaseStore {
                 break;
             case AppConstants.CLEAR_CURRENT_LIST:
                 this.currentList = {};
-                console.log(this.currentList);
                 this.emitChange();
                 break;
         }

@@ -65,5 +65,49 @@ export default base_controller(projectService, 'project', {
         }
         delete obj.__v;
         return obj;
+    },
+    reject(req, res) {
+        let influencer = _.find(req.project.influencers, { influencer: req.loggedInUser._id });
+        if (!influencer) {
+            return res.status(400).send({'message':'You are not permitted to alter this project'});
+        }
+        influencer.influencer_approved = false;
+        influencer.influencer_notes = req.body.notes;
+        return req.project.savePromise()
+            .then(() => {
+                return res.status(204).send();
+            })
+            .fail((err) => {
+                return res.status(400).send(err);
+            });
+    },
+    revise(req, res) {
+        let influencer = _.find(req.project.influencers, { influencer: req.loggedInUser._id });
+        if (!influencer) {
+            return res.status(400).send({'message':'You are not permitted to alter this project'});
+        }
+        influencer.influencer_notes = req.body.notes;
+        return req.project.savePromise()
+            .then(() => {
+                return res.status(204).send();
+            })
+            .fail((err) => {
+                return res.status(400).send(err);
+            });
+    },
+    accept(req, res) {
+        let influencer = _.find(req.project.influencers, { influencer: req.loggedInUser._id });
+        if (!influencer) {
+            return res.status(400).send({'message':'You are not permitted to alter this project'});
+        }
+        influencer.influencer_approved = true;
+        influencer.influencer_notes = req.body.notes;
+        return req.project.savePromise()
+            .then(() => {
+                return res.status(204).send();
+            })
+            .fail((err) => {
+                return res.status(400).send(err);
+            });
     }
 });

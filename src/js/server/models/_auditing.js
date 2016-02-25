@@ -91,7 +91,6 @@ module.exports = exports = function auditingPlugin(schema) {
         };
         history.changes = [];
 
-        var self = this;
         diff.forEach((delta) => {
             if (delta.path) {
                 var path = delta.path.toString().replace(/\,/g,'.');

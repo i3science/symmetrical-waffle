@@ -14,6 +14,8 @@ const ProjectStatusDate = (props) => {
                     parent={props.parent || null}
                     date={moment(props.val).format('MM/DD/YYYY') || ''}
                     onChange={props.onChange}
+                    readOnly={props.readOnly}
+                    disabled={props.disabled}
                 />
             </div>
         </div>

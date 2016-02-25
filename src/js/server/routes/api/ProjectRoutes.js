@@ -11,6 +11,9 @@ module.exports = function(app) {
         .get(authenticationController.isLoggedIn, projectController.read)
         .put(authenticationController.hasRole(['organizer']), projectController.update)
         .delete(authenticationController.hasRole(['organizer']), projectController.delete);
+    app.route('/api/projects/:projectId/reject').put(authenticationController.isLoggedIn, projectController.reject);
+    app.route('/api/projects/:projectId/revise').put(authenticationController.isLoggedIn, projectController.revise);
+    app.route('/api/projects/:projectId/accept').put(authenticationController.isLoggedIn, projectController.accept);
 
     app.use('/api/projects/:projectId/assets', assetRouter());
     app.use('/api/projects/:projectId/history', historyRouter());

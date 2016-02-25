@@ -121,6 +121,39 @@ export default {
             });
     },
 
+    influencerRejectProject(project, notes) {
+        projectService.influencerReject(project, notes)
+            .then((response) => {
+                if (response.status !== 204) {
+                    throw new Error('An error occurred while processing your request');
+                }
+                Materialize.toast('Your choice has been successfully recorded', 4000); // eslint-disable-line no-undef
+                // TODO Redirect somewhere else
+            });
+    },
+
+    influencerReviseProject(project, notes) {
+        projectService.influencerRevise(project, notes)
+            .then((response) => {
+                if (response.status !== 204) {
+                    throw new Error('An error occurred while processing your request');
+                }
+                Materialize.toast('Your request has been successfully recorded', 4000); // eslint-disable-line no-undef
+                // TODO Redirect somewhere else
+            });
+    },
+
+    influencerAcceptProject(project, notes) {
+        projectService.influencerAccept(project, notes)
+            .then((response) => {
+                if (response.status !== 204) {
+                    throw new Error('An error occurred while processing your request');
+                }
+                Materialize.toast('Your acceptance has been recorded. You will be notified when the project begins.', 4000); // eslint-disable-line no-undef
+                // TODO Redirect somewhere else
+            });
+    },
+
     // The 'add' parameter is to indicate if it's setting project to be
     // used in conjunction with an adding action (lists or influencers)
     setCurrentProject(project, add) {

@@ -28,6 +28,7 @@ const InputTextArea = (props) => {
                     placeholder={props.placeholder ? props.placeholder : ''}
                     value={props.val ? props.val : null}
                     data-parent={props.parent || null}
+                    disabled={props.disabled}
                     onChange={props.onChange ? props.onChange.bind(this) : null}>
                 </textarea>
                 {suffix || ''}
