@@ -11,13 +11,19 @@ module.exports = function(fixtures) {
             hostnames: [{
                 development: 'localhost',
                 test: 'localhost',
-                staging: '54.173.3.126'
+                staging: 'staging.socialmarketplace.io',
+                production: 'jones.socialmarketplace.io'
             }[process.env.NODE_ENV]],
             defaultLanguage: 'en'
         }),
         reverb: new Organization({
             name: 'Reverb Consulting',
-            hostnames: ['smp.reverbconsulting.com', '127.0.0.1'],
+            hostnames: [{
+                development: '127.0.0.1',
+                test: '127.0.0.1',
+                staging: 'reverb.socialmarketplace.io',
+                production: 'reverb.socialmarketplace.io'
+            }[process.env.NODE_ENV]],
             defaultLanguage: 'fr_CA'
         })
     };
