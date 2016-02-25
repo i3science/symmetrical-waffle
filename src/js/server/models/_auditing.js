@@ -67,7 +67,7 @@ module.exports = exports = function auditingPlugin(schema) {
     });
 
     schema.post('save', function(doc, next){
-        var ignoreList = ['__v','__id'];
+        var ignoreList = ['__v','__id','created','updated','created_by','updated_by'];
 
         var before = this._original;
         if (before instanceof mongoose.Model) {
