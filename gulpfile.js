@@ -133,6 +133,7 @@ gulp.task('package', ['build'], function(){
     'seed/**/*',
     '.babelrc',
     'docker-setup.sh',
+    'import.js',
     'init.js',
     'package.json',
     'seed.js',
