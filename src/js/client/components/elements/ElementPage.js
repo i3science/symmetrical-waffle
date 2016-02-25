@@ -67,6 +67,15 @@ export default class ElementPage extends React.Component {
             content: this.state.element.content
         });
     }
+
+    showHistory(history) {
+        return () => {
+            this.setState({
+                historical: (_.find(history.changes, { field: 'content' }) || {}).after || ' '
+            });
+        }
+    }
+
     getYoutubeId(url) {
         var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
         var match = url.match(regExp);
@@ -78,10 +87,50 @@ export default class ElementPage extends React.Component {
     }
 
     renderContent() {
-        let content = this.state.content || this.state.element.content || '';
+        let content = this.state.historical || this.state.content || this.state.element.content || '';
+
+        let clearAndCancel = (
+            <div className="right-align">
+                <button
+                        className="btn-flat tiny white green-text"
+                        type="button"
+                        onClick={this._onSave}
+                        style={{marginRight: '40px'}}>
+                    <i className="material-icons right">save</i>
+                    Save
+                </button>
+                <button
+                        className="btn-flat tiny white red-text"
+                        type="button"
+                        onClick={this._onCancel}>
+                    <i className="material-icons right">clear</i>
+                    Cancel
+                </button>
+            </div>
+        );
+        let saveButton = (
+            <button
+                type="button"
+                className="btn-flat blue-grey lighten-2 white-text"
+                onClick={() => {this.setState({edit:true});}}
+                style={{padding: '0 15px', fontSize: '12px'}}>
+                <i className="material-icons right">edit</i>Change
+            </button>
+        );
+        if (this.state.historical) {
+            saveButton = (
+                <button
+                        className="btn-flat tiny white red-text"
+                        type="button"
+                        onClick={() => {this.setState({historical:null});}}>
+                    <i className="material-icons right">clear</i>
+                    Back To Current
+                </button>
+            );
+        }
 
         if (this.state.element.type === 'blog') {
-            if (this.state.edit) {
+            if (this.state.edit && !this.state.historical) {
                 return (
                     <div className="">
                         <InputTextArea
@@ -89,23 +138,7 @@ export default class ElementPage extends React.Component {
                             val={content}
                             onChange={this._onContentChange}
                         />
-                        <div className="right-align">
-                            <button
-                                className="btn-flat tiny white green-text"
-                                type="button"
-                                onClick={this._onSave}
-                                style={{marginRight: '40px'}}>
-                                <i className="material-icons right">save</i>
-                                Save
-                            </button>
-                            <button
-                                className="btn-flat tiny white red-text"
-                                type="button"
-                                onClick={this._onCancel}>
-                                <i className="material-icons right">clear</i>
-                                Cancel
-                            </button>
-                        </div>
+                        {clearAndCancel}
                     </div>
                 );
             }
@@ -118,13 +151,7 @@ export default class ElementPage extends React.Component {
                         {tmp}
                     </div>
                     <div className="right-align">
-                        <button
-                            type="button"
-                            className="btn-flat blue-grey lighten-2 white-text"
-                            onClick={() => {this.setState({edit:true});}}
-                            style={{padding: '0 15px', fontSize: '12px'}}>
-                            <i className="material-icons right">edit</i>Change
-                        </button>
+                        {saveButton}
                     </div>
                 </div>
             );
@@ -149,7 +176,7 @@ export default class ElementPage extends React.Component {
                     </div>
                 );
             }
-            if (this.state.edit) {
+            if (this.state.edit && !this.state.historical) {
                 return (
                     <div>
                         <div style={{marginBottom: '20px', borderBottom: '1px solid rgba(0,0,0,0.1)'}}>
@@ -160,23 +187,7 @@ export default class ElementPage extends React.Component {
                             val={content}
                             onChange={this._onContentChange}
                         />
-                        <div className="right-align">
-                            <button
-                                className="btn-flat tiny white green-text"
-                                type="button"
-                                onClick={this._onSave}
-                                style={{marginRight: '40px'}}>
-                                <i className="material-icons right">save</i>
-                                Save
-                            </button>
-                            <button
-                                className="btn-flat tiny white red-text"
-                                type="button"
-                                onClick={this._onCancel}>
-                                <i className="material-icons right">clear</i>
-                                Cancel
-                            </button>
-                        </div>
+                        {clearAndCancel}
                     </div>
                 );
             }
@@ -186,19 +197,12 @@ export default class ElementPage extends React.Component {
                     {_content}
                     </div>
                     <div className="right-align">
-                        <button
-                            type="button"
-                            className="btn-flat blue-grey lighten-2 white-text"
-                            onClick={() => {this.setState({edit:true});}}
-                            style={{padding: '0 15px', fontSize: '12px'}}>
-                            <i className="material-icons right">edit</i>Change
-                        </button>
+                        {saveButton}
                     </div>
                 </div>
             );
         }
         if (this.state.element.type === 'photo') {
-            console.log(this.state.element);
             return (
                 <div>
                     Images
@@ -215,12 +219,12 @@ export default class ElementPage extends React.Component {
                 <p>Loading element...</p>
             );
         }
-        console.log(this.state);
         let history = '';
+        let self = this;
         if (this.state.history) {
             history = this.state.history.map((obj) => {
                 return (
-                    <li key={obj._id} className="collection-item">
+                    <li key={obj._id} className="collection-item" onClick={self.showHistory(obj)}>
                         <span className="teal-text" style={{fontSize: '12px'}}>{obj.created_by.name.first} {obj.created_by.name.last}</span><br />
                         <div>{moment(obj.created_at).format('MMM DD, YYYY')}
                             <p className="secondary-content grey-text text-darken-2" style={{margin:'0'}}>

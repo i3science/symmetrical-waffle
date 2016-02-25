@@ -51,19 +51,18 @@ module.exports = exports = function auditingPlugin(schema) {
         if (this.isNew) {
             this.created = new Date();
             this.created_by = context.get('request:currentUser');
-        } else {
-            this.constructor.findOne({ _id: this._id }, function(err, doc){
-                this._original = doc;
-            }.bind(this));
         }
         this.organization = context.get('request:currentOrganization');
         this.updated = new Date();
         this.updated_by = context.get('request:currentUser');
-        next();
-    });
-
-    schema.post('init', function(){
-        this._original = this;
+        if (this.isNew) {
+            next();
+        } else {
+            this.constructor.findOne({ _id: this._id }, function(err, doc){
+                this._original = doc;
+                next();
+            }.bind(this));
+        }
     });
 
     schema.post('save', function(doc, next){
@@ -92,7 +91,8 @@ module.exports = exports = function auditingPlugin(schema) {
         };
         history.changes = [];
 
-        diff.forEach(function(delta){
+        var self = this;
+        diff.forEach((delta) => {
             if (delta.path) {
                 var path = delta.path.toString().replace(/\,/g,'.');
                 if (ignoreList.indexOf(path) !== -1) {
@@ -100,9 +100,7 @@ module.exports = exports = function auditingPlugin(schema) {
                 }
                 var change = {
                     field: path,
-                    action: action_delta(delta),
-                    before: delta.lhs,
-                    after: delta.rhs
+                    action: action_delta(delta)
                 };
                 if (delta.lhs) {
                     change.before = delta.lhs;

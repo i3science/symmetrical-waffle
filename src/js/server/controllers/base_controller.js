@@ -35,7 +35,13 @@ export default function(service, middleware_name, extensions) {
          * folks from overriding roles, user auth data, etc.
          */
         sanitize: function(obj) {
-            return obj;
+            delete obj._id;
+            delete obj.__v;
+            delete obj.created_by;
+            delete obj.updated_by;
+            delete obj.created;
+            delete obj.updated;
+            return _.extend({}, obj);
         },
         /**
          * Retrieves the entitiy indicated by the clientId request parameter.
