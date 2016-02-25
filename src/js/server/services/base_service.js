@@ -57,7 +57,9 @@ export default (model, extensions) => {
          * @param entity The representation of the entity to update
          */
         update(entity, modified) {
-            _.extend(entity, modified);
+            Object.keys(modified).forEach((key) => {
+                entity[key] = modified[key];
+            });
             return entity.savePromise();
         },
 

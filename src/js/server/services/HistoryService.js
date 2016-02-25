@@ -11,9 +11,10 @@ export default {
      * Retrieve a list of audit events for the given entity type and id.
      * @param opts
      */
-    list(opts) {
+    list(opts, sort) {
         return History
             .find(opts || {})
+            .sort(sort || { created_at: -1 })
             .populate('created_by')
             .populateHistoryTarget()
             .exec();

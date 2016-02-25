@@ -34,13 +34,14 @@ export default {
             });
     },
     update(project, element) {
-        campaignElementService
+        return campaignElementService
             .update(project, element)
             .then(() => {
                 dispatch({
                     actionType: AppConstants.UPDATE_ELEMENT,
                     element: element
                 });
+                return true;
             });
     }
 };
