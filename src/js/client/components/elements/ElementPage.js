@@ -55,7 +55,10 @@ export default class ElementPage extends React.Component {
     _onSave() {
         let element = this.state.element;
         element.content = this.state.content;
-        CampaignElementActions.update(this.props.params.id, element);
+        CampaignElementActions.update(this.props.params.id, element)
+            .then(() => {
+                HistoryActions.findForElement(this.props.params.id, this.props.params.elementId);
+            });
         this.setState({edit: false});
     }
     _onCancel() {
