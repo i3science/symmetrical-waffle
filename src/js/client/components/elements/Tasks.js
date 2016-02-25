@@ -8,7 +8,6 @@ import Card from '../common/Card';
 import CheckBox from '../common/input/checkbox';
 import InputDate from '../common/input/inputdate';
 import InputText from '../common/input/inputtext';
-import { Link } from 'react-router';
 
 export default class Tasks extends React.Component {
     constructor() {

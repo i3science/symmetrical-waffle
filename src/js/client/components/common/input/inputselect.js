@@ -30,6 +30,7 @@ export default React.createClass({
                             style={this.props.val ? {} : {fontWeight: '500'}}
                             value={this.props.val}
                             data-parent={this.props.parent || null}
+                            disabled={this.props.disabled}
                             onChange={this.props.onChange ? this.props.onChange.bind(this) : null}>
                         <option value="" disabled={this.props.placeholder ? 'disabled' : ''}>{this.props.placeholder ? this.props.placeholder : ''}</option>
                         {selectOptions}

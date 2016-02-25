@@ -73,7 +73,7 @@ export default class ElementPage extends React.Component {
             this.setState({
                 historical: (_.find(history.changes, { field: 'content' }) || {}).after || ' '
             });
-        }
+        };
     }
 
     getYoutubeId(url) {

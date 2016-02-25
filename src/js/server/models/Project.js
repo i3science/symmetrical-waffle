@@ -101,7 +101,8 @@ var Project = new Schema({
             ref: 'Influencer'
         },
         client_approved: Boolean,
-        influencer_approved: Boolean
+        influencer_approved: Boolean,
+        influencer_notes: String
     }],
     /**
      * The lists of influencers who have been assigned to the project.
@@ -139,7 +140,7 @@ var limits = function(next) {
         return next();
     }
     if (user.roles.indexOf('influencer') > -1) {
-        this.where({'influencers.influencer': user._id});
+        this.where({'influencers': { $elemMatch: { 'influencer': user._id, 'influencer_approved': { $ne: false }}}});
         return next();
     }
     if (user.roles.indexOf('rep') > -1) {

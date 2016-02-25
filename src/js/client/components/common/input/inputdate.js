@@ -6,11 +6,13 @@ class InputDate extends React.Component {
         this._handleChange = this._handleChange.bind(this);
     }
     componentDidMount() {
-        $(this.refs[this.props.id]).datepicker({
-            defaultDate: this.props.date || '',
-            dayNamesMin: [ 'S', 'M', 'T', 'W', 'T', 'F', 'S' ],
-            onSelect: this._handleChange
-        });
+        if (!this.props.readOnly) {
+            $(this.refs[this.props.id]).datepicker({
+                defaultDate: this.props.date || '',
+                dayNamesMin: [ 'S', 'M', 'T', 'W', 'T', 'F', 'S' ],
+                onSelect: this._handleChange
+            });
+        }
     }
     _handleChange() {
         if (this.props.onChange) {
@@ -23,9 +25,12 @@ class InputDate extends React.Component {
             <div>
                 <input
                     ref={this.props.id}
-                    type="text" id={this.props.id}
-                    readOnly value={this.props.date || ''}
+                    type="text"
+                    id={this.props.id}
+                    readOnly
+                    value={this.props.date || ''}
                     placeholder={this.props.placeholder || null}
+                    disabled={this.props.disabled}
                 />
             </div>
         );

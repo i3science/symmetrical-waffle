@@ -110,7 +110,6 @@ class NewProjectPage extends React.Component {
     _onSave(event) {
         event.preventDefault();
         if (!this.state.project._id) {
-            console.log(this.state.project);
             Actions.clearCurrentList();
             Actions
                 .createProject(this.state.project)

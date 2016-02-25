@@ -42,6 +42,8 @@ export default React.createClass({
 				label={this.props.label}
 				options={options}
 				val={this.props.val}
+				readOnly={this.props.readOnly}
+				disabled={this.props.disabled}
 				onChange={this.props.onChange.bind(this)} />
 		);
 	}
