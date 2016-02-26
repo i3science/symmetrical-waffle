@@ -1,8 +1,10 @@
 import React from 'react';
 import moment from 'moment';
 import TaskActions from '../../actions/TaskActions';
+import ProjectActions from '../../actions/ProjectActions';
 import CampaignElementActions from '../../actions/CampaignElementActions';
 import taskStore from '../../stores/TaskStore';
+import projectStore from '../../stores/ProjectStore';
 import campaignElementStore from '../../stores/CampaignElementStore';
 import Card from '../common/Card';
 import CheckBox from '../common/input/checkbox';
@@ -13,27 +15,33 @@ export default class Tasks extends React.Component {
     constructor() {
         super();
         this.state = {
-            tasks: null
+            tasks: null,
+            project: null
         };
         this._onStoreChange = this._onStoreChange.bind(this);
         this._onAddTask = this._onAddTask.bind(this);
         this._onCheckTask = this._onCheckTask.bind(this);
     }
-
-    componentDidMount() {
-        taskStore.addChangeListener(this._onStoreChange);
+    componentWillMount() {
         campaignElementStore.addChangeListener(this._onStoreChange);
+        projectStore.addChangeListener(this._onStoreChange);
+        taskStore.addChangeListener(this._onStoreChange);
+        ProjectActions.refreshProjects();
+    }
+    componentDidMount() {
         TaskActions.findForElement(this.props.project, this.props.element._id);
         CampaignElementActions.listAssignees(this.props.project, this.props.element._id);
     }
     componentWillUnmount() {
-        taskStore.removeChangeListener(this._onStoreChange);
         campaignElementStore.removeChangeListener(this._onStoreChange);
+        projectStore.removeChangeListener(this._onStoreChange);
+        taskStore.removeChangeListener(this._onStoreChange);
     }
     _onStoreChange() {
         this.setState({
             tasks: taskStore.getTasks(),
-            assignees: campaignElementStore.getAssignees()
+            assignees: campaignElementStore.getAssignees(),
+            project: projectStore.getProjectById(this.props.project)
         });
     }
 
@@ -169,10 +177,17 @@ export default class Tasks extends React.Component {
             );
         });
         return (
-            <Card title="Tasks & Deadlines">
+            <div className="card-panel z-depth-4">
+                <div className="center-align">
+                    <h3>{this.props.element.name}</h3>
+                    <h5>{this.state.project.name}</h5>
+                </div>
+                {(this.props.tasks || []).length !== 0 ?
+                <h5 className="grey-text text-darken-2">Tasks & Deadlines</h5>
+                    : null }
                 {tasks}
                 {this.renderAdder()}
-            </Card>
+            </div>
         );
     }
 }

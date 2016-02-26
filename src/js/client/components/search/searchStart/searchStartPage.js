@@ -17,13 +17,17 @@ class SearchStart extends React.Component {
             },
             influencers: influencerStore.getInfluencers(),
             results: [],
-            currentProject: projectStore.getCurrentProject()
+            currentProject: null
 
         };
         this.handleChange = this.handleChange.bind(this);
         this._onChange = this._onChange.bind(this);
         this.onClick = this.onClick.bind(this);
     }
+
+
+
+
     componentDidMount() {
         influencerStore.addChangeListener(this._onChange);
         Actions.refreshInfluencerList();
@@ -33,6 +37,11 @@ class SearchStart extends React.Component {
     }
 
     _onChange() {
+        if (projectStore.isAdding()) {
+            this.setState({
+                currentProject: projectStore.getCurrentProject()
+            });
+        }
         this.setState({
             influencers: influencerStore.getInfluencers()
         });
@@ -61,6 +70,7 @@ class SearchStart extends React.Component {
     }
 
     render() {
+
         var value = this.state.filter.searchtag;
         return (
             <div>

@@ -21,6 +21,18 @@ var CampaignElement = new Schema({
         ref: 'Influencer',
         required: true
     },
+    reports: {
+        half: [{
+            name: String,
+            number: String,
+            link: String
+        }],
+        end: [{
+            name: String,
+            number: String,
+            link: String
+        }]
+    },
     approved: Boolean,
     type: {
         type: String,

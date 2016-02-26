@@ -24,6 +24,7 @@ header .tabs li {
 }
 header .tabs .indicator {
     background-color: #80cbc4;
+    display: none;
 }
 hr {
     -moz-box-sizing: content-box;
@@ -271,6 +272,15 @@ select option:disabled {
     display: none;
 }
 .checkmarks:hover button {
+    display: inline-block;
+}
+.reports p {
+    cursor: default;
+}
+.reports button {
+    display: none;
+}
+.reports:hover button {
     display: inline-block;
 }
 

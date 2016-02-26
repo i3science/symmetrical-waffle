@@ -131,7 +131,7 @@ class PendingProjectPage extends React.Component {
         this.props.history.pushState(null, '/lists');
     }
     _addInfluencers() {
-        Actions.setCurrentProject(this.state.project);
+        Actions.setCurrentProject(this.state.project, true);
         this.props.history.pushState(null, '/search');
     }
 

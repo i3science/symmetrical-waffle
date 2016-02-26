@@ -80,7 +80,7 @@ class ListPage extends React.Component {
                                 <h4 className="grey-text text-darken-2">Find a List {this.state.currentProject.name ? 'to add to ' : ''}</h4>
                                 <h5 className="grey-text text-darken-2">{this.state.currentProject.name}</h5>
                             </div>
-                            : <h4 className="grey-text text-darken-2">Find an Influencer</h4>}
+                            : <h4 className="grey-text text-darken-2">Find a List</h4>}
                         <div className="col s6" style={{float: 'none', margin: '50px auto'}}>
                             <Link to="/search" className="waves-effect waves-light btn-large center"><i className="material-icons right">playlist_add</i>Create a list</Link>
                             <div className="clearfix"></div>
