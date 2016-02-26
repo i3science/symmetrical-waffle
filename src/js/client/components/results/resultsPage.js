@@ -19,7 +19,7 @@ class Serp extends React.Component {
             selectedInfluencers: influencerStore.getSelectedInfluencers(),
             exposures: 150000000,
             colors: searchStore.getColors(),
-            currentProject: projectStore.getCurrentProject()
+            currentProject: null
         };
         this._addInfluencers = this._addInfluencers.bind(this);
         this._handleChange = this._handleChange.bind(this);
@@ -37,6 +37,11 @@ class Serp extends React.Component {
     }
 
     _onChange() {
+        if (projectStore.isAdding()) {
+            this.setState({
+                currentProject: projectStore.getCurrentProject()
+            });
+        }
         this.setState({
             influencers: influencerStore.getInfluencers(),
             filters: searchStore.getFilters(),
@@ -83,7 +88,7 @@ class Serp extends React.Component {
             }
         }
         this.setState({currentProject: this.state.currentProject});
-        Actions.updateProject(this.state.currentProject);
+        Actions.updateProject(this.state.currentProject, false);
         Materialize.toast('Added', 4000); // eslint-disable-line no-undef
         this.props.history.pushState(null, '/projects/' + this.state.currentProject._id);
     }
@@ -102,6 +107,7 @@ class Serp extends React.Component {
         for (let item in exposuresGroup) {
             exposures += exposuresGroup[item];
         }
+        console.log(this.state);
         return (
 
             <div>

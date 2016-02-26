@@ -96,7 +96,7 @@ class InfluencerCard extends React.Component {
                         top: '0',
                         width: this.props.onSelectionChanged ? '91.6667%' : '100%',
                         height: '100%',
-                        margin: '0 -10px',
+                        margin: '0 -12px',
                         padding: '10px 10px 30px'
                     }}>
                         <div style={{
