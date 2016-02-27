@@ -6,7 +6,7 @@ import historyRouter from './HistoryRouter';
 module.exports = function(app) {
     app.route('/api/projects')
         .get(authenticationController.isLoggedIn, projectController.list)
-        .post(authenticationController.hasRole(['organizer','client']), projectController.create);
+        .post(authenticationController.hasRole(['organizer','rep']), projectController.create);
     app.route('/api/projects/:projectId')
         .get(authenticationController.isLoggedIn, projectController.read)
         .put(authenticationController.hasRole(['organizer']), projectController.update)
