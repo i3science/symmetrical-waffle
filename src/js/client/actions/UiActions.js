@@ -154,6 +154,16 @@ export default {
             });
     },
 
+    getProjectDates(project, callback) {
+        return projectService.getDates(project)
+            .then((milestones) => {
+                if (callback) {
+                    callback(milestones);
+                }
+                return milestones;
+            });
+    },
+
     // The 'add' parameter is to indicate if it's setting project to be
     // used in conjunction with an adding action (lists or influencers)
     setCurrentProject(project, add) {

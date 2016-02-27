@@ -21,6 +21,12 @@ class ActiveProjectPage extends React.Component {
         this._cancel = this._cancel.bind(this);
     }
 
+    componentDidMount() {
+        Actions.getProjectDates(this.props.project, (dates) => {
+            this.setState({ dates: dates });
+        });
+    }
+
     _handleChange(event) {
         let value = event.target.value;
         let id = event.target.id;
@@ -85,7 +91,9 @@ class ActiveProjectPage extends React.Component {
                     <History type="projects" id={this.props.project._id} children />
                 </Card>
                 <Card title="Dates">
-                    <ProjectCalendar project={this.props.project} />
+                    <ProjectCalendar
+                        project={this.props.project}
+                        events={this.state.dates} />
                 </Card>
                 <Card title="Campaign Elements">
                     <CampaignElements

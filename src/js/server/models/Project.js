@@ -119,7 +119,7 @@ var Project = new Schema({
         type: Boolean,
         default: true
     }
-});
+}, { strict: false });
 /*
  * Ensure we've been given a required number of influencers
  */

@@ -74,6 +74,15 @@ class ProjectService {
         })
             .fail(() => {});
     }
+    getDates(project) {
+        return fetch('/api/projects/'+(project._id || project)+'/dates')
+            .then((response) => {
+                if (response.status !== 200) {
+                    throw new Error('An error occurred while loading project milestones');
+                }
+                return response.json();
+            });
+    }
 }
 
 export default new ProjectService();
