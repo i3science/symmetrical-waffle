@@ -12,10 +12,10 @@ import assetController from '../../controllers/AssetController';
 export default (/*name*/) => {
     let router = express.Router();
     router.route('/')
-        .get(authenticationController.hasRole(['organizer','client']), assetController.list)
-        .post(authenticationController.hasRole(['organizer','client']), config.uploader.single('file'), assetController.create);
+        .get(authenticationController.hasRole(['organizer','rep']), assetController.list)
+        .post(authenticationController.hasRole(['organizer','rep']), config.uploader.single('file'), assetController.create);
     router.route('/:assetId')
-        .get(authenticationController.hasRole(['organizer','client']), assetController.read)
+        .get(authenticationController.hasRole(['organizer','rep']), assetController.read)
         .put(authenticationController.hasRole(['organizer']), config.uploader.single('file'), assetController.update)
         .delete(authenticationController.hasRole(['organizer']), assetController.delete);
 

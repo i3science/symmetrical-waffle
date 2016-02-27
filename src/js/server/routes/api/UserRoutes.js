@@ -8,7 +8,7 @@ module.exports = function(app) {
     app.route('/api/users/me')
         .get(authenticationController.isLoggedIn, userController.me);
     app.route('/api/users/:userId')
-        .get(authenticationController.hasRole(['organizer','client']), userController.read)
+        .get(authenticationController.hasRole(['organizer','rep']), userController.read)
         .put(authenticationController.hasRole(['organizer']), userController.update)
         .delete(authenticationController.hasRole(['organizer']), userController.delete);
     app.param('userId', userController.findById);

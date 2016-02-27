@@ -14,7 +14,7 @@ export default (/*name*/) => {
         .get(authenticationController.isLoggedIn, commentController.list)
         .post(authenticationController.isLoggedIn, commentController.create);
     router.route('/:commentId')
-        .get(authenticationController.hasRole(['organizer','client']), commentController.read)
+        .get(authenticationController.hasRole(['organizer','rep']), commentController.read)
         .put(authenticationController.hasRole(['organizer']), commentController.update)
         .delete(authenticationController.hasRole(['organizer']), commentController.delete);
 

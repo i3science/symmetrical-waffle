@@ -6,9 +6,9 @@ import commentRouter from './CommentRouter';
 module.exports = function(app) {
     app.route('/api/projects/:projectId/elements')
         .get(authenticationController.isLoggedIn, campaignElementController.list)
-        .post(authenticationController.hasRole(['organizer','client']), campaignElementController.create);
+        .post(authenticationController.hasRole(['organizer','rep']), campaignElementController.create);
     app.route('/api/projects/:projectId/elements/:elementId')
-        .get(authenticationController.hasRole(['organizer','client']), campaignElementController.read)
+        .get(authenticationController.hasRole(['organizer','rep']), campaignElementController.read)
         .put(authenticationController.isLoggedIn, campaignElementController.update)
         .delete(authenticationController.hasRole(['organizer']), campaignElementController.delete);
 
