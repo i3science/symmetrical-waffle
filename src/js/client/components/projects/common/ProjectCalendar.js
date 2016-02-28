@@ -9,7 +9,7 @@ export default (props) => {
     if (events) {
         events = _.sortBy(events, function(o) { return moment(o.date).toDate(); });
         dates = events.map((ev) => {
-            return moment(ev.date).format('DD/MM/YYYY');
+            return moment(ev.date).format('MM/DD/YYYY');
         });
     }
 
@@ -25,7 +25,7 @@ export default (props) => {
                 <Calendar
                     id="activities"
                     disabled
-                    dates={dates || false}
+                    dates={dates}
                     full
                 />
             </div>

@@ -18,6 +18,10 @@ class Calendar extends React.Component {
             onSelect: this._handleChange
         });
     }
+    componentWillReceiveProps(nextProps) {
+        $(this.refs[this.props.id]).multiDatesPicker('resetDates');
+        $(this.refs[this.props.id]).multiDatesPicker('addDates', nextProps.dates);
+    }
 
     _handleChange() {
         if (!this.props.disabled && this.props.onChange) {
