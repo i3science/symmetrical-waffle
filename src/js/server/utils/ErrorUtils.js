@@ -14,22 +14,20 @@ export default class ErrorUtils {
 
     static getErrorMessage(err) {
         if (err.code) {
-            return err.code + ' ' + err.err;
+            return { message: err.code + ' ' + err.err };
         }
         if (err.errors) {
-            return err.errors;
+            return {fields: err.errors};
         }
         if (err.message) {
-            return { error: { message: err.message } };
+            return { message: err.message };
         }
         return err;
     }
 
     static failureHandler(req, res) {
         return function(err){
-            res.status(400).send({
-                message: ErrorUtils.getErrorMessage(err)
-            });
+            res.status(400).send(ErrorUtils.getErrorMessage(err));
         };
     }
 }
