@@ -97,7 +97,9 @@ class SelectedInfluencers extends React.Component {
 
             );
         });
+        console.log(this.props);
         return (
+
             <div className="row">
                 <div className="col s12">
                     <div className="card-panel">
