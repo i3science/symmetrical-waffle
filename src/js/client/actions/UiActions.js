@@ -44,6 +44,7 @@ export default {
                 return response.json();
             })
             .then((data) => {
+                Materialize.toast('Successfully created influencer.', 4000, 'success'); // eslint-disable-line no-undef
                 dispatch({
                     actionType: AppConstants.CREATE_INFLUENCER,
                     influencer: data
