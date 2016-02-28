@@ -36,6 +36,12 @@ global.fetch = function() {
                         messages.forEach(function(message){
                             Materialize.toast(message, 4000, 'error');
                         });
+
+                        if (data.fields) {
+                            Object.keys(data.fields).forEach(function(field){
+                                Materialize.toast(data.fields[field].message, 4000, 'error');
+                            });
+                        }
                     });
             }
 
