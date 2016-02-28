@@ -11,6 +11,7 @@ module.exports = function(app) {
         .get(authenticationController.isLoggedIn, projectController.read)
         .put(authenticationController.hasRole(['organizer']), projectController.update)
         .delete(authenticationController.hasRole(['organizer']), projectController.delete);
+    app.route('/api/projects/:projectId/dates').get(authenticationController.isLoggedIn, projectController.dates);
     app.route('/api/projects/:projectId/reject').put(authenticationController.isLoggedIn, projectController.reject);
     app.route('/api/projects/:projectId/revise').put(authenticationController.isLoggedIn, projectController.revise);
     app.route('/api/projects/:projectId/accept').put(authenticationController.isLoggedIn, projectController.accept);

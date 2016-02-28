@@ -7,6 +7,20 @@ import taskService from '../services/TaskService';
 import commentService from '../services/CommentService';
 
 export default base_controller(projectService, 'project', {
+    dates(req, res) {
+        let dates = [];
+        dates.push({ title: 'Project Start', date: req.project.project_start });
+        dates.push({ title: 'Project Live', date: req.project.project_live });
+        dates.push({ title: 'Project Finish', date: req.project.project_end });
+        []
+            .concat(req.project.checkpoints_start)
+            .concat(req.project.checkpoints_live)
+            .concat(req.project.checkpoints_end)
+            .forEach((checkpoint) => {
+                dates.push({ title: checkpoint.name, date: checkpoint.date });
+            });
+        return res.json(dates);
+    },
     /**
      * Return the history of modifications for an existing project.
      */
