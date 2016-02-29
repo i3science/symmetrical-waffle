@@ -51,7 +51,7 @@ class NewProjectPage extends React.Component {
         if (!this.state.project) {
             return;
         }
-        if (this.state.project.lists) {
+        if (this.state.project.lists.length !== 0) {
             let listResults = listStore.getInfluencersFromList(this.state.project.lists);
             if (listResults) {
                 listResults.map(item => {
