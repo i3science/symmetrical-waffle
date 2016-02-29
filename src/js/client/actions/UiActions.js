@@ -165,6 +165,36 @@ export default {
             });
     },
 
+    approveProject(project, callback) {
+        return projectService.approve(project)
+            .then(() => {
+                return projectService
+                    .find(project._id);
+            })
+            .then((project) => {
+                Materialize.toast('The project has been approved.', 4000); // eslint-disable-line no-undef
+                if (callback) {
+                    callback();
+                }
+                dispatch({
+                    actionType: AppConstants.SET_CURRENT_PROJECT,
+                    project: project
+                });
+                return true;
+            });
+    },
+
+    sendProjectToClient(project, callback) {
+        return projectService.sendToClient(project)
+            .then(() => {
+                Materialize.toast('The project has been sent to the client.', 4000); // eslint-disable-line no-undef
+                if (callback) {
+                    callback();
+                }
+                return true;
+            });
+    },
+
     // The 'add' parameter is to indicate if it's setting project to be
     // used in conjunction with an adding action (lists or influencers)
     setCurrentProject(project, add) {

@@ -1,10 +1,15 @@
 import _ from 'lodash';
+import Q from 'q';
+import moment from 'moment';
 import base_controller from './base_controller';
 import projectService from '../services/ProjectService.js';
 import historyService from '../services/HistoryService.js';
 import campaignElementService from '../services/CampaignElementService';
 import taskService from '../services/TaskService';
 import commentService from '../services/CommentService';
+import mongoose from 'mongoose';
+const Influencer = mongoose.model('Influencer');
+const CampaignElement = mongoose.model('CampaignElement');
 
 export default base_controller(projectService, 'project', {
     dates(req, res) {
@@ -123,5 +128,36 @@ export default base_controller(projectService, 'project', {
             .fail((err) => {
                 return res.status(400).send(err);
             });
+    },
+    approve(req, res) {
+        req.project.approved = true;
+        req.project.approved_date = moment();
+        return req.project.savePromise()
+            .then(() => {
+                let promises = req.project.influencers.map((inf) => {
+                    return Influencer.findOne({ _id: inf.influencer })
+                        .then((influencer) => {
+                            let element = new CampaignElement();
+                            element.type = {
+                                'blogger': 'blog',
+                                'vlogger': 'vlog',
+                                'photo_blogger': 'photo',
+                                'amplifier': 'amplification'
+                            }[req.project.projectType];
+                            element.assignee = inf.influencer;
+                            element.project = req.project;
+                            element.name = [influencer.name.first, influencer.name.last].join(' ')+'\'s '+element.type;
+                            return element.savePromise();
+                        });
+                });
+                return Q.all(promises);
+            })
+            .then(() => {
+                return res.status(204).send();
+            });
+    },
+    sendToClient(req, res) {
+        // TODO Need to implement the logic to send out to clients
+        return res.status(500).send({ message: 'Email support not yet available' });
     }
 });
