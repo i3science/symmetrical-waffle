@@ -24,7 +24,20 @@ export default base_controller(projectService, 'project', {
             .forEach((checkpoint) => {
                 dates.push({ title: checkpoint.name, date: checkpoint.date });
             });
-        return res.json(dates);
+
+        return campaignElementService
+            .list({ project: req.project._id })
+            .then((elements) => {
+                let elementIds = elements.map((el) => { return el._id; });
+                return taskService
+                    .list({ element: elementIds });
+            })
+            .then((tasks) => {
+                tasks.forEach((task) => {
+                    dates.push({ title: task.name, date: task.due });
+                });
+                return res.json(dates);
+            });
     },
     /**
      * Return the history of modifications for an existing project.
