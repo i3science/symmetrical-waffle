@@ -19,6 +19,7 @@ var User = new Schema({
     first: String,
     last: String
   },
+  image: String,
   email: {
     type: String,
     sparse: true,
