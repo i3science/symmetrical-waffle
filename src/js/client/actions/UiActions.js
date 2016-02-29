@@ -8,6 +8,7 @@ import assetService from '../services/AssetService';
 import reviewService from '../services/ReviewService';
 import clientService from '../services/ClientService';
 import representativeService from '../services/RepresentativeService';
+import userService from '../services/UserService';
 
 export default {
     initialize() {
@@ -55,7 +56,7 @@ export default {
         influencerService.update(influencer)
             .then((response) => {
                 if (response.status !== 204) {
-                    throw new Error('An error occurred while updating the influencer');
+                    throw new Error('An error occurred while updating the influencer'); // eslint-disable-line no-undef
                 }
                 return influencerService.find(influencer._id);
             })
@@ -252,9 +253,14 @@ export default {
         });
     },
     updateUser(user) {
-        dispatch({
-            actionType: AppConstants.UPDATE_USER, user
-        });
+        return userService.update(user)
+            .then(() => {
+                dispatch({
+                    actionType: AppConstants.UPDATE_USER, user
+                });
+                Materialize.toast('Successfully updated account', 4000); // eslint-disable-line no-undef
+                return true;
+            });
     },
 
     // Asset actions
