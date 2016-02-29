@@ -26,6 +26,7 @@ class NewProjectPage extends React.Component {
         this._onSave = this._onSave.bind(this);
         this._cancel = this._cancel.bind(this);
     }
+
     componentWillMount() {
         influencerStore.addChangeListener(this._onChange);
         listStore.addChangeListener(this._onChange);
@@ -35,15 +36,18 @@ class NewProjectPage extends React.Component {
             this.props.history.pushState(null, '/projects/' + this.state.project._id);
         }
     }
+
     componentWillUnmount() {
         influencerStore.removeChangeListener(this._onChange);
         listStore.removeChangeListener(this._onChange);
     }
+
     componentDidMount() {
         if (this.state.list) {
             this.state.project.lists.push(this.state.list);
         }
     }
+
     _onChange() {
         this.setState({
             influencers: influencerStore.getInfluencers()
@@ -78,6 +82,7 @@ class NewProjectPage extends React.Component {
             }
         }
     }
+
     _handleChange(event) {
         let value = event.target.value;
         let id = event.target.id;
@@ -99,6 +104,7 @@ class NewProjectPage extends React.Component {
         }
         this.setState({project: this.state.project});
     }
+
     _handleDate(date, name, parent) {
         if (parent) {
             this.state.project[parent].push({name: name, date: date});
@@ -107,6 +113,7 @@ class NewProjectPage extends React.Component {
         }
         this.setState({project: this.state.project});
     }
+
     _onSave(event) {
         event.preventDefault();
         if (!this.state.project._id) {
@@ -118,6 +125,7 @@ class NewProjectPage extends React.Component {
                 });
         }
     }
+
     _cancel(event) {
         event.preventDefault();
         this.setState({project: projectStore.resetProject()});
@@ -138,8 +146,10 @@ class NewProjectPage extends React.Component {
                     />
                     <hr />
                     <div className="col 12" style={{float: 'none'}}>
-                        <Link to="" className="blue-grey lighten-5 waves-effect waves-light btn-large btn-flat" onClick={this._cancel}>Cancel</Link>
-                        <Link to="" className="teal waves-effect waves-light btn-large right" onClick={this._onSave}>Save Changes</Link>
+                        <Link to="" className="blue-grey lighten-5 waves-effect waves-light btn-large btn-flat"
+                              onClick={this._cancel}>Cancel</Link>
+                        <Link to="" className="teal waves-effect waves-light btn-large right" onClick={this._onSave}>Save
+                            Changes</Link>
                     </div>
                 </Card>
             </div>

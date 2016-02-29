@@ -112,16 +112,7 @@ module.exports = function(fixtures) {
                 model: 'Miata'
             },
             mediums: ['Blogger', 'Vlogger', 'Amplifier'],
-            availability: [
-                "02/10/2016",
-                "02/11/2016",
-                "02/12/2016",
-                "02/18/2016",
-                "02/19/2016",
-                "02/22/2016",
-                "02/23/2016",
-                "02/24/2016"
-            ]
+            availability: []
         }),
 
         //
