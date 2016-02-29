@@ -28,9 +28,11 @@ class PendingProjectPage extends React.Component {
         this._updateProjects = this._updateProjects.bind(this);
         this._addInfluencers = this._addInfluencers.bind(this);
         this._handleChange = this._handleChange.bind(this);
+        this._sendToClient = this._sendToClient.bind(this);
         this._handleDate = this._handleDate.bind(this);
         this._onChange = this._onChange.bind(this);
         this._addList = this._addList.bind(this);
+        this._approve = this._approve.bind(this);
         this._onSave = this._onSave.bind(this);
         this._cancel = this._cancel.bind(this);
     }
@@ -135,6 +137,13 @@ class PendingProjectPage extends React.Component {
         this.props.history.pushState(null, '/search');
     }
 
+    _approve() {
+        Actions.approveProject(this.state.project);
+    }
+    _sendToClient() {
+        Actions.sendProjectToClient(this.state.project);
+    }
+
     render() {
         return (
             <div>
@@ -172,6 +181,8 @@ class PendingProjectPage extends React.Component {
                     </div>
                 : null}
 
+                <a className="teal waves-effect waves-light btn-large" onClick={this._approve}>Approve Project</a>
+                <a className="teal waves-effect waves-light btn-large" onClick={this._sendToClient}>Send Proposal To Client <i className="material-icons right">send</i></a>
             </div>
         );
     }

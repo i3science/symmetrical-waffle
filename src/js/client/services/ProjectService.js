@@ -83,6 +83,36 @@ class ProjectService {
                 return response.json();
             });
     }
+    approve(project) {
+        return fetch('/api/projects/'+(project._id || project)+'/approve', {
+            method: 'put',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+            .then((response) => {
+                if (response.status !== 204) {
+                    throw new Error('An error prevented us from recording your choice');
+                }
+                return true;
+            });
+    }
+    sendToClient(project) {
+        return fetch('/api/projects/'+(project._id || project)+'/send-to-client', {
+            method: 'put',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+            .then((response) => {
+                if (response.status !== 204) {
+                    throw new Error('An error prevented us from sending an email to the client. The client can still log in a view the project though.');
+                }
+                return true;
+            });
+    }
 }
 
 export default new ProjectService();
