@@ -14,10 +14,13 @@ export default (props) => {
     }
 
     let activities = (events || []).map((event, i) => {
-        return (
-            <p key={i}>{moment(event.date).format('Do MMM')} - {event.title}</p>
-        );
+        if (moment().unix() < moment(event.date).unix()) {
+            return (
+                <p key={i}>{moment(event.date).format('Do MMM')} - {event.title}</p>
+            );
+        }
     });
+    console.log(props.project);
 
     return (
         <div className="row">
