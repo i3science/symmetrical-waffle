@@ -95,14 +95,17 @@ class SelectedInfluencers extends React.Component {
                     />
                 </div>
 
+
             );
         });
+        console.log(this.props);
         return (
+
             <div className="row">
                 <div className="col s12">
                     <div className="card-panel">
                         <div className="row">
-                            <div className="col s4">
+                            <div className="col m4">
                                 <h4>SEARCH STATS</h4>
                                 <table className="search-stats">
                                     <thead></thead>
@@ -126,14 +129,14 @@ class SelectedInfluencers extends React.Component {
                                     </tbody>
                                 </table>
                             </div>
-                            <div className="col s5">
+                            <div className="col m5">
                                 <h4>SELECTED</h4>
                                 <Graph
                                     pieces={pieces}
                                     exposures={this.props.exposures}
                                 />
                             </div>
-                            <div className="col s3 selected-influencers grey-text text-darken-3">
+                            <div className="col m3 selected-influencers grey-text text-darken-3">
                                 <div className="collection">
                                     <h6 className="teal-text right-align collection-item">Influencers</h6>
                                     {selectedInfluencers}
@@ -154,7 +157,7 @@ class SelectedInfluencers extends React.Component {
                                     </button>
                                     <div className="clearfix"></div>
                                 </form>
-                                {this.props.addInfluencers && (this.props.selectedInfluencers.length !== 0) ?
+                                {this.props.project && (this.props.selectedInfluencers.length !== 0) ?
                                 <button
                                     type="submit" ref="listButton"
                                     className="btn-flat tiny white teal-text right"
