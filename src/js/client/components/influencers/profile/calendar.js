@@ -6,7 +6,8 @@ class Calendar extends React.Component {
         this._handleChange = this._handleChange.bind(this);
     }
     componentDidMount() {
-        let dates = !this.props.dates ? '' : (this.props.dates.length > 0 ? this.props.dates : '');
+        let dates = !this.props.dates ? '' : (this.props.dates.length !== 0 ? this.props.dates : '');
+        console.log(dates);
         let disableIt = () => {
             return [false, ''];
         };
@@ -19,8 +20,11 @@ class Calendar extends React.Component {
         });
     }
     componentWillReceiveProps(nextProps) {
-        $(this.refs[this.props.id]).multiDatesPicker('resetDates');
-        $(this.refs[this.props.id]).multiDatesPicker('addDates', nextProps.dates);
+        if (nextProps.dates && (nextProps.dates.length !== 0)) {
+            $(this.refs[this.props.id]).multiDatesPicker('resetDates');
+            $(this.refs[this.props.id]).multiDatesPicker('addDates', nextProps.dates);
+        }
+
     }
 
     _handleChange() {
