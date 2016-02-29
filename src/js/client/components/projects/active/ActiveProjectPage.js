@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
+import historyStore from '../../../stores/HistoryStore';
+import HistoryActions from '../../../actions/HistoryActions';
 import ProjectAssets from './../common/ProjectAssets';
 import ProjectParams from './../common/ProjectParams';
 import ProjectCalendar from './../common/ProjectCalendar';
@@ -15,10 +17,21 @@ class ActiveProjectPage extends React.Component {
             project: props.project
         };
         this._removeCheckmark = this._removeCheckmark.bind(this);
+        this._onHistoryChange = this._onHistoryChange.bind(this);
         this._handleChange = this._handleChange.bind(this);
         this._handleDate = this._handleDate.bind(this);
         this._onSave = this._onSave.bind(this);
         this._cancel = this._cancel.bind(this);
+    }
+    componentWillMount() {
+        historyStore.addChangeListener(this._onHistoryChange);
+        HistoryActions.findForEntity('projects', this.props.project._id, true);
+    }
+    componentWillUnmount() {
+        historyStore.removeChangeListener(this._onHistoryChange);
+    }
+    _onHistoryChange() {
+        this.setState({ history: historyStore.getHistory() });
     }
 
     componentDidMount() {
@@ -88,7 +101,11 @@ class ActiveProjectPage extends React.Component {
                     </div>
                 </Card>
                 <Card title="Recent Activities">
-                    <History type="projects" id={this.props.project._id} children />
+                    <History
+                        type="projects"
+                        id={this.props.project._id}
+                        children
+                    />
                 </Card>
                 <Card title="Dates">
                     <ProjectCalendar
