@@ -7,7 +7,6 @@ class Calendar extends React.Component {
     }
     componentDidMount() {
         let dates = !this.props.dates ? '' : (this.props.dates.length !== 0 ? this.props.dates : '');
-        console.log(dates);
         let disableIt = () => {
             return [false, ''];
         };

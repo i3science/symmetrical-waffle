@@ -6,7 +6,6 @@ import CampaignElementActions from '../../actions/CampaignElementActions';
 import taskStore from '../../stores/TaskStore';
 import projectStore from '../../stores/ProjectStore';
 import campaignElementStore from '../../stores/CampaignElementStore';
-import Card from '../common/Card';
 import CheckBox from '../common/input/checkbox';
 import InputDate from '../common/input/inputdate';
 import InputText from '../common/input/inputtext';
@@ -127,7 +126,7 @@ export default class Tasks extends React.Component {
                     <button
                         className="btn-flat tiny white red-text"
                         type="button"
-                        onClick={(e) => {e.preventDefault();this.setState({ adding:false });}}>
+                        onClick={(e) => {e.preventDefault();this.setState({adding:false});}}>
                         <i className="material-icons right">clear</i>
                         Cancel
                     </button>
@@ -147,9 +146,9 @@ export default class Tasks extends React.Component {
                 || typeof this.state.tasks === 'undefined'
                 || this.state.tasks === null) {
             return (
-                <Card>
+                <div>
                     <p>Loading tasks...</p>
-                </Card>
+                </div>
             );
         }
         let tasks =  this.state.tasks.map((task) => {
@@ -177,7 +176,7 @@ export default class Tasks extends React.Component {
             );
         });
         return (
-            <div className="card-panel z-depth-4">
+            <div>
                 <div className="center-align">
                     <h3>{this.props.element.name}</h3>
                     <h5>{this.state.project.name}</h5>

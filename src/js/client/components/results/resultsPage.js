@@ -107,7 +107,6 @@ class Serp extends React.Component {
         for (let item in exposuresGroup) {
             exposures += exposuresGroup[item];
         }
-        console.log(this.state);
         return (
 
             <div>

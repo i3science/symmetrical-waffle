@@ -275,9 +275,13 @@ select option:disabled {
     display: inline-block;
 }
 .reports p {
+    margin: 0 0 30px;
     cursor: default;
+    word-wrap: break-word;
 }
 .reports button {
+    line-height: 20px;
+    height: 18px;
     display: none;
 }
 .reports:hover button {
