@@ -43,4 +43,13 @@ export default class RepresentativeService {
             })
             .fail(() => {});
     }
+    static send(representative) {
+        return fetch('/api/representatives/'+representative._id+'/send')
+            .then((response) => {
+                if (response.status !== 204) {
+                    throw new Error('Unable to send email to representative');
+                }
+                return true;
+            });
+    }
 }

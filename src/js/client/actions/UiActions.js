@@ -384,5 +384,19 @@ export default {
                 });
                 return data;
             });
+    },
+    sendRepresentative(representative) {
+        if (!representative._id) {
+            Materialize.toast('Representative has not yet been saved.', 4000, 'error'); // eslint-disable-line no-undef
+            return Q(false);
+        }
+        return representativeService.send(representative)
+            .then(() => {
+                Materialize.toast('An email has been sent to the representative.', 4000); // eslint-disable-line no-undef
+                return true;
+            })
+            .fail((err) => {
+                Materialize.toast(err, 4000, 'error'); // eslint-disable-line no-undef
+            });
     }
 };

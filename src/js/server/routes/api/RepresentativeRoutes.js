@@ -9,5 +9,7 @@ module.exports = function(app) {
         .get(authenticationController.hasRole(['organizer','representative']), representativeController.read)
         .put(authenticationController.hasRole(['organizer']), representativeController.update)
         .delete(authenticationController.hasRole(['organizer']), representativeController.delete);
+    app.route('/api/representatives/:representativeId/send')
+        .get(authenticationController.hasRole(['organizer']), representativeController.send);
     app.param('representativeId', representativeController.findById);
 };
