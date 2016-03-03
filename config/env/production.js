@@ -33,7 +33,7 @@ module.exports = {
     title: 'Social Marketplace - Development Edition'
   },
   tmpDir: path.resolve('/tmp/'),
-  filesDir: path.resolve(__dirname, '../../tmp/files'),
+  filesDir: path.resolve('/srv/node/files'),
   uploadsDir: path.resolve('/tmp/uploads'),
   uploader: multer({
     dest: path.resolve('/tmp/uploads/'),
