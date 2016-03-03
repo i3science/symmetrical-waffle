@@ -169,6 +169,7 @@ module.exports = function(db) {
         context.set('request:currentUser', req.loggedInUser);
         context.set('request:currentOrganization', req.currentOrganization);
         context.set('request:currentIP', req.socket.remoteAddress);
+        context.set('request:basePath', req.basePath);
         next();
     });
 

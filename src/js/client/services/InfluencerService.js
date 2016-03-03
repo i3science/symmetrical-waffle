@@ -34,6 +34,15 @@ class InfluencerService {
         return (influencer._id ? this.update(influencer) : this.create(influencer))
             .fail(() => {});
     }
+    send(influencer) {
+        return fetch('/api/influencers/'+influencer._id+'/send')
+            .then((response) => {
+                if (response.status !== 204) {
+                    throw new Error('Unable to send email to influencer');
+                }
+                return true;
+            });
+    }
 }
 
 export default new InfluencerService();

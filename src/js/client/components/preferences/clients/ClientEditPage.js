@@ -13,7 +13,9 @@ class ClientEditPage extends React.Component {
         };
         this._onChange = this._onChange.bind(this);
         this._handleChange = this._handleChange.bind(this);
+        this.saveOrUpdate = this.saveOrUpdate.bind(this);
         this._onSubmit = this._onSubmit.bind(this);
+        this._onSend = this._onSend.bind(this);
         this._cancel = this._cancel.bind(this);
         this._expand = this._expand.bind(this);
     }
@@ -66,24 +68,33 @@ class ClientEditPage extends React.Component {
         this.props.history.goBack();
     }
 
-    _onSubmit(event) {
-        event.preventDefault();
-        let self = this;
+    saveOrUpdate() {
         if (!this.state.representative._id) {
-            Actions.createRepresentative(this.state.representative)
+            return Actions.createRepresentative(this.state.representative)
                 .then((rep) => {
                     Materialize.toast('Successfully created new client rep!', 4000); // eslint-disable-line no-undef
-                    self.props.history.pushState(null, '/preferences/clients/'+rep._id+'/edit');
-                })
-                .fail((err) => {
-                    console.error('Err: ', err); // eslint-disable-line no-console
+                    this.props.history.pushState(null, '/preferences/clients/'+rep._id+'/edit');
+                    return rep;
                 });
         } else {
-            Actions.updateRepresentative(this.state.representative)
-                .then(() => {
+            return Actions.updateRepresentative(this.state.representative)
+                .then((rep) => {
                     Materialize.toast('Successfully updated client rep!', 4000); // eslint-disable-line no-undef
+                    return rep;
                 });
         }
+    }
+
+    _onSubmit(event) {
+        event.preventDefault();
+        this.saveOrUpdate();
+    }
+
+    _onSend() {
+        this.saveOrUpdate()
+            .then((rep) => {
+                Actions.sendRepresentative(rep);
+            });
     }
 
     _expand(event) {
@@ -107,6 +118,7 @@ class ClientEditPage extends React.Component {
                         representative={this.state.representative}
                         onChange={this._handleChange}
                         onSubmit={this._onSubmit}
+                        onSend={this._onSend}
                         cancel={this._cancel}
                     />
                 </div>

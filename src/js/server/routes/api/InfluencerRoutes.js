@@ -10,6 +10,8 @@ module.exports = function(app) {
         .get(authenticationController.hasRole(['organizer','rep']), influencerController.read)
         .put(authenticationController.hasRole(['organizer']), influencerController.update)
         .delete(authenticationController.hasRole(['organizer']), influencerController.delete);
+    app.route('/api/influencers/:influencerId/send')
+        .get(authenticationController.hasRole(['organizer','rep']), influencerController.send);
     app.param('influencerId', influencerController.findById);
 
     app.use('/api/influencers/:influencerId/reviews', reviewRouter());

@@ -52,9 +52,9 @@ const InfluencerManageForm = (props) => {
                     <div className="center-align">
                         <h6 className="teal-text" style={{marginBottom: '20px'}}>Send to influencer for them to complete</h6>
                         <br />
-                        <Link to="" className="teal waves-effect waves-light btn-large center">
+                        <a className="teal waves-effect waves-light btn-large center" onClick={props.onSend}>
                             <i className="material-icons right">send</i>Send
-                        </Link>
+                        </a>
                     </div>
                 </div>
             </div>
