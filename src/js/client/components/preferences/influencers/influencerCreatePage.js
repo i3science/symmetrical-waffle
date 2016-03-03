@@ -20,6 +20,7 @@ class InfluencerCreatePage extends React.Component {
         this._onChange = this._onChange.bind(this);
         this._handleChange = this._handleChange.bind(this);
         this._onSubmit = this._onSubmit.bind(this);
+        this._onSend = this._onSend.bind(this);
         this._cancel = this._cancel.bind(this);
         this._expand = this._expand.bind(this);
     }
@@ -68,13 +69,27 @@ class InfluencerCreatePage extends React.Component {
         this.props.history.goBack();
     }
 
+    saveOrUpdate() {
+        if (!this.state.influencer._id) {
+            return Actions.createInfluencer(this.state.influencer)
+                .then((data) => {
+                    this.props.history.pushState(null, '/preferences/influencers/profile/'+data._id);
+                });
+        } else {
+            return Actions.updateInfluencer(this.state.influencer);
+        }
+    }
+
     _onSubmit(event) {
         event.preventDefault();
-        if (!this.state.influencer._id) {
-            Actions.createInfluencer(this.state.influencer);
-        } else {
-            Actions.updateInfluencer(this.state.influencer);
-        }
+        this.saveOrUpdate();
+    }
+
+    _onSend() {
+        this.saveOrUpdate()
+            .then((data) => {
+                return Actions.sendInfluencer(data);
+            });
     }
 
     _expand(event) {
@@ -96,6 +111,7 @@ class InfluencerCreatePage extends React.Component {
                         expand={this._expand}
                         onChange={this._handleChange}
                         onSubmit={this._onSubmit}
+                        onSend={this._onSend}
                         cancel={this._cancel}
                     />
                 </div>

@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import Q from 'q';
 import AppConstants from '../constants/constants';
 import { dispatch } from '../dispatcher/dispatcher';
 import influencerService from '../services/InfluencerService';
@@ -34,7 +35,7 @@ export default {
             });
     },
     createInfluencer(influencer) {
-        influencerService.create(influencer)
+        return influencerService.create(influencer)
             .then((response) => {
                 return response.json();
             })
@@ -50,10 +51,11 @@ export default {
                     actionType: AppConstants.CREATE_INFLUENCER,
                     influencer: data
                 });
+                return data;
             });
     },
     updateInfluencer(influencer) {
-        influencerService.update(influencer)
+        return influencerService.update(influencer)
             .then((response) => {
                 if (response.status !== 204) {
                     throw new Error('An error occurred while updating the influencer'); // eslint-disable-line no-undef
@@ -68,6 +70,8 @@ export default {
                     actionType: AppConstants.UPDATE_INFLUENCER,
                     influencer: data
                 });
+                Materialize.toast('Successfully updated influencer.', 4000); // eslint-disable-line no-undef
+                return data;
             });
     },
     toggleInfluencerToList(influencer, selected) {
@@ -89,6 +93,20 @@ export default {
         dispatch({
             actionType: AppConstants.RESET_FILTERS
         });
+    },
+    sendInfluencer(influencer) {
+        if (!influencer._id) {
+            Materialize.toast('Influencer has not yet been saved.', 4000, 'error'); // eslint-disable-line no-undef
+            return Q(false);
+        }
+        return influencerService.send(influencer)
+            .then(() => {
+                Materialize.toast('An email has been sent to the influencer.', 4000); // eslint-disable-line no-undef
+                return true;
+            })
+            .fail((err) => {
+                Materialize.toast(err, 4000, 'error'); // eslint-disable-line no-undef
+            });
     },
 
     // Project Actions

@@ -20,6 +20,7 @@ class InfluencerEditPage extends React.Component {
         this._onChange = this._onChange.bind(this);
         this._handleChange = this._handleChange.bind(this);
         this._onSubmit = this._onSubmit.bind(this);
+        this._onSend = this._onSend.bind(this);
         this._cancel = this._cancel.bind(this);
         this._expand = this._expand.bind(this);
     }
@@ -80,6 +81,10 @@ class InfluencerEditPage extends React.Component {
         }
     }
 
+    _onSend() {
+        Actions.sendInfluencer(this.state.influencer);
+    }
+
     _expand(event) {
         var advanced = document.getElementById('advanced-collapse');
         if (event.target.checked) {
@@ -99,6 +104,7 @@ class InfluencerEditPage extends React.Component {
                         expand={this._expand}
                         onChange={this._handleChange}
                         onSubmit={this._onSubmit}
+                        onSend={this._onSend}
                         cancel={this._cancel}
                     />
                 </div>

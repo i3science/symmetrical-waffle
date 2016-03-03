@@ -32,6 +32,10 @@ class MailService {
      *     of the transport request.
      */
     send(template, opts, data) {
+        if (!opts.from) {
+            opts.from = 'no-reply@socialmarketplace.io';
+        }
+
         if (config.mail.disable) {
             return Q.fcall(() => { return true; });
         }
@@ -65,6 +69,10 @@ class MailService {
      *     followed by the html rendering.
      */
     render(template, opts, data) {
+        if (!opts.from) {
+            opts.from = 'no-reply@socialmarketplace.io';
+        }
+        
         var deferred = Q.defer();
         var render = consolidate[config.templateEngine];
         var templatePath = path.resolve(__dirname, '../../../mail/'+template);

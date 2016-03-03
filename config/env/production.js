@@ -1,7 +1,8 @@
 'use strict';
 
 var path = require('path'),
-    multer = require('multer');
+    multer = require('multer'),
+    sendgridTransport = require('nodemailer-sendgrid-transport');
 
 module.exports = {
   db: {
@@ -12,8 +13,12 @@ module.exports = {
     }
   },
   mail: {
-    disable: true,
-    transport: null
+    disable: false,
+    transport: sendgridTransport({
+      auth: {
+        api_key: process.env.SENDGRID_KEY
+      }
+    })
   },
   log: {
     // Can specify one of 'combined', 'common', 'dev', 'short', 'tiny'
