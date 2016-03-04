@@ -121,12 +121,12 @@ export default {
                     actionType: AppConstants.UPDATE_PROJECT,
                     project: data
                 });
-                return true;
+                return data;
             });
     },
 
     updateProject(project, add) {
-        projectService.update(project)
+        return projectService.update(project)
             .then((response) => {
                 if (response.status !== 204) {
                     throw new Error('An error occurred while updating the project');
@@ -138,6 +138,7 @@ export default {
                     actionType: AppConstants.UPDATE_PROJECT, add,
                     project: data
                 });
+                return data;
             });
     },
 

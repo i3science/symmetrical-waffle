@@ -74,6 +74,7 @@ class InfluencerCreatePage extends React.Component {
             return Actions.createInfluencer(this.state.influencer)
                 .then((data) => {
                     this.props.history.pushState(null, '/preferences/influencers/profile/'+data._id);
+                    return data;
                 });
         } else {
             return Actions.updateInfluencer(this.state.influencer);
