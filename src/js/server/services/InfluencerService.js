@@ -12,7 +12,7 @@ export default base_service(Influencer, {
                 subject: 'Social Marketplace Account Created'
             }, {
                 sitelink: context.get('request:basePath'),
-                resetlink: context.get('request:basePath') + '/auth/reset-password'
+                resetlink: context.get('request:basePath') + '/security/reset-password'
             })
             .fail((err) => {
                 console.log(err); // eslint-disable-line no-console
