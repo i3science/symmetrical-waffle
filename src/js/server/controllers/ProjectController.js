@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import Q from 'q';
+import context from 'request-context';
 import moment from 'moment';
 import base_controller from './base_controller';
 import projectService from '../services/ProjectService.js';
@@ -7,9 +8,12 @@ import historyService from '../services/HistoryService.js';
 import campaignElementService from '../services/CampaignElementService';
 import taskService from '../services/TaskService';
 import commentService from '../services/CommentService';
+import mailService from '../services/MailService';
+import ErrorUtils from '../utils/ErrorUtils';
 import mongoose from 'mongoose';
 const Influencer = mongoose.model('Influencer');
 const CampaignElement = mongoose.model('CampaignElement');
+const Representative = mongoose.model('Representative');
 
 export default base_controller(projectService, 'project', {
     dates(req, res) {
@@ -170,7 +174,20 @@ export default base_controller(projectService, 'project', {
             });
     },
     sendToClient(req, res) {
-        // TODO Need to implement the logic to send out to clients
-        return res.status(500).send({ message: 'Email support not yet available' });
+        Representative
+            .find({ client: req.project.client })
+            .then((reps) => {
+                return mailService
+                    .send('new-client-project', {
+                        to: reps.map((rep) => { return rep.email; }).join(', '),
+                        subject: 'Social Marketplace Campaign Created'
+                    }, {
+                        campaign_url: context.get('request:basePath') + '/projects/' + req.project._id
+                    });
+            })
+            .then(() => {
+                return res.status(204).send();
+            })
+            .fail(ErrorUtils.failureHandler(req, res));
     }
 });
