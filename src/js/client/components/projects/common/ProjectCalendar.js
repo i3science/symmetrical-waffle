@@ -20,7 +20,6 @@ export default (props) => {
             );
         }
     });
-    console.log(props.project);
 
     return (
         <div className="row">
