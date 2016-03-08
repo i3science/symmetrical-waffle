@@ -169,9 +169,9 @@ class InfluencerCard extends React.Component {
                             </div>
                             <div className="col s3">
                                 {this.props.edit ?
-                                    <button type="button" className="btn-floating waves-effect waves-light blue-grey" to={this.props.edit + '/' + influencer._id}>
+                                    <Link className="btn-floating waves-effect waves-light blue-grey" to={this.props.edit + '/' + influencer._id}>
                                         <i className="material-icons">mode_edit</i>
-                                    </button> : null}
+                                    </Link> : null}
                                 <button type="button" onClick={this._slideIt.bind(null, influencer._id)}
                                    className={'btn-floating btn-large waves-effect waves-light teal right ' + (this.props.edit ? '' : 'right ') + 'calendar modal-trigger'}>
                                     <i className="material-icons">{this.state.calendarOpen ? 'forward' : 'perm_contact_calendar'} </i>
