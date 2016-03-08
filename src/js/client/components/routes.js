@@ -7,7 +7,7 @@ import SearchInfluencer from './search/freeFormSearch/freeFormSearch';
 import Results from './results/resultsPage';
 import ProfilePage from './influencers/ProfilePage';
 import Login from './login';
-import ProjectSearchPage from './projects/search/SearchPage';
+import ProjectSearchPage from './projects/search/ProjectSearchPage';
 import ProjectPage from './projects/ProjectPage';
 import NewProjectPage from './projects/new/CreateProjectPage';
 import ListSearchPage from './lists/listStart/listsSearchPage';
