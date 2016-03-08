@@ -49,7 +49,7 @@ class PendingProjectPage extends React.Component {
         listStore.removeChangeListener(this._onChange);
     }
     _updateProjects() {
-        this.setState({project: projectStore.getCurrentProject()});
+        //this.setState({project: projectStore.getCurrentProject()});
     }
     _onChange() {
         this.setState({

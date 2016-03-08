@@ -63,6 +63,8 @@ export default class SearchPage extends React.Component {
                     dates={user.availability} />
             </div>
         ) : '';
+        console.log(this.state.projects);
+        console.log(this.state.projectResults);
         return (
             <div>
                 <ProjectListFilters onChange={this._onFilterChange} filterClient={filterClient} filter={this.state.filter} />
