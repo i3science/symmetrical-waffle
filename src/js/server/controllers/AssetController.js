@@ -32,7 +32,7 @@ let move = (oldPath, newPath) => {
     fs.rename(oldPath, newPath, (err) => {
         if (err) {
             if (err.code === 'EXDEV') {
-                copy();
+                copy(oldPath, newPath);
             } else {
                 deferred.reject(err);
             }
@@ -102,6 +102,7 @@ export default class AssetController {
      */
     static create(req, res) {
         let asset = null;
+        let fullpath = null;
         return assetService
             .create({
                 name: req.file.originalname,
@@ -110,7 +111,7 @@ export default class AssetController {
             .spread((_asset) => {
                 asset = _asset;
                 let path = asset._id.toString().match(/.{1,3}/g).join('/');
-                let fullpath = config.filesDir + '/' + path;
+                fullpath = config.filesDir + '/' + path;
                 let deferred = Q.defer();
                 mkdirp(fullpath, function(err){
                     if (err) {
@@ -119,14 +120,10 @@ export default class AssetController {
                         deferred.resolve(true);
                     }
                 });
-                return deferred
-                    .promise
-                    .then(() => {
-                        return move(req.file.path, fullpath + '/' + asset._id.toString());
-                    })
-                    .then(() => {
-                        return asset;
-                    });
+                return deferred.promise;
+            })
+            .then(() => {
+                return move(req.file.path, fullpath + '/' + asset._id.toString());
             })
             .then(() => {
                 return res.status(201).send({ id: asset._id });
