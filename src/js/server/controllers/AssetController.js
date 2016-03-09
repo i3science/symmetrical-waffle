@@ -51,7 +51,7 @@ export default class AssetController {
      */
     static list(req, res) {
         return assetService
-            .list({})
+            .list({ project: req.project._id })
             .then((assets) => {
 
                 assets = assets.map((asset) => {
@@ -106,7 +106,8 @@ export default class AssetController {
         return assetService
             .create({
                 name: req.file.originalname,
-                mime: req.file.mimetype || 'application/octet-stream'
+                mime: req.file.mimetype || 'application/octet-stream',
+                project: req.project._id
             })
             .spread((_asset) => {
                 asset = _asset;
