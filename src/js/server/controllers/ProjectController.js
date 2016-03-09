@@ -160,7 +160,10 @@ export default base_controller(projectService, 'project', {
                                 'vlogger': 'vlog',
                                 'photo_blogger': 'photo',
                                 'amplifier': 'amplification'
-                            }[req.project.projectType];
+                            }[req.project.projectType || 'blogger'];
+                            // ^ Project type doesn't get sent back if none of
+                            // the types are explicitly clicked in the UI. Quick
+                            // hack to fix things up
                             element.assignee = inf.influencer;
                             element.project = req.project;
                             element.name = [influencer.name.first, influencer.name.last].join(' ')+'\'s '+element.type;
