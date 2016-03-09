@@ -1,5 +1,5 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
-
+import { Link } from 'react-router';
 import Channels from './channels';
 import Verticals from './verticals';
 import Score from './score';
@@ -40,6 +40,11 @@ const Profile = (props) => {
                         </div>
                     </div>
                     <div className="col s3">
+                        <div className="right-align">
+                            <Link className="btn-floating waves-effect waves-light blue-grey" to={'/preferences/influencers/edit/' + props.influencer._id}>
+                                <i className="material-icons">mode_edit</i>
+                            </Link>
+                        </div>
                         <Score
                             id={props.influencer._id}
                             score={props.influencer.score}
