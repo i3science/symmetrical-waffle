@@ -98,7 +98,7 @@ class InfluencerEditPage extends React.Component {
         return (
             <div>
                 <div className="card-panel z-depth-4">
-                    <h4 className="center-align" style={{marginBottom: '30px'}}>Create an Influencer</h4>
+                    <h4 className="center-align" style={{marginBottom: '30px'}}>Edit Influencer Details</h4>
                     <InfluencerManageForm
                         influencer={this.state.influencer}
                         expand={this._expand}
