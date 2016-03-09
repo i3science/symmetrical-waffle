@@ -34,7 +34,7 @@ export default base_controller(projectService, 'project', {
             .then((elements) => {
                 let elementIds = elements.map((el) => { return el._id; });
                 return taskService
-                    .list({ element: elementIds });
+                    .list({ element: { $in: elementIds } });
             })
             .then((tasks) => {
                 tasks.forEach((task) => {
@@ -69,7 +69,7 @@ export default base_controller(projectService, 'project', {
             // Get task historyArray
             .then(() => {
                 return taskService
-                    .list({ element: elementIds });
+                    .list({ element: { $in: elementIds } });
             })
             .then((tasks) => {
                 let ids = tasks.map((task) => { return task._id; });
