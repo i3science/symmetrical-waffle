@@ -12,7 +12,8 @@ const ClientEditForm = (props) => {
                         id="client"
                         label="Client Name"
                         val={props.representative.client}
-                        onChange={props.onChange} />
+                        onChange={props.onChange}
+                        other={true} />
                     <InputText
                         id="first"
                         label="First Name"

@@ -2,11 +2,14 @@ import React from 'react';
 import Actions from '../../../../actions/UiActions';
 import clientStore from '../../../../stores/ClientStore';
 import InputSelect from '../inputselect';
+import InputText from '../inputtext';
 
 export default React.createClass({
 	getInitialState: function() {
 		return {
-			clients: []
+			clients: [],
+			other: null,
+			typing: false
 		};
 	},
 
@@ -31,11 +34,36 @@ export default React.createClass({
 		this.setState({clients: clientStore.getClients()});
 	},
 
+	_onChange: function(ev) {
+		if (ev.target.value === 'other') {
+			this.setState({ typing: true });
+			return;
+		}
+		this.props.onChange(ev);
+	},
+
+	_onOtherChange: function(ev) {
+		this.setState({ other: ev.target.value });
+		this.props.onChange(ev);
+	},
+
 	render: function() {
+		if (this.state.typing) {
+			return (
+				<InputText id={this.props.id}
+					label={this.props.label}
+					value={this.state.other}
+					onChange={this._onOtherChange}
+					active={true} />
+			);
+		}
+
+
 		let options = {};
 		this.state.clients.forEach((client) => {
 			options[client._id] = client.name;
 		});
+		options.other = 'Other';
 		return (
 			<InputSelect
 				id={this.props.id}
@@ -44,7 +72,7 @@ export default React.createClass({
 				val={this.props.val}
 				readOnly={this.props.readOnly}
 				disabled={this.props.disabled}
-				onChange={this.props.onChange.bind(this)} />
+				onChange={this._onChange} />
 		);
 	}
 });

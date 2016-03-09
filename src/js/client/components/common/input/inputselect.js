@@ -31,7 +31,7 @@ export default React.createClass({
                             value={this.props.val}
                             data-parent={this.props.parent || null}
                             disabled={this.props.disabled}
-                            onChange={this.props.onChange ? this.props.onChange.bind(this) : null}>
+                            onChange={this.props.onChange}>
                         <option value="" disabled={this.props.placeholder ? 'disabled' : ''}>{this.props.placeholder ? this.props.placeholder : ''}</option>
                         {selectOptions}
                     </select>

@@ -9,7 +9,7 @@ import ClientDropdown from '../../common/input/stateful/ClientDropdown';
 export default (props) => {
     let org = props.project.organization
         ? props.project.organization.name
-        : (typeof window !== undefined ? window.initial_data.org.name : '');
+        : (typeof window !== 'undefined' ? window.initial_data.org.name : '');
     return (
         <div>
             <div className="row">
