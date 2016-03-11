@@ -23,7 +23,6 @@ class Calendar extends React.Component {
             $(this.refs[this.props.id]).multiDatesPicker('resetDates');
             $(this.refs[this.props.id]).multiDatesPicker('addDates', nextProps.dates);
         }
-
     }
     _handleChange() {
         if (!this.props.disabled && this.props.onChange) {
@@ -35,7 +34,7 @@ class Calendar extends React.Component {
             <div
                 ref={this.props.id}
                 style={{
-                display: 'inline-block',
+                display: this.props.full ? 'block' : 'inline-block',
                 width: this.props.full ? 'auto' : (this.props.panels ? '620px' : '316px')
                 }}
             ></div>
