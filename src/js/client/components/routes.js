@@ -14,6 +14,7 @@ import ListSearchPage from './lists/listStart/listsSearchPage';
 import ListPage from './lists/list/listPage';
 import PreferencesPage from './preferences/PreferencesPage';
 import AccountEditPage from './preferences/accounts/AccountEditPage';
+import AvailabilityPage from './preferences/availability/AvailabilityPage';
 import InfluencerPrefsPage from './preferences/influencers/influencerPrefsPage';
 import InfluencerCreatePage from './preferences/influencers/influencerCreatePage';
 import InfluencerEditPage from './preferences/influencers/influencerEditPage';
@@ -21,7 +22,6 @@ import ForgotPasswordPage from './auth/ForgotPasswordPage';
 import ResetPasswordPage from './auth/ResetPasswordPage';
 import ElementPage from './elements/ElementPage';
 import InfluencerElementPage from './elements/InfluencerElementPage';
-
 import ClientPrefsPage from './preferences/clients/ClientPrefsPage';
 import ClientEditPage from './preferences/clients/ClientEditPage';
 import clientService from '../services/ClientService';
@@ -75,6 +75,7 @@ export default (
 							<Route path="edit" component={ClientEditPage} service={clientService} name="Edit" />
 						</Route>
 					</Route>
+					<Route path="availability" name="Availability" component={AvailabilityPage}/>
 				</Route>
 
 			</Route>
