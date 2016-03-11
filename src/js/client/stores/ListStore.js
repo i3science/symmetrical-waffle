@@ -8,6 +8,7 @@ class ListStore extends BaseStore {
         super();
         this.currentList = null;
         this.lists = [];
+        this.adding = false;
     }
 
     _listener(action) {
@@ -26,6 +27,7 @@ class ListStore extends BaseStore {
                 break;
             case AppConstants.SET_CURRENT_LIST:
                 this.currentList = action.list;
+                this.adding = action.add;
                 this.emitChange();
                 break;
             case AppConstants.CLEAR_CURRENT_LIST:
@@ -34,7 +36,9 @@ class ListStore extends BaseStore {
                 break;
         }
     }
-
+    isAdding() {
+        return this.adding;
+    }
     getLists() {
         return this.lists;
     }

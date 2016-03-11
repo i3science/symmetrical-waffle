@@ -19,6 +19,7 @@ class ListPage extends React.Component {
         };
         this._onChange = this._onChange.bind(this);
         this._createProject = this._createProject.bind(this);
+        this._editList = this._editList.bind(this);
     }
     componentWillMount() {
         influencerStore.addChangeListener(this._onChange);
@@ -45,6 +46,10 @@ class ListPage extends React.Component {
         Actions.setCurrentList(this.state.list);
         this.props.history.pushState(null, '/projects/create');
     }
+    _editList() {
+        Actions.setCurrentList(this.state.list);
+        this.props.history.pushState(null, '/search');
+    }
     render() {
         return (
             <div>
@@ -56,7 +61,8 @@ class ListPage extends React.Component {
                                 <br />
                                 <button
                                     type="button"
-                                    className="teal waves-effect waves-light btn-large center">
+                                    className="teal waves-effect waves-light btn-large center"
+                                    onClick={this._editList.bind(this)}>
                                     <i className="material-icons right">person_add</i>Add
                                 </button>
                             </div>

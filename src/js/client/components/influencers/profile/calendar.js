@@ -25,18 +25,19 @@ class Calendar extends React.Component {
         }
 
     }
-
     _handleChange() {
         if (!this.props.disabled && this.props.onChange) {
             this.props.onChange($(this.refs[this.props.id]).multiDatesPicker('getDates'), this.props.id);
         }
     }
-
     render() {
         return (
             <div
                 ref={this.props.id}
-                style={{width: this.props.full ? 'auto' : (this.props.panels ? '620px' : '316px')}}
+                style={{
+                display: 'inline-block',
+                width: this.props.full ? 'auto' : (this.props.panels ? '620px' : '316px')
+                }}
             ></div>
         );
     }

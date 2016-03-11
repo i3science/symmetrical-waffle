@@ -63,7 +63,7 @@ class AccountEditPage extends React.Component {
                 background: 'url('+this.state.user.image+') no-repeat rgba(0,0,0,0.3) 50%',
                 backgroundSize: 'cover',
                 width: '100%',
-                padding: '50%' }}/>);
+                padding: '50%' }}></div>);
         }
 
         return (

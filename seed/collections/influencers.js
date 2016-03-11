@@ -39,13 +39,34 @@ module.exports = function(fixtures) {
                 }
             ],
             channels: {
-                facebook: 673875,
-                twitter: 234765,
-                pinterest: 123500,
-                instagram: 35480,
-                youtube: 4563345,
-                blog: 13215321,
-                googleplus: 7960
+                facebook: {
+                    value: 673875,
+                    link: 'http://facebook.com/'
+                },
+                twitter: {
+                    value: 234765,
+                    link: 'http://twitter.com/'
+                },
+                pinterest: {
+                    value: 123500,
+                    link: 'http://pinterest.com/'
+                },
+                instagram: {
+                    value: 35480,
+                    link: 'http://instagram.com/'
+                },
+                youtube: {
+                    value: 4563345,
+                    link: 'http://youtube.com/'
+                },
+                blog: {
+                    value: 13215321,
+                    link: 'http://blogger.com/'
+                },
+                googleplus: {
+                    value: 7960,
+                    link: 'http://google.com/'
+                }
             },
             mediaKit: [{
                 name: 'Creator - Vlog',
@@ -141,13 +162,34 @@ module.exports = function(fixtures) {
                 }
             ],
             channels: {
-                facebook: 673875,
-                twitter: 234765,
-                pinterest: 123500,
-                instagram: 35480,
-                youtube: 4563345,
-                blog: 13215321,
-                googleplus: 7960
+                facebook: {
+                    value: 673875,
+                    link: 'http://facebook.com/'
+                },
+                twitter: {
+                    value: 234765,
+                    link: ''
+                },
+                pinterest: {
+                    value: 123500,
+                    link: 'http://pinterest.com/'
+                },
+                instagram: {
+                    value: 35480,
+                    link: ''
+                },
+                youtube: {
+                    value: 4563345,
+                    link: ''
+                },
+                blog: {
+                    value: 13215321,
+                    link: 'http://blogger.com/'
+                },
+                googleplus: {
+                    value: 7960,
+                    link: 'http://google.com/'
+                }
             },
             mediaKit: [{
                 name: 'Creator - Vlog',
@@ -247,13 +289,34 @@ module.exports = function(fixtures) {
                 }
             ],
             channels: {
-                facebook: 673875,
-                twitter: 234765,
-                pinterest: 123500,
-                instagram: 35480,
-                youtube: 4563345,
-                blog: 13215321,
-                googleplus: 7960
+                facebook: {
+                    value: 673875,
+                    link: 'http://facebook.com/'
+                },
+                twitter: {
+                    value: 234765,
+                    link: 'http://twitter.com/'
+                },
+                pinterest: {
+                    value: 123500,
+                    link: 'http://pinterest.com/'
+                },
+                instagram: {
+                    value: 35480,
+                    link: 'http://instagram.com/'
+                },
+                youtube: {
+                    value: 4563345,
+                    link: 'http://youtube.com/'
+                },
+                blog: {
+                    value: 13215321,
+                    link: 'http://blogger.com/'
+                },
+                googleplus: {
+                    value: 7960,
+                    link: 'http://google.com/'
+                }
             },
             mediaKit: [{
                 name: 'Creator - Vlog',
@@ -353,13 +416,34 @@ module.exports = function(fixtures) {
                 }
             ],
             channels: {
-                facebook: 673875,
-                twitter: 234765,
-                pinterest: 123500,
-                instagram: 35480,
-                youtube: 4563345,
-                blog: 13215321,
-                googleplus: 7960
+                facebook: {
+                    value: 673875,
+                    link: 'http://facebook.com/'
+                },
+                twitter: {
+                    value: 234765,
+                    link: 'http://twitter.com/'
+                },
+                pinterest: {
+                    value: 123500,
+                    link: 'http://pinterest.com/'
+                },
+                instagram: {
+                    value: 35480,
+                    link: 'http://instagram.com/'
+                },
+                youtube: {
+                    value: 4563345,
+                    link: 'http://youtube.com/'
+                },
+                blog: {
+                    value: 13215321,
+                    link: 'http://blogger.com/'
+                },
+                googleplus: {
+                    value: 7960,
+                    link: 'http://google.com/'
+                }
             },
             mediaKit: [{
                 name: 'Creator - Vlog',
@@ -466,13 +550,34 @@ module.exports = function(fixtures) {
                 }
             ],
             channels: {
-                facebook: 673875,
-                twitter: 234765,
-                pinterest: 123500,
-                instagram: 35480,
-                youtube: 4563345,
-                blog: 13215321,
-                googleplus: 7960
+                facebook: {
+                    value: 673875,
+                    link: 'http://facebook.com/'
+                },
+                twitter: {
+                    value: 234765,
+                    link: 'http://twitter.com/'
+                },
+                pinterest: {
+                    value: 123500,
+                    link: 'http://pinterest.com/'
+                },
+                instagram: {
+                    value: 35480,
+                    link: 'http://instagram.com/'
+                },
+                youtube: {
+                    value: 4563345,
+                    link: 'http://youtube.com/'
+                },
+                blog: {
+                    value: 13215321,
+                    link: 'http://blogger.com/'
+                },
+                googleplus: {
+                    value: 7960,
+                    link: 'http://google.com/'
+                }
             },
             mediaKit: [{
                 name: 'Creator - Vlog',

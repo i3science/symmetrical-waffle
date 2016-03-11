@@ -252,9 +252,9 @@ export default {
                 });
             });
     },
-    setCurrentList(list) {
+    setCurrentList(list, add) {
         dispatch({
-            actionType: AppConstants.SET_CURRENT_LIST, list
+            actionType: AppConstants.SET_CURRENT_LIST, list, add
         });
     },
     clearCurrentList() {

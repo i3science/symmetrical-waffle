@@ -5,6 +5,7 @@ import SidebarFilter from './sidebarfilter';
 import influencerStore from '../../stores/InfluencerStore';
 import searchStore from '../../stores/SearchStore';
 import projectStore from '../../stores/ProjectStore';
+import listStore from '../../stores/ListStore';
 import Actions from '../../actions/UiActions';
 import InfluencerCardList from '../influencers/list/CardList';
 import SelectedInfluencers from './selectedInfluencers';
@@ -19,6 +20,7 @@ class Serp extends React.Component {
             selectedInfluencers: influencerStore.getSelectedInfluencers(),
             exposures: 150000000,
             colors: searchStore.getColors(),
+            list: listStore.getCurrentList(),
             currentProject: null
         };
         this._addInfluencers = this._addInfluencers.bind(this);
@@ -42,6 +44,7 @@ class Serp extends React.Component {
                 currentProject: projectStore.getCurrentProject()
             });
         }
+
         this.setState({
             influencers: influencerStore.getInfluencers(),
             filters: searchStore.getFilters(),
@@ -124,6 +127,7 @@ class Serp extends React.Component {
                     resultNum={this.state.results.length}
                     onSelectionChanged={this._onSelectionChanged}
                     project={this.state.currentProject}
+                    list={this.state.list}
                 />
                 <InfluencerCardList
                     influencers={this.state.results}
