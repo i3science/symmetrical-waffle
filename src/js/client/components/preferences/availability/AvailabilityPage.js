@@ -1,5 +1,4 @@
-import React from 'react'; // eslint-disable-line no-unused-vars
-import InputText from '../../common/input/inputtext';
+import React from 'react';
 import Calendar from '../../influencers/profile/calendar';
 import authenticationStore from '../../../stores/AuthenticationStore';
 import Actions from '../../../actions/UiActions';
@@ -16,13 +15,9 @@ class AvailabilityPage extends React.Component {
     componentWillMount() {
     }
     _handleChange(dates) {
-        this.setState({
-            user: {
-                availability: dates
-            }
-        });
-        console.log(this.state.user.availability);
-        Actions.updateUser(this.state.user);
+        this.state.user.availability = dates;
+        this.setState({user: this.state.user});
+        Actions.updateInfluencer(this.state.user);
     }
     render() {
         return (
