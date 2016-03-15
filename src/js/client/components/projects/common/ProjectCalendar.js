@@ -8,9 +8,10 @@ export default (props) => {
     let events = props.events || false;
     if (events) {
         events = _.sortBy(events, function(o) { return moment(o.date).toDate(); });
-        dates = events.map((ev) => {
+        let evDates = events.map((ev) => {
             return moment(ev.date).format('MM/DD/YYYY');
         });
+        dates = dates.concat(evDates);
     }
 
     let activities = (events || []).map((event, i) => {
@@ -32,7 +33,7 @@ export default (props) => {
                 />
             </div>
             <div className="col s4">
-                <h5>Activities List</h5>
+                <h5>Upcoming Activities List</h5>
                 {activities}
             </div>
         </div>
