@@ -4,7 +4,6 @@
 require('babel-register');
 
 var gulp = require('gulp'),
-    gutil = require('gulp-util'),
     connect = require('gulp-connect'),
     open = require('gulp-open'),
     webpack = require('webpack-stream'),

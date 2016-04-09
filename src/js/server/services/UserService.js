@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import base_service from './base_service';
 import mailService from './MailService';
-import context from 'request-context';
+import context from 'request-local';
 let User = mongoose.model('User');
 
 /**
@@ -19,8 +19,8 @@ export default base_service(User, {
                         to: user.email,
                         subject: 'Social Marketplace Account Created'
                     }, {
-                        sitelink: context.get('request:basePath'),
-                        resetlink: context.get('request:basePath') + '/security/reset-password?token='+user.passwordResetToken.id
+                        sitelink: context.basePath,
+                        resetlink: context.basePath + '/security/reset-password?token='+user.passwordResetToken.id
                     });
             })
             .fail((err) => {

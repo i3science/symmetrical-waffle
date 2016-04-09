@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-var context = require('request-context'),
+var context = require('request-local'),
     mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
@@ -53,7 +53,7 @@ var CampaignElement = new Schema({
  * elements that don't apply to them
  */
 var limits = function(next) {
-    var user = context.get('request:currentUser');
+    var user = context.currentUser;
     if (user.roles.indexOf('influencer') > -1) {
         this.where({'assignee':user._id});
     }

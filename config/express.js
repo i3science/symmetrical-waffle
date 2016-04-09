@@ -35,7 +35,7 @@ var fs = require('fs'),
     i18next = require('i18next'),
     backend = require('i18next-sync-fs-backend'),
     middleware = require('i18next-express-middleware'),
-    context = require('request-context'),
+    context = require('request-local'),
     _ = require('lodash'),
     Organization = mongoose.model('Organization'),
     routes = createRoutes(Routes);
@@ -164,12 +164,12 @@ module.exports = function(db) {
     app.disable('x-powered-by');
 
     // Set up request-scoped data
-    app.use(context.middleware('request'));
+    app.use(require('request-local/middleware').create());
     app.use(function(req, res, next){
-        context.set('request:currentUser', req.loggedInUser);
-        context.set('request:currentOrganization', req.currentOrganization);
-        context.set('request:currentIP', req.socket.remoteAddress);
-        context.set('request:basePath', req.basePath);
+        context.currentUser = req.loggedInUser;
+        context.currentOrganization = req.currentOrganization;
+        context.currentIP = req.socket.remoteAddress;
+        context.basePath = req.basePath;
         next();
     });
 

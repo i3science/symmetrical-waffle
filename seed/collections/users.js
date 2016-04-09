@@ -1,7 +1,7 @@
 var mongoose = require('mongoose'),
     Q = require('q'),
     User = mongoose.model('User'),
-    context = require('request-context');
+    context = require('request-local');
 
 module.exports = function(fixtures) {
     fixtures.users = {
@@ -44,7 +44,7 @@ module.exports = function(fixtures) {
             } else {
                 User
                     .findOne({ _id: doc.insertedIds.shift() }, function(err, user){
-                        context.set('request:currentUser', user);
+                        context.currentUser = user;
                         deferred.resolve(user);
                     })
             }
