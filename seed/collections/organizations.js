@@ -1,6 +1,6 @@
 var populateFixtures = require('../utils').populateFixtures,
     mongoose = require('mongoose'),
-    context = require('request-context'),
+    context = require('request-local'),
     Organization = mongoose.model('Organization'),
     organizationService = require('../../src/js/server/services/OrganizationService').default;
 
@@ -31,7 +31,7 @@ module.exports = function(fixtures) {
     return function() {
         return populateFixtures(fixtures.organizations, organizationService)
             .then(() => {
-                context.set('request:currentOrganization', fixtures.organizations.jones);
+                context.currentOrganization = fixtures.organizations.jones;
                 return true;
             });
     };

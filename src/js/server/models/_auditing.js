@@ -1,4 +1,4 @@
-var context = require('request-context'),
+var context = require('request-local'),
     deep_diff = require('deep-diff'),
     mongoose = require('mongoose'),
     Schema = mongoose.Schema;
@@ -50,11 +50,11 @@ module.exports = exports = function auditingPlugin(schema) {
     schema.pre('validate', function(next){
         if (this.isNew) {
             this.created = new Date();
-            this.created_by = context.get('request:currentUser');
+            this.created_by = context.currentUser;
         }
-        this.organization = context.get('request:currentOrganization');
+        this.organization = context.currentOrganization;
         this.updated = new Date();
-        this.updated_by = context.get('request:currentUser');
+        this.updated_by = context.currentUser;
         if (this.isNew) {
             next();
         } else {
@@ -81,7 +81,7 @@ module.exports = exports = function auditingPlugin(schema) {
 
         var History = mongoose.model('History');
         var history = new History;
-        history.created_by = context.get('request:currentUser');
+        history.created_by = context.currentUser;
         history.action = action(before, after);
         history.summary = action(before, after);
         history.target = this.name || this.text || this._id || 'invalid';

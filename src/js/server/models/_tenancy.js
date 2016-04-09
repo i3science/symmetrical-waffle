@@ -1,4 +1,4 @@
-var context = require('request-context'),
+var context = require('request-local'),
     mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
@@ -13,7 +13,8 @@ module.exports = exports = function(limits) {
         });
 
         function findByOrganization(next) {
-            this.where({organization: context.get('request:currentOrganization')._id});
+            let org = context.currentOrganization || {};
+            this.where({organization: org._id});
             next();
         }
 

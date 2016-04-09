@@ -4,7 +4,7 @@ var
     mongoose = require('mongoose'),
     extend = require('mongoose-schema-extend'),
     domain = require('domain'),
-    context = require('request-context'),
+    context = require('request-local'),
     async = require('async'),
     chalk = require('chalk'),
     glob = require('glob'),
@@ -91,15 +91,14 @@ let _populate = () => {
 }
 
 export function populate() {
-    function handleError(err) {
-        console.log(err);
-        console.error(err);
-    }
-
-    var d = domain.create();
-    d.on('error', handleError);
-    context.setContext('request', Object.create(null), d);
-    return d.run(_populate);
+    var deferred = Q.defer();
+    context.run(function(/*err, ctx*/){
+        _populate()
+            .then(function(){
+                deferred.resolve(true);
+            });
+    });
+    return deferred.promise;
 }
 
 export function seed() {

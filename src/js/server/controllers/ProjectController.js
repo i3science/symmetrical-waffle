@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import Q from 'q';
-import context from 'request-context';
+import context from 'request-local';
 import moment from 'moment';
 import base_controller from './base_controller';
 import projectService from '../services/ProjectService.js';
@@ -185,7 +185,7 @@ export default base_controller(projectService, 'project', {
                         to: reps.map((rep) => { return rep.email; }).join(', '),
                         subject: 'Social Marketplace Campaign Created'
                     }, {
-                        campaign_url: context.get('request:basePath') + '/projects/' + req.project._id
+                        campaign_url: context.basePath + '/projects/' + req.project._id
                     });
             })
             .then(() => {

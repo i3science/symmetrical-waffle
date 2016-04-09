@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-var context = require('request-context'),
+var context = require('request-local'),
     mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
@@ -135,7 +135,11 @@ Project.path('required_influencers').validate(function(value, respond){
  * campaigns that don't belong to them.
  */
 var limits = function(next) {
-    var user = context.get('request:currentUser');
+    var user = context.currentUser;
+    if (!user) {
+        this.where({ 'organizer': null });
+        return next();
+    }
     if (user.roles.indexOf('admin') > -1 || user.roles.indexOf('organizer') > -1) {
         return next();
     }

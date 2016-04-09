@@ -54,17 +54,40 @@ export default class Tasks extends React.Component {
 
     _onAddTask(ev) {
         ev.preventDefault();
-        let data = {
-            name: ev.target[0].value,
-            assignee: ev.target[1].value,
-            due: ev.target[2].value
-        };
-        TaskActions
-            .save(this.props.project, this.props.element._id, data)
-            .then(() => {
-                this.setState({ adding:false });
-            })
-            .fail(() => {});
+        let name = ev.target['task_text'].value;
+        let assignee = ev.target['task_assignee'].value;
+        let due = ev.target['task_due'].value;
+        let file = ev.target['file'].files[0];
+        if (file) {
+            ev.persist();
+            let reader = new FileReader();
+            reader.addEventListener('load', function(){
+                let data = new FormData();
+                data.append('file', file);
+                data.append('name', name);
+                data.append('assignee', assignee);
+                data.append('due', due);
+                TaskActions
+                    .save(this.props.project, this.props.element._id, data)
+                    .then(() => {
+                        this.setState({ adding: false });
+                    })
+                    .fail(() => {});
+            }.bind(this), false);
+            reader.readAsDataURL(file);
+        } else {
+            let data = {
+                name: name,
+                assignee: assignee,
+                due: due
+            };
+            TaskActions
+                .save(this.props.project, this.props.element._id, data)
+                .then(() => {
+                    this.setState({ adding:false });
+                })
+                .fail(() => {});
+        }
     }
 
 
@@ -85,7 +108,7 @@ export default class Tasks extends React.Component {
         return (
             <form onSubmit={this._onAddTask}>
                 <div className="row">
-                    <div className="col s6">
+                    <div className="col s5">
                         <InputText
                             id="task_text"
                             label="Task"
@@ -93,6 +116,17 @@ export default class Tasks extends React.Component {
                         />
                     </div>
                     <div className="col s3">
+                        <div className="file-field input-field">
+                            <div className="btn">
+                                <span>File</span>
+                                <input type="file" name="file" id="file"/>
+                            </div>
+                            <div className="file-path-wrapper">
+                                <input className="file-path validate" type="text" />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col s2">
                         <div className="input-field" style={{borderBottom: ' 1px solid #9e9e9e'}}>
                             <select
                                 id="task_assignee"
@@ -105,7 +139,7 @@ export default class Tasks extends React.Component {
                             </select>
                         </div>
                     </div>
-                    <div className="col s3">
+                    <div className="col s2">
                         <div className="input-field">
                             <InputDate
                                 id="task_due"
@@ -151,7 +185,16 @@ export default class Tasks extends React.Component {
                 </div>
             );
         }
+
         let tasks =  this.state.tasks.map((task) => {
+            let download = null;
+            if (task.filename) {
+                download = (
+                    <a href={'/api/projects/'+this.state.project._id+'/elements/'+this.props.element._id+'/tasks/'+task._id+'/file'}>
+                        <i className="material-icons">file_download</i>
+                    </a>
+                );
+            }
             return (
                 <div key={task._id} className="row" style={{padding: '10px 0px', borderBottom: '1px solid rgba(0,0,0,0.1)'}}>
                     <div className="col s3">
@@ -163,7 +206,7 @@ export default class Tasks extends React.Component {
                             <span className="teal-text"><strong>Due: </strong></span> {moment(task.due).format('MMM. DD/YY')}
                         </p>
                     </div>
-                    <div className="col s9">
+                    <div className="col s8">
                         <CheckBox
                             id={task._id}
                             style={{marginTop: '0'}}
@@ -171,6 +214,9 @@ export default class Tasks extends React.Component {
                             checked={task.done}
                             onChange={this._onCheckTask(task)}
                         />
+                    </div>
+                    <div className="col s1">
+                        { download }
                     </div>
                 </div>
             );

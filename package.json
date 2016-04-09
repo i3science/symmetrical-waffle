@@ -61,10 +61,11 @@
     "react-loader": "^2.0.0",
     "react-router": "~1.0.3",
     "react-tap-event-plugin": "^0.2.2",
-    "request-context": "^0.1.6",
+    "request-local": "1.0.2",
     "swig": "^1.4.2"
   },
   "devDependencies": {
+    "async": "^2.0.0-rc.3",
     "chai": "^3.4.1",
     "chai-as-promised": "^5.2.0",
     "connect-livereload": "~0.5.4",

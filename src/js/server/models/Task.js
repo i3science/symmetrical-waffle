@@ -31,6 +31,14 @@ var Task = new Schema({
     done: {
         type: Boolean,
         default: false
+    },
+    filename: {
+        type: String,
+        required: false
+    },
+    mime: {
+        type: String,
+        required: false
     }
 });
 

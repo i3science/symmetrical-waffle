@@ -17,13 +17,16 @@ export default class TaskService {
             .fail(() => {});
     }
     static create(project, element, task) {
+        let headers = {
+            'Accept': 'application/json'
+        };
+        if (!(task instanceof FormData)) {
+            headers['Content-Type'] = 'application/json';
+        }
         return fetch('/api/projects/'+project+'/elements/'+element+'/tasks', {
             method: 'post',
-            body: JSON.stringify(task),
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
+            body: task instanceof FormData ? task : JSON.stringify(task),
+            headers: headers
         })
             .then((response) => {
                 return Q(response.json());
@@ -31,13 +34,16 @@ export default class TaskService {
             .fail(() => {});
     }
     static update(project, element, task) {
+        let headers = {
+            'Accept': 'application/json'
+        };
+        if (!(task instanceof FormData)) {
+            headers['Content-Type'] = 'application/json';
+        }
         return fetch('/api/projects/'+project+'/elements/'+element+'/tasks/'+task._id, {
             method: 'put',
-            body: JSON.stringify(task),
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
+            body: task instanceof FormData ? task : JSON.stringify(task),
+            headers: headers
         })
             .then(() => {
                 return true;
