@@ -32,8 +32,7 @@ class Header extends React.Component {
                 <div className="white">
                     <div className="container">
                         <div className="row">
-                            <div className="col s2">&nbsp;</div>
-                            <div className="col s8">
+                            <div className="col s8" style={{margin: '0 auto', float: 'none'}}>
                                 <Tabs
                                     onClick={this.onClick}
                                     routes={this.props.props.routes}
