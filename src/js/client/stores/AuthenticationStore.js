@@ -6,7 +6,9 @@ class AuthenticationStore extends BaseStore {
 
     constructor() {
         super();
-        this._user = null;
+        this._user = {
+            roles: []
+        };
         this._jwt = null;
         this._redirectLocation = null;
 
