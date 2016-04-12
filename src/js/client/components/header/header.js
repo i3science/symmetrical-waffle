@@ -8,9 +8,14 @@ class Header extends React.Component {
     constructor() {
         super();
         this.state = {
-            user: authenticationStore.getCurrentUser()
+            user: {
+                roles: ''
+            }
         };
         this.onClick = this.onClick.bind(this);
+    }
+    componentWillMount() {
+        this.state.user = authenticationStore.getCurrentUser();
     }
     onClick(event) {
         event.preventDefault();
