@@ -6,8 +6,10 @@ class Tabs extends React.Component {
         super();
     }
     render() {
-        if (this.props.roles.indexOf('influencer') !== -1) {
-            return null;
+        if (this.props.roles) {
+            if (this.props.roles.indexOf('influencer') !== -1) {
+                return null;
+            }
         }
         let tabsData = [
             {label: 'SEARCH', link: '/search'},
