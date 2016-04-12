@@ -5,14 +5,15 @@ import authenticationStore from '../../stores/AuthenticationStore';
 class Tabs extends React.Component {
     constructor() {
         super();
-    }
-    componentWillMount() {
-        this.setState({user: authenticationStore.getCurrentUser()});
+        this.state = {
+            user: authenticationStore.getCurrentUser()
+        }
     }
     render() {
-        //if (this.state.user.roles.indexOf('influencer') !== -1) {
-        //    return null;
-        //}
+        if (this.state.user.roles.indexOf('influencer') !== -1) {
+            return null;
+        }
+        console.log(this.state.user);
         let tabsData = [
             {label: 'SEARCH', link: '/search'},
             {label: 'PROJECTS', link: '/projects'},
