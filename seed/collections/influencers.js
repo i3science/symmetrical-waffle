@@ -49,7 +49,7 @@ module.exports = function(fixtures) {
                 },
                 pinterest: {
                     impressions: 123500,
-                    link: 'http://pinterest.com/'
+                    link: ''
                 },
                 instagram: {
                     impressions: 35480,
@@ -57,7 +57,7 @@ module.exports = function(fixtures) {
                 },
                 youtube: {
                     impressions: 4563345,
-                    link: 'http://youtube.com/'
+                    link: ''
                 },
                 blog: {
                     impressions: 13215321,
@@ -168,7 +168,7 @@ module.exports = function(fixtures) {
             channels: {
                 facebook: {
                     impressions: 673875,
-                    link: 'http://facebook.com/'
+                    link: ''
                 },
                 twitter: {
                     impressions: 234765,
@@ -180,7 +180,7 @@ module.exports = function(fixtures) {
                 },
                 instagram: {
                     impressions: 35480,
-                    link: 'http://instagram.com/'
+                    link: ''
                 },
                 youtube: {
                     impressions: 4563345,
@@ -434,7 +434,7 @@ module.exports = function(fixtures) {
                 },
                 twitter: {
                     impressions: 234765,
-                    link: 'http://twitter.com/'
+                    link: ''
                 },
                 pinterest: {
                     impressions: 123500,
@@ -446,7 +446,7 @@ module.exports = function(fixtures) {
                 },
                 youtube: {
                     impressions: 4563345,
-                    link: 'http://youtube.com/'
+                    link: ''
                 },
                 blog: {
                     impressions: 13215321,
@@ -576,7 +576,7 @@ module.exports = function(fixtures) {
                 },
                 pinterest: {
                     impressions: 123500,
-                    link: 'http://pinterest.com/'
+                    link: ''
                 },
                 instagram: {
                     impressions: 35480,
@@ -592,7 +592,7 @@ module.exports = function(fixtures) {
                 },
                 googleplus: {
                     impressions: 7960,
-                    link: 'http://google.com/'
+                    link: ''
                 },
                 snapchat: {
                     impressions: 0,

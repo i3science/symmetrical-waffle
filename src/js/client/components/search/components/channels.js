@@ -5,7 +5,6 @@ const Channel = (props) => {
     if (!props.channel) {
         return <div></div>;
     }
-    //console.log('props', props);
     return (
         <div className={'col ' + (props.minimal ? 's12' : 's3')}
              style={{position: 'relative'}}>
@@ -41,6 +40,8 @@ const Channel = (props) => {
                         />
                         <InputText
                             id={props.channel + '_link'}
+                            label="Link to my page"
+                            active
                             val={props.channels[props.channel] ? props.channels[props.channel].link : null}
                             parent={props.parent || ''}
                             onChange={props.onChange}
