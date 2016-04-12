@@ -12,9 +12,6 @@ class AccountEditPage extends React.Component {
         this._handleChange = this._handleChange.bind(this);
         this._onSubmit = this._onSubmit.bind(this);
     }
-
-    componentWillMount() {
-    }
     _handleChange(event) {
         let value = event.target.value;
         let id = event.target.id;

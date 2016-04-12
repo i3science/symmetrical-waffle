@@ -14,6 +14,8 @@ import ListSearchPage from './lists/listStart/listsSearchPage';
 import ListPage from './lists/list/listPage';
 import PreferencesPage from './preferences/PreferencesPage';
 import AccountEditPage from './preferences/accounts/AccountEditPage';
+import PersonalEditPage from './preferences/personal/PersonalEditPage';
+import AudienceEditPage from './preferences/audience/AudienceEditPage';
 import AvailabilityPage from './preferences/availability/AvailabilityPage';
 import InfluencerPrefsPage from './preferences/influencers/influencerPrefsPage';
 import InfluencerCreatePage from './preferences/influencers/influencerCreatePage';
@@ -60,8 +62,7 @@ export default (
 				</Route>
 				<Redirect from='preferences' to='preferences/myaccount' />
 				<Route path="preferences" component={PreferencesPage}>
-					<Route path="myaccount" component={AccountEditPage} name="Account">
-					</Route>
+					<Route path="myaccount" component={AccountEditPage} name="Account" />
 					<Route path="influencers" name="Influencers">
 						<IndexRoute component={InfluencerPrefsPage}/>
 						<Route path="create" component={InfluencerCreatePage} service={influencerService} name="Create" />
@@ -75,6 +76,8 @@ export default (
 							<Route path="edit" component={ClientEditPage} service={clientService} name="Edit" />
 						</Route>
 					</Route>
+					<Route path="personal" name="Personal Info" component={PersonalEditPage}/>
+					<Route path="audience" name="Audience Info" component={AudienceEditPage}/>
 					<Route path="availability" name="Availability" component={AvailabilityPage}/>
 				</Route>
 
