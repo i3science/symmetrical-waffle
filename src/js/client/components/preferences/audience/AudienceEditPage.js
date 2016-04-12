@@ -3,7 +3,7 @@ import InputText from '../../common/input/inputtext';
 import authenticationStore from '../../../stores/AuthenticationStore';
 import Actions from '../../../actions/UiActions';
 
-class AccountEditPage extends React.Component {
+class AudienceEditPage extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -163,4 +163,4 @@ class AccountEditPage extends React.Component {
     }
 
 }
-export default AccountEditPage;
+export default AudienceEditPage;

@@ -2,9 +2,10 @@ import React from 'react'; // eslint-disable-line no-unused-vars
 import InputText from '../../common/input/inputtext';
 
 const Channel = (props) => {
-    if (!props.channels) {
+    if (!props.channel) {
         return <div></div>;
     }
+    //console.log('props', props);
     return (
         <div className={'col ' + (props.minimal ? 's12' : 's3')}
              style={{position: 'relative'}}>
@@ -22,7 +23,7 @@ const Channel = (props) => {
             <div style={{
                 paddingLeft: '40px'
             }}>
-                {props.channel.indexOf('_range_') === -1 ?
+                {props.channel.indexOf('_range_') !== -1 ?
                 <InputText
                     type="number"
                     id={props.channel + '_range_from'}
@@ -30,13 +31,21 @@ const Channel = (props) => {
                     parent={props.parent || ''}
                     onChange={props.onChange}
                 /> :
-                <InputText
-                    type="number"
-                    id={props.channel}
-                    val={props.channels[props.channel]}
-                    parent={props.parent || ''}
-                    onChange={props.onChange}
-                />}
+                    <div>
+                        <InputText
+                            type="number"
+                            id={props.channel + '_impressions'}
+                            val={props.channels[props.channel] ? props.channels[props.channel].impressions : null}
+                            parent={props.parent || ''}
+                            onChange={props.onChange}
+                        />
+                        <InputText
+                            id={props.channel + '_link'}
+                            val={props.channels[props.channel] ? props.channels[props.channel].link : null}
+                            parent={props.parent || ''}
+                            onChange={props.onChange}
+                        />
+                    </div>}
             </div>
         </div>
     );
