@@ -1,16 +1,12 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 import _ from 'lodash';
-import authenticationStore from '../../stores/AuthenticationStore';
 
 class Tabs extends React.Component {
     constructor() {
         super();
-        this.state = {
-            user: authenticationStore.getCurrentUser()
-        }
     }
     render() {
-        if (this.state.user.roles.indexOf('influencer') !== -1) {
+        if (this.props.roles.indexOf('influencer') !== -1) {
             return null;
         }
         let tabsData = [

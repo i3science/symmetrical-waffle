@@ -2,10 +2,14 @@ import React from 'react';
 import UserMenu from './UserMenu';
 import Breadcrumbs from './breadcrumbs';
 import Tabs from './tabs';
+import authenticationStore from '../../stores/AuthenticationStore';
 
 class Header extends React.Component {
     constructor() {
         super();
+        this.state = {
+            user: authenticationStore.getCurrentUser()
+        };
         this.onClick = this.onClick.bind(this);
     }
     onClick(event) {
@@ -36,6 +40,7 @@ class Header extends React.Component {
                                 <Tabs
                                     onClick={this.onClick}
                                     routes={this.props.props.routes}
+                                    roles={this.state.user.roles}
                                 />
                             </div>
                         </div>
