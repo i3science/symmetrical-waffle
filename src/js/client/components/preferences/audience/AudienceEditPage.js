@@ -1,21 +1,14 @@
 import React from 'react';
 import Actions from '../../../actions/UiActions';
 import InfluencerStore from '../../../stores/InfluencerStore';
-import InfluencerManageForm from './influencerManageForm';
+import InfluencerAudienceForm from './InfluencerAudienceForm';
+import AuthenticationStore from '../../../stores/AuthenticationStore';
 
-class InfluencerEditPage extends React.Component {
+class AudienceEditPage extends React.Component {
     constructor() {
         super();
         this.state = {
-            influencer: {
-                name: {},
-                personal: {},
-                audience: {},
-                verticals: [],
-                mediums: [],
-                children: [],
-                channels: []
-            }
+            influencer: AuthenticationStore.getCurrentUser()
         };
         this._onChange = this._onChange.bind(this);
         this._handleChange = this._handleChange.bind(this);
@@ -26,8 +19,6 @@ class InfluencerEditPage extends React.Component {
     }
 
     componentWillMount() {
-        
-        this.setState({influencer: InfluencerStore.getInfluencerById(this.props.params.id)});
         InfluencerStore.addChangeListener(this._onChange);
     }
 
@@ -104,10 +95,9 @@ class InfluencerEditPage extends React.Component {
         return (
             <div>
                 <div className="card-panel z-depth-4">
-                    <h4 className="center-align" style={{marginBottom: '30px'}}>Edit Influencer Details</h4>
-                    <InfluencerManageForm
+                    <h4 className="center-align" style={{marginBottom: '30px'}}>Edit Your Audience Details</h4>
+                    <InfluencerAudienceForm
                         influencer={this.state.influencer}
-                        expand={this._expand}
                         onChange={this._handleChange}
                         onSubmit={this._onSubmit}
                         onSend={this._onSend}
@@ -119,4 +109,4 @@ class InfluencerEditPage extends React.Component {
     }
 
 }
-export default InfluencerEditPage;
+export default AudienceEditPage;

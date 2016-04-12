@@ -40,32 +40,36 @@ module.exports = function(fixtures) {
             ],
             channels: {
                 facebook: {
-                    value: 673875,
+                    impressions: 673875,
                     link: 'http://facebook.com/'
                 },
                 twitter: {
-                    value: 234765,
+                    impressions: 234765,
                     link: 'http://twitter.com/'
                 },
                 pinterest: {
-                    value: 123500,
-                    link: 'http://pinterest.com/'
+                    impressions: 123500,
+                    link: ''
                 },
                 instagram: {
-                    value: 35480,
+                    impressions: 35480,
                     link: 'http://instagram.com/'
                 },
                 youtube: {
-                    value: 4563345,
-                    link: 'http://youtube.com/'
+                    impressions: 4563345,
+                    link: ''
                 },
                 blog: {
-                    value: 13215321,
+                    impressions: 13215321,
                     link: 'http://blogger.com/'
                 },
                 googleplus: {
-                    value: 7960,
+                    impressions: 7960,
                     link: 'http://google.com/'
+                },
+                snapchat: {
+                    impressions: 0,
+                    link: 'http://snapchat.com/'
                 }
             },
             mediaKit: [{
@@ -163,32 +167,36 @@ module.exports = function(fixtures) {
             ],
             channels: {
                 facebook: {
-                    value: 673875,
-                    link: 'http://facebook.com/'
-                },
-                twitter: {
-                    value: 234765,
+                    impressions: 673875,
                     link: ''
                 },
+                twitter: {
+                    impressions: 234765,
+                    link: 'http://twitter.com/'
+                },
                 pinterest: {
-                    value: 123500,
+                    impressions: 123500,
                     link: 'http://pinterest.com/'
                 },
                 instagram: {
-                    value: 35480,
+                    impressions: 35480,
                     link: ''
                 },
                 youtube: {
-                    value: 4563345,
-                    link: ''
+                    impressions: 4563345,
+                    link: 'http://youtube.com/'
                 },
                 blog: {
-                    value: 13215321,
+                    impressions: 13215321,
                     link: 'http://blogger.com/'
                 },
                 googleplus: {
-                    value: 7960,
+                    impressions: 7960,
                     link: 'http://google.com/'
+                },
+                snapchat: {
+                    impressions: 0,
+                    link: 'http://snapchat.com/'
                 }
             },
             mediaKit: [{
@@ -290,32 +298,36 @@ module.exports = function(fixtures) {
             ],
             channels: {
                 facebook: {
-                    value: 673875,
+                    impressions: 673875,
                     link: 'http://facebook.com/'
                 },
                 twitter: {
-                    value: 234765,
+                    impressions: 234765,
                     link: 'http://twitter.com/'
                 },
                 pinterest: {
-                    value: 123500,
+                    impressions: 123500,
                     link: 'http://pinterest.com/'
                 },
                 instagram: {
-                    value: 35480,
+                    impressions: 35480,
                     link: 'http://instagram.com/'
                 },
                 youtube: {
-                    value: 4563345,
+                    impressions: 4563345,
                     link: 'http://youtube.com/'
                 },
                 blog: {
-                    value: 13215321,
+                    impressions: 13215321,
                     link: 'http://blogger.com/'
                 },
                 googleplus: {
-                    value: 7960,
+                    impressions: 7960,
                     link: 'http://google.com/'
+                },
+                snapchat: {
+                    impressions: 0,
+                    link: 'http://snapchat.com/'
                 }
             },
             mediaKit: [{
@@ -417,32 +429,36 @@ module.exports = function(fixtures) {
             ],
             channels: {
                 facebook: {
-                    value: 673875,
+                    impressions: 673875,
                     link: 'http://facebook.com/'
                 },
                 twitter: {
-                    value: 234765,
-                    link: 'http://twitter.com/'
+                    impressions: 234765,
+                    link: ''
                 },
                 pinterest: {
-                    value: 123500,
+                    impressions: 123500,
                     link: 'http://pinterest.com/'
                 },
                 instagram: {
-                    value: 35480,
+                    impressions: 35480,
                     link: 'http://instagram.com/'
                 },
                 youtube: {
-                    value: 4563345,
-                    link: 'http://youtube.com/'
+                    impressions: 4563345,
+                    link: ''
                 },
                 blog: {
-                    value: 13215321,
+                    impressions: 13215321,
                     link: 'http://blogger.com/'
                 },
                 googleplus: {
-                    value: 7960,
+                    impressions: 7960,
                     link: 'http://google.com/'
+                },
+                snapchat: {
+                    impressions: 0,
+                    link: 'http://snapchat.com/'
                 }
             },
             mediaKit: [{
@@ -551,32 +567,36 @@ module.exports = function(fixtures) {
             ],
             channels: {
                 facebook: {
-                    value: 673875,
+                    impressions: 673875,
                     link: 'http://facebook.com/'
                 },
                 twitter: {
-                    value: 234765,
+                    impressions: 234765,
                     link: 'http://twitter.com/'
                 },
                 pinterest: {
-                    value: 123500,
-                    link: 'http://pinterest.com/'
+                    impressions: 123500,
+                    link: ''
                 },
                 instagram: {
-                    value: 35480,
+                    impressions: 35480,
                     link: 'http://instagram.com/'
                 },
                 youtube: {
-                    value: 4563345,
+                    impressions: 4563345,
                     link: 'http://youtube.com/'
                 },
                 blog: {
-                    value: 13215321,
+                    impressions: 13215321,
                     link: 'http://blogger.com/'
                 },
                 googleplus: {
-                    value: 7960,
-                    link: 'http://google.com/'
+                    impressions: 7960,
+                    link: ''
+                },
+                snapchat: {
+                    impressions: 0,
+                    link: 'http://snapchat.com/'
                 }
             },
             mediaKit: [{

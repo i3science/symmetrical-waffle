@@ -15,13 +15,38 @@ var Influencer = User.extend({
     amplifier: Boolean,
     hasImage: Boolean,
     channels: {
-        facebook: Number,
-        twitter: Number,
-        pinterest: Number,
-        instagram: Number,
-        youtube: Number,
-        blog: Number,
-        googleplus: Number
+        facebook: {
+            impressions: Number,
+            link: String
+        },
+        twitter: {
+            impressions: Number,
+            link: String
+        },
+        pinterest: {
+            impressions: Number,
+            link: String
+        },
+        instagram: {
+            impressions: Number,
+            link: String
+        },
+        youtube: {
+            impressions: Number,
+            link: String
+        },
+        blog: {
+            impressions: Number,
+            link: String
+        },
+        googleplus: {
+            impressions: Number,
+            link: String
+        },
+        snapchat: {
+            impressions: Number,
+            link: String
+        }
     },
     mediaKit: [{
         name: String,

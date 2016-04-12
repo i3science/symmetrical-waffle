@@ -10,9 +10,9 @@ class Tabs extends React.Component {
         this.setState({user: authenticationStore.getCurrentUser()});
     }
     render() {
-        if (this.state.user.roles.indexOf('influencer') !== -1) {
-            return null;
-        }
+        //if (this.state.user.roles.indexOf('influencer') !== -1) {
+        //    return null;
+        //}
         let tabsData = [
             {label: 'SEARCH', link: '/search'},
             {label: 'PROJECTS', link: '/projects'},
