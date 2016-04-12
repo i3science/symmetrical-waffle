@@ -1,22 +1,13 @@
 import React from 'react';
 import Actions from '../../../actions/UiActions';
 import InfluencerStore from '../../../stores/InfluencerStore';
-import InfluencerManageForm from '../influencers/influencerManageForm';
-import AuthenticationStore from '../../../stores/AuthenticationStore'
+import InfluencerPersonalForm from './InfluencerPersonalForm';
+import AuthenticationStore from '../../../stores/AuthenticationStore';
 
 class PersonalEditPage extends React.Component {
     constructor() {
         super();
         this.state = {
-            //influencer: {
-            //    name: {},
-            //    personal: {},
-            //    audience: {},
-            //    verticals: [],
-            //    mediums: [],
-            //    children: [],
-            //    channels: []
-            //},
             influencer: AuthenticationStore.getCurrentUser()
         };
         this._onChange = this._onChange.bind(this);
@@ -28,10 +19,6 @@ class PersonalEditPage extends React.Component {
     }
 
     componentWillMount() {
-        //console.log(this.state);
-        //console.log(this.props);
-
-        //this.setState({influencer: InfluencerStore.getInfluencerById(this.props.params.id)});
         InfluencerStore.addChangeListener(this._onChange);
     }
 
@@ -47,7 +34,6 @@ class PersonalEditPage extends React.Component {
     }
 
     _handleChange(event) {
-        console.log(event.target.value);
         let value = event.target.value;
         let id = event.target.id;
         if (id.indexOf('_range_') !== -1) {
@@ -67,11 +53,9 @@ class PersonalEditPage extends React.Component {
             if (!event.target.dataset.parent) {
                 this.state.influencer[id] = value;
             } else {
-                console.log(id);
                 if (id.indexOf('_')) {
                     let deeper = id.split('_').pop();
                     id = id.split('_')[0];
-                    console.log(id, deeper);
                     this.state.influencer[event.target.dataset.parent][id][deeper] = value;
                 } else {
                     this.state.influencer[event.target.dataset.parent][id] = value;
@@ -79,7 +63,6 @@ class PersonalEditPage extends React.Component {
             }
         }
         this.setState({influencer: this.state.influencer});
-        console.log(this.state);
     }
     _cancel() {
         this.setState({influencer: {}});
@@ -112,10 +95,9 @@ class PersonalEditPage extends React.Component {
         return (
             <div>
                 <div className="card-panel z-depth-4">
-                    <h4 className="center-align" style={{marginBottom: '30px'}}>Edit Influencer Details</h4>
-                    <InfluencerManageForm
+                    <h4 className="center-align" style={{marginBottom: '30px'}}>Edit Your Personal Details</h4>
+                    <InfluencerPersonalForm
                         influencer={this.state.influencer}
-                        expand={this._expand}
                         onChange={this._handleChange}
                         onSubmit={this._onSubmit}
                         onSend={this._onSend}
