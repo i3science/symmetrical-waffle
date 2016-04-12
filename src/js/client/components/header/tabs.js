@@ -13,7 +13,6 @@ class Tabs extends React.Component {
         if (this.state.user.roles.indexOf('influencer') !== -1) {
             return null;
         }
-        console.log(this.state.user);
         let tabsData = [
             {label: 'SEARCH', link: '/search'},
             {label: 'PROJECTS', link: '/projects'},
