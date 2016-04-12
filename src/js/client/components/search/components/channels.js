@@ -9,18 +9,20 @@ const Channel = (props) => {
         <div className={'col ' + (props.minimal ? 's12' : 's3')}
              style={{position: 'relative'}}>
             <div style={{
-                width: '40px',
-                height: '50px',
-                padding: '10px 10px 10px 0',
-                marginTop: '10px',
-                position: 'absolute'
+                width: '35px',
+                height: '35px',
+                margin: '19px 0',
+                padding: '7px',
+                position: 'absolute',
+                background: 'rgba(0,0,0,0.3)',
+                borderRadius: '50%'
             }}><img
                 src={'/assets/images/social/' + props.channel + '.png'}
-                style={{width: '100%', opacity: '.4'}}
+                style={{width: '100%'}}
             />
             </div>
             <div style={{
-                paddingLeft: '40px'
+                paddingLeft: '50px'
             }}>
                 {props.channel.indexOf('_range_') !== -1 ?
                 <InputText

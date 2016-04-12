@@ -62,7 +62,13 @@ class InfluencerEditPage extends React.Component {
             if (!event.target.dataset.parent) {
                 this.state.influencer[id] = value;
             } else {
-                this.state.influencer[event.target.dataset.parent][id] = value;
+                if (id.indexOf('_')) {
+                    let deeper = id.split('_').pop();
+                    id = id.split('_')[0];
+                    this.state.influencer[event.target.dataset.parent][id][deeper] = value;
+                } else {
+                    this.state.influencer[event.target.dataset.parent][id] = value;
+                }
             }
         }
         this.setState({influencer: this.state.influencer});
