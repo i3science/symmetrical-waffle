@@ -22,7 +22,8 @@ const PreferencesInfSidebar = (props) => {
                 <h6 style={{width: '100%'}}>PREFERENCES</h6>
             </header>
             <li><Link to="/preferences/myaccount">My Account</Link></li>
-            <li><Link to="/preferences/influencers">Influencers</Link></li>
+            <li><Link to="/preferences/personal">Personal Information</Link></li>
+            <li><Link to="/preferences/audience">Audience Information</Link></li>
             <li><Link to="/preferences/availability">Availability</Link></li>
         </div>
     );
