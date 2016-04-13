@@ -21,7 +21,7 @@ class UserStore extends BaseStore {
     }
 
     getCurrentUser() {
-        return this.current_user;
+        return this.current_user || window.initial_data.user;
     }
 }
 
