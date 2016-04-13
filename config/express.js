@@ -184,28 +184,28 @@ module.exports = function(db) {
             next();
         }
 
-        let location = createLocation(req.url);
-        let history = createHistory({entries: [location]});
-        let router = (<Router history={history} children={routes}/>);
+        // let location = createLocation(req.url);
+        // let history = createHistory({entries: [location]});
+        // let router = (<Router history={history} children={routes}/>);
         let initial_data = {
             user: req.loggedInUser,
             org: req.currentOrganization
         };
 
-        match({ routes: routes, location: location }, function(error, redirectLocation, renderProps){
-            if (error) {
-                return res.status(500).send(error.message);
-            } else if (redirectLocation) {
-                return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
-            } else if (renderProps) {
+        // match({ routes: routes, location: location }, function(error, redirectLocation, renderProps){
+        //     if (error) {
+        //         return res.status(500).send(error.message);
+        //     } else if (redirectLocation) {
+        //         return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
+        //     } else if (renderProps) {
                 return res.render('index', {
                     request: req,
-                    content: renderToString(router),
+                    // content: renderToString(router),
                     translations: JSON.stringify(i18next.store.data),
                     initial_data: JSON.stringify(initial_data)
                 });
-            }
-        });
+        //     }
+        // });
     });
 
     // Assume 'not found' in the error msgs is a 404. this is somewhat silly, but valid, you can do whatever you like, set properties, use instanceof etc.
