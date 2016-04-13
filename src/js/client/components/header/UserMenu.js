@@ -1,6 +1,6 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 import Actions from '../../actions/UiActions';
-import userStore from '../../stores/AuthenticationStore';
+import userStore from '../../stores/UserStore';
 import { Link } from 'react-router';
 
 class UserMenu extends React.Component {
