@@ -1,5 +1,6 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
-import authenticationStore from '../../stores/AuthenticationStore';
+import Actions from '../../actions/UiActions';
+import userStore from '../../stores/AuthenticationStore';
 import { Link } from 'react-router';
 
 class UserMenu extends React.Component {
@@ -10,17 +11,17 @@ class UserMenu extends React.Component {
     }
 
     componentDidMount() {
-        authenticationStore.addChangeListener(this._onChange);
-        this.setState({ user: authenticationStore.getCurrentUser() });
+        userStore.addChangeListener(this._onChange);
+        Actions.getCurrentUser();
     }
 
     componentWillUnmount() {
-        authenticationStore.removeChangeListener(this._onChange);
+        userStore.removeChangeListener(this._onChange);
     }
 
     _onChange() {
         this.setState({
-            user: authenticationStore.getCurrentUser()
+            user: userStore.getCurrentUser()
         });
     }
 

@@ -1,13 +1,3 @@
-import React from 'react';
-import { renderToString } from 'react-dom/server';
-import { createRoutes, match, RoutingContext, RouterContext } from 'react-router';
-import Routes from '../src/js/client/components/routes';
-import a from '../src/js/client/components/app';
-import createLocation from 'history/lib/createLocation';
-import createHistory from 'history/lib/createMemoryHistory';
-import Router from 'react-router';
-
-
 'use strict';
 
 /**
@@ -37,8 +27,7 @@ var fs = require('fs'),
     middleware = require('i18next-express-middleware'),
     context = require('request-local'),
     _ = require('lodash'),
-    Organization = mongoose.model('Organization'),
-    routes = createRoutes(Routes);
+    Organization = mongoose.model('Organization');
 
 i18next
     .use(backend)
