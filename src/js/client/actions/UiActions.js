@@ -281,6 +281,16 @@ export default {
                 return true;
             });
     },
+    getCurrentUser() {
+        return userService.getCurrentUser()
+            .then((user) => {
+                dispatch({
+                    actionType: AppConstants.GET_CURRENT_USER,
+                    user
+                });
+                return user;
+            });
+    },
 
     // Asset actions
 

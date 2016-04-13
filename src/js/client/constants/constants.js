@@ -8,6 +8,7 @@ export default {
     // User-specific
     ADD_USER: 'ADD_USER',
     UPDATE_USER: 'UPDATE_USER',
+    GET_CURRENT_USER: 'GET_CURRENT_USER',
 
     // Influencer-specific
     CREATE_INFLUENCER: 'CREATE_INFLUENCER',

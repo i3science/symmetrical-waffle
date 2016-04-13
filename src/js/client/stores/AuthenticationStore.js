@@ -1,6 +1,5 @@
 import BaseStore from './BaseStore';
 import AuthenticationConstants from '../constants/authentication';
-import context from 'request-local';
 
 class AuthenticationStore extends BaseStore {
 
@@ -46,10 +45,7 @@ class AuthenticationStore extends BaseStore {
         return this._redirectLocation;
     }
     getCurrentUser() {
-        if (this._user) {
-            return this._user;
-        }
-        return context.currentUser;
+        return this._user;
     }
 }
 
