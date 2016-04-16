@@ -2,6 +2,7 @@ import React from 'react'; // eslint-disable-line no-unused-vars
 
 const Channel = (props) => {
     if (!props.channel
+            || !props.channels
             || !props.channels[props.channel]
             || !(props.channels[props.channel].impressions > 0)) {
         return <span></span>;
